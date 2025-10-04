@@ -1,0 +1,571 @@
+/* Internationalization & RTL Support */
+
+/* RTL Layout Support */
+[dir="rtl"] {
+  text-align: right;
+}
+
+[dir="rtl"] .nav {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .card {
+  text-align: right;
+}
+
+[dir="rtl"] .btn {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .input-group {
+  text-align: right;
+}
+
+[dir="rtl"] .modal-content {
+  text-align: right;
+}
+
+[dir="rtl"] .dropdown-menu {
+  right: 0;
+  left: auto;
+}
+
+[dir="rtl"] .timeline {
+  padding-left: 0;
+  padding-right: var(--space-8);
+}
+
+[dir="rtl"] .timeline::before {
+  left: auto;
+  right: var(--space-4);
+}
+
+[dir="rtl"] .timeline-item::before {
+  left: auto;
+  right: calc(-1 * var(--space-8) + var(--space-3));
+}
+
+[dir="rtl"] .tooltip-content {
+  right: 50%;
+  left: auto;
+  transform: translateX(50%);
+}
+
+[dir="rtl"] .tooltip-content::after {
+  left: auto;
+  right: 50%;
+  transform: translateX(50%);
+}
+
+/* Language-specific typography adjustments */
+[lang="ar"] {
+  font-family: 'Noto Sans Arabic', 'Arial', sans-serif;
+  line-height: 1.8;
+}
+
+[lang="he"] {
+  font-family: 'Noto Sans Hebrew', 'Arial', sans-serif;
+  line-height: 1.8;
+}
+
+[lang="zh"] {
+  font-family: 'Noto Sans CJK SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+}
+
+[lang="ja"] {
+  font-family: 'Noto Sans CJK JP', 'Hiragino Sans', 'Yu Gothic', sans-serif;
+}
+
+[lang="ko"] {
+  font-family: 'Noto Sans CJK KR', 'Malgun Gothic', sans-serif;
+}
+
+[lang="th"] {
+  font-family: 'Noto Sans Thai', 'Tahoma', sans-serif;
+}
+
+/* Currency and number formatting classes */
+.currency-usd::before {
+  content: '$';
+}
+
+.currency-eur::before {
+  content: '€';
+}
+
+.currency-gbp::before {
+  content: '£';
+}
+
+.currency-jpy::before {
+  content: '¥';
+}
+
+.currency-cny::before {
+  content: '¥';
+}
+
+.currency-krw::before {
+  content: '₩';
+}
+
+.currency-inr::before {
+  content: '₹';
+}
+
+.currency-brl::before {
+  content: 'R$';
+}
+
+.currency-cad::before {
+  content: 'C$';
+}
+
+.currency-aud::before {
+  content: 'A$';
+}
+
+/* Number formatting */
+.number-formatted {
+  font-variant-numeric: tabular-nums;
+}
+
+.number-large {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+}
+
+.number-medium {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+}
+
+.number-small {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Date formatting */
+.date-short {
+  font-size: var(--font-size-sm);
+  color: var(--color-neutral-500);
+}
+
+.date-medium {
+  font-size: var(--font-size-base);
+  color: var(--color-neutral-600);
+}
+
+.date-large {
+  font-size: var(--font-size-lg);
+  color: var(--color-neutral-700);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Time formatting */
+.time-12h {
+  font-variant-numeric: tabular-nums;
+}
+
+.time-24h {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Language switcher */
+.language-switcher {
+  position: relative;
+  display: inline-block;
+}
+
+.language-switcher-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-surface);
+  border: 1px solid var(--color-neutral-300);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.language-switcher-toggle:hover {
+  border-color: var(--color-primary);
+}
+
+.language-switcher-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--color-surface);
+  border: 1px solid var(--color-neutral-200);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  z-index: var(--z-dropdown);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+}
+
+.language-switcher-menu.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.language-option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-bottom: 1px solid var(--color-neutral-100);
+}
+
+.language-option:last-child {
+  border-bottom: none;
+}
+
+.language-option:hover {
+  background: var(--color-primary-50);
+}
+
+.language-option.active {
+  background: var(--color-primary-100);
+  color: var(--color-primary);
+}
+
+.language-flag {
+  font-size: var(--font-size-lg);
+  width: 24px;
+  text-align: center;
+}
+
+.language-name {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.language-code {
+  font-size: var(--font-size-xs);
+  color: var(--color-neutral-500);
+  margin-left: auto;
+}
+
+/* Accessibility enhancements for internationalization */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.sr-only-focusable:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: inherit;
+  margin: inherit;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .btn-primary {
+    border: 2px solid var(--color-primary);
+  }
+  
+  .btn-secondary {
+    border: 2px solid var(--color-secondary);
+  }
+  
+  .card {
+    border: 2px solid var(--color-neutral-300);
+  }
+  
+  .input {
+    border: 2px solid var(--color-neutral-400);
+  }
+  
+  .input:focus {
+    border: 2px solid var(--color-primary);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-float-slow,
+  .animate-color-drop,
+  .animate-color-drop-secondary,
+  .animate-color-drop-accent,
+  .animate-pulse,
+  .animate-pulse-glow,
+  .animate-shimmer,
+  .animate-glow,
+  .animate-bounce,
+  .animate-wiggle,
+  .animate-slide-in-up,
+  .animate-slide-in-down,
+  .animate-slide-in-left,
+  .animate-slide-in-right,
+  .animate-fade-in,
+  .animate-fade-in-scale,
+  .animate-scale-in,
+  .animate-rotate {
+    animation: none;
+  }
+  
+  .hover-lift:hover,
+  .card-hover:hover,
+  .btn-primary:hover,
+  .btn-secondary:hover,
+  .btn-outline:hover,
+  .btn-floating:hover {
+    transform: none;
+  }
+  
+  .transition-all,
+  .hover-lift,
+  .card-hover,
+  .input-focus,
+  .button-press {
+    transition: none;
+  }
+}
+
+/* Print styles */
+@media print {
+  .btn,
+  .btn-primary,
+  .btn-secondary,
+  .btn-outline,
+  .btn-ghost,
+  .btn-floating,
+  .btn-gradient,
+  .btn-neon {
+    background: white !important;
+    color: black !important;
+    border: 1px solid black !important;
+    box-shadow: none !important;
+  }
+  
+  .card,
+  .card-gradient,
+  .card-elevated,
+  .card-glass,
+  .card-interactive {
+    background: white !important;
+    border: 1px solid black !important;
+    box-shadow: none !important;
+  }
+  
+  .modal-overlay {
+    position: static !important;
+    background: white !important;
+  }
+  
+  .modal-content {
+    box-shadow: none !important;
+    border: 1px solid black !important;
+  }
+  
+  .notification {
+    position: static !important;
+    box-shadow: none !important;
+    border: 1px solid black !important;
+  }
+  
+  .floating-elements,
+  .hero-particles,
+  .hero-gradient {
+    display: none !important;
+  }
+}
+
+/* Focus management for keyboard navigation */
+.focus-trap {
+  position: relative;
+}
+
+.focus-trap::before,
+.focus-trap::after {
+  content: '';
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.focus-trap::before {
+  top: -1px;
+  left: -1px;
+}
+
+.focus-trap::after {
+  bottom: -1px;
+  right: -1px;
+}
+
+/* Skip links for accessibility */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: var(--color-primary);
+  color: white;
+  padding: 8px;
+  text-decoration: none;
+  border-radius: 4px;
+  z-index: 1000;
+}
+
+.skip-link:focus {
+  top: 6px;
+}
+
+/* Screen reader only content */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Live region for dynamic content updates */
+.live-region {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* Error and success message styling */
+.error-message {
+  color: var(--color-error);
+  font-size: var(--font-size-sm);
+  margin-top: var(--space-2);
+}
+
+.success-message {
+  color: var(--color-success);
+  font-size: var(--font-size-sm);
+  margin-top: var(--space-2);
+}
+
+.warning-message {
+  color: var(--color-warning);
+  font-size: var(--font-size-sm);
+  margin-top: var(--space-2);
+}
+
+.info-message {
+  color: var(--color-info);
+  font-size: var(--font-size-sm);
+  margin-top: var(--space-2);
+}
+
+/* Form validation states */
+.form-group {
+  margin-bottom: var(--space-4);
+}
+
+.form-group.error .input {
+  border-color: var(--color-error);
+}
+
+.form-group.error .input:focus {
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
+.form-group.success .input {
+  border-color: var(--color-success);
+}
+
+.form-group.success .input:focus {
+  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
+}
+
+.form-group.warning .input {
+  border-color: var(--color-warning);
+}
+
+.form-group.warning .input:focus {
+  box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.1);
+}
+
+/* Loading states */
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.loading-overlay.dark {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+/* Skeleton loading */
+.skeleton {
+  background: linear-gradient(90deg, var(--color-neutral-200) 25%, var(--color-neutral-100) 50%, var(--color-neutral-200) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-md);
+}
+
+.skeleton-text {
+  height: 1em;
+  margin-bottom: var(--space-2);
+}
+
+.skeleton-text.short {
+  width: 60%;
+}
+
+.skeleton-text.medium {
+  width: 80%;
+}
+
+.skeleton-text.long {
+  width: 100%;
+}
+
+.skeleton-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.skeleton-button {
+  height: 40px;
+  width: 120px;
+}
+
+.skeleton-card {
+  height: 200px;
+  border-radius: var(--radius-lg);
+}

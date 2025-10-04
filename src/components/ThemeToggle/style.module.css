@@ -1,0 +1,115 @@
+.themeToggle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  background: transparent;
+  border: 1px solid var(--color-neutral-200);
+  border-radius: var(--radius-lg);
+  color: var(--color-neutral-600);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.themeToggle:hover {
+  background: var(--color-primary-50);
+  border-color: var(--color-primary-200);
+  color: var(--color-primary);
+  transform: translateY(-1px);
+}
+
+.themeToggle:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.iconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  transition: all var(--transition-normal);
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  transition: all var(--transition-normal);
+}
+
+.iconContainer.dark .icon {
+  color: #FCD34D;
+  animation: rotate 0.3s ease-in-out;
+}
+
+.iconContainer.light .icon {
+  color: #1F2937;
+  animation: rotate 0.3s ease-in-out;
+}
+
+.label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  transition: color var(--transition-normal);
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Dark mode styles */
+:global(.dark) .themeToggle {
+  border-color: var(--color-neutral-700);
+  color: var(--color-neutral-300);
+}
+
+:global(.dark) .themeToggle:hover {
+  background: var(--color-primary-900);
+  border-color: var(--color-primary-700);
+  color: var(--color-primary-300);
+}
+
+:global(.dark) .iconContainer.dark .icon {
+  color: #FCD34D;
+}
+
+:global(.dark) .iconContainer.light .icon {
+  color: #E5E7EB;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .themeToggle {
+    padding: var(--space-2);
+    min-width: 40px;
+    justify-content: center;
+  }
+  
+  .label {
+    display: none;
+  }
+  
+  .iconContainer {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .icon {
+    width: 14px;
+    height: 14px;
+  }
+}

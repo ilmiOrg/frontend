@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniversityMatch - Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #059669;
+            --color-secondary: #2563EB;
+            --color-accent: #7C3AED;
+            --color-neutral-50: #F8FAFC;
+            --color-neutral-100: #F1F5F9;
+            --color-neutral-200: #E2E8F0;
+            --color-neutral-300: #CBD5E1;
+            --color-neutral-400: #94A3B8;
+            --color-neutral-500: #64748B;
+            --color-neutral-600: #475569;
+            --color-neutral-700: #334155;
+            --color-neutral-800: #1E293B;
+            --color-neutral-900: #0F172A;
+            --color-neutral-950: #020617;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, var(--color-neutral-900) 0%, var(--color-neutral-800) 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Liquid Shapes */
+        .liquid-shape {
+            position: absolute;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+            opacity: 0.1;
+            animation: morph 8s ease-in-out infinite;
+        }
+
+        .liquid-shape:nth-child(1) {
+            width: 400px;
+            height: 400px;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            top: -200px;
+            right: -200px;
+            animation-delay: 0s;
+        }
+
+        .liquid-shape:nth-child(2) {
+            width: 300px;
+            height: 300px;
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            bottom: -150px;
+            left: -150px;
+            animation-delay: 3s;
+        }
+
+        .liquid-shape:nth-child(3) {
+            width: 250px;
+            height: 250px;
+            border-radius: 40% 60% 60% 40% / 40% 40% 60% 60%;
+            top: 30%;
+            right: 5%;
+            animation-delay: 6s;
+        }
+
+        @keyframes morph {
+            0%, 100% { 
+                border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+                transform: translateY(0px) rotate(0deg);
+            }
+            25% { 
+                border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+                transform: translateY(-10px) rotate(90deg);
+            }
+            50% { 
+                border-radius: 40% 60% 60% 40% / 40% 40% 60% 60%;
+                transform: translateY(-20px) rotate(180deg);
+            }
+            75% { 
+                border-radius: 70% 30% 40% 60% / 70% 60% 30% 40%;
+                transform: translateY(-10px) rotate(270deg);
+            }
+        }
+
+        /* Left Sidebar */
+        .left-sidebar {
+            width: 280px;
+            background: linear-gradient(180deg, rgba(5, 150, 105, 0.1) 0%, rgba(37, 99, 235, 0.05) 100%);
+            color: white;
+            position: fixed;
+            height: 100vh;
+            left: 0;
+            top: 0;
+            z-index: 1000;
+            overflow-y: auto;
+            border-right: 1px solid rgba(5, 150, 105, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .left-sidebar-header {
+            padding: 30px 25px;
+            border-bottom: 1px solid rgba(5, 150, 105, 0.3);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .tagline {
+            font-size: 0.9rem;
+            color: var(--color-neutral-400);
+            line-height: 1.4;
+        }
+
+        .left-nav {
+            padding: 25px 0;
+        }
+
+        .nav-section {
+            margin-bottom: 30px;
+        }
+
+        .nav-section-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--color-neutral-400);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            padding: 0 25px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 16px 25px;
+            color: var(--color-neutral-300);
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-left: 3px solid transparent;
+            font-weight: 500;
+            font-size: 15px;
+        }
+
+        .nav-item:hover {
+            background: rgba(5, 150, 105, 0.1);
+            color: var(--color-primary);
+            border-left-color: var(--color-primary);
+        }
+
+        .nav-item.active {
+            background: rgba(5, 150, 105, 0.2);
+            color: var(--color-primary);
+            border-left-color: var(--color-primary);
+        }
+
+        .nav-icon {
+            font-size: 20px;
+            margin-right: 15px;
+            width: 24px;
+        }
+
+        .nav-label {
+            font-weight: 500;
+        }
+
+        /* Right Sidebar */
+        .right-sidebar {
+            width: 320px;
+            background: linear-gradient(180deg, rgba(5, 150, 105, 0.1) 0%, rgba(37, 99, 235, 0.05) 100%);
+            color: white;
+            position: fixed;
+            height: 100vh;
+            right: 0;
+            top: 0;
+            z-index: 1000;
+            overflow-y: auto;
+            border-left: 1px solid rgba(5, 150, 105, 0.3);
+            box-shadow: -5px 0 20px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .right-sidebar-header {
+            padding: 30px 25px;
+            border-bottom: 1px solid rgba(5, 150, 105, 0.3);
+            background: rgba(5, 150, 105, 0.05);
+        }
+
+        .right-sidebar-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            margin-bottom: 8px;
+        }
+
+        .right-sidebar-subtitle {
+            font-size: 0.9rem;
+            color: var(--color-neutral-400);
+        }
+
+        .right-sidebar-content {
+            padding: 25px;
+        }
+
+        .widget {
+            margin-bottom: 30px;
+        }
+
+        .widget-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            margin-bottom: 15px;
+        }
+
+        .search-widget {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(5, 150, 105, 0.3);
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid rgba(5, 150, 105, 0.3);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 20px rgba(5, 150, 105, 0.3);
+        }
+
+        .search-input::placeholder {
+            color: var(--color-neutral-400);
+        }
+
+        .filter-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .filter-tag {
+            background: rgba(5, 150, 105, 0.1);
+            color: var(--color-primary);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(5, 150, 105, 0.3);
+        }
+
+        .filter-tag:hover {
+            background: rgba(5, 150, 105, 0.2);
+        }
+
+        .filter-tag.active {
+            background: var(--color-primary);
+            color: white;
+        }
+
+        .quick-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid rgba(5, 150, 105, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+        }
+
+        .stat-item:hover {
+            transform: translateY(-2px);
+            border-color: var(--color-primary);
+            box-shadow: 0 5px 15px rgba(5, 150, 105, 0.1);
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--color-neutral-400);
+            font-weight: 500;
+        }
+
+        .recent-activity {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(5, 150, 105, 0.3);
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(5, 150, 105, 0.3);
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            width: 36px;
+            height: 36px;
+            background: rgba(5, 150, 105, 0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-primary);
+            font-size: 1rem;
+        }
+
+        .activity-info h4 {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: white;
+            margin-bottom: 2px;
+        }
+
+        .activity-info p {
+            font-size: 0.8rem;
+            color: var(--color-neutral-400);
+        }
+
+        .recommendations {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(5, 150, 105, 0.3);
+        }
+
+        .recommendation-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(5, 150, 105, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .recommendation-item:last-child {
+            border-bottom: none;
+        }
+
+        .recommendation-item:hover {
+            background: rgba(5, 150, 105, 0.05);
+            border-radius: 8px;
+            margin: 0 -10px;
+            padding: 12px 10px;
+        }
+
+        .recommendation-logo {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .recommendation-info h4 {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: white;
+            margin-bottom: 2px;
+        }
+
+        .recommendation-info p {
+            font-size: 0.8rem;
+            color: var(--color-neutral-400);
+        }
+
+        .recommendation-match {
+            margin-left: auto;
+            text-align: right;
+        }
+
+        .match-percentage {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-secondary);
+        }
+
+        .match-label {
+            font-size: 0.7rem;
+            color: var(--color-neutral-400);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            margin-right: 320px;
+            padding: 40px;
+            background: linear-gradient(135deg, var(--color-neutral-900) 0%, var(--color-neutral-800) 100%);
+            min-height: 100vh;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(5, 150, 105, 0.3);
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        .page-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(5, 150, 105, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(5, 150, 105, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--color-primary);
+            border: 2px solid var(--color-primary);
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-primary);
+            color: white;
+        }
+
+        /* Content Sections */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .main-section {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid rgba(5, 150, 105, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .main-section:hover {
+            border-color: var(--color-primary);
+            box-shadow: 0 10px 30px rgba(5, 150, 105, 0.1);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            margin-bottom: 20px;
+        }
+
+        .universities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .university-card {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            padding: 25px;
+            border: 1px solid rgba(5, 150, 105, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .university-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+        }
+
+        .university-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(5, 150, 105, 0.1);
+            border-color: var(--color-primary);
+        }
+
+        .university-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .university-logo {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .university-info h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .university-info p {
+            font-size: 0.9rem;
+            color: var(--color-neutral-400);
+        }
+
+        .university-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .university-stat {
+            text-align: center;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+            border: 1px solid rgba(5, 150, 105, 0.3);
+        }
+
+        .university-stat-value {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            margin-bottom: 5px;
+        }
+
+        .university-stat-label {
+            font-size: 0.8rem;
+            color: var(--color-neutral-400);
+        }
+
+        .university-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .university-btn {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid rgba(5, 150, 105, 0.3);
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--color-neutral-400);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .university-btn:hover {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+        }
+
+        .university-btn.primary {
+            background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
+            color: white;
+            border-color: var(--color-primary);
+        }
+
+        .university-btn.primary:hover {
+            background: linear-gradient(45deg, var(--color-secondary), var(--color-primary));
+        }
+
+        /* Side Section */
+        .side-section {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid rgba(5, 150, 105, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .side-section:hover {
+            border-color: var(--color-primary);
+            box-shadow: 0 10px 30px rgba(5, 150, 105, 0.1);
+        }
+
+        .progress-item {
+            margin-bottom: 25px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .progress-label {
+            font-weight: 500;
+            color: white;
+        }
+
+        .progress-percentage {
+            font-weight: 600;
+            color: var(--color-primary);
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: rgba(5, 150, 105, 0.3);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--color-neutral-400);
+            margin-bottom: 30px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(5, 150, 105, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--color-primary);
+            box-shadow: 0 10px 30px rgba(5, 150, 105, 0.1);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--color-primary);
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: var(--color-neutral-400);
+            font-size: 1rem;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(5, 150, 105, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--color-primary);
+            box-shadow: 0 15px 35px rgba(5, 150, 105, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--color-primary);
+        }
+
+        .feature-description {
+            color: var(--color-neutral-400);
+            line-height: 1.6;
+        }
+
+        /* Animations */
+        @keyframes glow {
+            from { text-shadow: 0 0 20px rgba(5, 150, 105, 0.5); }
+            to { text-shadow: 0 0 30px rgba(5, 150, 105, 0.8); }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .stat-card {
+            animation: slideInLeft 0.6s ease forwards;
+        }
+
+        .stat-card:nth-child(1) { animation-delay: 0.1s; }
+        .stat-card:nth-child(2) { animation-delay: 0.2s; }
+        .stat-card:nth-child(3) { animation-delay: 0.3s; }
+        .stat-card:nth-child(4) { animation-delay: 0.4s; }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .right-sidebar {
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+            }
+            
+            .main-content {
+                margin-right: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .left-sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .universities-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Liquid Shapes -->
+    <div class="liquid-shape"></div>
+    <div class="liquid-shape"></div>
+    <div class="liquid-shape"></div>
+
+    <!-- Left Sidebar -->
+    <nav class="left-sidebar">
+        <div class="left-sidebar-header">
+            <div class="logo">UniversityMatch</div>
+            <p class="tagline">Find your perfect university match with our comprehensive platform</p>
+        </div>
+        <div class="left-nav">
+            <div class="nav-section">
+                <div class="nav-section-title">Main</div>
+                <a href="#dashboard" class="nav-item active">
+                    <span class="nav-icon">🏠</span>
+                    <span class="nav-label">Dashboard</span>
+                </a>
+                <a href="#search" class="nav-item">
+                    <span class="nav-icon">🔍</span>
+                    <span class="nav-label">Search Universities</span>
+                </a>
+                <a href="#scholarships" class="nav-item">
+                    <span class="nav-icon">💰</span>
+                    <span class="nav-label">Scholarships</span>
+                </a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">Tools</div>
+                <a href="#compare" class="nav-item">
+                    <span class="nav-icon">📊</span>
+                    <span class="nav-label">Compare</span>
+                </a>
+                <a href="#timeline" class="nav-item">
+                    <span class="nav-icon">📅</span>
+                    <span class="nav-label">Timeline</span>
+                </a>
+                <a href="#documents" class="nav-item">
+                    <span class="nav-icon">📄</span>
+                    <span class="nav-label">Documents</span>
+                </a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">Account</div>
+                <a href="#profile" class="nav-item">
+                    <span class="nav-icon">👤</span>
+                    <span class="nav-label">Profile</span>
+                </a>
+                <a href="#settings" class="nav-item">
+                    <span class="nav-icon">⚙️</span>
+                    <span class="nav-label">Settings</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <h1 class="page-title">Dashboard</h1>
+            <div class="page-actions">
+                <button class="btn-secondary">Export Data</button>
+                <button class="btn-primary">New Search</button>
+            </div>
+        </div>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>Your University Journey Starts Here</h1>
+            <p>Discover the perfect university match with our intelligent search and comparison tools</p>
+            <div class="cta-buttons">
+                <button class="btn-primary">Start Searching</button>
+                <button class="btn-secondary">View Scholarships</button>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">2,500+</div>
+                <div class="stat-label">Universities</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">50,000+</div>
+                <div class="stat-label">Scholarships</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">100+</div>
+                <div class="stat-label">Countries</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">95%</div>
+                <div class="stat-label">Success Rate</div>
+            </div>
+        </section>
+
+        <!-- Content Grid -->
+        <div class="content-grid">
+            <!-- Main Section -->
+            <div class="main-section">
+                <h2 class="section-title">Recommended Universities</h2>
+                <div class="universities-grid">
+                    <div class="university-card">
+                        <div class="university-header">
+                            <div class="university-logo">MIT</div>
+                            <div class="university-info">
+                                <h3>Massachusetts Institute of Technology</h3>
+                                <p>Cambridge, MA, USA</p>
+                            </div>
+                        </div>
+                        <div class="university-stats">
+                            <div class="university-stat">
+                                <div class="university-stat-value">#1</div>
+                                <div class="university-stat-label">Ranking</div>
+                            </div>
+                            <div class="university-stat">
+                                <div class="university-stat-value">95%</div>
+                                <div class="university-stat-label">Match</div>
+                            </div>
+                            <div class="university-stat">
+                                <div class="university-stat-value">$53k</div>
+                                <div class="university-stat-label">Tuition</div>
+                            </div>
+                        </div>
+                        <div class="university-actions">
+                            <button class="university-btn">Save</button>
+                            <button class="university-btn">Compare</button>
+                            <button class="university-btn primary">Apply</button>
+                        </div>
+                    </div>
+                    <div class="university-card">
+                        <div class="university-header">
+                            <div class="university-logo">ST</div>
+                            <div class="university-info">
+                                <h3>Stanford University</h3>
+                                <p>Stanford, CA, USA</p>
+                            </div>
+                        </div>
+                        <div class="university-stats">
+                            <div class="university-stat">
+                                <div class="university-stat-value">#2</div>
+                                <div class="university-stat-label">Ranking</div>
+                            </div>
+                            <div class="university-stat">
+                                <div class="university-stat-value">92%</div>
+                                <div class="university-stat-label">Match</div>
+                            </div>
+                            <div class="university-stat">
+                                <div class="university-stat-value">$56k</div>
+                                <div class="university-stat-label">Tuition</div>
+                            </div>
+                        </div>
+                        <div class="university-actions">
+                            <button class="university-btn">Save</button>
+                            <button class="university-btn">Compare</button>
+                            <button class="university-btn primary">Apply</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Side Section -->
+            <div class="side-section">
+                <h2 class="section-title">Application Progress</h2>
+                <div class="progress-item">
+                    <div class="progress-header">
+                        <span class="progress-label">MIT Application</span>
+                        <span class="progress-percentage">75%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 75%"></div>
+                    </div>
+                </div>
+                <div class="progress-item">
+                    <div class="progress-header">
+                        <span class="progress-label">Stanford Application</span>
+                        <span class="progress-percentage">60%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 60%"></div>
+                    </div>
+                </div>
+                <div class="progress-item">
+                    <div class="progress-header">
+                        <span class="progress-label">Harvard Application</span>
+                        <span class="progress-percentage">45%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 45%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <section class="features-grid">
+            <div class="feature-card">
+                <span class="feature-icon">🎯</span>
+                <h3 class="feature-title">Smart Matching</h3>
+                <p class="feature-description">Our AI-powered algorithm matches you with universities that align with your academic goals, budget, and preferences.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">💰</span>
+                <h3 class="feature-title">Scholarship Finder</h3>
+                <p class="feature-description">Discover thousands of scholarship opportunities tailored to your profile and academic achievements.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">📊</span>
+                <h3 class="feature-title">Compare & Analyze</h3>
+                <p class="feature-description">Compare universities side by side with detailed statistics, rankings, and student reviews.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Right Sidebar -->
+    <aside class="right-sidebar">
+        <div class="right-sidebar-header">
+            <h3 class="right-sidebar-title">Quick Tools</h3>
+            <p class="right-sidebar-subtitle">Access your most used features</p>
+        </div>
+        <div class="right-sidebar-content">
+            <!-- Search Widget -->
+            <div class="widget">
+                <h4 class="widget-title">Quick Search</h4>
+                <div class="search-widget">
+                    <input type="text" class="search-input" placeholder="Search universities...">
+                    <div class="filter-tags">
+                        <span class="filter-tag active">All</span>
+                        <span class="filter-tag">USA</span>
+                        <span class="filter-tag">UK</span>
+                        <span class="filter-tag">Canada</span>
+                        <span class="filter-tag">Australia</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="widget">
+                <h4 class="widget-title">Your Stats</h4>
+                <div class="quick-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">12</div>
+                        <div class="stat-label">Saved</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">8</div>
+                        <div class="stat-label">Applied</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">15</div>
+                        <div class="stat-label">Scholarships</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">95%</div>
+                        <div class="stat-label">Match</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="widget">
+                <h4 class="widget-title">Recent Activity</h4>
+                <div class="recent-activity">
+                    <div class="activity-item">
+                        <div class="activity-icon">🎓</div>
+                        <div class="activity-info">
+                            <h4>MIT Application</h4>
+                            <p>Submitted 2 days ago</p>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">💰</div>
+                        <div class="activity-info">
+                            <h4>Merit Scholarship</h4>
+                            <p>Applied 1 week ago</p>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">📊</div>
+                        <div class="activity-info">
+                            <h4>Stanford Comparison</h4>
+                            <p>Viewed 3 days ago</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recommendations -->
+            <div class="widget">
+                <h4 class="widget-title">Recommendations</h4>
+                <div class="recommendations">
+                    <div class="recommendation-item">
+                        <div class="recommendation-logo">CM</div>
+                        <div class="recommendation-info">
+                            <h4>Carnegie Mellon</h4>
+                            <p>Pittsburgh, PA</p>
+                        </div>
+                        <div class="recommendation-match">
+                            <div class="match-percentage">89%</div>
+                            <div class="match-label">Match</div>
+                        </div>
+                    </div>
+                    <div class="recommendation-item">
+                        <div class="recommendation-logo">UC</div>
+                        <div class="recommendation-info">
+                            <h4>UC Berkeley</h4>
+                            <p>Berkeley, CA</p>
+                        </div>
+                        <div class="recommendation-match">
+                            <div class="match-percentage">87%</div>
+                            <div class="match-label">Match</div>
+                        </div>
+                    </div>
+                    <div class="recommendation-item">
+                        <div class="recommendation-logo">GT</div>
+                        <div class="recommendation-info">
+                            <h4>Georgia Tech</h4>
+                            <p>Atlanta, GA</p>
+                        </div>
+                        <div class="recommendation-match">
+                            <div class="match-percentage">85%</div>
+                            <div class="match-label">Match</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aside>
+    
+    <!-- Voiceflow Chatbot -->
+    <script type="text/javascript">
+      (function(d, t) {
+          var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+          v.onload = function() {
+            window.voiceflow.chat.load({
+              verify: { projectID: '68e16d089e709b6501735885' },
+              url: 'https://general-runtime.voiceflow.com',
+              versionID: 'production',
+              voice: {
+                url: "https://runtime-api.voiceflow.com"
+              }
+            });
+          }
+          v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
+      })(document, 'script');
+    </script>
+</body>
+</html>

@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniversityMatch - Complete Design System Test</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* ===== DESIGN SYSTEM VARIABLES ===== */
+        :root {
+            /* Primary Colors */
+            --primary-blue: #2563EB;
+            --primary-blue-dark: #1E40AF;
+            --primary-blue-light: #3B82F6;
+            --primary-green: #059669;
+            --primary-green-dark: #047857;
+            --primary-green-light: #10B981;
+            --accent-purple: #7C3AED;
+            --accent-purple-dark: #6D28D9;
+            --accent-purple-light: #8B5CF6;
+
+            /* Neutral Colors */
+            --neutral-50: #F8FAFC;
+            --neutral-100: #F1F5F9;
+            --neutral-200: #E2E8F0;
+            --neutral-300: #CBD5E1;
+            --neutral-400: #94A3B8;
+            --neutral-500: #64748B;
+            --neutral-600: #475569;
+            --neutral-700: #334155;
+            --neutral-800: #1E293B;
+            --neutral-900: #0F172A;
+
+            /* Semantic Colors */
+            --success: #059669;
+            --warning: #F59E0B;
+            --error: #DC2626;
+            --info: #0EA5E9;
+
+            /* Background Colors */
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F8FAFC;
+            --bg-tertiary: #F1F5F9;
+            --bg-dark: #0F172A;
+
+            /* Gradient Combinations */
+            --gradient-primary: linear-gradient(135deg, #2563EB 0%, #059669 100%);
+            --gradient-primary-reverse: linear-gradient(135deg, #059669 0%, #2563EB 100%);
+            --gradient-primary-soft: linear-gradient(135deg, #3B82F6 0%, #10B981 100%);
+            --gradient-accent: linear-gradient(135deg, #7C3AED 0%, #EC4899 100%);
+            --gradient-success: linear-gradient(135deg, #059669 0%, #10B981 100%);
+            --gradient-info: linear-gradient(135deg, #0EA5E9 0%, #3B82F6 100%);
+            --gradient-bg: linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%);
+            --gradient-card: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%);
+            --gradient-hero: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+
+            /* Animation Variables */
+            --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+            --ease-out: cubic-bezier(0, 0, 0.2, 1);
+            --ease-in: cubic-bezier(0.4, 0, 1, 1);
+            --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            --duration-fast: 0.15s;
+            --duration-normal: 0.3s;
+            --duration-slow: 0.5s;
+            --duration-slower: 0.8s;
+
+            /* Spacing Scale */
+            --space-1: 4px;
+            --space-2: 8px;
+            --space-3: 12px;
+            --space-4: 16px;
+            --space-5: 20px;
+            --space-6: 24px;
+            --space-8: 32px;
+            --space-10: 40px;
+            --space-12: 48px;
+            --space-16: 64px;
+            --space-20: 80px;
+
+            /* Typography */
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --text-xs: 12px;
+            --text-sm: 14px;
+            --text-base: 16px;
+            --text-lg: 18px;
+            --text-xl: 20px;
+            --text-2xl: 24px;
+            --text-3xl: 30px;
+            --text-4xl: 36px;
+            --text-5xl: 48px;
+            --text-6xl: 60px;
+            --font-light: 300;
+            --font-normal: 400;
+            --font-medium: 500;
+            --font-semibold: 600;
+            --font-bold: 700;
+            --font-extrabold: 800;
+            --leading-tight: 1.25;
+            --leading-normal: 1.5;
+            --leading-relaxed: 1.625;
+            --leading-loose: 2;
+        }
+
+        /* ===== RESET & BASE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background: var(--gradient-bg);
+            color: var(--neutral-700);
+            line-height: var(--leading-normal);
+            font-size: var(--text-base);
+            font-weight: var(--font-normal);
+        }
+
+        /* ===== ANIMATION KEYFRAMES ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* ===== UTILITY CLASSES ===== */
+        .hover-lift {
+            transition: transform var(--duration-normal) var(--ease-out),
+                        box-shadow var(--duration-normal) var(--ease-out);
+        }
+        .hover-lift:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .hover-scale {
+            transition: transform var(--duration-normal) var(--ease-out);
+        }
+        .hover-scale:hover {
+            transform: scale(1.05);
+        }
+
+        .hover-glow {
+            transition: box-shadow var(--duration-normal) var(--ease-out);
+        }
+        .hover-glow:hover {
+            box-shadow: 0 0 20px rgba(37, 99, 235, 0.3);
+        }
+
+        .gradient-text {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .stagger-item {
+            animation: fadeInUp var(--duration-slow) var(--ease-out) forwards;
+            opacity: 0;
+        }
+        .stagger-item:nth-child(1) { animation-delay: 0.1s; }
+        .stagger-item:nth-child(2) { animation-delay: 0.2s; }
+        .stagger-item:nth-child(3) { animation-delay: 0.3s; }
+        .stagger-item:nth-child(4) { animation-delay: 0.4s; }
+
+        /* ===== HEADER SECTION ===== */
+        .header {
+            background: var(--bg-primary);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--neutral-200);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 0 var(--space-6);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 68px;
+        }
+
+        .logo {
+            font-size: var(--text-xl);
+            font-weight: var(--font-bold);
+            color: var(--neutral-900);
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--space-8);
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--neutral-500);
+            text-decoration: none;
+            font-weight: var(--font-medium);
+            font-size: var(--text-sm);
+            transition: color var(--duration-normal) var(--ease-out);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-blue);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            transition: width var(--duration-normal) var(--ease-out);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: var(--space-4);
+            align-items: center;
+        }
+
+        /* ===== BUTTON SYSTEM ===== */
+        .btn {
+            padding: var(--space-3) var(--space-5);
+            border-radius: 8px;
+            font-weight: var(--font-semibold);
+            cursor: pointer;
+            transition: all var(--duration-normal) var(--ease-out);
+            border: none;
+            font-size: var(--text-sm);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.2);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--bg-primary);
+            color: var(--primary-blue);
+            border: 2px solid var(--primary-blue);
+        }
+        .btn-secondary:hover {
+            background: var(--primary-blue);
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .btn-success {
+            background: var(--gradient-success);
+            color: white;
+            box-shadow: 0 4px 14px rgba(5, 150, 105, 0.2);
+        }
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(5, 150, 105, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--neutral-500);
+            border: 1px solid var(--neutral-200);
+        }
+        .btn-outline:hover {
+            background: var(--neutral-100);
+            border-color: var(--neutral-300);
+            color: var(--neutral-700);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--primary-blue);
+        }
+        .btn-ghost:hover {
+            background: var(--neutral-100);
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .main-content {
+            margin-top: 68px;
+            padding: var(--space-12) var(--space-6);
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            text-align: center;
+            margin-bottom: var(--space-16);
+            padding: var(--space-20) 0;
+            background: var(--gradient-hero);
+            border-radius: 20px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-primary);
+            opacity: 0.1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: var(--text-5xl);
+            font-weight: var(--font-bold);
+            margin-bottom: var(--space-5);
+            line-height: var(--leading-tight);
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: var(--text-lg);
+            margin-bottom: var(--space-8);
+            max-width: 580px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: var(--leading-relaxed);
+            opacity: 0.9;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: var(--space-4);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .hero-btn {
+            padding: var(--space-4) var(--space-8);
+            border-radius: 12px;
+            font-size: var(--text-base);
+            font-weight: var(--font-semibold);
+            cursor: pointer;
+            transition: all var(--duration-normal) var(--ease-out);
+            border: none;
+        }
+
+        .hero-btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.2);
+        }
+        .hero-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+        }
+
+        .hero-btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        .hero-btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* ===== SEARCH SECTION ===== */
+        .search-section {
+            background: var(--bg-primary);
+            border-radius: 20px;
+            padding: var(--space-10);
+            margin-bottom: var(--space-16);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--neutral-200);
+        }
+
+        .search-title {
+            text-align: center;
+            margin-bottom: var(--space-8);
+        }
+
+        .search-title h2 {
+            font-size: var(--text-3xl);
+            font-weight: var(--font-semibold);
+            color: var(--neutral-900);
+            margin-bottom: var(--space-3);
+        }
+
+        .search-title p {
+            font-size: var(--text-base);
+            color: var(--neutral-500);
+        }
+
+        .search-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: var(--space-5);
+            margin-bottom: var(--space-8);
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-label {
+            font-weight: var(--font-semibold);
+            color: var(--neutral-700);
+            margin-bottom: var(--space-2);
+            font-size: var(--text-sm);
+        }
+
+        .form-input {
+            padding: var(--space-4) var(--space-5);
+            border: 2px solid var(--neutral-200);
+            border-radius: 10px;
+            font-size: var(--text-base);
+            transition: all var(--duration-normal) var(--ease-out);
+            background: var(--neutral-50);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            background: var(--bg-primary);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+
+        .search-btn {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: var(--space-4) var(--space-8);
+            border-radius: 10px;
+            font-size: var(--text-base);
+            font-weight: var(--font-semibold);
+            cursor: pointer;
+            transition: all var(--duration-normal) var(--ease-out);
+            grid-column: 1 / -1;
+            justify-self: center;
+            margin-top: var(--space-3);
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.2);
+        }
+
+        .search-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+        }
+
+        /* ===== FEATURES SECTION ===== */
+        .features-section {
+            margin-bottom: var(--space-16);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: var(--space-12);
+        }
+
+        .section-title h2 {
+            font-size: var(--text-4xl);
+            font-weight: var(--font-semibold);
+            color: var(--neutral-900);
+            margin-bottom: var(--space-3);
+        }
+
+        .section-title p {
+            font-size: var(--text-lg);
+            color: var(--neutral-500);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--space-8);
+        }
+
+        .feature-card {
+            background: var(--bg-primary);
+            border-radius: 16px;
+            padding: var(--space-8);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--neutral-200);
+            transition: all var(--duration-normal) var(--ease-out);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--gradient-primary-soft);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--space-6);
+            font-size: 28px;
+            color: white;
+        }
+
+        .feature-title {
+            font-size: var(--text-xl);
+            font-weight: var(--font-semibold);
+            color: var(--neutral-900);
+            margin-bottom: var(--space-3);
+        }
+
+        .feature-description {
+            color: var(--neutral-500);
+            line-height: var(--leading-relaxed);
+            font-size: var(--text-base);
+        }
+
+        /* ===== STATS SECTION ===== */
+        .stats-section {
+            background: var(--gradient-card);
+            border-radius: 20px;
+            padding: var(--space-12) var(--space-10);
+            margin-bottom: var(--space-16);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--neutral-200);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-10);
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: var(--space-6);
+            background: var(--bg-primary);
+            border-radius: 16px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-number {
+            font-size: var(--text-4xl);
+            font-weight: var(--font-bold);
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--space-2);
+            letter-spacing: -1px;
+        }
+
+        .stat-label {
+            font-size: var(--text-base);
+            color: var(--neutral-500);
+            font-weight: var(--font-medium);
+        }
+
+        /* ===== UNIVERSITIES SECTION ===== */
+        .universities-section {
+            margin-bottom: var(--space-16);
+        }
+
+        .universities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--space-6);
+        }
+
+        .university-card {
+            background: var(--bg-primary);
+            border-radius: 16px;
+            padding: var(--space-8);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--neutral-200);
+            transition: all var(--duration-normal) var(--ease-out);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .university-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            border-color: var(--primary-blue);
+        }
+
+        .university-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            margin-bottom: var(--space-6);
+        }
+
+        .university-logo {
+            width: 56px;
+            height: 56px;
+            background: var(--gradient-primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: var(--font-bold);
+            color: white;
+            font-size: var(--text-xl);
+        }
+
+        .university-info h3 {
+            font-size: var(--text-lg);
+            font-weight: var(--font-semibold);
+            color: var(--neutral-900);
+            margin-bottom: var(--space-1);
+        }
+
+        .university-info p {
+            color: var(--neutral-500);
+            font-size: var(--text-sm);
+        }
+
+        .university-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-4);
+            margin-bottom: var(--space-6);
+        }
+
+        .university-stat {
+            text-align: center;
+            padding: var(--space-4);
+            background: var(--neutral-50);
+            border-radius: 10px;
+        }
+
+        .university-stat-value {
+            font-size: var(--text-lg);
+            font-weight: var(--font-semibold);
+            color: var(--neutral-900);
+            margin-bottom: var(--space-1);
+        }
+
+        .university-stat-label {
+            font-size: var(--text-xs);
+            color: var(--neutral-500);
+        }
+
+        .university-actions {
+            display: flex;
+            gap: var(--space-2);
+        }
+
+        .university-btn {
+            flex: 1;
+            padding: var(--space-2) var(--space-3);
+            border: 2px solid var(--neutral-200);
+            border-radius: 8px;
+            background: var(--bg-primary);
+            color: var(--neutral-500);
+            font-size: var(--text-sm);
+            font-weight: var(--font-medium);
+            cursor: pointer;
+            transition: all var(--duration-normal) var(--ease-out);
+        }
+
+        .university-btn:hover {
+            border-color: var(--primary-blue);
+            color: var(--primary-blue);
+        }
+
+        .university-btn.primary {
+            background: var(--gradient-primary);
+            color: white;
+            border-color: transparent;
+        }
+
+        .university-btn.primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--gradient-hero);
+            color: white;
+            padding: var(--space-12) var(--space-6) var(--space-6);
+            margin-top: var(--space-16);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-10);
+        }
+
+        .footer-section h3 {
+            font-size: var(--text-lg);
+            font-weight: var(--font-semibold);
+            margin-bottom: var(--space-5);
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            line-height: var(--leading-relaxed);
+            margin-bottom: var(--space-2);
+            display: block;
+            transition: color var(--duration-normal) var(--ease-out);
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            margin-top: var(--space-10);
+            padding-top: var(--space-6);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: var(--text-4xl);
+            }
+            
+            .hero-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .search-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .universities-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===== DESIGN PRINCIPLES DEMONSTRATION ===== */
+        .design-principles {
+            background: var(--bg-primary);
+            border-radius: 20px;
+            padding: var(--space-10);
+            margin-bottom: var(--space-16);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--neutral-200);
+        }
+
+        .principle-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            padding: var(--space-4);
+            margin-bottom: var(--space-4);
+            border-radius: 12px;
+            transition: all var(--duration-normal) var(--ease-out);
+        }
+
+        .principle-item:hover {
+            background: var(--neutral-50);
+        }
+
+        .principle-color {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: var(--font-bold);
+            font-size: var(--text-sm);
+        }
+
+        .principle-text {
+            flex: 1;
+        }
+
+        .principle-text h4 {
+            font-weight: var(--font-semibold);
+            color: var(--neutral-900);
+            margin-bottom: var(--space-1);
+        }
+
+        .principle-text p {
+            color: var(--neutral-500);
+            font-size: var(--text-sm);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">UniversityMatch</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#search">Search</a></li>
+                <li><a href="#universities">Universities</a></li>
+                <li><a href="#scholarships">Scholarships</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="btn btn-outline">Sign In</button>
+                <button class="btn btn-primary">Get Started</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Your Academic Future Starts Here</h1>
+                <p>Discover universities worldwide with our elegant and comprehensive search platform designed for ambitious students like you.</p>
+                <div class="hero-actions">
+                    <button class="hero-btn hero-btn-primary">Start Your Journey</button>
+                    <button class="hero-btn hero-btn-secondary">Explore Features</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Design Principles Section -->
+        <section class="design-principles">
+            <div class="section-title">
+                <h2>Design System Principles</h2>
+                <p>Our color-coded approach for different sections and interactions</p>
+            </div>
+            <div class="principle-item">
+                <div class="principle-color" style="background: var(--gradient-primary);">P</div>
+                <div class="principle-text">
+                    <h4>Primary Actions (Blue-Green Gradient)</h4>
+                    <p>Main CTAs, primary buttons, and key navigation elements use our signature blue-to-green gradient</p>
+                </div>
+            </div>
+            <div class="principle-item">
+                <div class="principle-color" style="background: var(--gradient-success);">S</div>
+                <div class="principle-text">
+                    <h4>Success States (Green Gradient)</h4>
+                    <p>Completed applications, successful matches, and positive feedback use green gradients</p>
+                </div>
+            </div>
+            <div class="principle-item">
+                <div class="principle-color" style="background: var(--gradient-accent);">A</div>
+                <div class="principle-text">
+                    <h4>Accent Features (Purple-Pink Gradient)</h4>
+                    <p>AI features, premium elements, and special highlights use purple-to-pink gradients</p>
+                </div>
+            </div>
+            <div class="principle-item">
+                <div class="principle-color" style="background: var(--gradient-info);">I</div>
+                <div class="principle-text">
+                    <h4>Information States (Blue Gradient)</h4>
+                    <p>Tips, help text, and informational content use blue gradients for clarity</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Search Section -->
+        <section class="search-section">
+            <div class="search-title">
+                <h2>Find Your Perfect University</h2>
+                <p>Search and discover universities that match your academic goals and aspirations</p>
+            </div>
+            <form class="search-form">
+                <div class="form-group">
+                    <label class="form-label">Country</label>
+                    <input type="text" class="form-input" placeholder="Select country">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Program</label>
+                    <input type="text" class="form-input" placeholder="Select program">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Budget</label>
+                    <input type="text" class="form-input" placeholder="Select budget range">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Language</label>
+                    <input type="text" class="form-input" placeholder="Select language">
+                </div>
+                <button type="submit" class="search-btn">Search Universities</button>
+            </form>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <div class="section-title">
+                <h2>Why Choose UniversityMatch?</h2>
+                <p>We provide an elegant and comprehensive platform for your university search journey</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card hover-lift stagger-item">
+                    <div class="feature-icon">🎯</div>
+                    <h3 class="feature-title">Intelligent Matching</h3>
+                    <p class="feature-description">Our advanced algorithm matches you with universities that perfectly align with your academic goals, preferences, and career aspirations.</p>
+                </div>
+                <div class="feature-card hover-lift stagger-item">
+                    <div class="feature-icon">💰</div>
+                    <h3 class="feature-title">Scholarship Discovery</h3>
+                    <p class="feature-description">Discover thousands of scholarship opportunities tailored to your profile, academic achievements, and financial needs.</p>
+                </div>
+                <div class="feature-card hover-lift stagger-item">
+                    <div class="feature-icon">📊</div>
+                    <h3 class="feature-title">Comprehensive Analysis</h3>
+                    <p class="feature-description">Compare universities side by side with detailed statistics, rankings, student reviews, and personalized insights.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats-section">
+            <div class="stats-grid">
+                <div class="stat-item hover-scale">
+                    <div class="stat-number">2,500+</div>
+                    <div class="stat-label">Universities</div>
+                </div>
+                <div class="stat-item hover-scale">
+                    <div class="stat-number">50,000+</div>
+                    <div class="stat-label">Scholarships</div>
+                </div>
+                <div class="stat-item hover-scale">
+                    <div class="stat-number">100+</div>
+                    <div class="stat-label">Countries</div>
+                </div>
+                <div class="stat-item hover-scale">
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label">Success Rate</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Universities Section -->
+        <section class="universities-section">
+            <div class="section-title">
+                <h2>Featured Universities</h2>
+                <p>Discover top universities recommended specifically for you</p>
+            </div>
+            <div class="universities-grid">
+                <div class="university-card hover-lift stagger-item">
+                    <div class="university-header">
+                        <div class="university-logo">MIT</div>
+                        <div class="university-info">
+                            <h3>Massachusetts Institute of Technology</h3>
+                            <p>Cambridge, MA, USA</p>
+                        </div>
+                    </div>
+                    <div class="university-stats">
+                        <div class="university-stat">
+                            <div class="university-stat-value">#1</div>
+                            <div class="university-stat-label">Ranking</div>
+                        </div>
+                        <div class="university-stat">
+                            <div class="university-stat-value">95%</div>
+                            <div class="university-stat-label">Match</div>
+                        </div>
+                        <div class="university-stat">
+                            <div class="university-stat-value">$53k</div>
+                            <div class="university-stat-label">Tuition</div>
+                        </div>
+                    </div>
+                    <div class="university-actions">
+                        <button class="university-btn">Save</button>
+                        <button class="university-btn">Compare</button>
+                        <button class="university-btn primary">Apply</button>
+                    </div>
+                </div>
+                <div class="university-card hover-lift stagger-item">
+                    <div class="university-header">
+                        <div class="university-logo">ST</div>
+                        <div class="university-info">
+                            <h3>Stanford University</h3>
+                            <p>Stanford, CA, USA</p>
+                        </div>
+                    </div>
+                    <div class="university-stats">
+                        <div class="university-stat">
+                            <div class="university-stat-value">#2</div>
+                            <div class="university-stat-label">Ranking</div>
+                        </div>
+                        <div class="university-stat">
+                            <div class="university-stat-value">92%</div>
+                            <div class="university-stat-label">Match</div>
+                        </div>
+                        <div class="university-stat">
+                            <div class="university-stat-value">$56k</div>
+                            <div class="university-stat-label">Tuition</div>
+                        </div>
+                    </div>
+                    <div class="university-actions">
+                        <button class="university-btn">Save</button>
+                        <button class="university-btn">Compare</button>
+                        <button class="university-btn primary">Apply</button>
+                    </div>
+                </div>
+                <div class="university-card hover-lift stagger-item">
+                    <div class="university-header">
+                        <div class="university-logo">H</div>
+                        <div class="university-info">
+                            <h3>Harvard University</h3>
+                            <p>Cambridge, MA, USA</p>
+                        </div>
+                    </div>
+                    <div class="university-stats">
+                        <div class="university-stat">
+                            <div class="university-stat-value">#3</div>
+                            <div class="university-stat-label">Ranking</div>
+                        </div>
+                        <div class="university-stat">
+                            <div class="university-stat-value">88%</div>
+                            <div class="university-stat-label">Match</div>
+                        </div>
+                        <div class="university-stat">
+                            <div class="university-stat-value">$54k</div>
+                            <div class="university-stat-label">Tuition</div>
+                        </div>
+                    </div>
+                    <div class="university-actions">
+                        <button class="university-btn">Save</button>
+                        <button class="university-btn">Compare</button>
+                        <button class="university-btn primary">Apply</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>UniversityMatch</h3>
+                <p>Find your perfect university match with our elegant and comprehensive search and matching platform.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="#search">Search Universities</a>
+                <a href="#scholarships">Scholarships</a>
+                <a href="#compare">Compare</a>
+                <a href="#about">About Us</a>
+            </div>
+            <div class="footer-section">
+                <h3>Support</h3>
+                <a href="#help">Help Center</a>
+                <a href="#contact">Contact Us</a>
+                <a href="#privacy">Privacy Policy</a>
+                <a href="#terms">Terms of Service</a>
+            </div>
+            <div class="footer-section">
+                <h3>Connect</h3>
+                <a href="#twitter">Twitter</a>
+                <a href="#facebook">Facebook</a>
+                <a href="#linkedin">LinkedIn</a>
+                <a href="#instagram">Instagram</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 UniversityMatch. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

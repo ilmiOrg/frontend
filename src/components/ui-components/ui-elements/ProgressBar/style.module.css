@@ -1,0 +1,247 @@
+.progressBar {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-neutral-700);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.track {
+  width: 100%;
+  background-color: var(--color-neutral-200);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  position: relative;
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Sizes */
+.small .track {
+  height: 0.5rem;
+}
+
+.medium .track {
+  height: 0.75rem;
+}
+
+.large .track {
+  height: 1rem;
+}
+
+.extraLarge .track {
+  height: 1.25rem;
+}
+
+/* Variants */
+.primary .progressFill {
+  background-color: var(--color-primary);
+}
+
+.secondary .progressFill {
+  background-color: var(--color-secondary);
+}
+
+.success .progressFill {
+  background-color: var(--color-success);
+}
+
+.warning .progressFill {
+  background-color: var(--color-warning);
+}
+
+.error .progressFill {
+  background-color: var(--color-error);
+}
+
+.info .progressFill {
+  background-color: #3B82F6;
+}
+
+/* Animated */
+.animated .progressFill {
+  animation: progressAnimation 2s ease-in-out infinite;
+}
+
+@keyframes progressAnimation {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Striped */
+.striped .progressFill {
+  background-image: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.15) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-size: 1rem 1rem;
+}
+
+.striped.animated .progressFill {
+  animation: stripedAnimation 1s linear infinite;
+}
+
+@keyframes stripedAnimation {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 1rem 0;
+  }
+}
+
+/* Circular progress */
+.circular {
+  width: 4rem;
+  height: 4rem;
+  position: relative;
+  display: inline-block;
+}
+
+.circular .track {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: conic-gradient(var(--color-primary) 0deg, var(--color-primary) 0deg, var(--color-neutral-200) 0deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.circular .progressFill {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  right: 0.5rem;
+  bottom: 0.5rem;
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-neutral-700);
+}
+
+.circularSmall {
+  width: 3rem;
+  height: 3rem;
+}
+
+.circularLarge {
+  width: 6rem;
+  height: 6rem;
+}
+
+/* Stepped progress */
+.stepped {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.step {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  border: 2px solid var(--color-neutral-300);
+  background-color: white;
+  color: var(--color-neutral-500);
+  position: relative;
+}
+
+.step.completed {
+  background-color: var(--color-success);
+  border-color: var(--color-success);
+  color: white;
+}
+
+.step.active {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+}
+
+.step::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  width: var(--space-2);
+  height: 2px;
+  background-color: var(--color-neutral-300);
+  transform: translateY(-50%);
+}
+
+.step:last-child::after {
+  display: none;
+}
+
+.step.completed::after {
+  background-color: var(--color-success);
+}
+
+/* Accessibility */
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  .track {
+    background-color: var(--color-neutral-700);
+  }
+  
+  .label {
+    color: var(--color-neutral-300);
+  }
+  
+  .circular .progressFill {
+    background-color: var(--color-neutral-800);
+    color: var(--color-neutral-200);
+  }
+  
+  .step {
+    background-color: var(--color-neutral-800);
+    border-color: var(--color-neutral-600);
+    color: var(--color-neutral-400);
+  }
+}
