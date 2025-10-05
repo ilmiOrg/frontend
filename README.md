@@ -29,24 +29,32 @@ UniversityMatch is a **premium educational platform** that matches high-school s
    cd university-match
    ```
 
-2. **Install dependencies**
+2. **Choose your package manager and follow the instructions below:**
+
+   #### Option A: Using npm
    ```bash
+   # Install dependencies
    npm install
-   # or
-   yarn install
+   
+   # Start development server
+   npm start
    ```
 
-3. **Start development server**
+   #### Option B: Using yarn
    ```bash
-   npm start
-   # or
+   # Install dependencies
+   yarn install
+   
+   # Start development server
    yarn start
    ```
 
-4. **Open in browser**
+3. **Open your browser and navigate to:**
    ```
    http://localhost:3000
    ```
+
+   The application will automatically reload when you make changes to the source files.
 
 ### Build for Production
 
