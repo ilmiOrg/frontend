@@ -1,65 +1,92 @@
 ---
-description: UniversityMatch Premium UI/UX Development Rules
+description: UniversityMatch Design System Rules
 globs:
 alwaysApply: true
 ---
 
-# 🎨 UniversityMatch - Premium UI/UX Rules
+# 🎨 UniversityMatch Design Rules
 
-## 🎯 MISSION
-Build a **stunning educational platform** with premium design that rivals the best apps (CommonApp, Brilliant, Notion, Linear).
+## 🎯 ALWAYS USE CSS VARIABLES - NEVER HARDCODE
 
-## 🎨 USE EXISTING DESIGN SYSTEM
+**All colors, spacing, fonts MUST use variables from `/src/styles/variables.css`**
 
-### Colors
-- Use `var(--color-primary)` (#2563EB) for main actions
-- Use `var(--color-secondary)` (#059669) for success states
-- Use `var(--color-accent)` (#7C3AED) for highlights
-- Use neutral colors from `var(--color-neutral-50)` to `var(--color-neutral-950)`
+### ✅ DO:
+```css
+.button {
+  background: var(--ownGreen);
+  padding: var(--spacing-md);
+  font-weight: var(--fontWeight-semibold);
+}
+```
 
-### Typography
-- Use Inter font family with weights from light to extrabold
-- Use font sizes from xs to 6xl
-- Follow proper hierarchy and spacing
+### ❌ DON'T:
+```css
+.button {
+  background: #10B981;  /* WRONG */
+  padding: 16px;        /* WRONG */
+}
+```
 
-### Components
-- **Buttons**: Use `.btn`, `.btn-primary`, `.btn-secondary`, `.btn-outline`, `.btn-ghost`
-- **Cards**: Use `.card`, `.card-elevated`, `.card-glass`, `.card-interactive`
-- **Inputs**: Use `.input`, `.input-group`, `.input-label`
-- **Animations**: Use `.hover-lift`, `.card-hover`, `.animate-float`, `.animate-color-drop`
+## 📦 Key Variables
 
-## 🚀 ADD MORE FEATURES
+**Colors**: `--ownGreen`, `--ownBlue`, `--ownPurple`, `--textHeadline`, `--textCopy`  
+**Spacing**: `--spacing-xs` to `--spacing-3xl`  
+**Fonts**: `--regularTextFont`, `--headlineFont`, `--fontWeight-*`  
+**Borders**: `--border-radius-sm` to `--border-radius-full`  
+**Transitions**: `--transition-fast`, `--transition-base`, `--easing-smooth`
 
-### Navigation
-- Add user profile, notifications, settings, help
-- Add search functionality
-- Add user menu with dropdown
+## 🚨 If Variable Doesn't Exist
 
-### Hero Section
-- Make it cooler with interactive stats cards
-- Add animated elements
-- Create more engaging demo
+1. Check `/src/styles/variables.css`
+2. Add new variable in appropriate section
+3. Add dark mode variant in `body[theme='dark']`
+4. Use the variable
 
-### Search
-- Add more filter options (ranking, scholarships, location type)
-- Add view toggles (grid, list, map, compare)
-- Add quick actions (save, share)
+## 🎨 Component Structure
 
-### Dashboard
-- Add more tabs (scholarships, timeline, documents, recommendations)
-- Enhance sidebar with recent activity
-- Improve quick actions
+**Every component folder has:**
+```
+ComponentName/
+  ├── index.js            ← Component code
+  └── style.module.css    ← Styles
+```
 
-## 🚫 IMPORTANT RULES
+**Usage:**
+```javascript
+// index.js
+import React from 'react'
+import styles from './style.module.css'
 
-1. **NO @media queries** - Responsive is already handled
-2. **Use existing CSS classes** - Don't create new ones
-3. **Follow the design system** - Use CSS variables
-4. **Add animations** - Use hover effects and animations
-5. **Make it cool** - Add interactive elements and features
-6. **Focus on features** - Add more functionality to existing components
+const Button = () => <button className={styles.btn}>Click</button>
+export default Button
+```
 
-## 🎯 GOAL
-Create a **premium educational platform** that feels like a top-tier app with clean design, smooth animations, comprehensive features, and professional user experience.
+## 🚫 Rules
 
-**Make it amazing!** 🚀
+❌ NO hardcoded colors, spacing, or fonts  
+✅ YES to `index.js` + `style.module.css` pattern  
+✅ YES to animations and accessibility  
+✅ YES to clean, maintainable code
+
+**Goal**: Premium UI that rivals Linear, Notion, Figma.
+
+```
+
+**Usage:**
+```javascript
+// index.js
+import React from 'react'
+import styles from './style.module.css'
+
+const Button = () => <button className={styles.btn}>Click</button>
+export default Button
+```
+
+## 🚫 Rules
+
+❌ NO hardcoded colors, spacing, or fonts  
+✅ YES to `index.js` + `style.module.css` pattern  
+✅ YES to animations and accessibility  
+✅ YES to clean, maintainable code
+
+**Goal**: Premium UI that rivals Linear, Notion, Figma.

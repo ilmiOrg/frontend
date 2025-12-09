@@ -1,0 +1,52 @@
+/* Content Area Styles */
+.contentArea {
+  padding: var(--spacing-lg);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.breadcrumbs {
+  margin-bottom: var(--spacing-md);
+  font-size: var(--fontSize-sm);
+  color: var(--textSecondary);
+}
+
+.breadcrumb {
+  display: inline-flex;
+  align-items: center;
+}
+
+.breadcrumbSeparator {
+  margin: 0 var(--spacing-sm);
+  color: var(--textHalfVisible);
+}
+
+.breadcrumbLink {
+  color: var(--textSecondary);
+  text-decoration: none;
+  transition: color var(--transition-base);
+}
+
+.breadcrumbLink:hover {
+  color: var(--ownGreen);
+}
+
+.pageTitle {
+  margin-bottom: var(--spacing-xl);
+}
+
+.title {
+  font-size: var(--fontSize-4xl);
+  font-weight: var(--fontWeight-bold);
+  color: var(--textHeadline);
+  margin: 0;
+}
+
+.content {
+  background: var(--primary);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-xl);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+

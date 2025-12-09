@@ -1,0 +1,126 @@
+/* Hero Section Styles */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 0 var(--spacing-lg);
+  text-align: center;
+  background: var(--primary);
+}
+
+.heroContainer {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+}
+
+.heroTitle {
+  font-size: var(--fontSize-6xl);
+  font-weight: var(--fontWeight-extrabold);
+  line-height: var(--lineHeight-tight);
+  margin-bottom: var(--spacing-lg);
+  background: var(--gradientPrimary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.heroSubtitle {
+  font-size: var(--fontSize-xl);
+  color: var(--textSecondary);
+  margin-bottom: var(--spacing-3xl);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: var(--lineHeight-relaxed);
+}
+
+.heroButtons {
+  display: flex;
+  gap: var(--spacing-md);
+  justify-content: center;
+  margin-bottom: var(--spacing-3xl);
+}
+
+.btn {
+  padding: var(--spacing-md) var(--spacing-xl);
+  border-radius: var(--border-radius-full);
+  font-weight: var(--fontWeight-semibold);
+  text-decoration: none;
+  transition: all var(--transition-base);
+  border: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.btnPrimary {
+  background: var(--gradientPrimary);
+  color: white;
+  box-shadow: 0 4px 15px rgba(5, 150, 105, 0.3);
+}
+
+.btnPrimary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(5, 150, 105, 0.4);
+}
+
+.btnOutline {
+  background: transparent;
+  color: var(--ownGreen);
+  border: 2px solid var(--ownGreen);
+}
+
+.btnOutline:hover {
+  background: var(--ownGreen);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.heroStats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-4xl);
+}
+
+.heroStat {
+  text-align: center;
+}
+
+.heroStatNumber {
+  font-size: var(--fontSize-4xl);
+  font-weight: var(--fontWeight-extrabold);
+  color: var(--ownGreen);
+  margin-bottom: var(--spacing-sm);
+}
+
+.heroStatLabel {
+  color: var(--textSecondary);
+  font-weight: var(--fontWeight-medium);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .heroTitle {
+    font-size: var(--fontSize-4xl);
+  }
+
+  .heroButtons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .heroStats {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+}
+
+

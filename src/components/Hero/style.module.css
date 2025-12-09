@@ -1,10 +1,10 @@
 .hero {
   background: linear-gradient(135deg, 
-    #f8fafc 0%, 
-    #e2e8f0 25%,
-    #f1f5f9 50%, 
-    #e2e8f0 75%,
-    #f8fafc 100%);
+    var(--slate-50-hex) 0%, 
+    var(--slate-200-hex) 25%,
+    var(--slate-100-hex) 50%, 
+    var(--slate-200-hex) 75%,
+    var(--slate-50-hex) 100%);
   position: relative;
   overflow: hidden;
   min-height: 100vh;
@@ -29,9 +29,9 @@
   right: 0;
   bottom: 0;
   background: 
-    radial-gradient(circle at 20% 80%, rgba(37, 99, 235, 0.05) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(5, 150, 105, 0.05) 0%, transparent 50%),
-    radial-gradient(circle at 40% 40%, rgba(124, 58, 237, 0.05) 0%, transparent 50%);
+    radial-gradient(circle at 20% 80%, var(--blue-opacity-05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, var(--green-500-opacity-05) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, var(--purple-opacity-05) 0%, transparent 50%);
   animation: gradientShift 8s ease-in-out infinite;
 }
 
@@ -42,11 +42,11 @@
   right: 0;
   bottom: 0;
   background-image: 
-    radial-gradient(2px 2px at 20px 30px, rgba(37, 99, 235, 0.1), transparent),
-    radial-gradient(2px 2px at 40px 70px, rgba(5, 150, 105, 0.1), transparent),
-    radial-gradient(1px 1px at 90px 40px, rgba(124, 58, 237, 0.1), transparent),
-    radial-gradient(1px 1px at 130px 80px, rgba(37, 99, 235, 0.1), transparent),
-    radial-gradient(2px 2px at 160px 30px, rgba(5, 150, 105, 0.1), transparent);
+    radial-gradient(2px 2px at 20px 30px, var(--blue-opacity-1), transparent),
+    radial-gradient(2px 2px at 40px 70px, var(--green-500-opacity-1), transparent),
+    radial-gradient(1px 1px at 90px 40px, var(--purple-opacity-1), transparent),
+    radial-gradient(1px 1px at 130px 80px, var(--blue-opacity-1), transparent),
+    radial-gradient(2px 2px at 160px 30px, var(--green-500-opacity-1), transparent);
   background-repeat: repeat;
   background-size: 200px 100px;
   animation: float 20s linear infinite;
@@ -82,14 +82,14 @@
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   margin-bottom: var(--space-6);
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+  box-shadow: 0 4px 12px var(--blue-opacity-2);
   animation: colorDrop 3s ease-in-out infinite;
   transition: all var(--transition-normal);
 }
 
 .badge:hover {
   transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
+  box-shadow: 0 8px 20px var(--blue-opacity-3);
 }
 
 .title {
@@ -162,19 +162,19 @@
   border-radius: var(--radius-2xl);
   padding: var(--space-4) var(--space-5);
   transition: all var(--transition-normal);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 12px var(--black-opacity-3);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
 
 .searchInput:hover {
   border-color: var(--color-neutral-300);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 6px 20px var(--black-opacity-3);
 }
 
 .searchInput.focused {
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1), 0 8px 25px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 0 4px var(--blue-opacity-1), 0 8px 25px var(--black-opacity-3);
   transform: translateY(-1px);
 }
 
@@ -247,7 +247,7 @@
   background: var(--color-surface);
   border: 1px solid var(--color-neutral-200);
   border-radius: var(--radius-xl);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 20px 40px var(--black-opacity-3);
   margin-top: var(--space-2);
   z-index: 1000;
   backdrop-filter: blur(20px);
@@ -406,7 +406,7 @@
   border: 1px solid var(--color-neutral-200);
   border-radius: var(--radius-2xl);
   padding: var(--space-8);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 20px 40px var(--black-opacity-3);
   max-width: 500px;
   width: 100%;
   backdrop-filter: blur(10px);
@@ -452,7 +452,7 @@
   background: var(--color-primary-50);
   border-color: var(--color-primary-200);
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.1);
+  box-shadow: 0 8px 20px var(--blue-opacity-1);
 }
 
 .statIcon {

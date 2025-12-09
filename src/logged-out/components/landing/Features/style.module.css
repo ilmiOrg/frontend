@@ -1,0 +1,94 @@
+/* Features Section Styles */
+.features {
+  padding: var(--spacing-5xl) var(--spacing-lg);
+  background: var(--primary);
+}
+
+.featuresContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.sectionTitle {
+  text-align: center;
+  font-size: var(--fontSize-5xl);
+  font-weight: var(--fontWeight-bold);
+  margin-bottom: var(--spacing-md);
+  color: var(--textHeadline);
+}
+
+.sectionSubtitle {
+  text-align: center;
+  font-size: var(--fontSize-xl);
+  color: var(--textSecondary);
+  margin-bottom: var(--spacing-4xl);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: var(--lineHeight-relaxed);
+}
+
+.featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.featureCard {
+  background: var(--primary);
+  padding: var(--spacing-3xl) var(--spacing-lg);
+  border-radius: var(--border-radius-xl);
+  text-align: center;
+  transition: all var(--transition-base);
+  border: 1px solid var(--elementBorder);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.featureCard:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  border-color: var(--ownGreen);
+}
+
+.featureIcon {
+  width: 80px;
+  height: 80px;
+  background: var(--gradientPrimary);
+  border-radius: var(--border-radius-full);
+  margin: 0 auto var(--spacing-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: var(--fontSize-2xl);
+}
+
+.featureTitle {
+  font-size: var(--fontSize-2xl);
+  font-weight: var(--fontWeight-semibold);
+  margin-bottom: var(--spacing-md);
+  color: var(--textHeadline);
+}
+
+.featureDescription {
+  color: var(--textCopy);
+  line-height: var(--lineHeight-relaxed);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .features {
+    padding: var(--spacing-4xl) var(--spacing-md);
+  }
+
+  .featuresGrid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+
+  .featureCard {
+    padding: var(--spacing-xl) var(--spacing-md);
+  }
+}
+
+

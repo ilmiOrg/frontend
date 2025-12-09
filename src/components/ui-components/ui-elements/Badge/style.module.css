@@ -40,7 +40,7 @@
 }
 
 .info {
-  background-color: #3B82F6;
+  background-color: var(--accent-blue-light);
   color: white;
 }
 

@@ -61,7 +61,7 @@
 }
 
 .info .content {
-  background-color: #3B82F6;
+  background-color: var(--accent-blue-light);
   color: white;
 }
 
@@ -181,19 +181,19 @@
 }
 
 .info.top .arrow {
-  border-top-color: #3B82F6;
+  border-top-color: var(--accent-blue-light);
 }
 
 .info.bottom .arrow {
-  border-bottom-color: #3B82F6;
+  border-bottom-color: var(--accent-blue-light);
 }
 
 .info.left .arrow {
-  border-left-color: #3B82F6;
+  border-left-color: var(--accent-blue-light);
 }
 
 .info.right .arrow {
-  border-right-color: #3B82F6;
+  border-right-color: var(--accent-blue-light);
 }
 
 .light.top .arrow {

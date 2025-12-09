@@ -1,0 +1,63 @@
+/* PageTemplate - Reusable page layout for logged-in pages */
+
+.page {
+  padding: var(--spacing-lg);
+  min-height: 100%;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-xl);
+  padding: var(--spacing-lg);
+  background: var(--slate-700-opacity-5);
+  border-radius: var(--border-radius-lg);
+  border: 1px solid var(--white-opacity-08);
+}
+
+.headerContent {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.icon {
+  font-size: 32px;
+}
+
+.title {
+  font-size: var(--fontSize-2xl);
+  font-weight: var(--fontWeight-bold);
+  color: var(--text-white);
+  margin: 0;
+}
+
+.description {
+  font-size: var(--fontSize-sm);
+  color: var(--text-white-6);
+  margin: 4px 0 0 0;
+}
+
+.actions {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.content {
+  /* Content area */
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+  }
+
+  .actions {
+    width: 100%;
+  }
+}
+
+

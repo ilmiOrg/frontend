@@ -1,0 +1,43 @@
+/* Navigation Section Styles */
+
+.nav-section {
+  margin-bottom: 4px;
+}
+
+.nav-section__items {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  animation: expandSection 0.3s ease-out;
+  overflow: hidden;
+}
+
+@keyframes expandSection {
+  from {
+    opacity: 0;
+    max-height: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    max-height: 500px;
+    transform: translateY(0);
+  }
+}
+
+/* Smooth collapse animation */
+.nav-section__items.collapsing {
+  animation: collapseSection 0.2s ease-in;
+}
+
+@keyframes collapseSection {
+  from {
+    opacity: 1;
+    max-height: 500px;
+  }
+  to {
+    opacity: 0;
+    max-height: 0;
+  }
+}
+

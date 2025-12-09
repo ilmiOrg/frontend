@@ -1,0 +1,27 @@
+/* Activity Panel Styles */
+.activityPanel {
+  height: 100%;
+  background: var(--primary);
+  display: flex;
+  flex-direction: column;
+}
+
+.panelHeader {
+  padding: var(--spacing-lg);
+  border-bottom: 1px solid var(--elementBorder);
+}
+
+.panelTitle {
+  font-size: var(--fontSize-lg);
+  font-weight: var(--fontWeight-semibold);
+  color: var(--textHeadline);
+  margin: 0;
+}
+
+.panelContent {
+  flex: 1;
+  padding: var(--spacing-lg);
+  overflow-y: auto;
+}
+
+

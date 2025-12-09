@@ -1,0 +1,41 @@
+/* Sidebar Styles */
+.sidebar {
+  height: 100%;
+  background: var(--primary);
+  border-right: 1px solid var(--elementBorder);
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebarHeader {
+  padding: var(--spacing-lg);
+  border-bottom: 1px solid var(--elementBorder);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-size: var(--fontSize-lg);
+  font-weight: var(--fontWeight-bold);
+  color: var(--textHeadline);
+}
+
+.logoIcon {
+  font-size: var(--fontSize-xl);
+}
+
+.logoText {
+  background: var(--gradientPrimary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.sidebarContent {
+  flex: 1;
+  padding: var(--spacing-md);
+  overflow-y: auto;
+}
+
+

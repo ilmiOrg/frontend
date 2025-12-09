@@ -1,0 +1,51 @@
+/* Spinner Styles */
+.spinner {
+  display: inline-block;
+  position: relative;
+}
+
+.spinnerInner {
+  border-radius: var(--border-radius-full);
+  border: 2px solid transparent;
+  border-top: 2px solid var(--ownGreen);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Sizes */
+.sm {
+  width: 16px;
+  height: 16px;
+}
+
+.md {
+  width: 24px;
+  height: 24px;
+}
+
+.lg {
+  width: 32px;
+  height: 32px;
+}
+
+.xl {
+  width: 48px;
+  height: 48px;
+}
+
+/* Variants */
+.primary .spinnerInner {
+  border-top-color: var(--ownGreen);
+}
+
+.secondary .spinnerInner {
+  border-top-color: var(--ownBlue);
+}
+
+.white .spinnerInner {
+  border-top-color: white;
+}

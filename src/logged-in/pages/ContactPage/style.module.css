@@ -1,0 +1,562 @@
+/* ContactPage Styles */
+
+.contactPage {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--spacing-xl);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: var(--spacing-3xl);
+}
+
+.pageTitle {
+  font-size: var(--titleFontSize);
+  font-weight: var(--fontWeight-bold);
+  color: var(--textHeadline);
+  margin-bottom: var(--spacing-md);
+  background: linear-gradient(135deg, var(--ownBlue) 0%, var(--ownGreen) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  font-size: var(--mediumFontSize);
+  color: var(--textSecondary);
+}
+
+/* Form Tabs */
+.formTabs {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-3xl);
+  background: var(--cardBackground);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-sm);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.tabButton {
+  padding: var(--spacing-md) var(--spacing-lg);
+  border: none;
+  background: transparent;
+  color: var(--textSecondary);
+  font-weight: var(--fontWeight-medium);
+  cursor: pointer;
+  border-radius: var(--border-radius-md);
+  transition: all var(--transition-base) var(--easing-smooth);
+  font-size: var(--regularFontSize);
+}
+
+.tabButton.active {
+  background: linear-gradient(135deg, var(--ownBlue) 0%, var(--ownGreen) 100%);
+  color: white;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+}
+
+.tabButton:hover:not(.active) {
+  background: var(--elementHover);
+  color: var(--textHeadline);
+}
+
+/* Contact Form */
+.contactForm {
+  padding: var(--spacing-3xl);
+  background: var(--cardBackground);
+  border-radius: var(--border-radius-xl);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--border);
+}
+
+.formHeader {
+  text-align: center;
+  margin-bottom: var(--spacing-3xl);
+}
+
+.formTitle {
+  font-size: var(--titleFontSize);
+  font-weight: var(--fontWeight-semibold);
+  color: var(--textHeadline);
+  margin-bottom: var(--spacing-md);
+  background: linear-gradient(135deg, var(--ownBlue) 0%, var(--ownGreen) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.formDescription {
+  font-size: var(--regularFontSize);
+  color: var(--textSecondary);
+  line-height: 1.6;
+}
+
+.form {
+  width: 100%;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-3xl);
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.formLabel {
+  font-weight: var(--fontWeight-semibold);
+  color: var(--textHeadline);
+  margin-bottom: var(--spacing-sm);
+  font-size: var(--regularFontSize);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.required {
+  color: var(--error);
+  font-weight: var(--fontWeight-bold);
+}
+
+.formInput {
+  padding: var(--spacing-md) var(--spacing-lg);
+  border: 2px solid var(--border);
+  border-radius: var(--border-radius-md);
+  font-size: var(--regularFontSize);
+  transition: all var(--transition-base) var(--easing-smooth);
+  background: var(--inputBackground);
+  font-family: var(--regularTextFont);
+  color: var(--inputText);
+}
+
+.formInput:focus {
+  outline: none;
+  border-color: var(--ownBlue);
+  background: var(--cardBackground);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+.formInput::placeholder {
+  color: var(--inputPlaceholder);
+}
+
+textarea.formInput {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.formActions {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--spacing-3xl);
+}
+
+.submitBtn {
+  padding: var(--spacing-md) var(--spacing-3xl);
+  background: linear-gradient(135deg, var(--ownBlue) 0%, var(--ownGreen) 100%);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius-lg);
+  font-size: var(--regularFontSize);
+  font-weight: var(--fontWeight-semibold);
+  cursor: pointer;
+  transition: all var(--transition-base) var(--easing-smooth);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.2);
+  min-width: 200px;
+  justify-content: center;
+}
+
+.submitBtn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+}
+
+.submitBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Success Message */
+.successMessage {
+  text-align: center;
+  padding: var(--spacing-3xl) var(--spacing-xl);
+  background: var(--cardBackground);
+  border-radius: var(--border-radius-xl);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--border);
+}
+
+.successIcon {
+  font-size: 4rem;
+  margin-bottom: var(--spacing-lg);
+  animation: scaleIn 0.5s var(--easing-smooth);
+}
+
+.successMessage h3 {
+  font-size: var(--largeFontSize);
+  font-weight: var(--fontWeight-semibold);
+  color: var(--success);
+  margin-bottom: var(--spacing-md);
+}
+
+.successMessage p {
+  font-size: var(--regularFontSize);
+  color: var(--textCopy);
+  margin-bottom: var(--spacing-3xl);
+  line-height: 1.6;
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .contactPage {
+    padding: var(--spacing-md);
+  }
+
+  .contactForm {
+    padding: var(--spacing-lg);
+  }
+
+  .formGrid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+
+  .formTitle {
+    font-size: var(--largeFontSize);
+  }
+
+  .submitBtn {
+    width: 100%;
+    padding: var(--spacing-lg) var(--spacing-xl);
+  }
+
+  .formTabs {
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+  }
+
+  .tabButton {
+    flex: 1;
+    min-width: 120px;
+  }
+}
+
+
+
+.contactPage {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--spacing-xl);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: var(--spacing-3xl);
+}
+
+.pageTitle {
+  font-size: var(--titleFontSize);
+  font-weight: var(--fontWeight-bold);
+  color: var(--textHeadline);
+  margin-bottom: var(--spacing-md);
+  background: linear-gradient(135deg, var(--ownBlue) 0%, var(--ownGreen) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  font-size: var(--mediumFontSize);
+  color: var(--textSecondary);
+}
+
+/* Form Tabs */
+.formTabs {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-3xl);
+  background: var(--cardBackground);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-sm);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.tabButton {
+  padding: var(--spacing-md) var(--spacing-lg);
+  border: none;
+  background: transparent;
+  color: var(--textSecondary);
+  font-weight: var(--fontWeight-medium);
+  cursor: pointer;
+  border-radius: var(--border-radius-md);
+  transition: all var(--transition-base) var(--easing-smooth);
+  font-size: var(--regularFontSize);
+}
+
+.tabButton.active {
+  background: linear-gradient(135deg, var(--ownBlue) 0%, var(--ownGreen) 100%);
+  color: white;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+}
+
+.tabButton:hover:not(.active) {
+  background: var(--elementHover);
+  color: var(--textHeadline);
+}
+
+/* Contact Form */
+.contactForm {
+  padding: var(--spacing-3xl);
+  background: var(--cardBackground);
+  border-radius: var(--border-radius-xl);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--border);
+}
+
+.formHeader {
+  text-align: center;
+  margin-bottom: var(--spacing-3xl);
+}
+
+.formTitle {
+  font-size: var(--titleFontSize);
+  font-weight: var(--fontWeight-semibold);
+  color: var(--textHeadline);
+  margin-bottom: var(--spacing-md);
+  background: linear-gradient(135deg, var(--ownBlue) 0%, var(--ownGreen) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.formDescription {
+  font-size: var(--regularFontSize);
+  color: var(--textSecondary);
+  line-height: 1.6;
+}
+
+.form {
+  width: 100%;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-3xl);
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.formLabel {
+  font-weight: var(--fontWeight-semibold);
+  color: var(--textHeadline);
+  margin-bottom: var(--spacing-sm);
+  font-size: var(--regularFontSize);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.required {
+  color: var(--error);
+  font-weight: var(--fontWeight-bold);
+}
+
+.formInput {
+  padding: var(--spacing-md) var(--spacing-lg);
+  border: 2px solid var(--border);
+  border-radius: var(--border-radius-md);
+  font-size: var(--regularFontSize);
+  transition: all var(--transition-base) var(--easing-smooth);
+  background: var(--inputBackground);
+  font-family: var(--regularTextFont);
+  color: var(--inputText);
+}
+
+.formInput:focus {
+  outline: none;
+  border-color: var(--ownBlue);
+  background: var(--cardBackground);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+.formInput::placeholder {
+  color: var(--inputPlaceholder);
+}
+
+textarea.formInput {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.formActions {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--spacing-3xl);
+}
+
+.submitBtn {
+  padding: var(--spacing-md) var(--spacing-3xl);
+  background: linear-gradient(135deg, var(--ownBlue) 0%, var(--ownGreen) 100%);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius-lg);
+  font-size: var(--regularFontSize);
+  font-weight: var(--fontWeight-semibold);
+  cursor: pointer;
+  transition: all var(--transition-base) var(--easing-smooth);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.2);
+  min-width: 200px;
+  justify-content: center;
+}
+
+.submitBtn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+}
+
+.submitBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Success Message */
+.successMessage {
+  text-align: center;
+  padding: var(--spacing-3xl) var(--spacing-xl);
+  background: var(--cardBackground);
+  border-radius: var(--border-radius-xl);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--border);
+}
+
+.successIcon {
+  font-size: 4rem;
+  margin-bottom: var(--spacing-lg);
+  animation: scaleIn 0.5s var(--easing-smooth);
+}
+
+.successMessage h3 {
+  font-size: var(--largeFontSize);
+  font-weight: var(--fontWeight-semibold);
+  color: var(--success);
+  margin-bottom: var(--spacing-md);
+}
+
+.successMessage p {
+  font-size: var(--regularFontSize);
+  color: var(--textCopy);
+  margin-bottom: var(--spacing-3xl);
+  line-height: 1.6;
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .contactPage {
+    padding: var(--spacing-md);
+  }
+
+  .contactForm {
+    padding: var(--spacing-lg);
+  }
+
+  .formGrid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+
+  .formTitle {
+    font-size: var(--largeFontSize);
+  }
+
+  .submitBtn {
+    width: 100%;
+    padding: var(--spacing-lg) var(--spacing-xl);
+  }
+
+  .formTabs {
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+  }
+
+  .tabButton {
+    flex: 1;
+    min-width: 120px;
+  }
+}
+
+
+

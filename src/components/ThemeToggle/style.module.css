@@ -44,12 +44,12 @@
 }
 
 .iconContainer.dark .icon {
-  color: #FCD34D;
+  color: var(--yellow-300);
   animation: rotate 0.3s ease-in-out;
 }
 
 .iconContainer.light .icon {
-  color: #1F2937;
+  color: var(--gray-800);
   animation: rotate 0.3s ease-in-out;
 }
 
@@ -84,11 +84,11 @@
 }
 
 :global(.dark) .iconContainer.dark .icon {
-  color: #FCD34D;
+  color: var(--yellow-300);
 }
 
 :global(.dark) .iconContainer.light .icon {
-  color: #E5E7EB;
+  color: var(--gray-200);
 }
 
 /* Mobile responsive */
