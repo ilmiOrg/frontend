@@ -83,4 +83,4 @@ Create a **premium educational platform** that sets new standards for modern web
 
 ---
 
-**Made with ❤️ by the UniversityMatch Team**
+**Made with ❤️ by the Quad Team**
