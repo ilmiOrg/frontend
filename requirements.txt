@@ -1,0 +1,49 @@
+# Frontend Dependencies - React Application
+# This file documents the main dependencies for the quad-front React application
+# Actual dependency management is handled by package.json and package-lock.json
+
+## Core Framework
+react@^18.2.0
+react-dom@^18.2.0
+react-scripts@5.0.1
+
+## Routing
+react-router-dom@^6.8.0
+
+## State Management & Data Fetching
+react-query@^3.39.0
+
+## Forms
+react-hook-form@^7.43.0
+
+## Internationalization
+react-i18next@^12.1.0
+
+## UI & Styling
+react-icons@^4.7.0
+framer-motion@^10.0.0
+
+## Charts & Visualization
+chart.js@^4.5.1
+
+## Utilities
+lodash@^4.17.21
+date-fns@^2.29.0
+
+## Development Dependencies
+eslint@^8.34.0
+prettier@^2.8.0
+@testing-library/react@^13.4.0
+@testing-library/jest-dom@^5.16.0
+
+## Build Requirements
+- Node.js: 18.x (Alpine Linux)
+- npm: 10.x or higher
+- Docker: For containerized deployment
+- nginx: Alpine (for production serving)
+
+## Docker Build Notes
+- Multi-stage build process
+- Stage 1: Build with Node.js 18 Alpine
+- Stage 2: Serve with nginx Alpine
+- Uses --legacy-peer-deps flag to handle TypeScript peer dependency conflicts
