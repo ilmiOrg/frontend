@@ -241,7 +241,7 @@ function Hero() {
             
             <div className={styles.heroCard}>
               <div className={styles.cardHeader}>
-                <div className={styles.cardTitle}>UniversityMatch</div>
+                <div className={styles.cardTitle}>ilmi</div>
                 <div className={styles.cardSubtitle}>{t('heroSubtitle')}</div>
               </div>
               

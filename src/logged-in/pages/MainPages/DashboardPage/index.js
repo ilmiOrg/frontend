@@ -2,7 +2,8 @@ import React, { useEffect, useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../../../contexts/AuthContext'
 import Chart from 'chart.js/auto'
-import quadLogo from '../../../../assets/images/quad-logo.jpg'
+import ilmiLogo from '../../../../assets/images/ilmi-logo.jpg'
+import { SparklesSectionTitle } from '../../../../components/ui/SparklesSectionTitle'
 import styles from './style.module.css'
 
 const DashboardPage = () => {
@@ -306,8 +307,8 @@ const DashboardPage = () => {
       <aside className={`${styles.leftSidebar} ${leftSidebarCollapsed ? styles.sidebarCollapsed : ''}`}>
         <div className={styles.sidebarHeader}>
           <div className={styles.logo}>
-            <img src={quadLogo} alt="Quad" className={styles.logoImage} />
-            <span>Quad</span>
+            <img src={ilmiLogo} alt="ilmi" className={styles.logoImage} />
+            <span>ilmi</span>
           </div>
           <div className={styles.tagline}>Your university journey starts here</div>
         </div>
@@ -728,7 +729,7 @@ const DashboardPage = () => {
         <section className={styles.achievementsSectionWrapper}>
           <div className={styles.achievementsSection}>
             <div className={styles.sectionHeader}>
-              <h2 className={styles.sectionTitle}>🏆 Your Achievements</h2>
+              <SparklesSectionTitle as="h2" className={styles.sectionTitle}>🏆 Your Achievements</SparklesSectionTitle>
               <div className={styles.sectionActions}>
                 <button className={`${styles.btn} ${styles.btnPrimary}`}>View All</button>
               </div>
@@ -778,7 +779,7 @@ const DashboardPage = () => {
         <section className={styles.recommendedUniversitiesWrapper}>
           <div className={styles.recommendedUniversitiesSection}>
             <div className={styles.sectionHeader}>
-              <h2 className={styles.sectionTitle}>🔒 Recommended Universities</h2>
+              <SparklesSectionTitle as="h2" className={styles.sectionTitle}>🔒 Recommended Universities</SparklesSectionTitle>
               <div className={styles.sectionActions}>
                 <button className={`${styles.btn} ${styles.btnPrimary}`}>View All</button>
               </div>
@@ -839,7 +840,7 @@ const DashboardPage = () => {
         <section className={styles.applicationTimelineWrapper}>
           <div className={styles.applicationTimelineSection}>
             <div className={styles.sectionHeader}>
-              <h2 className={styles.sectionTitle}>📅 Application Timeline</h2>
+              <SparklesSectionTitle as="h2" className={styles.sectionTitle}>📅 Application Timeline</SparklesSectionTitle>
               <div className={styles.sectionActions}>
                 <button className={`${styles.btn} ${styles.btnOutline}`}>Learn More</button>
               </div>
@@ -889,7 +890,7 @@ const DashboardPage = () => {
         <section className={styles.smartMatchingWrapper}>
           <div className={styles.smartMatchingSection}>
             <div className={styles.sectionHeader}>
-              <h2 className={styles.sectionTitle}>🎯 Smart Matching</h2>
+              <SparklesSectionTitle as="h2" className={styles.sectionTitle}>🎯 Smart Matching</SparklesSectionTitle>
             </div>
             <div className={styles.smartMatchingContent}>
               <p>Our AI-powered algorithm matches you with universities that align with your academic goals, budget, and preferences.</p>
@@ -917,7 +918,7 @@ const DashboardPage = () => {
         <section className={styles.searchUniversitiesWrapper}>
           <div className={styles.searchUniversitiesSection}>
             <div className={styles.sectionHeader}>
-              <h2 className={styles.sectionTitle}>🔍 Search Universities</h2>
+              <SparklesSectionTitle as="h2" className={styles.sectionTitle}>🔍 Search Universities</SparklesSectionTitle>
             </div>
             <div className={styles.searchForm}>
               <div className={styles.searchRow}>
@@ -978,7 +979,7 @@ const DashboardPage = () => {
               <section className={styles.searchScholarshipsWrapper}>
                 <div className={styles.searchScholarshipsSection}>
                   <div className={styles.sectionHeader}>
-                    <h2 className={styles.sectionTitle}>💰 Search Scholarships</h2>
+                    <SparklesSectionTitle as="h2" className={styles.sectionTitle}>💰 Search Scholarships</SparklesSectionTitle>
                   </div>
                   <div className={styles.scholarshipForm}>
                     <div className={styles.searchRow}>
@@ -1032,7 +1033,7 @@ const DashboardPage = () => {
               <section className={styles.studyTogetherWrapper}>
                 <div className={styles.studyTogetherSection}>
                   <div className={styles.sectionHeader}>
-                    <h2 className={styles.sectionTitle}>📚 Study Together</h2>
+                    <SparklesSectionTitle as="h2" className={styles.sectionTitle}>📚 Study Together</SparklesSectionTitle>
                     <div className={styles.sectionActions}>
                       <button className={`${styles.btn} ${styles.btnPrimary}`}>Create Study Session</button>
                     </div>
@@ -1158,7 +1159,7 @@ const DashboardPage = () => {
               <section className={styles.detailedTimelineWrapper}>
                 <div className={styles.detailedTimelineSection}>
                   <div className={styles.sectionHeader}>
-                    <h2 className={styles.sectionTitle}>📅 Application Timeline</h2>
+                    <SparklesSectionTitle as="h2" className={styles.sectionTitle}>📅 Application Timeline</SparklesSectionTitle>
                     <div className={styles.sectionActions}>
                       <button className={`${styles.btn} ${styles.btnPrimary}`}>View All</button>
                     </div>

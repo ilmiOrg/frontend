@@ -1,27 +1,52 @@
-/* Quad - Premium Landing Page */
+/* ilmi - Premium Landing Page */
 
-/* ===== PAGE LAYOUT - NO EXTRA SPACE ===== */
+/* ===== PAGE LAYOUT - Navbar and scroll area fully separate (scrollbar thumb not cut) ===== */
 .page {
-  display: block;
+  --navbar-height: 72px;
+  display: flex;
+  flex-direction: column;
   background: var(--black);
   color: var(--white-fafafa);
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  min-height: 100vh;
+  height: 100vh;
   width: 100%;
-  overflow: visible;
+  overflow: hidden;
 }
 
-/* ===== NAVIGATION ===== */
+/* Navbar is first row; fixed height so hero = viewport - navbar exactly */
 .navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  padding: 20px 0;
-  background: var(--black-opacity-6);
+  flex: 0 0 auto;
+  height: var(--navbar-height);
+  min-height: var(--navbar-height);
+  padding: 14px 0;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  background: var(--color-base);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  transition: background var(--transition-base, 0.3s ease), border-color var(--transition-base, 0.3s ease);
+}
+
+:global(body[theme='light']) .navbar {
+  border-bottom-color: var(--gray-200);
+}
+
+/* Scroll area fills remaining height; scrollbar lives entirely here (not cut) */
+.scrollArea {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+}
+
+.mainScroll {
+  height: 100%;
+  width: 100%;
+}
+
+.scrollContent {
+  min-height: 100%;
 }
 
 .navContainer {
@@ -42,7 +67,7 @@
   cursor: pointer;
   font-size: 20px;
   font-weight: 700;
-  color: var(--text-white);
+  color: var(--color-contrast);
   letter-spacing: -0.5px;
 }
 
@@ -78,22 +103,54 @@
 .navLink {
   background: none;
   border: none;
-  color: var(--text-white-6);
+  color: var(--color-contrast);
+  opacity: 0.85;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  transition: color 0.2s;
+  transition: color 0.2s, opacity 0.2s;
   font-family: inherit;
 }
 
 .navLink:hover {
-  color: var(--text-white);
+  opacity: 1;
+  color: var(--color-contrast);
 }
 
 .navButtons {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--spacing-md, 16px);
+}
+
+/* Theme + language – right of Log in / Get started */
+.navControls {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm, 8px);
+  margin-left: var(--spacing-sm, 8px);
+}
+
+.navControls :global(button) {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--color-contrast);
+}
+
+.navControls :global(button:hover) {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+:global(body[theme='light']) .navControls :global(button) {
+  border-color: var(--gray-300);
+  background: var(--gray-50);
+  color: var(--color-contrast);
+}
+
+:global(body[theme='light']) .navControls :global(button:hover) {
+  background: var(--gray-100);
+  border-color: var(--gray-400);
 }
 
 .btnGhost {
@@ -141,13 +198,15 @@
 }
 
 /* ===== HERO ===== */
+/* One viewport tall (below navbar) so canvas end = fold; robot feet at bottom; scroll goes to Features */
 .hero {
   position: relative;
   width: 100%;
-  height: 100vh;
-  min-height: 560px;
+  height: calc(100vh - var(--navbar-height));
+  min-height: 400px;
   overflow: hidden;
   background: var(--black);
+  flex-shrink: 0;
 }
 
 /* Robot: full width and height so cursor reacts everywhere (left, center, right). To move robot right, change camera in Spline editor. */
@@ -919,4 +978,48 @@
     flex-direction: column;
     gap: 8px;
   }
+}
+
+/* ===== LIGHT MODE (EnviroVision-style) ===== */
+:global(body[theme='light']) .page {
+  background: var(--white-fafafa);
+  color: var(--textCopy);
+}
+
+:global(body[theme='light']) .navbar {
+  background: var(--color-base);
+  border-bottom: 1px solid var(--gray-200);
+}
+
+:global(body[theme='light']) .logo {
+  color: var(--color-contrast);
+}
+
+:global(body[theme='light']) .navLink {
+  color: var(--color-contrast);
+  opacity: 0.85;
+}
+
+:global(body[theme='light']) .navLink:hover {
+  color: var(--color-contrast);
+  opacity: 1;
+}
+
+:global(body[theme='light']) .btnGhost {
+  color: var(--gray-700);
+  border-color: var(--gray-300);
+}
+
+:global(body[theme='light']) .btnGhost:hover {
+  background: var(--gray-100);
+  color: var(--gray-900);
+}
+
+:global(body[theme='light']) .btnPrimary {
+  background: var(--accent-blue);
+  color: white;
+}
+
+:global(body[theme='light']) .btnPrimary:hover {
+  background: var(--accent-blue-dark);
 }

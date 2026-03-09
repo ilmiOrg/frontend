@@ -1,0 +1,98 @@
+/* OverlayScrollbars base - thumb only, own-react style */
+@import 'overlayscrollbars/overlayscrollbars.css';
+
+.scrollContainer {
+  --scrollbar-track-bg: transparent;
+  --scrollbar-handle-bg: var(--scrollbar-thumb-fill, rgba(84, 121, 181, 0.5));
+  --scrollbar-border-color: var(--scrollbar-thumb-border, var(--ownBlue));
+  --scrollbar-stripe-color: var(--scrollbar-thumb-stripe, rgba(120, 160, 220, 0.45));
+  --scrollbar-width: 6px;
+  height: 100%;
+}
+
+.disableHorizontalScroll :global(.os-scrollbar-horizontal) {
+  display: none !important;
+}
+
+.disableVerticalScroll :global(.os-scrollbar-vertical) {
+  display: none !important;
+}
+
+.scrollContainer :global(.os-scrollbar-track) {
+  background-color: var(--scrollbar-track-bg) !important;
+  padding: 0;
+}
+
+.scrollContainer :global(.os-scrollbar-vertical .os-scrollbar-track) {
+  width: var(--scrollbar-width) !important;
+  right: 2px !important;
+}
+
+.scrollContainer :global(.os-scrollbar-horizontal .os-scrollbar-track) {
+  height: var(--scrollbar-width) !important;
+  bottom: 0;
+}
+
+.scrollContainer :global(.os-scrollbar-handle) {
+  cursor: pointer;
+  border-radius: var(--border-radius-full, 999px) !important;
+  border: 2px solid var(--scrollbar-border-color) !important;
+  background-color: var(--scrollbar-handle-bg) !important;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 1px,
+    var(--scrollbar-stripe-color) 1px,
+    var(--scrollbar-stripe-color) 2px
+  ) !important;
+  opacity: 1 !important;
+  min-height: 50px !important;
+  min-width: 10px !important;
+  box-shadow: none;
+}
+
+.scrollContainer :global(.os-scrollbar-handle:hover) {
+  border-color: var(--scrollbar-thumb-hover-border, #0cf) !important;
+  opacity: 1 !important;
+}
+
+.scrollContainer :global(.os-scrollbar) {
+  pointer-events: auto !important;
+}
+
+.scrollContainer :global(.os-scrollbar-unusable) {
+  display: none !important;
+}
+
+.scrollContainer :global(.os-scrollbar-vertical) {
+  z-index: 10 !important;
+  right: 2px !important;
+  top: 2px !important;
+  bottom: 2px !important;
+  width: var(--scrollbar-width) !important;
+}
+
+.scrollContainer :global(.os-scrollbar-horizontal) {
+  z-index: 10 !important;
+  bottom: 0 !important;
+  left: 2px !important;
+  right: 2px !important;
+  height: var(--scrollbar-width) !important;
+}
+
+.scrollContainer :global(.os-viewport) {
+  width: 100%;
+  height: 100%;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  will-change: scroll-position;
+  transform: translateZ(0);
+}
+
+.scrollContainer :global(.os-viewport::-webkit-scrollbar) {
+  display: none;
+}
+
+.scrollContainer :global(.os-content) {
+  box-sizing: border-box;
+}

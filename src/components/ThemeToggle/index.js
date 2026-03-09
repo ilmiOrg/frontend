@@ -31,9 +31,11 @@ const ThemeToggle = () => {
         if (shouldBeDark) {
           document.documentElement.classList.add('dark');
           document.documentElement.classList.remove('light');
+          document.body.setAttribute('theme', 'dark');
         } else {
           document.documentElement.classList.remove('dark');
           document.documentElement.classList.add('light');
+          document.body.setAttribute('theme', 'light');
         }
         
         console.log('Theme initialized:', shouldBeDark ? 'dark' : 'light');
@@ -43,6 +45,7 @@ const ThemeToggle = () => {
         setIsDarkMode(false);
         document.documentElement.classList.remove('dark');
         document.documentElement.classList.add('light');
+        document.body.setAttribute('theme', 'light');
       }
     };
 
@@ -63,10 +66,12 @@ const ThemeToggle = () => {
       if (newTheme) {
         document.documentElement.classList.add('dark');
         document.documentElement.classList.remove('light');
+        document.body.setAttribute('theme', 'dark');
         localStorage.setItem('theme', 'dark');
       } else {
         document.documentElement.classList.remove('dark');
         document.documentElement.classList.add('light');
+        document.body.setAttribute('theme', 'light');
         localStorage.setItem('theme', 'light');
       }
       

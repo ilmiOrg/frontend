@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
-import { translate } from '../localization/translate';
 import loaders from '../localization';
 
-// Language configuration
+// Language configuration (EN, RU, Tajik, Kyrgyz, Kazakh)
 const languages = {
-  en: { name: 'English', flag: '🇺🇸', dir: 'ltr' },
-  ru: { name: 'Русский', flag: '🇷🇺', dir: 'ltr' }
+  en: { name: 'English', shortCode: 'EN', flag: '🇺🇸', dir: 'ltr' },
+  ru: { name: 'Русский', shortCode: 'RU', flag: '🇷🇺', dir: 'ltr' },
+  tg: { name: 'Тоҷикӣ', shortCode: 'TG', flag: '🇹🇯', dir: 'ltr' },
+  ky: { name: 'Кыргызча', shortCode: 'KY', flag: '🇰🇬', dir: 'ltr' },
+  kk: { name: 'Қазақша', shortCode: 'KK', flag: '🇰🇿', dir: 'ltr' }
 };
 
 // Translation cache

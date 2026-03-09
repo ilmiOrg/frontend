@@ -1,4 +1,5 @@
 import React from 'react'
+import { SparklesSectionTitle } from '../../../../components/ui/SparklesSectionTitle'
 import styles from './style.module.css'
 
 const FeaturesSection = () => {
@@ -38,7 +39,7 @@ const FeaturesSection = () => {
   return (
     <section className={styles.features} id="features">
       <div className={styles.featuresContainer}>
-        <h2 className={styles.sectionTitle}>Everything You Need</h2>
+        <SparklesSectionTitle as="h2" className={styles.sectionTitle}>Everything You Need</SparklesSectionTitle>
         <p className={styles.sectionSubtitle}>
           Our comprehensive platform provides all the tools and resources you need to find your perfect university match.
         </p>

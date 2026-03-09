@@ -1,9 +1,13 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../../contexts/AuthContext'
-import quadLogo from '../../../assets/images/quad-logo.jpg'
+import ilmiLogo from '../../../assets/images/ilmi-logo.jpg'
 import { SplineScene } from '../../../components/SplineScene'
 import { Spotlight } from '../../../components/Spotlight'
+import { LandingSparklesHeader } from '../../../components/ui/LandingSparklesHeader'
+import { SkyToggle } from '../../../components/ui/SkyToggle'
+import LanguageSwitcher from '../../../components/LanguageSwitcher'
+import { ScrollContainer } from '../../../components/ui/ScrollContainer'
 import styles from './style.module.css'
 
 const SPLINE_SCENE_URL = 'https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode'
@@ -21,51 +25,55 @@ const HERO_COPY = {
 const PublicHomePage = () => {
   const navigate = useNavigate()
   const { login } = useAuth()
-  
+  const [isDark, setIsDark] = useState(() => {
+    if (typeof window === 'undefined') return true
+    const saved = localStorage.getItem('theme')
+    if (saved === 'light') return false
+    if (saved === 'dark') return true
+    return true
+  })
+
+  useEffect(() => {
+    const handler = () => setIsDark(document.body.getAttribute('theme') === 'dark')
+    window.addEventListener('themeChanged', handler)
+    return () => window.removeEventListener('themeChanged', handler)
+  }, [])
+
+  const toggleTheme = () => {
+    const next = !isDark
+    setIsDark(next)
+    document.body.setAttribute('theme', next ? 'dark' : 'light')
+    document.documentElement.classList.toggle('dark', next)
+    document.documentElement.classList.toggle('light', !next)
+    localStorage.setItem('theme', next ? 'dark' : 'light')
+    window.dispatchEvent(new CustomEvent('themeChanged', { detail: { theme: next ? 'dark' : 'light', isDark: next } }))
+  }
+
   // Section refs for smooth scrolling
   const featuresRef = useRef(null)
   const pricingRef = useRef(null)
   const aboutRef = useRef(null)
 
-  // Layout styling for logged-out mode - SINGLE scrollbar on body
+  // Layout: no body scroll – only ScrollContainer (custom scrollbar on the right)
   useEffect(() => {
     const styleEl = document.createElement('style')
-    styleEl.id = 'quad-page-styles'
+    styleEl.id = 'ilmi-page-styles'
     styleEl.textContent = `
-      /* html doesn't scroll - just contains body */
-      html {
+      html, body {
         overflow: hidden !important;
         height: 100% !important;
-        background: #000 !important;
-      }
-      
-      /* body is the ONLY scrollable element */
-      body {
-        overflow-x: hidden !important;
-        overflow-y: auto !important;
-        height: 100% !important;
-        background: #000 !important;
         margin: 0 !important;
         padding: 0 !important;
-        scroll-behavior: smooth !important;
+        background: transparent !important;
       }
-      
       #root {
-        overflow: visible !important;
-        height: auto !important;
-        min-height: 100% !important;
-      }
-      
-      /* Hide html scrollbar completely */
-      html::-webkit-scrollbar { 
-        display: none !important;
-        width: 0 !important; 
+        height: 100% !important;
+        overflow: hidden !important;
       }
     `
     document.head.appendChild(styleEl)
-
     return () => {
-      const existingStyle = document.getElementById('quad-page-styles')
+      const existingStyle = document.getElementById('ilmi-page-styles')
       if (existingStyle) existingStyle.remove()
     }
   }, [])
@@ -84,12 +92,12 @@ const PublicHomePage = () => {
 
   return (
     <div className={styles.page}>
-      {/* Navigation */}
+      {/* Navigation – fixed above scroll area */}
       <nav className={styles.navbar}>
         <div className={styles.navContainer}>
           <button onClick={() => navigate('/')} className={styles.logo}>
-            <img src={quadLogo} alt="Quad" className={styles.logoImage} />
-            <span>Quad</span>
+            <img src={ilmiLogo} alt="ilmi" className={styles.logoImage} />
+            <span>ilmi</span>
           </button>
           <div className={styles.navCenter}>
             <button className={styles.navLink} onClick={() => scrollToSection(featuresRef)}>Features</button>
@@ -103,10 +111,18 @@ const PublicHomePage = () => {
             <button onClick={handleLogin} className={styles.btnPrimary}>
               Get started
             </button>
+            <div className={styles.navControls}>
+              <SkyToggle checked={isDark} onChange={toggleTheme} />
+              <LanguageSwitcher className={styles.navLang} />
+            </div>
           </div>
         </div>
       </nav>
 
+      {/* Main scroll area – below navbar so scrollbar doesn’t overlap it */}
+      <div className={styles.scrollArea}>
+        <ScrollContainer className={styles.mainScroll} disableHorizontalScroll>
+          <div className={styles.scrollContent}>
       {/* Hero: robot full space; content inside so robot can react to hover over text */}
       <section className={styles.hero}>
         <div className={styles.heroSplineWrap}>
@@ -119,7 +135,7 @@ const PublicHomePage = () => {
           <div className={styles.heroOverlay} aria-hidden />
           <Spotlight
             className={styles.heroSpotlight}
-            fill="var(--text-white)"
+            fill="var(--color-contrast)"
           />
           <div className={styles.heroContentWrap}>
             <div className={styles.heroContent}>
@@ -154,12 +170,7 @@ const PublicHomePage = () => {
       {/* Features Section */}
       <section className={styles.features} ref={featuresRef}>
         <div className={styles.featuresContainer}>
-          <div className={styles.sectionHeader}>
-            <span className={styles.sectionTag}>Features</span>
-            <h2 className={styles.sectionTitle}>
-              Everything you need to<br />find your dream school
-            </h2>
-          </div>
+          <LandingSparklesHeader title="Features" />
 
           <div className={styles.featuresGrid}>
             <div className={styles.featureCard}>
@@ -212,12 +223,7 @@ const PublicHomePage = () => {
       {/* Pricing Section */}
       <section className={styles.pricing} ref={pricingRef}>
         <div className={styles.pricingContainer}>
-          <div className={styles.sectionHeader}>
-            <span className={styles.sectionTag}>Pricing</span>
-            <h2 className={styles.sectionTitle}>
-              Choose the plan that<br />works for you
-            </h2>
-          </div>
+          <LandingSparklesHeader title="Pricing" />
 
           <div className={styles.pricingGrid}>
             <div className={styles.pricingCard}>
@@ -287,17 +293,12 @@ const PublicHomePage = () => {
       {/* About Section */}
       <section className={styles.about} ref={aboutRef}>
         <div className={styles.aboutContainer}>
-          <div className={styles.sectionHeader}>
-            <span className={styles.sectionTag}>About</span>
-            <h2 className={styles.sectionTitle}>
-              Empowering students to<br />find their perfect match
-            </h2>
-          </div>
+          <LandingSparklesHeader title="About" />
 
           <div className={styles.aboutContent}>
             <div className={styles.aboutText}>
               <p className={styles.aboutDesc}>
-                Quad was born from a simple idea: finding the right university shouldn't be 
+                ilmi was born from a simple idea: finding the right university shouldn't be 
                 complicated or overwhelming. We use cutting-edge AI to match students with 
                 universities that align with their goals, budget, and aspirations.
               </p>
@@ -336,7 +337,7 @@ const PublicHomePage = () => {
           <div className={styles.ctaContent}>
             <h2 className={styles.ctaTitle}>Ready to find your match?</h2>
             <p className={styles.ctaDesc}>
-              Join 50,000+ students who found their dream university with Quad.
+              Join 50,000+ students who found their dream university with ilmi.
             </p>
             <button onClick={handleLogin} className={styles.btnCta}>
               Get started free
@@ -351,8 +352,8 @@ const PublicHomePage = () => {
         <div className={styles.footerContainer}>
           <div className={styles.footerBrand}>
             <div className={styles.footerLogo}>
-              <img src={quadLogo} alt="Quad" className={styles.footerLogoImg} />
-              <span>Quad</span>
+              <img src={ilmiLogo} alt="ilmi" className={styles.footerLogoImg} />
+              <span>ilmi</span>
             </div>
             <span className={styles.footerCopy}>© 2024 All rights reserved</span>
           </div>
@@ -363,6 +364,9 @@ const PublicHomePage = () => {
           </div>
         </div>
       </footer>
+          </div>
+        </ScrollContainer>
+      </div>
     </div>
   )
 }

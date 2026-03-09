@@ -1,101 +1,45 @@
-import React, { useState } from 'react';
-import { FiChevronDown } from 'react-icons/fi';
+import React from 'react';
 import { languages } from '../../hooks/useLanguage';
 import { useLanguage, useTranslation } from '../../hooks/useLanguage';
 import styles from './style.module.css';
 
-const LanguageSwitcher = () => {
-  const [isOpen, setIsOpen] = useState(false);
+/**
+ * Language strip: multiple flags in a pill (size/shape similar to SkyToggle).
+ * One click per flag to switch; clean and clear; scales by adding more flag buttons.
+ */
+const LanguageSwitcher = ({ className = '' }) => {
   const { currentLanguage, isLoading, changeLanguage } = useLanguage();
   const { t } = useTranslation();
 
-  const handleLanguageChange = async (languageCode) => {
-    if (languageCode === currentLanguage) {
-      setIsOpen(false);
-      return;
-    }
-
-    const success = await changeLanguage(languageCode);
-    
-    if (success) {
-      setIsOpen(false);
-      const config = languages[languageCode];
-      if (config) {
-        console.log(`Language switched to ${config.name}`);
-      }
-    } else {
-      console.error('Failed to switch language');
-    }
-  };
-
-  // Get current language config with fallback
-  const currentLangConfig = languages[currentLanguage] || { 
-    name: 'English', 
-    flag: '🇺🇸', 
-    dir: 'ltr' 
+  const handleSelect = async (code) => {
+    if (code === currentLanguage) return;
+    await changeLanguage(code);
   };
 
   return (
-    <div className={styles.languageSwitcher}>
-      <button 
-        className={styles.languageToggle}
-        onClick={() => setIsOpen(!isOpen)}
-        disabled={isLoading}
-        aria-label={t('language')}
-      >
-        <span className={styles.languageFlag}>
-          {currentLangConfig.flag}
-        </span>
-        <span className={styles.languageName}>
-          {currentLangConfig.name}
-        </span>
-        <FiChevronDown 
-          className={`${styles.chevron} ${isOpen ? styles.open : ''}`}
-        />
-      </button>
-
-      {isOpen && (
-        <div className={styles.languageMenu}>
-          <div className={styles.languageList}>
-            {Object.entries(languages).map(([code, config]) => {
-              // Ensure config exists and has required properties
-              if (!config || !config.flag || !config.name) {
-                console.warn(`Invalid config for language ${code}:`, config);
-                return null;
-              }
-              
-              return (
-                <button
-                  key={code}
-                  className={`${styles.languageOption} ${
-                    code === currentLanguage ? styles.active : ''
-                  }`}
-                  onClick={() => handleLanguageChange(code)}
-                  disabled={isLoading}
-                >
-                  <span className={styles.optionFlag}>
-                    {config.flag}
-                  </span>
-                  <span className={styles.optionName}>
-                    {config.name}
-                  </span>
-                  {code === currentLanguage && (
-                    <span className={styles.checkmark}>✓</span>
-                  )}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      )}
-
-      {/* Overlay to close menu when clicking outside */}
-      {isOpen && (
-        <div 
-          className={styles.overlay}
-          onClick={() => setIsOpen(false)}
-        />
-      )}
+    <div
+      className={`${styles.langStrip} ${className}`.trim()}
+      role="group"
+      aria-label={t('language')}
+    >
+      {Object.entries(languages).map(([code, config]) => {
+        if (!config?.flag) return null;
+        const isActive = code === currentLanguage;
+        return (
+          <button
+            key={code}
+            type="button"
+            className={`${styles.langFlagBtn} ${isActive ? styles.active : ''}`}
+            onClick={() => handleSelect(code)}
+            disabled={isLoading}
+            aria-pressed={isActive}
+            aria-label={config.name}
+            title={config.name}
+          >
+            <span className={styles.flagEmoji}>{config.flag}</span>
+          </button>
+        );
+      })}
     </div>
   );
 };

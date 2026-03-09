@@ -1,0 +1,105 @@
+/* EnviroVision LangToggle – EN (UK/US) vs RU with sliding knob */
+
+.wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.langSwitch {
+  --track-w: 92px;
+  --track-h: 42px;
+  --knob: 38px;
+  --offset: 2px;
+  --ease: 0.5s cubic-bezier(0, -0.02, 0.4, 1.25);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
+}
+
+.checkbox {
+  display: none;
+}
+
+.track {
+  position: relative;
+  width: var(--track-w);
+  height: var(--track-h);
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+
+.wrapper[data-dark="true"] .track {
+  background: #3b82f6;
+  box-shadow: 0 -0.062em 0.062em rgba(0, 0, 0, 0.35), 0 0.062em 0.125em rgba(255, 255, 255, 0.06), 0.05em 0.05em 0.187em rgba(0, 0, 0, 0.3) inset;
+}
+
+.wrapper[data-dark="false"] .track,
+.wrapper:not([data-dark]) .track {
+  background: #bae6fd;
+  box-shadow: 0 -0.062em 0.062em rgba(0, 0, 0, 0.08), 0 0.062em 0.125em rgba(255, 255, 255, 0.9), 0.05em 0.05em 0.187em rgba(0, 0, 0, 0.12) inset, 0 0 0 1px rgba(0, 0, 0, 0.06);
+}
+
+.flag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--knob);
+  height: var(--knob);
+  flex-shrink: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+  margin: 0 var(--offset);
+  transition: opacity var(--ease);
+  pointer-events: none;
+}
+
+.flagSvg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.flagEn {
+  opacity: 1;
+}
+
+.flagRu {
+  opacity: 0.32;
+}
+
+.checkbox:checked ~ .track .flagEn {
+  opacity: 0.32;
+}
+
+.checkbox:checked ~ .track .flagRu {
+  opacity: 1;
+}
+
+.knob {
+  position: absolute;
+  top: 50%;
+  left: var(--offset);
+  width: var(--knob);
+  height: var(--knob);
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  border: 2.5px solid rgba(255, 255, 255, 0.7);
+  z-index: 3;
+  pointer-events: none;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  transition: left var(--ease);
+}
+
+.checkbox:checked ~ .track .knob {
+  left: calc(var(--track-w) - var(--knob) - var(--offset));
+}

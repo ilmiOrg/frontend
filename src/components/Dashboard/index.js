@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ScrollContainer from '../ui-components/ScrollContainer';
+import { SparklesSectionTitle } from '../ui/SparklesSectionTitle';
 import { 
   FiUser, 
   FiBell, 
@@ -451,7 +452,7 @@ const Dashboard = () => {
               {/* Recent Activity */}
               <div className={styles.recentActivity}>
                 <div className={styles.sectionHeader}>
-                  <h2 className={styles.sectionTitle}>Recent Activity</h2>
+                  <SparklesSectionTitle as="h2" className={styles.sectionTitle}>Recent Activity</SparklesSectionTitle>
                   <button className="btn btn-outline btn-sm">View All</button>
                 </div>
                 
@@ -536,7 +537,7 @@ const Dashboard = () => {
           {activeTab === 'applications' && (
             <div className={styles.applicationsTab}>
               <div className={styles.sectionHeader}>
-                <h2 className={styles.sectionTitle}>My Applications</h2>
+                <SparklesSectionTitle as="h2" className={styles.sectionTitle}>My Applications</SparklesSectionTitle>
                 <button className="btn btn-primary">
                   <FiPlus />
                   New Application
@@ -612,7 +613,7 @@ const Dashboard = () => {
           {activeTab === 'matches' && (
             <div className={styles.matchesTab}>
               <div className={styles.sectionHeader}>
-                <h2 className={styles.sectionTitle}>University Matches</h2>
+                <SparklesSectionTitle as="h2" className={styles.sectionTitle}>University Matches</SparklesSectionTitle>
                 <button className="btn btn-outline">
                   <FiFilter />
                   Filter Matches
@@ -687,7 +688,7 @@ const Dashboard = () => {
           {activeTab === 'scholarships' && (
             <div className={styles.scholarshipsTab}>
               <div className={styles.sectionHeader}>
-                <h2 className={styles.sectionTitle}>Scholarship Opportunities</h2>
+                <SparklesSectionTitle as="h2" className={styles.sectionTitle}>Scholarship Opportunities</SparklesSectionTitle>
                 <button className="btn btn-outline">
                   <FiSearch />
                   Find More

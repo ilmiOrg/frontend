@@ -1,281 +1,86 @@
-/* Language Switcher Component Styles */
+/* Language strip – pill with multiple flags; size/shape similar to SkyToggle (dark/white mode) */
 
-.languageSwitcher {
-  position: relative;
-  display: inline-block;
+.langStrip {
+  /* Match SkyToggle height: 2.5em ≈ 40px */
+  --strip-height: 2.5em;
+  --strip-padding: 3px;
+  --strip-radius: var(--border-radius-full);
+  display: inline-flex;
+  align-items: stretch;
+  height: var(--strip-height);
+  padding: var(--strip-padding);
+  border-radius: var(--strip-radius);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  gap: 2px;
+  box-sizing: border-box;
+  transition: border-color var(--transition-fast), background var(--transition-fast);
 }
 
-.languageToggle {
+.langStrip:hover {
+  border-color: rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+/* Light theme – match nav control style */
+:global(body[theme='light']) .langStrip {
+  background: var(--gray-50);
+  border-color: var(--gray-300);
+}
+
+:global(body[theme='light']) .langStrip:hover {
+  background: var(--gray-100);
+  border-color: var(--gray-400);
+}
+
+.langFlagBtn {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-2) var(--space-3);
-  background: var(--color-surface);
-  border: 1px solid var(--color-neutral-300);
-  border-radius: var(--radius-lg);
-  color: var(--color-neutral-700);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  cursor: pointer;
-  transition: all var(--transition-normal);
-  min-width: 120px;
-}
-
-.languageToggle:hover {
-  border-color: var(--color-primary);
-  color: var(--color-primary);
-  background: var(--color-primary-50);
-}
-
-.languageToggle:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-}
-
-.languageToggle:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.languageFlag {
-  font-size: var(--font-size-lg);
-  line-height: 1;
-}
-
-.languageName {
+  justify-content: center;
   flex: 1;
-  text-align: left;
-}
-
-.chevron {
-  font-size: var(--font-size-sm);
-  transition: transform var(--transition-normal);
-  color: var(--color-neutral-500);
-}
-
-.chevron.open {
-  transform: rotate(180deg);
-}
-
-.languageMenu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  background: var(--color-surface);
-  border: 1px solid var(--color-neutral-200);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-xl);
-  z-index: var(--z-dropdown);
-  margin-top: var(--space-2);
-  animation: slideInDown 0.3s ease-out;
-  overflow: hidden;
-}
-
-.languageList {
-  max-height: 300px;
-  overflow-y: auto;
-  padding: var(--space-2) 0;
-}
-
-.languageOption {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  width: 100%;
-  padding: var(--space-3) var(--space-4);
-  background: none;
+  min-width: 0;
+  padding: 0 var(--spacing-xs);
   border: none;
-  color: var(--color-neutral-700);
-  font-size: var(--font-size-sm);
+  border-radius: calc(var(--strip-radius) - 2px);
+  background: transparent;
   cursor: pointer;
-  transition: all var(--transition-normal);
-  text-align: left;
+  transition: background var(--transition-fast);
+  font-size: 1rem;
+  line-height: 1;
 }
 
-.languageOption:hover {
-  background: var(--color-primary-50);
-  color: var(--color-primary);
+.langFlagBtn:hover {
+  background: rgba(255, 255, 255, 0.08);
 }
 
-.languageOption.active {
-  background: var(--color-primary-100);
-  color: var(--color-primary);
-  font-weight: var(--font-weight-semibold);
+:global(body[theme='light']) .langFlagBtn:hover {
+  background: var(--gray-200);
 }
 
-.languageOption:disabled {
+.langFlagBtn.active {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+:global(body[theme='light']) .langFlagBtn.active {
+  background: var(--gray-300);
+  color: var(--color-contrast);
+}
+
+.langFlagBtn:focus {
+  outline: none;
+}
+
+.langFlagBtn:focus-visible {
+  box-shadow: 0 0 0 2px var(--ownBlue);
+}
+
+.langFlagBtn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
 
-.optionFlag {
-  font-size: var(--font-size-lg);
+.flagEmoji {
+  font-size: 1.1em;
   line-height: 1;
-  width: 24px;
-  text-align: center;
-}
-
-.optionName {
-  flex: 1;
-  font-weight: var(--font-weight-medium);
-}
-
-
-.checkmark {
-  color: var(--color-primary);
-  font-weight: var(--font-weight-bold);
-  font-size: var(--font-size-sm);
-}
-
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: calc(var(--z-dropdown) - 1);
-  background: transparent;
-}
-
-/* RTL Support */
-[dir="rtl"] .languageToggle {
-  flex-direction: row-reverse;
-}
-
-[dir="rtl"] .languageName {
-  text-align: right;
-}
-
-[dir="rtl"] .languageOption {
-  flex-direction: row-reverse;
-}
-
-[dir="rtl"] .optionName {
-  text-align: right;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .languageToggle {
-    min-width: 100px;
-    padding: var(--space-2);
-  }
-  
-  .languageName {
-    display: none;
-  }
-  
-  .languageMenu {
-    left: -50px;
-    right: -50px;
-    min-width: 200px;
-  }
-  
-  .languageOption {
-    padding: var(--space-2) var(--space-3);
-  }
-}
-
-@media (max-width: 480px) {
-  .languageToggle {
-    min-width: 60px;
-    padding: var(--space-1) var(--space-2);
-  }
-  
-  .languageFlag {
-    font-size: var(--font-size-base);
-  }
-  
-  .chevron {
-    font-size: var(--font-size-xs);
-  }
-  
-  .languageMenu {
-    left: -100px;
-    right: -100px;
-    min-width: 250px;
-  }
-  
-  .optionFlag {
-    font-size: var(--font-size-base);
-  }
-  
-  .optionName {
-    font-size: var(--font-size-xs);
-  }
-}
-
-/* Dark Mode Support */
-@media (prefers-color-scheme: dark) {
-  .languageToggle {
-    background: var(--color-neutral-800);
-    border-color: var(--color-neutral-600);
-    color: var(--color-neutral-300);
-  }
-  
-  .languageToggle:hover {
-    background: var(--color-primary-900);
-    border-color: var(--color-primary);
-    color: var(--color-primary-200);
-  }
-  
-  .languageMenu {
-    background: var(--color-neutral-800);
-    border-color: var(--color-neutral-600);
-  }
-  
-  .languageOption {
-    color: var(--color-neutral-300);
-  }
-  
-  .languageOption:hover {
-    background: var(--color-primary-900);
-    color: var(--color-primary-200);
-  }
-  
-  .languageOption.active {
-    background: var(--color-primary-800);
-    color: var(--color-primary-200);
-  }
-}
-
-/* High Contrast Mode */
-@media (prefers-contrast: high) {
-  .languageToggle {
-    border: 2px solid var(--color-neutral-400);
-  }
-  
-  .languageToggle:hover {
-    border: 2px solid var(--color-primary);
-  }
-  
-  .languageMenu {
-    border: 2px solid var(--color-neutral-400);
-  }
-  
-  .languageOption {
-    border-bottom: 1px solid var(--color-neutral-300);
-  }
-  
-  .languageOption:last-child {
-    border-bottom: none;
-  }
-}
-
-/* Reduced Motion */
-@media (prefers-reduced-motion: reduce) {
-  .languageToggle,
-  .languageOption,
-  .chevron {
-    transition: none;
-  }
-  
-  .languageMenu {
-    animation: none;
-  }
-  
-  .chevron.open {
-    transform: none;
-  }
+  display: block;
 }

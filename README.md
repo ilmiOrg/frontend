@@ -155,4 +155,4 @@ For issues or questions, contact: support@universitymatch.com
 
 ---
 
-**Made with ❤️ by the Quad Team**
+**Made with ❤️ by the ilmi team**

@@ -1,7 +1,7 @@
 {
-  "name": "UniversityMatch - AI-Powered University Matching",
-  "short_name": "UniversityMatch",
-  "description": "Discover your dream university with AI-powered matching for perfect fit",
+  "name": "ilmi - AI-Powered University Matching",
+  "short_name": "ilmi",
+  "description": "Discover your dream university with ilmi's AI-powered matching for perfect fit",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#FAFAFA",
@@ -13,9 +13,9 @@
   "categories": ["education", "productivity", "utilities"],
   "icons": [
     {
-      "src": "/favicon.ico",
+      "src": "/ilmi-icon.jpg",
       "sizes": "16x16 32x32",
-      "type": "image/x-icon"
+      "type": "image/jpeg"
     }
   ]
 }

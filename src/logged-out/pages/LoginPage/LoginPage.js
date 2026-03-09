@@ -31,7 +31,7 @@ const LoginPage = () => {
       <div className={styles.loginContainer}>
         <div className={styles.loginCard}>
           <div className={styles.loginHeader}>
-            <h1 className={styles.logo}>UniversityMatch</h1>
+            <h1 className={styles.logo}>ilmi</h1>
             <p className={styles.subtitle}>Welcome back! Please sign in to your account.</p>
           </div>
 
@@ -114,7 +114,7 @@ const LoginPage = () => {
       <div className={styles.loginContainer}>
         <div className={styles.loginCard}>
           <div className={styles.loginHeader}>
-            <h1 className={styles.logo}>UniversityMatch</h1>
+            <h1 className={styles.logo}>ilmi</h1>
             <p className={styles.subtitle}>Welcome back! Please sign in to your account.</p>
           </div>
 

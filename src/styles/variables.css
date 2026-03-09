@@ -83,6 +83,23 @@
      ======================================== */
   --modal-backdrop-opacity: 0.8;
   --modal-backdrop-blur: 10px;
+  /* Custom scrollbar (thumb only, own-react style: pill + stripes) */
+  --scrollbar-width: 6px;
+  --scrollbar-track-bg: transparent;
+  --scrollbar-thumb-fill: rgba(84, 121, 181, 0.5);
+  --scrollbar-thumb-stripe: rgba(120, 160, 220, 0.4);
+  --scrollbar-thumb-border: rgba(135, 175, 235, 0.9);
+  --scrollbar-thumb-hover-border: #0cf;
+}
+
+/* Default (no theme): dark so landing navbar is black until user picks light */
+body:not([theme]) {
+  --color-base: #000000;
+  --color-contrast: #ffffff;
+  --scrollbar-thumb-fill: rgba(84, 121, 181, 0.5);
+  --scrollbar-thumb-stripe: rgba(120, 160, 220, 0.45);
+  --scrollbar-thumb-border: rgba(135, 175, 235, 0.9);
+  --scrollbar-thumb-hover-border: #0cf;
 }
 
 /* ========================================
@@ -90,6 +107,14 @@
    ======================================== */
 body,
 body[theme='light'] {
+  /* Theme contrast: main bg and contrasting text/surfaces */
+  --color-base: #ffffff;
+  --color-contrast: #000000;
+  --scrollbar-thumb-fill: rgba(84, 121, 181, 0.35);
+  --scrollbar-thumb-stripe: rgba(84, 121, 181, 0.5);
+  --scrollbar-thumb-border: var(--ownBlue);
+  --scrollbar-thumb-hover-border: var(--accent-cyan);
+
   /* Primary Colors */
   --ownRed: rgb(217, 41, 102);
   --ownGreen: rgb(41, 217, 161);
@@ -330,6 +355,14 @@ body[theme='light'] {
    DARK MODE
    ======================================== */
 body[theme='dark'] {
+  /* Theme contrast: main bg and contrasting text/surfaces */
+  --color-base: #000000;
+  --color-contrast: #ffffff;
+  --scrollbar-thumb-fill: rgba(84, 121, 181, 0.5);
+  --scrollbar-thumb-stripe: rgba(120, 160, 220, 0.45);
+  --scrollbar-thumb-border: rgba(135, 175, 235, 0.9);
+  --scrollbar-thumb-hover-border: #0cf;
+
   /* Primary Colors */
   --ownRed: rgb(217, 41, 102);
   --ownGreen: rgb(130, 249, 2);

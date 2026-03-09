@@ -127,38 +127,61 @@ a:active {
 }
 
 /* ========================================
-   SCROLLBAR STYLING - GLOBAL GRADIENT SCROLLBAR
+   SCROLLBAR STYLING (own-react: thumb only, no track, no buttons, pill + stripes)
    ======================================== */
-/* Firefox scrollbar - using cyan as mix of blue and green */
+/* Firefox: thin thumb, transparent track */
 html,
 body,
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--accent-cyan) transparent;
+  scrollbar-color: var(--scrollbar-thumb-border) var(--scrollbar-track-bg);
 }
 
-/* Webkit browsers (Chrome, Safari, Edge) - Global gradient scrollbar matching "perfect university" */
+/* Webkit: thumb only – no track, no top/bottom buttons */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: var(--scrollbar-width, 6px);
+  height: var(--scrollbar-width, 6px);
+}
+
+/* No top/bottom arrow buttons – just the thumb */
+::-webkit-scrollbar-button {
+  display: none;
+  height: 0;
+  width: 0;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: var(--scrollbar-track-bg) !important;
+  border-radius: var(--border-radius-full);
 }
 
+/* Pill-shaped thumb: dark blue fill + horizontal lighter blue stripes */
 ::-webkit-scrollbar-thumb {
-  background: var(--gradient-blue-cyan-green) !important;
+  background: var(--scrollbar-thumb-fill);
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 2px,
+    var(--scrollbar-thumb-stripe) 2px,
+    var(--scrollbar-thumb-stripe) 3px
+  );
+  border: 1px solid var(--scrollbar-thumb-border);
   border-radius: var(--border-radius-full);
-  transition: background var(--transition-fast);
+  min-height: 40px;
+  min-width: 4px;
+  transition: border-color var(--transition-fast);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--gradient-rainbow) !important;
+  border-color: var(--scrollbar-thumb-hover-border);
 }
 
 ::-webkit-scrollbar-thumb:active {
-  background: var(--gradient-vertical-blue-green-pressed) !important;
+  border-color: var(--scrollbar-thumb-hover-border);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
 }
 
 /* ========================================

@@ -1,0 +1,36 @@
+/* Sparkles section title – uses design system variables */
+.wrapper {
+  display: inline-block;
+  position: relative;
+}
+
+.sparklesStrip {
+  position: relative;
+  width: 100%;
+  min-width: 120px;
+  height: 32px;
+  margin-top: var(--spacing-xs, 4px);
+  border-radius: var(--border-radius-sm, 4px);
+  overflow: hidden;
+}
+
+.sparklesFill {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.sparklesStrip::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  pointer-events: none;
+  mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+}
+
+.title {
+  margin: 0;
+}

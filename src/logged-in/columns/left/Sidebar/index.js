@@ -7,7 +7,7 @@ const Sidebar = ({ children }) => {
       <div className={styles.sidebarHeader}>
         <div className={styles.logo}>
           <span className={styles.logoIcon}>🎓</span>
-          <span className={styles.logoText}>UniversityMatch</span>
+          <span className={styles.logoText}>ilmi</span>
         </div>
       </div>
       <div className={styles.sidebarContent}>
