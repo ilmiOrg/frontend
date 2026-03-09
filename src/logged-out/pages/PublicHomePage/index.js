@@ -2,7 +2,21 @@ import React, { useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../../contexts/AuthContext'
 import quadLogo from '../../../assets/images/quad-logo.jpg'
+import { SplineScene } from '../../../components/SplineScene'
+import { Spotlight } from '../../../components/Spotlight'
 import styles from './style.module.css'
+
+const SPLINE_SCENE_URL = 'https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode'
+
+/** Adjust hero text here in one place */
+const HERO_COPY = {
+  badge: 'AI university matching',
+  titleLine1: 'Find your',
+  titleLine2: 'perfect fit',
+  description: 'AI matches you with universities that fit your goals and budget.',
+  ctaPrimary: 'Start free',
+  ctaSecondary: 'How it works',
+}
 
 const PublicHomePage = () => {
   const navigate = useNavigate()
@@ -93,48 +107,45 @@ const PublicHomePage = () => {
         </div>
       </nav>
 
-      {/* Hero Section */}
+      {/* Hero: robot full space; content inside so robot can react to hover over text */}
       <section className={styles.hero}>
-        <div className={styles.heroContainer}>
-          <div className={styles.heroBadge}>
-            <span className={styles.badgeDot}></span>
-            <span>AI-Powered University Matching</span>
-          </div>
-          
-          <h1 className={styles.heroTitle}>
-            <span className={styles.heroLine}>Find your</span>
-            <span className={styles.heroLineGradient}>perfect university</span>
-          </h1>
-          
-          <p className={styles.heroDescription}>
-            Stop endless searching. Our AI matches you with universities 
-            that fit your goals, budget, and dreams.
-          </p>
+        <div className={styles.heroSplineWrap}>
+          <SplineScene
+            scene={SPLINE_SCENE_URL}
+            className={styles.heroSpline}
+            nudgeRobotRight={0.85}
+            robotObjectNames={['Robot', 'Character', 'Agent', 'robot', 'Character2', 'Cube', 'Model', 'Avatar', 'Figure']}
+          />
+          <div className={styles.heroOverlay} aria-hidden />
+          <Spotlight
+            className={styles.heroSpotlight}
+            fill="var(--text-white)"
+          />
+          <div className={styles.heroContentWrap}>
+            <div className={styles.heroContent}>
+              <div className={styles.heroBadge}>
+                <span className={styles.badgeDot}></span>
+                <span>{HERO_COPY.badge}</span>
+              </div>
 
-          <div className={styles.heroActions}>
-            <button onClick={handleLogin} className={styles.btnHero}>
-              Start matching — it's free
-            </button>
-            <button className={styles.btnSecondary}>
-              <span className={styles.playIcon}>▶</span>
-              See how it works
-            </button>
-          </div>
+              <h1 className={styles.heroTitle}>
+                <span className={styles.heroLine}>{HERO_COPY.titleLine1}</span>
+                <span className={styles.heroLineGradient}>{HERO_COPY.titleLine2}</span>
+              </h1>
 
-          <div className={styles.heroStats}>
-            <div className={styles.stat}>
-              <span className={styles.statValue}>50K+</span>
-              <span className={styles.statLabel}>Students matched</span>
-            </div>
-            <div className={styles.statDivider}></div>
-            <div className={styles.stat}>
-              <span className={styles.statValue}>2,500</span>
-              <span className={styles.statLabel}>Universities</span>
-            </div>
-            <div className={styles.statDivider}></div>
-            <div className={styles.stat}>
-              <span className={styles.statValue}>95%</span>
-              <span className={styles.statLabel}>Success rate</span>
+              <p className={styles.heroDescription}>
+                {HERO_COPY.description}
+              </p>
+
+              <div className={styles.heroActions}>
+                <button onClick={handleLogin} className={styles.btnHero}>
+                  {HERO_COPY.ctaPrimary}
+                </button>
+                <button className={styles.btnSecondary}>
+                  <span className={styles.playIcon}>▶</span>
+                  {HERO_COPY.ctaSecondary}
+                </button>
+              </div>
             </div>
           </div>
         </div>

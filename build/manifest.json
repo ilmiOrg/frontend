@@ -1,0 +1,21 @@
+{
+  "name": "UniversityMatch - AI-Powered University Matching",
+  "short_name": "UniversityMatch",
+  "description": "Discover your dream university with AI-powered matching for perfect fit",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FAFAFA",
+  "theme_color": "#2563EB",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["education", "productivity", "utilities"],
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "16x16 32x32",
+      "type": "image/x-icon"
+    }
+  ]
+}

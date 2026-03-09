@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@splinetool/react-spline": "^4.1.0",
+    "@splinetool/runtime": "^1.12.67",
     "chart.js": "^4.5.1",
     "date-fns": "^2.29.0",
     "framer-motion": "^10.0.0",

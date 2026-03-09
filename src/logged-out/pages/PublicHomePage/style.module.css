@@ -142,16 +142,110 @@
 
 /* ===== HERO ===== */
 .hero {
-  flex: 1;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 560px;
+  overflow: hidden;
+  background: var(--black);
+}
+
+/* Robot: full width and height so cursor reacts everywhere (left, center, right). To move robot right, change camera in Spline editor. */
+.heroSplineWrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: auto;
+  cursor: default;
+}
+
+.heroSpline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 0;
+}
+
+.heroSplineWrap :global(canvas) {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+  cursor: default;
+}
+
+/* Soft overlay so text is readable; no hard cut, robot stays full-screen background */
+.heroOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.75) 0%,
+    rgba(0, 0, 0, 0.4) 25%,
+    rgba(0, 0, 0, 0.15) 45%,
+    transparent 65%
+  );
+}
+
+.heroSpotlight {
+  position: absolute;
+  top: -10%;
+  left: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+@media (min-width: 768px) {
+  .heroSpotlight {
+    left: 15%;
+    top: -5%;
+  }
+}
+
+/* Content: text block shifted right; robot gets all hover (full width) */
+.heroContentWrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
   display: flex;
   align-items: center;
+  padding: var(--spacing-2xl) var(--spacing-2xl) var(--spacing-2xl) var(--spacing-4xl);
+  padding-left: 14%;
+  padding-top: 100px;
+  pointer-events: none;
+}
+
+.heroContent {
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
   justify-content: center;
-  padding: 160px 32px 100px;
-  position: relative;
-  background: 
-    radial-gradient(ellipse 80% 50% at 50% -20%, var(--blue-opacity-3), transparent),
-    radial-gradient(ellipse 60% 40% at 80% 60%, var(--cyan-opacity-15), transparent),
-    var(--black);
+  gap: 0;
+  pointer-events: none;
+  margin-left: var(--spacing-xl);
+}
+
+.heroContentWrap .heroActions button {
+  pointer-events: auto;
 }
 
 .heroContainer {
@@ -162,14 +256,16 @@
 .heroBadge {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--spacing-sm);
   background: var(--white-opacity-05);
   border: 1px solid var(--border-white-1);
-  padding: 8px 16px;
-  border-radius: 100px;
-  font-size: 13px;
-  color: var(--text-white-7);
-  margin-bottom: 40px;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius-full);
+  font-size: var(--fontSize-lg);
+  font-weight: var(--fontWeight-semibold);
+  color: var(--text-white-8);
+  margin-bottom: var(--spacing-lg);
+  letter-spacing: 0.02em;
 }
 
 .badgeDot {
@@ -181,11 +277,12 @@
 }
 
 .heroTitle {
-  font-size: 72px;
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -4px;
-  margin-bottom: 24px;
+  font-size: clamp(2.5rem, 5vw, 4.25rem);
+  font-weight: var(--fontWeight-bold);
+  line-height: 1.08;
+  letter-spacing: -2px;
+  margin-bottom: var(--spacing-lg);
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.5);
 }
 
 .heroLine {
@@ -199,40 +296,47 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.35));
 }
 
 .heroDescription {
-  font-size: 20px;
+  font-size: var(--fontSize-xl);
   line-height: 1.6;
-  color: var(--text-white-5);
-  max-width: 500px;
-  margin: 0 auto 48px;
+  color: var(--text-white-6);
+  margin: 0 0 var(--spacing-xl);
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.4);
+  max-width: 22ch;
 }
 
 .heroActions {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 16px;
-  margin-bottom: 80px;
+  justify-content: flex-start;
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-md);
 }
 
 .btnHero {
   background: var(--white);
   color: var(--black);
   border: none;
-  padding: 16px 32px;
-  border-radius: 12px;
-  font-size: 16px;
-  font-weight: 600;
+  padding: var(--spacing-lg) var(--spacing-2xl);
+  border-radius: var(--border-radius-lg);
+  font-size: var(--fontSize-xl);
+  font-weight: var(--fontWeight-semibold);
   cursor: pointer;
-  transition: all 0.2s;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
   font-family: inherit;
 }
 
 .btnHero:hover {
   transform: translateY(-2px);
   box-shadow: 0 12px 40px var(--white-opacity-2);
+}
+
+.btnHero:focus-visible {
+  outline: 2px solid var(--accent-cyan);
+  outline-offset: 2px;
 }
 
 .btnShine {
@@ -242,22 +346,27 @@
 .btnSecondary {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--spacing-sm);
   background: var(--white-opacity-05);
   color: var(--text-white-9);
   border: 1px solid var(--border-white-1);
-  padding: 16px 28px;
-  border-radius: 12px;
-  font-size: 16px;
-  font-weight: 500;
+  padding: var(--spacing-lg) var(--spacing-xl);
+  border-radius: var(--border-radius-lg);
+  font-size: var(--fontSize-xl);
+  font-weight: var(--fontWeight-medium);
   cursor: pointer;
-  transition: all 0.2s;
+  transition: background var(--transition-fast), border-color var(--transition-fast);
   font-family: inherit;
 }
 
 .btnSecondary:hover {
   background: var(--white-opacity-1);
   border-color: var(--border-white-2);
+}
+
+.btnSecondary:focus-visible {
+  outline: 2px solid var(--accent-cyan);
+  outline-offset: 2px;
 }
 
 .playIcon {
@@ -267,37 +376,37 @@
 .heroStats {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 64px;
+  justify-content: flex-start;
+  gap: var(--spacing-lg);
 }
 
 .stat {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 8px;
+  align-items: flex-start;
+  text-align: left;
+  gap: var(--spacing-xs);
 }
 
 .statValue {
   display: block;
-  font-size: 48px;
-  font-weight: 700;
+  font-size: var(--fontSize-2xl);
+  font-weight: var(--fontWeight-bold);
   color: var(--text-white);
-  letter-spacing: -2px;
+  letter-spacing: -1px;
   line-height: 1;
 }
 
 .statLabel {
   display: block;
-  font-size: 14px;
+  font-size: var(--fontSize-xs);
   color: var(--text-white-4);
   text-transform: capitalize;
 }
 
 .statDivider {
   width: 1px;
-  height: 48px;
+  height: 32px;
   background: var(--white-opacity-1);
 }
 
@@ -741,26 +850,38 @@
     display: none;
   }
 
+  .heroContentWrap {
+    width: 100%;
+    padding-top: 88px;
+    padding-left: var(--spacing-md);
+    padding-right: var(--spacing-md);
+    justify-content: center;
+  }
+
+  .heroContent {
+    max-width: 320px;
+    align-items: center;
+    text-align: center;
+  }
+
   .heroTitle {
-    font-size: 44px;
+    font-size: 2rem;
     letter-spacing: -2px;
   }
 
   .heroDescription {
-    font-size: 17px;
+    font-size: var(--fontSize-sm);
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .heroActions {
     flex-direction: column;
+    justify-content: center;
   }
 
-  .heroStats {
-    flex-direction: column;
-    gap: 32px;
-  }
-
-  .statDivider {
-    display: none;
+  .heroSplineWrap {
+    width: 100%;
   }
 
   .sectionTitle {

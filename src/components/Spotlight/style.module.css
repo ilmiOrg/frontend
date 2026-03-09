@@ -1,0 +1,21 @@
+.spotlight {
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+  height: 169%;
+  width: 138%;
+  opacity: 0;
+  animation: spotlight-in var(--transition-slower) var(--easing-smooth) forwards;
+}
+
+@media (min-width: 1024px) {
+  .spotlight {
+    width: 84%;
+  }
+}
+
+@keyframes spotlight-in {
+  to {
+    opacity: 1;
+  }
+}
