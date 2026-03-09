@@ -24,7 +24,7 @@ const HERO_COPY = {
 
 const PublicHomePage = () => {
   const navigate = useNavigate()
-  const { login } = useAuth()
+  const { isAuthenticated } = useAuth()
   const [isDark, setIsDark] = useState(() => {
     if (typeof window === 'undefined') return true
     const saved = localStorage.getItem('theme')
@@ -78,9 +78,22 @@ const PublicHomePage = () => {
     }
   }, [])
 
+  /** Log in → go to login page. */
   const handleLogin = () => {
-    login()
-    navigate('/dashboard')
+    if (isAuthenticated) {
+      navigate('/dashboard')
+    } else {
+      navigate('/login')
+    }
+  }
+
+  /** Get started / Sign up → go to register page (there you can sign up or "Continue as guest"). */
+  const handleGetStarted = () => {
+    if (isAuthenticated) {
+      navigate('/dashboard')
+    } else {
+      navigate('/register')
+    }
   }
 
   // Smooth scroll to section
@@ -108,7 +121,7 @@ const PublicHomePage = () => {
             <button onClick={handleLogin} className={styles.btnGhost}>
               Log in
             </button>
-            <button onClick={handleLogin} className={styles.btnPrimary}>
+            <button onClick={handleGetStarted} className={styles.btnPrimary}>
               Get started
             </button>
             <div className={styles.navControls}>
@@ -154,7 +167,7 @@ const PublicHomePage = () => {
               </p>
 
               <div className={styles.heroActions}>
-                <button onClick={handleLogin} className={styles.btnHero}>
+                <button onClick={handleGetStarted} className={styles.btnHero}>
                   {HERO_COPY.ctaPrimary}
                 </button>
                 <button className={styles.btnSecondary}>
@@ -240,7 +253,7 @@ const PublicHomePage = () => {
                 <li>✓ Basic search</li>
                 <li>✓ Application tracking</li>
               </ul>
-              <button onClick={handleLogin} className={styles.btnPricing}>
+              <button onClick={handleGetStarted} className={styles.btnPricing}>
                 Get started
               </button>
             </div>
@@ -262,7 +275,7 @@ const PublicHomePage = () => {
                 <li>✓ Concierge support</li>
                 <li>✓ Priority matching</li>
               </ul>
-              <button onClick={handleLogin} className={styles.btnPricingFeatured}>
+              <button onClick={handleGetStarted} className={styles.btnPricingFeatured}>
                 Start free trial
               </button>
             </div>
@@ -339,7 +352,7 @@ const PublicHomePage = () => {
             <p className={styles.ctaDesc}>
               Join 50,000+ students who found their dream university with ilmi.
             </p>
-            <button onClick={handleLogin} className={styles.btnCta}>
+            <button onClick={handleGetStarted} className={styles.btnCta}>
               Get started free
               <span>→</span>
             </button>

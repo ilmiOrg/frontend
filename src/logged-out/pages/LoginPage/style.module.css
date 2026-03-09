@@ -52,10 +52,18 @@
     max-width: 420px;
 }
 
+/* Register page: wider card for more fields */
+.authCardWide {
+    max-width: 440px;
+}
+
 .login-card {
     backdrop-filter: blur(20px);
     background: rgba(255, 255, 255, 0.98);
     animation: slideInFromBottom 0.5s ease-out;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
 }
 
 .login-header {
@@ -76,6 +84,101 @@
 .tagline {
     color: var(--color-neutral-600);
     font-size: var(--font-size-sm);
+}
+
+.logo {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-neutral-900, #0f172a);
+    margin-bottom: 0.25rem;
+}
+
+.subtitle {
+    color: var(--color-neutral-600, #64748b);
+    font-size: 0.9375rem;
+    margin: 0;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+}
+
+.formLabel {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-neutral-700, #334155);
+}
+
+.formInput {
+    padding: 0.625rem 0.75rem;
+    border: 1px solid var(--color-neutral-300, #cbd5e1);
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.formInput:focus {
+    outline: none;
+    border-color: var(--color-primary, #6366f1);
+}
+
+/* Select (country dropdown) - match input styling */
+.selectInput {
+    padding: 0.625rem 0.75rem;
+    border: 1px solid var(--color-neutral-300, #cbd5e1);
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #fff;
+    color: var(--color-neutral-900, #0f172a);
+    cursor: pointer;
+    width: 100%;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    padding-right: 2rem;
+}
+
+.selectInput:focus {
+    outline: none;
+    border-color: var(--color-primary, #6366f1);
+}
+
+.selectInput:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.formHint {
+    font-size: 0.75rem;
+    color: var(--color-neutral-500, #64748b);
+    margin-top: 0.25rem;
+}
+
+.loginButton {
+    padding: 0.75rem 1rem;
+    background: linear-gradient(135deg, var(--color-primary, #6366f1) 0%, var(--color-secondary, #8b5cf6) 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.loginButton:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.errorMessage {
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 8px;
+    color: #b91c1c;
+    font-size: 0.875rem;
 }
 
 .login-form {
@@ -104,6 +207,21 @@
 }
 
 .login-footer a:hover {
+    text-decoration: underline;
+}
+
+.linkButton {
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    color: var(--color-primary, #6366f1);
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.linkButton:hover {
     text-decoration: underline;
 }
 

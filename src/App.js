@@ -2,6 +2,8 @@ import React from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider, useAuth } from './contexts/AuthContext'
 import PublicHomePage from './logged-out/pages/PublicHomePage'
+import LoginPage from './logged-out/pages/LoginPage'
+import RegisterPage from './logged-out/pages/RegisterPage'
 import DashboardPage from './logged-in/pages/MainPages/DashboardPage'
 
 // Main Pages
@@ -104,6 +106,22 @@ function App() {
             element={
               <PublicRoute>
                 <PublicHomePage />
+              </PublicRoute>
+            } 
+          />
+          <Route 
+            path="/login" 
+            element={
+              <PublicRoute>
+                <LoginPage />
+              </PublicRoute>
+            } 
+          />
+          <Route 
+            path="/register" 
+            element={
+              <PublicRoute>
+                <RegisterPage />
               </PublicRoute>
             } 
           />

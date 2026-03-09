@@ -1,5 +1,5 @@
 import React from 'react'
-import { useAuth } from '../../../../core/hooks/useAuth'
+import { useAuth } from '../../../../contexts/AuthContext'
 import NavSection from '../NavSection'
 import NavItem from '../NavItem'
 import { navigationConfig, secondaryNav } from '../../config/navigationConfig'
