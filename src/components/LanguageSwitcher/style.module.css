@@ -1,69 +1,43 @@
-/* Language strip – pill with multiple flags; size/shape similar to SkyToggle (dark/white mode) */
+/* Language switcher – minimal row of same-size buttons; no layout jump, no shadows */
 
 .langStrip {
-  /* Match SkyToggle height: 2.5em ≈ 40px */
-  --strip-height: 2.5em;
-  --strip-padding: 3px;
-  --strip-radius: var(--border-radius-full);
   display: inline-flex;
-  align-items: stretch;
-  height: var(--strip-height);
-  padding: var(--strip-padding);
-  border-radius: var(--strip-radius);
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  gap: 2px;
-  box-sizing: border-box;
-  transition: border-color var(--transition-fast), background var(--transition-fast);
-}
-
-.langStrip:hover {
-  border-color: rgba(255, 255, 255, 0.28);
-  background: rgba(255, 255, 255, 0.07);
-}
-
-/* Light theme – match nav control style */
-:global(body[theme='light']) .langStrip {
-  background: var(--gray-50);
-  border-color: var(--gray-300);
-}
-
-:global(body[theme='light']) .langStrip:hover {
-  background: var(--gray-100);
-  border-color: var(--gray-400);
+  align-items: center;
+  gap: 4px;
+  padding: 2px;
+  border-radius: 8px;
+  background: transparent;
+  border: none;
 }
 
 .langFlagBtn {
-  display: flex;
+  box-sizing: border-box;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  margin: 0;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  flex: 1;
-  min-width: 0;
-  padding: 0 var(--spacing-xs);
-  border: none;
-  border-radius: calc(var(--strip-radius) - 2px);
+  border: 2px solid transparent;
+  border-radius: 50%;
   background: transparent;
-  cursor: pointer;
-  transition: background var(--transition-fast);
-  font-size: 1rem;
+  color: var(--color-contrast);
+  font-size: 0.7rem;
+  font-weight: 600;
   line-height: 1;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: background 0.15s ease-out, border-color 0.15s ease-out;
 }
 
 .langFlagBtn:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.12);
 }
 
-:global(body[theme='light']) .langFlagBtn:hover {
-  background: var(--gray-200);
-}
-
-.langFlagBtn.active {
-  background: rgba(255, 255, 255, 0.15);
-}
-
-:global(body[theme='light']) .langFlagBtn.active {
-  background: var(--gray-300);
-  color: var(--color-contrast);
+.langFlagBtn[aria-pressed="true"] {
+  border-color: #ffffff;
+  background: transparent;
 }
 
 .langFlagBtn:focus {
@@ -71,7 +45,8 @@
 }
 
 .langFlagBtn:focus-visible {
-  box-shadow: 0 0 0 2px var(--ownBlue);
+  outline: 2px solid var(--ownBlue);
+  outline-offset: 1px;
 }
 
 .langFlagBtn:disabled {
@@ -79,8 +54,22 @@
   cursor: not-allowed;
 }
 
-.flagEmoji {
-  font-size: 1.1em;
+.flagChar {
+  font-size: 2em;
   line-height: 1;
   display: block;
+}
+
+/* Light theme */
+:global(body[theme="light"]) .langFlagBtn {
+  color: var(--gray-800);
+}
+
+:global(body[theme="light"]) .langFlagBtn:hover {
+  background: var(--gray-200);
+}
+
+:global(body[theme="light"]) .langFlagBtn[aria-pressed="true"] {
+  border-color: #ffffff;
+  background: transparent;
 }

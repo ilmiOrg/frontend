@@ -1,13 +1,13 @@
-import { useState, useEffect } from 'react';
-import loaders from '../localization';
+import { useState, useEffect } from "react";
+import loaders from "../localization";
 
 // Language configuration (EN, RU, Tajik, Kyrgyz, Kazakh)
 const languages = {
-  en: { name: 'English', shortCode: 'EN', flag: '🇺🇸', dir: 'ltr' },
-  ru: { name: 'Русский', shortCode: 'RU', flag: '🇷🇺', dir: 'ltr' },
-  tg: { name: 'Тоҷикӣ', shortCode: 'TG', flag: '🇹🇯', dir: 'ltr' },
-  ky: { name: 'Кыргызча', shortCode: 'KY', flag: '🇰🇬', dir: 'ltr' },
-  kk: { name: 'Қазақша', shortCode: 'KK', flag: '🇰🇿', dir: 'ltr' }
+  en: { name: "English", shortCode: "EN", flag: "🇺🇸", dir: "ltr" },
+  ru: { name: "Русский", shortCode: "RU", flag: "🇷🇺", dir: "ltr" },
+  tg: { name: "Тоҷикӣ", shortCode: "TG", flag: "🇹🇯", dir: "ltr" },
+  ky: { name: "Кыргызча", shortCode: "KY", flag: "🇰🇬", dir: "ltr" },
+  kk: { name: "Қазақша", shortCode: "KK", flag: "🇰🇿", dir: "ltr" },
 };
 
 // Translation cache
@@ -16,22 +16,16 @@ let translations = {};
 // Language detection
 const detectLanguage = () => {
   try {
-    const savedLanguage = localStorage.getItem('preferred-language');
+    const savedLanguage = localStorage.getItem("preferred-language");
     if (savedLanguage && languages[savedLanguage]) {
       return savedLanguage;
     }
-    
-    const browserLanguage = navigator.language || navigator.languages?.[0] || 'en';
-    const languageCode = browserLanguage.split('-')[0];
-    
-    if (languages[languageCode]) {
-      return languageCode;
-    }
-    
-    return 'en';
+
+    // Product default is English unless user explicitly selects another language.
+    return "en";
   } catch (error) {
-    console.error('Error detecting language:', error);
-    return 'en';
+    console.error("Error detecting language:", error);
+    return "en";
   }
 };
 
@@ -61,15 +55,18 @@ const switchLanguage = async (languageCode) => {
     console.error(`Language ${languageCode} not supported`);
     return false;
   }
-  
+
   const languageConfig = languages[languageCode];
-  
+
   // Ensure languageConfig is valid
   if (!languageConfig || !languageConfig.dir) {
-    console.error(`Invalid language config for ${languageCode}:`, languageConfig);
+    console.error(
+      `Invalid language config for ${languageCode}:`,
+      languageConfig
+    );
     return false;
   }
-  
+
   // Load translations if not already loaded
   if (!translations[languageCode]) {
     const loaded = await loadLanguage(languageCode);
@@ -77,24 +74,26 @@ const switchLanguage = async (languageCode) => {
       return false;
     }
   }
-  
+
   // Save to localStorage
-  localStorage.setItem('preferred-language', languageCode);
-  
+  localStorage.setItem("preferred-language", languageCode);
+
   // Update document attributes with safety checks
   try {
     document.documentElement.lang = languageCode;
     document.documentElement.dir = languageConfig.dir;
   } catch (error) {
-    console.error('Error updating document attributes:', error);
+    console.error("Error updating document attributes:", error);
     return false;
   }
-  
+
   // Dispatch language change event
-  window.dispatchEvent(new CustomEvent('languageChanged', {
-    detail: { language: languageCode, config: languageConfig }
-  }));
-  
+  window.dispatchEvent(
+    new CustomEvent("languageChanged", {
+      detail: { language: languageCode, config: languageConfig },
+    })
+  );
+
   return true;
 };
 
@@ -110,10 +109,10 @@ export const useLanguage = () => {
       }
     };
 
-    window.addEventListener('languageChanged', handleLanguageChange);
-    
+    window.addEventListener("languageChanged", handleLanguageChange);
+
     return () => {
-      window.removeEventListener('languageChanged', handleLanguageChange);
+      window.removeEventListener("languageChanged", handleLanguageChange);
     };
   }, []);
 
@@ -123,19 +122,19 @@ export const useLanguage = () => {
     }
 
     setIsLoading(true);
-    
+
     try {
       const success = await switchLanguage(languageCode);
-      
+
       if (success) {
         setCurrentLanguage(languageCode);
         return true;
       } else {
-        console.error('Failed to switch to language:', languageCode);
+        console.error("Failed to switch to language:", languageCode);
         return false;
       }
     } catch (error) {
-      console.error('Language change error:', error);
+      console.error("Language change error:", error);
       return false;
     } finally {
       setIsLoading(false);
@@ -145,26 +144,28 @@ export const useLanguage = () => {
   return {
     currentLanguage,
     isLoading,
-    changeLanguage
+    changeLanguage,
   };
 };
 
 // Custom hook for translations
 export const useTranslation = () => {
   const { currentLanguage } = useLanguage();
-  
+
   const t = (key) => {
     const translation = translations[currentLanguage];
     if (!translation) {
       console.warn(`No translations found for language: ${currentLanguage}`);
       return key;
     }
-    
+
     if (!translation[key]) {
-      console.warn(`Translation not found for key: ${key} in language: ${currentLanguage}`);
+      console.warn(
+        `Translation not found for key: ${key} in language: ${currentLanguage}`
+      );
       return key;
     }
-    
+
     return translation[key];
   };
 
@@ -175,16 +176,16 @@ export const useTranslation = () => {
 export { languages };
 
 // Initialize
-if (typeof window !== 'undefined') {
+if (typeof window !== "undefined") {
   setTimeout(async () => {
     try {
       const language = detectLanguage();
       await loadLanguage(language);
       await switchLanguage(language);
     } catch (error) {
-      console.error('Failed to initialize i18n:', error);
-      document.documentElement.lang = 'en';
-      document.documentElement.dir = 'ltr';
+      console.error("Failed to initialize i18n:", error);
+      document.documentElement.lang = "en";
+      document.documentElement.dir = "ltr";
     }
   }, 0);
 }

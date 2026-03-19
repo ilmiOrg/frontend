@@ -7,7 +7,7 @@
   padding: var(--spacing-lg);
   overflow-y: auto;
   overflow-x: hidden;
-  
+
   /* Scrollbar styles now handled globally in core.css */
 }
 
@@ -82,7 +82,11 @@
   align-items: center;
   gap: var(--spacing-lg);
   padding: var(--spacing-xl);
-  background: linear-gradient(135deg, var(--blue-opacity-2) 0%, var(--purple-opacity-2) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--blue-opacity-2) 0%,
+    var(--purple-opacity-2) 100%
+  );
   border-radius: var(--border-radius-lg);
   border: 2px solid var(--blue-opacity-3);
   margin-bottom: var(--spacing-xl);
@@ -90,7 +94,8 @@
 }
 
 @keyframes glow {
-  0%, 100% {
+  0%,
+  100% {
     box-shadow: 0 0 20px var(--blue-opacity-2);
   }
   50% {
@@ -104,8 +109,13 @@
 }
 
 @keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 .offerContent h3 {
@@ -286,7 +296,11 @@
   align-items: center;
   gap: var(--spacing-lg);
   padding: var(--spacing-lg);
-  background: linear-gradient(135deg, var(--blue-opacity-2) 0%, var(--purple-opacity-2) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--blue-opacity-2) 0%,
+    var(--purple-opacity-2) 100%
+  );
   border-radius: var(--border-radius-lg);
   border: 1px solid var(--blue-opacity-3);
   margin-bottom: var(--spacing-xl);
@@ -350,5 +364,3 @@
     text-align: center;
   }
 }
-
-

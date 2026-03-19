@@ -7,7 +7,7 @@
   padding: var(--spacing-lg);
   overflow-y: auto;
   overflow-x: hidden;
-  
+
   /* Scrollbar styles now handled globally in core.css */
 }
 
@@ -200,7 +200,11 @@
 }
 
 .premiumCard {
-  background: linear-gradient(135deg, var(--blue-opacity-2) 0%, var(--purple-opacity-2) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--blue-opacity-2) 0%,
+    var(--purple-opacity-2) 100%
+  );
   border-color: var(--blue-opacity-3);
   position: relative;
   overflow: hidden;
@@ -294,5 +298,3 @@
     flex-direction: column;
   }
 }
-
-

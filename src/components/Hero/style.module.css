@@ -1,10 +1,12 @@
 .hero {
-  background: linear-gradient(135deg, 
-    var(--slate-50-hex) 0%, 
+  background: linear-gradient(
+    135deg,
+    var(--slate-50-hex) 0%,
     var(--slate-200-hex) 25%,
-    var(--slate-100-hex) 50%, 
+    var(--slate-100-hex) 50%,
     var(--slate-200-hex) 75%,
-    var(--slate-50-hex) 100%);
+    var(--slate-50-hex) 100%
+  );
   position: relative;
   overflow: hidden;
   min-height: 100vh;
@@ -28,10 +30,21 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: 
-    radial-gradient(circle at 20% 80%, var(--blue-opacity-05) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, var(--green-500-opacity-05) 0%, transparent 50%),
-    radial-gradient(circle at 40% 40%, var(--purple-opacity-05) 0%, transparent 50%);
+  background: radial-gradient(
+      circle at 20% 80%,
+      var(--blue-opacity-05) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 20%,
+      var(--green-500-opacity-05) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 40% 40%,
+      var(--purple-opacity-05) 0%,
+      transparent 50%
+    );
   animation: gradientShift 8s ease-in-out infinite;
 }
 
@@ -41,12 +54,23 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: 
-    radial-gradient(2px 2px at 20px 30px, var(--blue-opacity-1), transparent),
-    radial-gradient(2px 2px at 40px 70px, var(--green-500-opacity-1), transparent),
+  background-image: radial-gradient(
+      2px 2px at 20px 30px,
+      var(--blue-opacity-1),
+      transparent
+    ),
+    radial-gradient(
+      2px 2px at 40px 70px,
+      var(--green-500-opacity-1),
+      transparent
+    ),
     radial-gradient(1px 1px at 90px 40px, var(--purple-opacity-1), transparent),
     radial-gradient(1px 1px at 130px 80px, var(--blue-opacity-1), transparent),
-    radial-gradient(2px 2px at 160px 30px, var(--green-500-opacity-1), transparent);
+    radial-gradient(
+      2px 2px at 160px 30px,
+      var(--green-500-opacity-1),
+      transparent
+    );
   background-repeat: repeat;
   background-size: 200px 100px;
   animation: float 20s linear infinite;
@@ -75,7 +99,11 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-accent) 100%
+  );
   color: white;
   padding: var(--space-3) var(--space-5);
   border-radius: var(--radius-full);
@@ -102,7 +130,11 @@
 }
 
 .gradientText {
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-accent) 100%
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -290,7 +322,11 @@
 .suggestionLogo {
   width: 40px;
   height: 40px;
-  background: linear-gradient(135deg, var(--color-primary-100) 0%, var(--color-accent-100) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-primary-100) 0%,
+    var(--color-accent-100) 100%
+  );
   border-radius: var(--radius-lg);
   display: flex;
   align-items: center;
@@ -458,7 +494,11 @@
 .statIcon {
   width: 50px;
   height: 50px;
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-accent) 100%
+  );
   border-radius: var(--radius-xl);
   display: flex;
   align-items: center;
@@ -497,7 +537,11 @@
 
 .floatingElement {
   position: absolute;
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-accent) 100%
+  );
   border-radius: var(--radius-full);
   opacity: 0.1;
   animation: float 8s ease-in-out infinite;
@@ -549,27 +593,27 @@
     gap: var(--space-12);
     text-align: center;
   }
-  
+
   .title {
     font-size: var(--font-size-4xl);
   }
-  
+
   .subtitle {
     font-size: var(--font-size-lg);
   }
-  
+
   .stats {
     justify-content: center;
   }
-  
+
   .searchContainer {
     max-width: 100%;
   }
-  
+
   .searchInput {
     padding: var(--space-3) var(--space-4);
   }
-  
+
   .input {
     font-size: var(--font-size-base);
   }
@@ -579,56 +623,56 @@
   .hero {
     padding: var(--space-16) 0;
   }
-  
+
   .container {
     padding: 0 var(--space-4);
   }
-  
+
   .title {
     font-size: var(--font-size-3xl);
   }
-  
+
   .subtitle {
     font-size: var(--font-size-base);
   }
-  
+
   .stats {
     flex-direction: column;
     gap: var(--space-4);
     align-items: center;
   }
-  
+
   .actions {
     flex-direction: column;
     align-items: stretch;
   }
-  
+
   .heroCard {
     padding: var(--space-6);
   }
-  
+
   .searchInput {
     padding: var(--space-3) var(--space-4);
   }
-  
+
   .input {
     font-size: var(--font-size-sm);
   }
-  
+
   .suggestionsDropdown {
     margin-top: var(--space-1);
   }
-  
+
   .suggestionItem {
     padding: var(--space-2);
   }
-  
+
   .suggestionLogo {
     width: 35px;
     height: 35px;
     font-size: var(--font-size-base);
   }
-  
+
   .popularTags {
     justify-content: center;
   }
@@ -638,51 +682,51 @@
   .hero {
     padding: var(--space-12) 0;
   }
-  
+
   .title {
     font-size: var(--font-size-2xl);
   }
-  
+
   .badge {
     font-size: var(--font-size-xs);
     padding: var(--space-2) var(--space-4);
   }
-  
+
   .heroCard {
     padding: var(--space-4);
   }
-  
+
   .cardTitle {
     font-size: var(--font-size-xl);
   }
-  
+
   .searchInput {
     padding: var(--space-2) var(--space-3);
   }
-  
+
   .input {
     font-size: var(--font-size-sm);
   }
-  
+
   .searchIcon {
     font-size: var(--font-size-base);
   }
-  
+
   .searchButton {
     padding: var(--space-1) var(--space-2);
     font-size: var(--font-size-xs);
   }
-  
+
   .statCard {
     padding: var(--space-3);
   }
-  
+
   .statIcon {
     width: 40px;
     height: 40px;
     font-size: var(--font-size-lg);
   }
-  
+
   .statNumber {
     font-size: var(--font-size-xl);
   }

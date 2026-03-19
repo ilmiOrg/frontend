@@ -1,10 +1,12 @@
-import { apiUrl, jsonHeaders } from './config'
+import { apiUrl, jsonHeaders } from "./config";
 
 /**
  * Get auth token from storage (for use in api client).
  */
 function getToken() {
-  return typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null
+  return typeof localStorage !== "undefined"
+    ? localStorage.getItem("token")
+    : null;
 }
 
 /**
@@ -13,20 +15,20 @@ function getToken() {
  * @returns {Promise<Array>}
  */
 export async function getUniversities(options = {}) {
-  const { countryId } = options
-  let url = apiUrl('/api/v1/universities')
+  const { countryId } = options;
+  let url = apiUrl("/api/v1/universities");
   if (countryId) {
-    url += `?countryId=${encodeURIComponent(countryId)}`
+    url += `?countryId=${encodeURIComponent(countryId)}`;
   }
   const res = await fetch(url, {
-    method: 'GET',
+    method: "GET",
     headers: jsonHeaders(),
-  })
+  });
   if (!res.ok) {
-    const text = await res.text()
-    throw new Error(text || 'Failed to fetch universities')
+    const text = await res.text();
+    throw new Error(text || "Failed to fetch universities");
   }
-  return res.json()
+  return res.json();
 }
 
 /**
@@ -36,15 +38,15 @@ export async function getUniversities(options = {}) {
  */
 export async function getUniversityById(id) {
   const res = await fetch(apiUrl(`/api/v1/universities/${id}`), {
-    method: 'GET',
+    method: "GET",
     headers: jsonHeaders(),
-  })
+  });
   if (!res.ok) {
-    if (res.status === 404) throw new Error('University not found')
-    const text = await res.text()
-    throw new Error(text || 'Failed to fetch university')
+    if (res.status === 404) throw new Error("University not found");
+    const text = await res.text();
+    throw new Error(text || "Failed to fetch university");
   }
-  return res.json()
+  return res.json();
 }
 
 /**
@@ -53,22 +55,22 @@ export async function getUniversityById(id) {
  * @returns {Promise<object>}
  */
 export async function createUniversity(payload) {
-  const token = getToken()
-  const res = await fetch(apiUrl('/api/v1/universities'), {
-    method: 'POST',
+  const token = getToken();
+  const res = await fetch(apiUrl("/api/v1/universities"), {
+    method: "POST",
     headers: jsonHeaders(token),
     body: JSON.stringify(payload),
-  })
+  });
   if (!res.ok) {
-    const text = await res.text()
-    let message = 'Failed to create university'
+    const text = await res.text();
+    let message = "Failed to create university";
     try {
-      const data = JSON.parse(text)
-      if (data.message) message = data.message
+      const data = JSON.parse(text);
+      if (data.message) message = data.message;
     } catch (_) {
-      if (text) message = text
+      if (text) message = text;
     }
-    throw new Error(message)
+    throw new Error(message);
   }
-  return res.json()
+  return res.json();
 }

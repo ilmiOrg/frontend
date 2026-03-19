@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
-import ScrollContainer from '../ui-components/ScrollContainer';
-import { 
-  FiSearch, 
-  FiFilter, 
-  FiMap, 
-  FiGrid, 
-  FiList, 
-  FiHeart, 
-  FiShare2, 
+import React, { useState, useEffect, useRef } from "react";
+import ScrollContainer from "../ui-components/ScrollContainer";
+import {
+  FiSearch,
+  FiFilter,
+  FiMap,
+  FiGrid,
+  FiList,
+  FiHeart,
+  FiShare2,
   FiStar,
   FiMapPin,
   FiUsers,
@@ -16,9 +16,9 @@ import {
   FiClock,
   FiX,
   FiChevronDown,
-  FiSliders
-} from 'react-icons/fi';
-import styles from './style.module.css';
+  FiSliders,
+} from "react-icons/fi";
+import styles from "./style.module.css";
 
 // Mock data for demonstration
 const mockUniversities = [
@@ -43,7 +43,7 @@ const mockUniversities = [
     research: true,
     sports: true,
     arts: true,
-    image: "/images/harvard.jpg"
+    image: "/images/harvard.jpg",
   },
   {
     id: 2,
@@ -66,7 +66,7 @@ const mockUniversities = [
     research: true,
     sports: true,
     arts: true,
-    image: "/images/stanford.jpg"
+    image: "/images/stanford.jpg",
   },
   {
     id: 3,
@@ -89,7 +89,7 @@ const mockUniversities = [
     research: true,
     sports: false,
     arts: false,
-    image: "/images/mit.jpg"
+    image: "/images/mit.jpg",
   },
   {
     id: 4,
@@ -112,7 +112,7 @@ const mockUniversities = [
     research: true,
     sports: true,
     arts: true,
-    image: "/images/oxford.jpg"
+    image: "/images/oxford.jpg",
   },
   {
     id: 5,
@@ -135,38 +135,38 @@ const mockUniversities = [
     research: true,
     sports: true,
     arts: true,
-    image: "/images/cambridge.jpg"
-  }
+    image: "/images/cambridge.jpg",
+  },
 ];
 
 const Search = () => {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState(mockUniversities);
   const [filteredResults, setFilteredResults] = useState(mockUniversities);
   const [isLoading, setIsLoading] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
-  const [viewMode, setViewMode] = useState('grid'); // grid, list, map
-  const [sortBy, setSortBy] = useState('match'); // match, ranking, tuition, name
+  const [viewMode, setViewMode] = useState("grid"); // grid, list, map
+  const [sortBy, setSortBy] = useState("match"); // match, ranking, tuition, name
   const [savedSearches, setSavedSearches] = useState([]);
   const [showSavedSearches, setShowSavedSearches] = useState(false);
-  
+
   // Filter states
   const [filters, setFilters] = useState({
-    country: '',
+    country: "",
     tuitionRange: [0, 100000],
     rankingRange: [1, 1000],
     acceptanceRateRange: [0, 100],
-    universityType: '',
-    size: '',
-    climate: '',
-    language: '',
+    universityType: "",
+    size: "",
+    climate: "",
+    language: "",
     programs: [],
     features: {
       scholarships: false,
       research: false,
       sports: false,
-      arts: false
-    }
+      arts: false,
+    },
   });
 
   const searchInputRef = useRef(null);
@@ -174,28 +174,29 @@ const Search = () => {
   // AI-powered search simulation
   const performSearch = async (query) => {
     setIsLoading(true);
-    
+
     // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 800));
-    
+    await new Promise((resolve) => setTimeout(resolve, 800));
+
     if (!query.trim()) {
       setSearchResults(mockUniversities);
       setFilteredResults(mockUniversities);
     } else {
       // Simple search logic (in real app, this would be AI-powered)
-      const results = mockUniversities.filter(university =>
-        university.name.toLowerCase().includes(query.toLowerCase()) ||
-        university.location.toLowerCase().includes(query.toLowerCase()) ||
-        university.country.toLowerCase().includes(query.toLowerCase()) ||
-        university.programs.some(program => 
-          program.toLowerCase().includes(query.toLowerCase())
-        )
+      const results = mockUniversities.filter(
+        (university) =>
+          university.name.toLowerCase().includes(query.toLowerCase()) ||
+          university.location.toLowerCase().includes(query.toLowerCase()) ||
+          university.country.toLowerCase().includes(query.toLowerCase()) ||
+          university.programs.some((program) =>
+            program.toLowerCase().includes(query.toLowerCase())
+          )
       );
-      
+
       setSearchResults(results);
       setFilteredResults(results);
     }
-    
+
     setIsLoading(false);
   };
 
@@ -204,54 +205,62 @@ const Search = () => {
     let filtered = [...searchResults];
 
     if (filters.country) {
-      filtered = filtered.filter(uni => uni.country === filters.country);
+      filtered = filtered.filter((uni) => uni.country === filters.country);
     }
 
     if (filters.tuitionRange[0] > 0 || filters.tuitionRange[1] < 100000) {
-      filtered = filtered.filter(uni => 
-        uni.tuition >= filters.tuitionRange[0] && uni.tuition <= filters.tuitionRange[1]
+      filtered = filtered.filter(
+        (uni) =>
+          uni.tuition >= filters.tuitionRange[0] &&
+          uni.tuition <= filters.tuitionRange[1]
       );
     }
 
     if (filters.rankingRange[0] > 1 || filters.rankingRange[1] < 1000) {
-      filtered = filtered.filter(uni => 
-        uni.ranking >= filters.rankingRange[0] && uni.ranking <= filters.rankingRange[1]
+      filtered = filtered.filter(
+        (uni) =>
+          uni.ranking >= filters.rankingRange[0] &&
+          uni.ranking <= filters.rankingRange[1]
       );
     }
 
-    if (filters.acceptanceRateRange[0] > 0 || filters.acceptanceRateRange[1] < 100) {
-      filtered = filtered.filter(uni => 
-        uni.acceptanceRate >= filters.acceptanceRateRange[0] && 
-        uni.acceptanceRate <= filters.acceptanceRateRange[1]
+    if (
+      filters.acceptanceRateRange[0] > 0 ||
+      filters.acceptanceRateRange[1] < 100
+    ) {
+      filtered = filtered.filter(
+        (uni) =>
+          uni.acceptanceRate >= filters.acceptanceRateRange[0] &&
+          uni.acceptanceRate <= filters.acceptanceRateRange[1]
       );
     }
 
     if (filters.universityType) {
-      filtered = filtered.filter(uni => uni.type === filters.universityType);
+      filtered = filtered.filter((uni) => uni.type === filters.universityType);
     }
 
     if (filters.size) {
-      filtered = filtered.filter(uni => uni.size === filters.size);
+      filtered = filtered.filter((uni) => uni.size === filters.size);
     }
 
     if (filters.climate) {
-      filtered = filtered.filter(uni => uni.climate === filters.climate);
+      filtered = filtered.filter((uni) => uni.climate === filters.climate);
     }
 
     if (filters.language) {
-      filtered = filtered.filter(uni => uni.language === filters.language);
+      filtered = filtered.filter((uni) => uni.language === filters.language);
     }
 
     if (filters.programs.length > 0) {
-      filtered = filtered.filter(uni => 
-        filters.programs.some(program => uni.programs.includes(program))
+      filtered = filtered.filter((uni) =>
+        filters.programs.some((program) => uni.programs.includes(program))
       );
     }
 
     // Apply feature filters
     Object.entries(filters.features).forEach(([feature, enabled]) => {
       if (enabled) {
-        filtered = filtered.filter(uni => uni[feature] === true);
+        filtered = filtered.filter((uni) => uni[feature] === true);
       }
     });
 
@@ -262,13 +271,13 @@ const Search = () => {
   const sortResults = (results, sortType) => {
     const sorted = [...results].sort((a, b) => {
       switch (sortType) {
-        case 'match':
+        case "match":
           return b.matchScore - a.matchScore;
-        case 'ranking':
+        case "ranking":
           return a.ranking - b.ranking;
-        case 'tuition':
+        case "tuition":
           return a.tuition - b.tuition;
-        case 'name':
+        case "name":
           return a.name.localeCompare(b.name);
         default:
           return 0;
@@ -281,7 +290,7 @@ const Search = () => {
   const handleSearch = (e) => {
     const query = e.target.value;
     setSearchQuery(query);
-    
+
     // Debounce search
     clearTimeout(searchInputRef.current);
     searchInputRef.current = setTimeout(() => {
@@ -296,10 +305,10 @@ const Search = () => {
       query: searchQuery,
       filters: filters,
       resultsCount: filteredResults.length,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     };
-    
-    setSavedSearches(prev => [searchData, ...prev]);
+
+    setSavedSearches((prev) => [searchData, ...prev]);
   };
 
   // Load saved search
@@ -336,28 +345,30 @@ const Search = () => {
                 className={styles.input}
               />
               {searchQuery && (
-                <button 
+                <button
                   className={styles.clearButton}
                   onClick={() => {
-                    setSearchQuery('');
-                    performSearch('');
+                    setSearchQuery("");
+                    performSearch("");
                   }}
                 >
                   <FiX />
                 </button>
               )}
             </div>
-            
+
             <div className={styles.searchActions}>
-              <button 
-                className={`${styles.filterButton} ${showFilters ? styles.active : ''}`}
+              <button
+                className={`${styles.filterButton} ${
+                  showFilters ? styles.active : ""
+                }`}
                 onClick={() => setShowFilters(!showFilters)}
               >
                 <FiSliders />
                 Filters
               </button>
-              
-              <button 
+
+              <button
                 className={styles.savedButton}
                 onClick={() => setShowSavedSearches(!showSavedSearches)}
               >
@@ -376,10 +387,12 @@ const Search = () => {
             <div className={styles.filtersContent}>
               <div className={styles.filterGroup}>
                 <label className={styles.filterLabel}>Country</label>
-                <select 
+                <select
                   className={styles.filterSelect}
                   value={filters.country}
-                  onChange={(e) => setFilters(prev => ({ ...prev, country: e.target.value }))}
+                  onChange={(e) =>
+                    setFilters((prev) => ({ ...prev, country: e.target.value }))
+                  }
                 >
                   <option value="">All Countries</option>
                   <option value="United States">United States</option>
@@ -400,23 +413,34 @@ const Search = () => {
                     max="100000"
                     step="1000"
                     value={filters.tuitionRange[1]}
-                    onChange={(e) => setFilters(prev => ({ 
-                      ...prev, 
-                      tuitionRange: [prev.tuitionRange[0], parseInt(e.target.value)] 
-                    }))}
+                    onChange={(e) =>
+                      setFilters((prev) => ({
+                        ...prev,
+                        tuitionRange: [
+                          prev.tuitionRange[0],
+                          parseInt(e.target.value),
+                        ],
+                      }))
+                    }
                   />
                   <span className={styles.rangeValue}>
-                    ${filters.tuitionRange[0].toLocaleString()} - ${filters.tuitionRange[1].toLocaleString()}
+                    ${filters.tuitionRange[0].toLocaleString()} - $
+                    {filters.tuitionRange[1].toLocaleString()}
                   </span>
                 </div>
               </div>
 
               <div className={styles.filterGroup}>
                 <label className={styles.filterLabel}>University Type</label>
-                <select 
+                <select
                   className={styles.filterSelect}
                   value={filters.universityType}
-                  onChange={(e) => setFilters(prev => ({ ...prev, universityType: e.target.value }))}
+                  onChange={(e) =>
+                    setFilters((prev) => ({
+                      ...prev,
+                      universityType: e.target.value,
+                    }))
+                  }
                 >
                   <option value="">All Types</option>
                   <option value="Private">Private</option>
@@ -431,10 +455,15 @@ const Search = () => {
                     <input
                       type="checkbox"
                       checked={filters.features.scholarships}
-                      onChange={(e) => setFilters(prev => ({ 
-                        ...prev, 
-                        features: { ...prev.features, scholarships: e.target.checked }
-                      }))}
+                      onChange={(e) =>
+                        setFilters((prev) => ({
+                          ...prev,
+                          features: {
+                            ...prev.features,
+                            scholarships: e.target.checked,
+                          },
+                        }))
+                      }
                     />
                     Scholarships Available
                   </label>
@@ -442,10 +471,15 @@ const Search = () => {
                     <input
                       type="checkbox"
                       checked={filters.features.research}
-                      onChange={(e) => setFilters(prev => ({ 
-                        ...prev, 
-                        features: { ...prev.features, research: e.target.checked }
-                      }))}
+                      onChange={(e) =>
+                        setFilters((prev) => ({
+                          ...prev,
+                          features: {
+                            ...prev.features,
+                            research: e.target.checked,
+                          },
+                        }))
+                      }
                     />
                     Research Opportunities
                   </label>
@@ -453,10 +487,15 @@ const Search = () => {
                     <input
                       type="checkbox"
                       checked={filters.features.sports}
-                      onChange={(e) => setFilters(prev => ({ 
-                        ...prev, 
-                        features: { ...prev.features, sports: e.target.checked }
-                      }))}
+                      onChange={(e) =>
+                        setFilters((prev) => ({
+                          ...prev,
+                          features: {
+                            ...prev.features,
+                            sports: e.target.checked,
+                          },
+                        }))
+                      }
                     />
                     Sports Programs
                   </label>
@@ -464,10 +503,15 @@ const Search = () => {
                     <input
                       type="checkbox"
                       checked={filters.features.arts}
-                      onChange={(e) => setFilters(prev => ({ 
-                        ...prev, 
-                        features: { ...prev.features, arts: e.target.checked }
-                      }))}
+                      onChange={(e) =>
+                        setFilters((prev) => ({
+                          ...prev,
+                          features: {
+                            ...prev.features,
+                            arts: e.target.checked,
+                          },
+                        }))
+                      }
                     />
                     Arts Programs
                   </label>
@@ -475,32 +519,31 @@ const Search = () => {
               </div>
 
               <div className={styles.filterActions}>
-                <button 
+                <button
                   className="btn btn-outline"
-                  onClick={() => setFilters({
-                    country: '',
-                    tuitionRange: [0, 100000],
-                    rankingRange: [1, 1000],
-                    acceptanceRateRange: [0, 100],
-                    universityType: '',
-                    size: '',
-                    climate: '',
-                    language: '',
-                    programs: [],
-                    features: {
-                      scholarships: false,
-                      research: false,
-                      sports: false,
-                      arts: false
-                    }
-                  })}
+                  onClick={() =>
+                    setFilters({
+                      country: "",
+                      tuitionRange: [0, 100000],
+                      rankingRange: [1, 1000],
+                      acceptanceRateRange: [0, 100],
+                      universityType: "",
+                      size: "",
+                      climate: "",
+                      language: "",
+                      programs: [],
+                      features: {
+                        scholarships: false,
+                        research: false,
+                        sports: false,
+                        arts: false,
+                      },
+                    })
+                  }
                 >
                   Clear All
                 </button>
-                <button 
-                  className="btn btn-primary"
-                  onClick={saveSearch}
-                >
+                <button className="btn btn-primary" onClick={saveSearch}>
                   Save Search
                 </button>
               </div>
@@ -519,15 +562,16 @@ const Search = () => {
                 <p className={styles.noSaved}>No saved searches yet</p>
               ) : (
                 <div className={styles.savedList}>
-                  {savedSearches.map(search => (
-                    <div 
-                      key={search.id} 
+                  {savedSearches.map((search) => (
+                    <div
+                      key={search.id}
                       className={styles.savedItem}
                       onClick={() => loadSavedSearch(search)}
                     >
                       <div className={styles.savedQuery}>{search.query}</div>
                       <div className={styles.savedMeta}>
-                        {search.resultsCount} results • {new Date(search.timestamp).toLocaleDateString()}
+                        {search.resultsCount} results •{" "}
+                        {new Date(search.timestamp).toLocaleDateString()}
                       </div>
                     </div>
                   ))}
@@ -543,7 +587,9 @@ const Search = () => {
         <div className={styles.container}>
           <div className={styles.resultsInfo}>
             <h2 className={styles.resultsTitle}>
-              {isLoading ? 'Searching...' : `${filteredResults.length} Universities Found`}
+              {isLoading
+                ? "Searching..."
+                : `${filteredResults.length} Universities Found`}
             </h2>
             {searchQuery && (
               <p className={styles.resultsSubtitle}>
@@ -555,7 +601,7 @@ const Search = () => {
           <div className={styles.resultsControls}>
             <div className={styles.sortControl}>
               <label className={styles.sortLabel}>Sort by:</label>
-              <select 
+              <select
                 className={styles.sortSelect}
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
@@ -568,21 +614,27 @@ const Search = () => {
             </div>
 
             <div className={styles.viewControl}>
-              <button 
-                className={`${styles.viewButton} ${viewMode === 'grid' ? styles.active : ''}`}
-                onClick={() => setViewMode('grid')}
+              <button
+                className={`${styles.viewButton} ${
+                  viewMode === "grid" ? styles.active : ""
+                }`}
+                onClick={() => setViewMode("grid")}
               >
                 <FiGrid />
               </button>
-              <button 
-                className={`${styles.viewButton} ${viewMode === 'list' ? styles.active : ''}`}
-                onClick={() => setViewMode('list')}
+              <button
+                className={`${styles.viewButton} ${
+                  viewMode === "list" ? styles.active : ""
+                }`}
+                onClick={() => setViewMode("list")}
               >
                 <FiList />
               </button>
-              <button 
-                className={`${styles.viewButton} ${viewMode === 'map' ? styles.active : ''}`}
-                onClick={() => setViewMode('map')}
+              <button
+                className={`${styles.viewButton} ${
+                  viewMode === "map" ? styles.active : ""
+                }`}
+                onClick={() => setViewMode("map")}
               >
                 <FiMap />
               </button>
@@ -606,22 +658,33 @@ const Search = () => {
               <p>Try adjusting your search criteria or filters</p>
             </div>
           ) : (
-            <div className={`${styles.resultsGrid} ${viewMode === 'list' ? styles.listView : ''}`}>
-              {filteredResults.map(university => (
-                <div key={university.id} className={`${styles.universityCard} card card-interactive`}>
+            <div
+              className={`${styles.resultsGrid} ${
+                viewMode === "list" ? styles.listView : ""
+              }`}
+            >
+              {filteredResults.map((university) => (
+                <div
+                  key={university.id}
+                  className={`${styles.universityCard} card card-interactive`}
+                >
                   <div className={styles.cardHeader}>
                     <div className={styles.universityLogo}>
                       {university.logo}
                     </div>
                     <div className={styles.universityInfo}>
-                      <h3 className={styles.universityName}>{university.name}</h3>
+                      <h3 className={styles.universityName}>
+                        {university.name}
+                      </h3>
                       <div className={styles.universityLocation}>
                         <FiMapPin />
                         {university.location}, {university.country}
                       </div>
                     </div>
                     <div className={styles.matchScore}>
-                      <span className={styles.scoreNumber}>{university.matchScore}%</span>
+                      <span className={styles.scoreNumber}>
+                        {university.matchScore}%
+                      </span>
                       <span className={styles.scoreLabel}>Match</span>
                     </div>
                   </div>
@@ -638,22 +701,30 @@ const Search = () => {
                       </div>
                       <div className={styles.stat}>
                         <FiUsers />
-                        <span>{university.studentCount.toLocaleString()} students</span>
+                        <span>
+                          {university.studentCount.toLocaleString()} students
+                        </span>
                       </div>
                       <div className={styles.stat}>
                         <FiClock />
-                        <span>{university.acceptanceRate}% acceptance rate</span>
+                        <span>
+                          {university.acceptanceRate}% acceptance rate
+                        </span>
                       </div>
                     </div>
 
                     <div className={styles.programs}>
-                      <h4 className={styles.programsTitle}>Popular Programs:</h4>
+                      <h4 className={styles.programsTitle}>
+                        Popular Programs:
+                      </h4>
                       <div className={styles.programsList}>
-                        {university.programs.slice(0, 3).map((program, index) => (
-                          <span key={index} className={styles.programTag}>
-                            {program}
-                          </span>
-                        ))}
+                        {university.programs
+                          .slice(0, 3)
+                          .map((program, index) => (
+                            <span key={index} className={styles.programTag}>
+                              {program}
+                            </span>
+                          ))}
                       </div>
                     </div>
                   </div>

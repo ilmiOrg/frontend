@@ -1,31 +1,27 @@
-import React from 'react';
-import './ScrollContainer.css';
+import React from "react";
+import "./ScrollContainer.css";
 
-const ScrollContainer = ({ 
-  children, 
-  className = '', 
-  variant = 'default',
+const ScrollContainer = ({
+  children,
+  className = "",
+  variant = "default",
   padding = true,
   maxHeight,
   smooth = true,
-  ...props 
+  ...props
 }) => {
-  const containerClass = `scroll-container scroll-container--${variant} ${padding ? 'scroll-container--padded' : ''} ${className}`.trim();
-  
+  const containerClass = `scroll-container scroll-container--${variant} ${
+    padding ? "scroll-container--padded" : ""
+  } ${className}`.trim();
+
   const containerStyle = {
     ...(maxHeight && { maxHeight }),
-    ...props.style
+    ...props.style,
   };
 
   return (
-    <div 
-      className={containerClass}
-      style={containerStyle}
-      {...props}
-    >
-      <div className="scroll-container__content">
-        {children}
-      </div>
+    <div className={containerClass} style={containerStyle} {...props}>
+      <div className="scroll-container__content">{children}</div>
     </div>
   );
 };

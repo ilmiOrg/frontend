@@ -1,32 +1,32 @@
-import React from 'react'
-import styles from './style.module.css'
+import React from "react";
+import styles from "./style.module.css";
 
 const ProgressBar = ({
   value = 0,
   max = 100,
-  size = 'medium',
-  variant = 'primary',
+  size = "medium",
+  variant = "primary",
   showLabel = false,
-  label = '',
+  label = "",
   animated = false,
   striped = false,
-  className = '',
+  className = "",
   ...props
 }) => {
-  const percentage = Math.min(Math.max((value / max) * 100, 0), 100)
-  
-  const progressClasses = [
-    styles.progressBar,
-    styles[size],
-    className
-  ].filter(Boolean).join(' ')
+  const percentage = Math.min(Math.max((value / max) * 100, 0), 100);
+
+  const progressClasses = [styles.progressBar, styles[size], className]
+    .filter(Boolean)
+    .join(" ");
 
   const fillClasses = [
     styles.progressFill,
     styles[variant],
     animated && styles.animated,
-    striped && styles.striped
-  ].filter(Boolean).join(' ')
+    striped && styles.striped,
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   return (
     <div className={progressClasses} {...props}>
@@ -36,7 +36,7 @@ const ProgressBar = ({
         </div>
       )}
       <div className={styles.track}>
-        <div 
+        <div
           className={fillClasses}
           style={{ width: `${percentage}%` }}
           role="progressbar"
@@ -47,7 +47,7 @@ const ProgressBar = ({
         />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ProgressBar
+export default ProgressBar;

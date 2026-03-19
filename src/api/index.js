@@ -8,7 +8,11 @@
  * Set REACT_APP_API_URL in .env to point to the backend (default: http://localhost:8080).
  */
 
-export { API_BASE_URL, apiUrl, jsonHeaders } from './config'
-export { login, register } from './auth'
-export { getUniversities, getUniversityById, createUniversity } from './universities'
-export { getCountries } from './countries'
+export { API_BASE_URL, apiUrl, jsonHeaders } from "./config";
+export { login, register } from "./auth";
+export {
+  getUniversities,
+  getUniversityById,
+  createUniversity,
+} from "./universities";
+export { getCountries } from "./countries";

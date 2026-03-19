@@ -10,39 +10,39 @@
   --surface-tertiary: rgba(18, 26, 34, 1);
   --surface-elevated: rgba(24, 34, 44, 1);
   --surface-hover: rgba(32, 44, 56, 1);
-  
+
   --border-subtle: var(--green-opacity-08);
   --border-default: rgba(16, 185, 129, 0.12);
   --border-strong: rgba(16, 185, 129, 0.18);
-  
+
   --text-primary: rgba(255, 255, 255, 0.95);
   --text-secondary: rgba(255, 255, 255, 0.65);
   --text-tertiary: rgba(255, 255, 255, 0.45);
   --text-muted: rgba(255, 255, 255, 0.28);
-  
+
   --accent-blue: var(--accent-blue);
   --accent-green: var(--accent-green-light);
   --accent-teal: var(--accent-teal);
   --accent-cyan: var(--accent-cyan);
   --accent-amber: var(--accent-amber);
   --accent-red: var(--accent-red);
-  
+
   /* Main green-blue gradient used everywhere */
   --gradient-primary: var(--gradient-blue-green);
   --gradient-primary-hover: var(--gradient-blue-green-hover);
   --gradient-subtle: var(--gradient-blue-cyan-subtle);
   --gradient-glow: var(--gradient-blue-cyan-glow);
-  
+
   --shadow-sm: 0 1px 2px var(--black-opacity-3);
   --shadow-md: 0 4px 12px var(--black-opacity-4);
   --shadow-lg: 0 8px 32px var(--black-opacity-5);
   --shadow-glow: 0 0 40px var(--green-opacity-15);
-  
+
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 14px;
   --radius-xl: 20px;
-  
+
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -56,7 +56,8 @@
   max-height: 100vh;
   background: var(--surface-primary);
   color: var(--text-primary);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
   position: fixed;
   inset: 0;
   overflow: hidden;
@@ -113,8 +114,13 @@
 }
 
 @keyframes float {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(20px, -20px) scale(1.05); }
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(20px, -20px) scale(1.05);
+  }
 }
 
 /* ===== SIDEBAR TOGGLES ===== */
@@ -138,9 +144,15 @@
   box-shadow: 0 4px 15px var(--green-opacity-3);
 }
 
-.leftSidebarToggle { left: 224px; }
-.leftCollapsed .leftSidebarToggle { left: 16px; }
-.rightSidebarToggle { right: 16px; }
+.leftSidebarToggle {
+  left: 224px;
+}
+.leftCollapsed .leftSidebarToggle {
+  left: 16px;
+}
+.rightSidebarToggle {
+  right: 16px;
+}
 
 .leftSidebarToggle:hover,
 .rightSidebarToggle:hover {
@@ -308,10 +320,11 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 28px;
-  padding: 14px 20px;
+  padding: 14px 18px;
   background: var(--surface-secondary);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
+  gap: 12px;
 }
 
 .navbarLeft,
@@ -341,7 +354,10 @@
   width: 40px;
   height: 40px;
   border-radius: 10px;
-  overflow: hidden;
+  background: var(--gradient-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: 2px solid var(--border-default);
   transition: border-color var(--transition-fast);
 }
@@ -350,10 +366,10 @@
   border-color: var(--accent-blue);
 }
 
-.profileImg {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.profileInitial {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-white);
 }
 
 .profileInfoVertical {
@@ -370,13 +386,13 @@
 
 .profileBadge {
   font-size: 10px;
-  font-weight: 600;
-  color: var(--accent-amber);
-  background: var(--amber-opacity-12);
+  font-weight: 500;
+  color: var(--text-tertiary);
+  background: transparent;
   padding: 2px 8px;
   border-radius: var(--radius-sm);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  text-transform: none;
+  letter-spacing: 0.2px;
 }
 
 .profileTimezoneInfo {
@@ -394,7 +410,7 @@
 .quickActions {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 
 .streakIconCompact {
@@ -425,6 +441,11 @@
   cursor: pointer;
   transition: all var(--transition-fast);
   position: relative;
+}
+
+.dashboardLang {
+  transform: scale(0.94);
+  transform-origin: center;
 }
 
 .quickActionBtn:hover {
@@ -490,16 +511,18 @@
 
 /* ===== DREAM UNIVERSITY CARD ===== */
 .dreamUniversityCard {
-  background: linear-gradient(135deg, 
-    var(--blue-opacity-08) 0%, 
-    var(--green-opacity-08) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--blue-opacity-08) 0%,
+    var(--green-opacity-08) 100%
+  );
   border: 1px solid var(--green-opacity-2);
   position: relative;
   overflow: hidden;
 }
 
 .dreamUniversityCard::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -812,7 +835,7 @@
 }
 
 .statusCard::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -1057,10 +1080,14 @@
 }
 
 .achievementCard.earned::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(34, 197, 94, 0.05) 0%, transparent 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(34, 197, 94, 0.05) 0%,
+    transparent 100%
+  );
 }
 
 .achievementCard.locked {
@@ -1566,7 +1593,7 @@
 }
 
 .timelineSteps::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 12px;
   top: 0;
@@ -1584,7 +1611,7 @@
 }
 
 .timelineStep::before {
-  content: '';
+  content: "";
   position: absolute;
   left: -18px;
   top: 24px;
@@ -2047,7 +2074,7 @@
 }
 
 .verificationBenefits li::before {
-  content: '✓';
+  content: "✓";
   position: absolute;
   left: 0;
   color: var(--accent-green);
@@ -2528,7 +2555,7 @@
   font-size: 14px;
   color: var(--text-primary);
   margin-bottom: 14px;
-  font-family: 'SF Mono', Monaco, monospace;
+  font-family: "SF Mono", Monaco, monospace;
 }
 
 .problemActions {
@@ -2966,7 +2993,7 @@
   .dashboard {
     grid-template-columns: 260px 1fr 280px;
   }
-  
+
   .achievementsGrid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -2976,15 +3003,15 @@
   .dashboard {
     grid-template-columns: 240px 1fr;
   }
-  
+
   .rightSidebar {
     display: none;
   }
-  
+
   .dashboardGridExtended {
     grid-template-columns: 1fr;
   }
-  
+
   .universitiesGrid,
   .studySessions,
   .reelsContainer,
@@ -3000,17 +3027,17 @@
   .scholarshipMatches {
     grid-template-columns: 1fr;
   }
-  
+
   .matchContent,
   .careerContent {
     grid-template-columns: 1fr;
   }
-  
+
   .documentsList,
   .supportServices {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   .searchRow,
   .filterRow {
     grid-template-columns: 1fr;
@@ -3021,55 +3048,55 @@
   .dashboard {
     grid-template-columns: 1fr;
   }
-  
+
   .leftSidebar {
     display: none;
   }
-  
+
   .leftSidebarToggle,
   .rightSidebarToggle {
     display: none;
   }
-  
+
   .mainContent {
     padding: 16px;
   }
-  
+
   .mainContentInner {
     padding-right: 0;
   }
-  
+
   .topNavbar {
     flex-direction: column;
     gap: 12px;
     padding: 14px;
   }
-  
+
   .navbarLeft,
   .navbarRight {
     width: 100%;
     justify-content: center;
   }
-  
+
   .profileTimezoneInfo {
     display: none;
   }
-  
+
   .achievementsGrid,
   .scholarshipStats {
     grid-template-columns: 1fr;
   }
-  
+
   .documentsList,
   .supportServices {
     grid-template-columns: 1fr;
   }
-  
+
   .statusContainer {
     flex-direction: column;
     gap: 14px;
   }
-  
+
   .statusChartLarge {
     width: 100%;
     max-width: 160px;

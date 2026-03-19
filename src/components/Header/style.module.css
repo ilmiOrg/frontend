@@ -164,14 +164,18 @@
 }
 
 .navLink.active::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -2px;
   left: 50%;
   transform: translateX(-50%);
   width: 24px;
   height: 3px;
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-accent) 100%
+  );
   border-radius: var(--radius-full);
 }
 
@@ -250,29 +254,29 @@
     padding: 0 var(--space-4);
     height: 64px;
   }
-  
+
   .leftSection {
     gap: var(--space-4);
   }
-  
+
   .rightSection {
     display: none;
   }
-  
+
   .nav {
     display: none;
   }
-  
+
   .mobileMenuToggle {
     display: flex;
   }
-  
+
   .mobileMenu .nav {
     display: flex;
     flex-direction: column;
     gap: var(--space-2);
   }
-  
+
   .mobileMenu .navLink {
     padding: var(--space-4);
     border-radius: var(--radius-lg);
@@ -281,12 +285,12 @@
     background: var(--color-neutral-50);
     border: 1px solid var(--color-neutral-200);
   }
-  
+
   .mobileMenu .navLink:hover {
     background: var(--color-primary-50);
     border-color: var(--color-primary-200);
   }
-  
+
   .mobileMenu .navLink.active {
     background: var(--color-primary-100);
     border-color: var(--color-primary-200);

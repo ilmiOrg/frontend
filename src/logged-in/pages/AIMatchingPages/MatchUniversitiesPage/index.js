@@ -1,6 +1,6 @@
-import React from 'react'
-import PageTemplate from '../../../shared/PageTemplate'
-import styles from './style.module.css'
+import React from "react";
+import PageTemplate from "../../../shared/PageTemplate";
+import styles from "./style.module.css";
 
 const MatchUniversitiesPage = () => {
   return (
@@ -8,19 +8,19 @@ const MatchUniversitiesPage = () => {
       icon="🎯"
       title="Match Universities"
       description="AI-powered university matching based on your profile"
-      actions={
-        <button className={styles.primaryBtn}>
-          Get Started
-        </button>
-      }
+      actions={<button className={styles.primaryBtn}>Get Started</button>}
     >
       <div className={styles.contentContainer}>
         <div className={styles.infoSection}>
-          <h2 className={styles.sectionTitle}>Welcome to Match Universities!</h2>
+          <h2 className={styles.sectionTitle}>
+            Welcome to Match Universities!
+          </h2>
           <p className={styles.sectionText}>
-            AI-powered university matching based on your profile. This powerful feature will help you achieve your university goals faster and more efficiently.
+            AI-powered university matching based on your profile. This powerful
+            feature will help you achieve your university goals faster and more
+            efficiently.
           </p>
-          
+
           <div className={styles.features}>
             <h3 className={styles.featuresTitle}>Key Features</h3>
             <div className={styles.featureGrid}>
@@ -47,21 +47,20 @@ const MatchUniversitiesPage = () => {
             </div>
           </div>
         </div>
-        
+
         <div className={styles.actionSection}>
           <div className={styles.actionCard}>
             <h3 className={styles.actionTitle}>Ready to get started?</h3>
             <p className={styles.actionText}>
-              Begin your journey with Match Universities and unlock your full potential.
+              Begin your journey with Match Universities and unlock your full
+              potential.
             </p>
-            <button className={styles.actionBtn}>
-              🎯 Start Now
-            </button>
+            <button className={styles.actionBtn}>🎯 Start Now</button>
           </div>
         </div>
       </div>
     </PageTemplate>
-  )
-}
+  );
+};
 
-export default MatchUniversitiesPage
+export default MatchUniversitiesPage;

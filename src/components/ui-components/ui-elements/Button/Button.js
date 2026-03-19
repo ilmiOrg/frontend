@@ -1,24 +1,30 @@
-import React, { forwardRef, useCallback } from 'react'
-import styles from './style.module.css'
+import React, { forwardRef, useCallback } from "react";
+import styles from "./style.module.css";
 
-const Button = forwardRef(function Button({
-  children,
-  variant = 'primary',
-  size = 'medium',
-  disabled = false,
-  loading = false,
-  icon = null,
-  iconPosition = 'left',
-  onClick,
-  className = '',
-  type = 'button',
-  ...props
-}, ref) {
-  const handleClick = useCallback((e) => {
-    if (!disabled && !loading && onClick) {
-      onClick(e)
-    }
-  }, [disabled, loading, onClick])
+const Button = forwardRef(function Button(
+  {
+    children,
+    variant = "primary",
+    size = "medium",
+    disabled = false,
+    loading = false,
+    icon = null,
+    iconPosition = "left",
+    onClick,
+    className = "",
+    type = "button",
+    ...props
+  },
+  ref
+) {
+  const handleClick = useCallback(
+    (e) => {
+      if (!disabled && !loading && onClick) {
+        onClick(e);
+      }
+    },
+    [disabled, loading, onClick]
+  );
 
   const buttonClasses = [
     styles.button,
@@ -26,8 +32,10 @@ const Button = forwardRef(function Button({
     styles[size],
     loading && styles.loading,
     disabled && styles.disabled,
-    className
-  ].filter(Boolean).join(' ')
+    className,
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   return (
     <button
@@ -39,15 +47,15 @@ const Button = forwardRef(function Button({
       {...props}
     >
       {loading && <span className={styles.spinner} />}
-      {icon && iconPosition === 'left' && (
+      {icon && iconPosition === "left" && (
         <span className={styles.iconLeft}>{icon}</span>
       )}
       <span className={styles.content}>{children}</span>
-      {icon && iconPosition === 'right' && (
+      {icon && iconPosition === "right" && (
         <span className={styles.iconRight}>{icon}</span>
       )}
     </button>
-  )
-})
+  );
+});
 
-export default Button
+export default Button;

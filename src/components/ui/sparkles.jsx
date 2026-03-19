@@ -38,7 +38,11 @@ export function SparklesCore({
 
   const generatedId = useId();
   return (
-    <motion.div initial={{ opacity: 0 }} animate={controls} className={className}>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={controls}
+      className={className}
+    >
       {init && (
         <Particles
           id={id || generatedId}
@@ -96,24 +100,62 @@ export function SparklesCore({
               color: {
                 value: particleColor || "#ffffff",
                 animation: {
-                  h: { count: 0, enable: false, speed: 1, decay: 0, delay: 0, sync: true, offset: 0 },
-                  s: { count: 0, enable: false, speed: 1, decay: 0, delay: 0, sync: true, offset: 0 },
-                  l: { count: 0, enable: false, speed: 1, decay: 0, delay: 0, sync: true, offset: 0 },
+                  h: {
+                    count: 0,
+                    enable: false,
+                    speed: 1,
+                    decay: 0,
+                    delay: 0,
+                    sync: true,
+                    offset: 0,
+                  },
+                  s: {
+                    count: 0,
+                    enable: false,
+                    speed: 1,
+                    decay: 0,
+                    delay: 0,
+                    sync: true,
+                    offset: 0,
+                  },
+                  l: {
+                    count: 0,
+                    enable: false,
+                    speed: 1,
+                    decay: 0,
+                    delay: 0,
+                    sync: true,
+                    offset: 0,
+                  },
                 },
               },
               effect: { close: true, fill: true, options: {}, type: undefined },
               groups: {},
               move: {
                 angle: { offset: 0, value: 90 },
-                attract: { distance: 200, enable: false, rotate: { x: 3000, y: 3000 } },
+                attract: {
+                  distance: 200,
+                  enable: false,
+                  rotate: { x: 3000, y: 3000 },
+                },
                 center: { x: 50, y: 50, mode: "percent", radius: 0 },
                 decay: 0,
                 distance: {},
                 direction: "none",
                 drift: 0,
                 enable: true,
-                gravity: { acceleration: 9.81, enable: false, inverse: false, maxSpeed: 50 },
-                path: { clamp: true, delay: { value: 0 }, enable: false, options: {} },
+                gravity: {
+                  acceleration: 9.81,
+                  enable: false,
+                  inverse: false,
+                  maxSpeed: 50,
+                },
+                path: {
+                  clamp: true,
+                  delay: { value: 0 },
+                  enable: false,
+                  options: {},
+                },
                 outModes: { default: "out" },
                 random: false,
                 size: false,
@@ -144,7 +186,12 @@ export function SparklesCore({
                 },
               },
               reduceDuplicates: false,
-              shadow: { blur: 0, color: { value: "#000" }, enable: false, offset: { x: 0, y: 0 } },
+              shadow: {
+                blur: 0,
+                color: { value: "#000" },
+                enable: false,
+                offset: { x: 0, y: 0 },
+              },
               shape: { close: true, fill: true, options: {}, type: "circle" },
               size: {
                 value: { min: minSize ?? 1, max: maxSize ?? 3 },
@@ -161,7 +208,12 @@ export function SparklesCore({
                 },
               },
               stroke: { width: 0 },
-              zIndex: { value: 0, opacityRate: 1, sizeRate: 1, velocityRate: 1 },
+              zIndex: {
+                value: 0,
+                opacityRate: 1,
+                sizeRate: 1,
+                velocityRate: 1,
+              },
               destroy: {
                 bounds: {},
                 mode: "none",
@@ -172,13 +224,53 @@ export function SparklesCore({
                   sizeOffset: true,
                 },
               },
-              roll: { darken: { enable: false, value: 0 }, enable: false, enlighten: { enable: false, value: 0 }, mode: "vertical", speed: 25 },
-              tilt: { value: 0, animation: { enable: false, speed: 0, decay: 0, sync: false }, direction: "clockwise", enable: false },
-              twinkle: { lines: { enable: false, frequency: 0.05, opacity: 1 }, particles: { enable: false, frequency: 0.05, opacity: 1 } },
-              wobble: { distance: 5, enable: false, speed: { angle: 50, move: 10 } },
-              life: { count: 0, delay: { value: 0, sync: false }, duration: { value: 0, sync: false } },
-              rotate: { value: 0, animation: { enable: false, speed: 0, decay: 0, sync: false }, direction: "clockwise", path: false },
-              orbit: { animation: { count: 0, enable: false, speed: 1, decay: 0, delay: 0, sync: false }, enable: false, opacity: 1, rotation: { value: 45 }, width: 1 },
+              roll: {
+                darken: { enable: false, value: 0 },
+                enable: false,
+                enlighten: { enable: false, value: 0 },
+                mode: "vertical",
+                speed: 25,
+              },
+              tilt: {
+                value: 0,
+                animation: { enable: false, speed: 0, decay: 0, sync: false },
+                direction: "clockwise",
+                enable: false,
+              },
+              twinkle: {
+                lines: { enable: false, frequency: 0.05, opacity: 1 },
+                particles: { enable: false, frequency: 0.05, opacity: 1 },
+              },
+              wobble: {
+                distance: 5,
+                enable: false,
+                speed: { angle: 50, move: 10 },
+              },
+              life: {
+                count: 0,
+                delay: { value: 0, sync: false },
+                duration: { value: 0, sync: false },
+              },
+              rotate: {
+                value: 0,
+                animation: { enable: false, speed: 0, decay: 0, sync: false },
+                direction: "clockwise",
+                path: false,
+              },
+              orbit: {
+                animation: {
+                  count: 0,
+                  enable: false,
+                  speed: 1,
+                  decay: 0,
+                  delay: 0,
+                  sync: false,
+                },
+                enable: false,
+                opacity: 1,
+                rotation: { value: 45 },
+                width: 1,
+              },
               links: {
                 blink: false,
                 color: { value: "#fff" },
@@ -192,7 +284,14 @@ export function SparklesCore({
                 width: 1,
                 warp: false,
               },
-              repulse: { value: 0, enabled: false, distance: 1, duration: 1, factor: 1, speed: 1 },
+              repulse: {
+                value: 0,
+                enabled: false,
+                distance: 1,
+                duration: 1,
+                factor: 1,
+                speed: 1,
+              },
             },
             detectRetina: true,
           }}

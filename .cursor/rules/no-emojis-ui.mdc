@@ -1,0 +1,24 @@
+---
+description: No emojis in the UI; use SVG icons or nothing
+alwaysApply: true
+---
+
+# No Emojis in the Interface
+
+Do **not** use emoji characters (e.g. ✨ 🤝 🎯 📊 🏠) anywhere in the user-facing interface. They look cheap and inconsistent across platforms.
+
+## Do instead
+
+- **SVG icons**: Use inline SVG or icon components (e.g. target, chart, home, handshake) for meaning.
+- **Nothing**: Omit decoration if an icon does not add clarity.
+- **Text or labels**: Prefer clear copy over pictorial shorthand where it fits.
+
+## Scope
+
+Applies to all UI: landing pages, nav items, buttons, cards, lists, dashboards, and any component the user sees. Comments and non-UI strings (e.g. logs) are fine.
+
+## Examples
+
+- Nav item “Main Dashboard”: use a small SVG house icon or no icon, not 🏠.
+- Feature card “Expert Guidance”: use an SVG handshake/person icon or no icon, not 🤝.
+- List bullets: use CSS `list-style` or SVG bullets, not ✅ or ✨.

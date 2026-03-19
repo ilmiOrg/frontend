@@ -22,13 +22,25 @@
 }
 
 .sparklesStrip::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   background: transparent;
   pointer-events: none;
-  mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 15%,
+    black 85%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 15%,
+    black 85%,
+    transparent 100%
+  );
 }
 
 .title {

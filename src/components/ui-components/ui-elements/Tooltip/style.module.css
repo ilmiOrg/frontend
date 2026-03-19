@@ -229,7 +229,7 @@
   .tooltip {
     max-width: calc(100vw - 2rem);
   }
-  
+
   .content {
     max-width: none;
   }
@@ -242,19 +242,19 @@
     color: var(--color-neutral-100);
     border-color: var(--color-neutral-600);
   }
-  
+
   .light.top .arrow {
     border-top-color: var(--color-neutral-800);
   }
-  
+
   .light.bottom .arrow {
     border-bottom-color: var(--color-neutral-800);
   }
-  
+
   .light.left .arrow {
     border-left-color: var(--color-neutral-800);
   }
-  
+
   .light.right .arrow {
     border-right-color: var(--color-neutral-800);
   }

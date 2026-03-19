@@ -1,49 +1,58 @@
-import React, { forwardRef, useState, useCallback } from 'react'
-import styles from './style.module.css'
+import React, { forwardRef, useState, useCallback } from "react";
+import styles from "./style.module.css";
 
-const Input = forwardRef(function Input({
-  type = 'text',
-  placeholder = '',
-  value = '',
-  onChange,
-  onFocus,
-  onBlur,
-  disabled = false,
-  error = false,
-  success = false,
-  warning = false,
-  size = 'medium',
-  variant = 'default',
-  label = '',
-  helperText = '',
-  errorText = '',
-  required = false,
-  className = '',
-  icon = null,
-  iconPosition = 'left',
-  clearable = false,
-  ...props
-}, ref) {
-  const [isFocused, setIsFocused] = useState(false)
-  const [showPassword, setShowPassword] = useState(false)
+const Input = forwardRef(function Input(
+  {
+    type = "text",
+    placeholder = "",
+    value = "",
+    onChange,
+    onFocus,
+    onBlur,
+    disabled = false,
+    error = false,
+    success = false,
+    warning = false,
+    size = "medium",
+    variant = "default",
+    label = "",
+    helperText = "",
+    errorText = "",
+    required = false,
+    className = "",
+    icon = null,
+    iconPosition = "left",
+    clearable = false,
+    ...props
+  },
+  ref
+) {
+  const [isFocused, setIsFocused] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
-  const handleFocus = useCallback((e) => {
-    setIsFocused(true)
-    onFocus?.(e)
-  }, [onFocus])
+  const handleFocus = useCallback(
+    (e) => {
+      setIsFocused(true);
+      onFocus?.(e);
+    },
+    [onFocus]
+  );
 
-  const handleBlur = useCallback((e) => {
-    setIsFocused(false)
-    onBlur?.(e)
-  }, [onBlur])
+  const handleBlur = useCallback(
+    (e) => {
+      setIsFocused(false);
+      onBlur?.(e);
+    },
+    [onBlur]
+  );
 
   const handleClear = useCallback(() => {
-    onChange?.({ target: { value: '' } })
-  }, [onChange])
+    onChange?.({ target: { value: "" } });
+  }, [onChange]);
 
   const togglePasswordVisibility = useCallback(() => {
-    setShowPassword(prev => !prev)
-  }, [])
+    setShowPassword((prev) => !prev);
+  }, []);
 
   const inputClasses = [
     styles.input,
@@ -55,18 +64,22 @@ const Input = forwardRef(function Input({
     disabled && styles.disabled,
     isFocused && styles.focused,
     icon && styles[`icon-${iconPosition}`],
-    className
-  ].filter(Boolean).join(' ')
+    className,
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   const containerClasses = [
     styles.container,
     error && styles.containerError,
     success && styles.containerSuccess,
     warning && styles.containerWarning,
-    disabled && styles.containerDisabled
-  ].filter(Boolean).join(' ')
+    disabled && styles.containerDisabled,
+  ]
+    .filter(Boolean)
+    .join(" ");
 
-  const inputType = type === 'password' && showPassword ? 'text' : type
+  const inputType = type === "password" && showPassword ? "text" : type;
 
   return (
     <div className={containerClasses}>
@@ -76,12 +89,12 @@ const Input = forwardRef(function Input({
           {required && <span className={styles.required}>*</span>}
         </label>
       )}
-      
+
       <div className={styles.inputWrapper}>
-        {icon && iconPosition === 'left' && (
+        {icon && iconPosition === "left" && (
           <span className={styles.iconLeft}>{icon}</span>
         )}
-        
+
         <input
           ref={ref}
           type={inputType}
@@ -95,18 +108,18 @@ const Input = forwardRef(function Input({
           required={required}
           {...props}
         />
-        
-        {type === 'password' && (
+
+        {type === "password" && (
           <button
             type="button"
             className={styles.passwordToggle}
             onClick={togglePasswordVisibility}
             tabIndex={-1}
           >
-            {showPassword ? '👁️' : '👁️‍🗨️'}
+            {showPassword ? "👁️" : "👁️‍🗨️"}
           </button>
         )}
-        
+
         {clearable && value && (
           <button
             type="button"
@@ -117,19 +130,19 @@ const Input = forwardRef(function Input({
             ×
           </button>
         )}
-        
-        {icon && iconPosition === 'right' && (
+
+        {icon && iconPosition === "right" && (
           <span className={styles.iconRight}>{icon}</span>
         )}
       </div>
-      
+
       {(helperText || errorText) && (
         <div className={styles.helperText}>
           {error && errorText ? errorText : helperText}
         </div>
       )}
     </div>
-  )
-})
+  );
+});
 
-export default Input
+export default Input;

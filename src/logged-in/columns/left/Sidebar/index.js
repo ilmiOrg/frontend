@@ -1,5 +1,5 @@
-import React from 'react'
-import styles from './style.module.css'
+import React from "react";
+import styles from "./style.module.css";
 
 const Sidebar = ({ children }) => {
   return (
@@ -10,13 +10,9 @@ const Sidebar = ({ children }) => {
           <span className={styles.logoText}>ilmi</span>
         </div>
       </div>
-      <div className={styles.sidebarContent}>
-        {children}
-      </div>
+      <div className={styles.sidebarContent}>{children}</div>
     </div>
-  )
-}
+  );
+};
 
-export default Sidebar
-
-
+export default Sidebar;

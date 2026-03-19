@@ -1,16 +1,16 @@
-import React, { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useAuth } from '../../../../contexts/AuthContext'
-import styles from './style.module.css'
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../../contexts/AuthContext";
+import styles from "./style.module.css";
 
 const ProfilePage = () => {
-  const navigate = useNavigate()
-  const { logout } = useAuth()
+  const navigate = useNavigate();
+  const { logout } = useAuth();
 
   // Fix scrollbar - only one scrollbar on the right (the page element)
   useEffect(() => {
-    const styleEl = document.createElement('style')
-    styleEl.id = 'page-scrollbar-fix'
+    const styleEl = document.createElement("style");
+    styleEl.id = "page-scrollbar-fix";
     styleEl.textContent = `
       html, body, #root {
         overflow: hidden !important;
@@ -23,30 +23,43 @@ const ProfilePage = () => {
         display: none !important;
         width: 0 !important;
       }
-    `
-    document.head.appendChild(styleEl)
+    `;
+    document.head.appendChild(styleEl);
     return () => {
-      const existing = document.getElementById('page-scrollbar-fix')
-      if (existing) existing.remove()
-    }
-  }, [])
+      const existing = document.getElementById("page-scrollbar-fix");
+      if (existing) existing.remove();
+    };
+  }, []);
 
   const handleBack = () => {
-    navigate('/dashboard')
-  }
+    navigate("/dashboard");
+  };
 
   const handleLogout = () => {
-    logout()
-    navigate('/')
-  }
+    logout();
+    navigate("/");
+  };
 
   return (
     <div className={styles.page}>
       <div className={styles.header}>
         <div className={styles.headerLeft}>
-          <button onClick={handleBack} className={styles.backButton} title="Back to Dashboard">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M19 12H5M12 19l-7-7 7-7"/>
+          <button
+            onClick={handleBack}
+            className={styles.backButton}
+            title="Back to Dashboard"
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M19 12H5M12 19l-7-7 7-7" />
             </svg>
           </button>
           <div className={styles.headerContent}>
@@ -63,27 +76,46 @@ const ProfilePage = () => {
         <div className={styles.profileCard}>
           <div className={styles.avatarSection}>
             <div className={styles.avatar}>
-              <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=120&h=120&fit=crop&crop=face" alt="Profile" />
+              <img
+                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=120&h=120&fit=crop&crop=face"
+                alt="Profile"
+              />
             </div>
             <button className={styles.changeAvatarBtn}>Change Photo</button>
           </div>
-          
+
           <div className={styles.infoSection}>
             <div className={styles.infoGroup}>
               <label>Full Name</label>
-              <input type="text" defaultValue="Alex Johnson" className={styles.input} />
+              <input
+                type="text"
+                defaultValue="Alex Johnson"
+                className={styles.input}
+              />
             </div>
             <div className={styles.infoGroup}>
               <label>Email</label>
-              <input type="email" defaultValue="alex.johnson@email.com" className={styles.input} />
+              <input
+                type="email"
+                defaultValue="alex.johnson@email.com"
+                className={styles.input}
+              />
             </div>
             <div className={styles.infoGroup}>
               <label>Phone</label>
-              <input type="tel" defaultValue="+1 234 567 8900" className={styles.input} />
+              <input
+                type="tel"
+                defaultValue="+1 234 567 8900"
+                className={styles.input}
+              />
             </div>
             <div className={styles.infoGroup}>
               <label>Location</label>
-              <input type="text" defaultValue="Bishkek, Kyrgyzstan" className={styles.input} />
+              <input
+                type="text"
+                defaultValue="Bishkek, Kyrgyzstan"
+                className={styles.input}
+              />
             </div>
           </div>
         </div>
@@ -130,9 +162,7 @@ const ProfilePage = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ProfilePage
-
-
+export default ProfilePage;

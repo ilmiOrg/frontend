@@ -438,7 +438,11 @@
 .universityLogo {
   width: 60px;
   height: 60px;
-  background: linear-gradient(135deg, var(--color-primary-100) 0%, var(--color-accent-100) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-primary-100) 0%,
+    var(--color-accent-100) 100%
+  );
   border-radius: var(--radius-xl);
   display: flex;
   align-items: center;
@@ -593,22 +597,22 @@
     flex-direction: column;
     gap: var(--space-4);
   }
-  
+
   .searchActions {
     width: 100%;
     justify-content: center;
   }
-  
+
   .filtersContent {
     grid-template-columns: 1fr;
   }
-  
+
   .resultsControls {
     flex-direction: column;
     align-items: stretch;
     gap: var(--space-4);
   }
-  
+
   .resultsGrid {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   }
@@ -618,53 +622,53 @@
   .container {
     padding: 0 var(--space-4);
   }
-  
+
   .searchHeader {
     padding: var(--space-4) 0;
   }
-  
+
   .filtersPanel {
     padding: var(--space-4) 0;
   }
-  
+
   .resultsHeader {
     padding: var(--space-4) 0;
   }
-  
+
   .results {
     padding: var(--space-6) 0;
   }
-  
+
   .resultsGrid {
     grid-template-columns: 1fr;
     gap: var(--space-4);
   }
-  
+
   .resultsGrid.listView .universityCard {
     flex-direction: column;
   }
-  
+
   .resultsGrid.listView .cardHeader {
     border-right: none;
     border-bottom: 1px solid var(--color-neutral-100);
     min-width: auto;
   }
-  
+
   .resultsGrid.listView .cardFooter {
     border-left: none;
     border-top: 1px solid var(--color-neutral-100);
     min-width: auto;
   }
-  
+
   .resultsGrid.listView .cardActions {
     flex-direction: row;
     justify-content: center;
   }
-  
+
   .universityStats {
     grid-template-columns: 1fr;
   }
-  
+
   .cardActions {
     flex-direction: column;
   }
@@ -674,31 +678,31 @@
   .searchInput {
     padding: var(--space-2) var(--space-3);
   }
-  
+
   .filterButton,
   .savedButton {
     padding: var(--space-2) var(--space-3);
     font-size: var(--font-size-xs);
   }
-  
+
   .cardHeader {
     padding: var(--space-4);
   }
-  
+
   .cardBody {
     padding: var(--space-4);
   }
-  
+
   .cardFooter {
     padding: var(--space-3) var(--space-4);
   }
-  
+
   .universityLogo {
     width: 50px;
     height: 50px;
     font-size: var(--font-size-xl);
   }
-  
+
   .universityName {
     font-size: var(--font-size-base);
   }

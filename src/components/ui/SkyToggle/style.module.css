@@ -17,17 +17,19 @@
   --container-width: 5.625em;
   --container-height: 2.5em;
   --container-radius: 6.25em;
-  --container-light-bg: #3D7EAE;
-  --container-night-bg: #1D1F2C;
+  --container-light-bg: #3d7eae;
+  --container-night-bg: #1d1f2c;
   --circle-container-diameter: 3.375em;
   --sun-moon-diameter: 2.125em;
-  --sun-bg: #ECCA2F;
-  --moon-bg: #C4C9D1;
-  --spot-color: #959DB1;
-  --circle-container-offset: calc((var(--circle-container-diameter) - var(--container-height)) / 2 * -1);
+  --sun-bg: #ecca2f;
+  --moon-bg: #c4c9d1;
+  --spot-color: #959db1;
+  --circle-container-offset: calc(
+    (var(--circle-container-diameter) - var(--container-height)) / 2 * -1
+  );
   --stars-color: #fff;
-  --clouds-color: #F3FDFF;
-  --back-clouds-color: #AACADF;
+  --clouds-color: #f3fdff;
+  --back-clouds-color: #aacadf;
   --transition: 0.5s cubic-bezier(0, -0.02, 0.4, 1.25);
   --circle-transition: 0.3s cubic-bezier(0, -0.02, 0.35, 1.17);
   cursor: pointer;
@@ -45,7 +47,8 @@
   border-radius: var(--container-radius);
   overflow: hidden;
   cursor: pointer;
-  box-shadow: 0 -0.062em 0.062em rgba(0, 0, 0, 0.25), 0 0.062em 0.125em rgba(255, 255, 255, 0.94);
+  box-shadow: 0 -0.062em 0.062em rgba(0, 0, 0, 0.25),
+    0 0.062em 0.125em rgba(255, 255, 255, 0.94);
   transition: var(--transition);
   position: relative;
 }
@@ -67,7 +70,17 @@
   position: absolute;
   bottom: -0.625em;
   left: 0.312em;
-  box-shadow: 0.937em 0.312em var(--clouds-color), -0.312em -0.312em var(--back-clouds-color), 1.437em 0.375em var(--clouds-color), 0.5em -0.125em var(--back-clouds-color), 2.187em 0 var(--clouds-color), 1.25em -0.062em var(--back-clouds-color), 2.937em 0.312em var(--clouds-color), 2em -0.312em var(--back-clouds-color), 3.625em -0.062em var(--clouds-color), 2.625em 0em var(--back-clouds-color), 4.5em -0.312em var(--clouds-color), 3.375em -0.437em var(--back-clouds-color), 4.625em -1.75em 0 0.437em var(--clouds-color), 4em -0.625em var(--back-clouds-color), 4.125em -2.125em 0 0.437em var(--clouds-color);
+  box-shadow: 0.937em 0.312em var(--clouds-color),
+    -0.312em -0.312em var(--back-clouds-color),
+    1.437em 0.375em var(--clouds-color), 0.5em -0.125em var(--back-clouds-color),
+    2.187em 0 var(--clouds-color), 1.25em -0.062em var(--back-clouds-color),
+    2.937em 0.312em var(--clouds-color), 2em -0.312em var(--back-clouds-color),
+    3.625em -0.062em var(--clouds-color), 2.625em 0em var(--back-clouds-color),
+    4.5em -0.312em var(--clouds-color),
+    3.375em -0.437em var(--back-clouds-color),
+    4.625em -1.75em 0 0.437em var(--clouds-color),
+    4em -0.625em var(--back-clouds-color),
+    4.125em -2.125em 0 0.437em var(--clouds-color);
   transition: var(--transition);
 }
 
@@ -89,7 +102,9 @@
   left: var(--circle-container-offset);
   top: var(--circle-container-offset);
   border-radius: var(--container-radius);
-  box-shadow: inset 0 0 0 3.375em rgba(255, 255, 255, 0.1), 0 0 0 0.625em rgba(255, 255, 255, 0.1), 0 0 0 1.25em rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 0 0 3.375em rgba(255, 255, 255, 0.1),
+    0 0 0 0.625em rgba(255, 255, 255, 0.1),
+    0 0 0 1.25em rgba(255, 255, 255, 0.1);
   display: flex;
   transition: var(--circle-transition);
   pointer-events: none;
@@ -104,7 +119,8 @@
   margin: auto;
   border-radius: var(--container-radius);
   background-color: var(--sun-bg);
-  box-shadow: 0.062em 0.062em 0.062em 0 rgba(254, 255, 239, 0.61) inset, 0 -0.062em 0.062em 0 #a1872a inset;
+  box-shadow: 0.062em 0.062em 0.062em 0 rgba(254, 255, 239, 0.61) inset,
+    0 -0.062em 0.062em 0 #a1872a inset;
   filter: drop-shadow(0.062em 0.125em 0.125em rgba(0, 0, 0, 0.25));
   overflow: hidden;
   transition: var(--transition);
@@ -116,7 +132,8 @@
   height: 100%;
   background-color: var(--moon-bg);
   border-radius: inherit;
-  box-shadow: 0.062em 0.062em 0.062em 0 rgba(254, 255, 239, 0.61) inset, 0 -0.062em 0.062em 0 #969696 inset;
+  box-shadow: 0.062em 0.062em 0.062em 0 rgba(254, 255, 239, 0.61) inset,
+    0 -0.062em 0.062em 0 #969696 inset;
   transition: var(--transition);
   position: relative;
 }
@@ -152,7 +169,9 @@
 }
 
 .checkbox:checked ~ .container .circleContainer {
-  left: calc(100% - var(--circle-container-offset) - var(--circle-container-diameter));
+  left: calc(
+    100% - var(--circle-container-offset) - var(--circle-container-diameter)
+  );
 }
 
 .checkbox:checked ~ .container .moon {
@@ -173,5 +192,8 @@
 }
 
 .checkbox:checked ~ .container .circleContainer:hover {
-  left: calc(100% - var(--circle-container-offset) - var(--circle-container-diameter) - 0.187em);
+  left: calc(
+    100% - var(--circle-container-offset) - var(--circle-container-diameter) -
+      0.187em
+  );
 }

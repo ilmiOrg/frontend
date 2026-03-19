@@ -47,7 +47,7 @@
 }
 
 .navItem.active::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -8px;
   left: 50%;
@@ -117,26 +117,26 @@
   .container {
     padding: 0 var(--space-3);
   }
-  
+
   .navItem {
     min-width: 50px;
     padding: var(--space-2);
   }
-  
+
   .icon {
     font-size: var(--font-size-base);
   }
-  
+
   .label {
     font-size: 10px;
   }
-  
+
   .fab {
     width: 44px;
     height: 44px;
     top: -14px;
   }
-  
+
   .fabIcon {
     font-size: var(--font-size-base);
   }
@@ -146,26 +146,26 @@
   .container {
     padding: 0 var(--space-2);
   }
-  
+
   .navItem {
     min-width: 45px;
     padding: var(--space-1) var(--space-2);
   }
-  
+
   .icon {
     font-size: var(--font-size-sm);
   }
-  
+
   .label {
     font-size: 9px;
   }
-  
+
   .fab {
     width: 40px;
     height: 40px;
     top: -12px;
   }
-  
+
   .fabIcon {
     font-size: var(--font-size-sm);
   }

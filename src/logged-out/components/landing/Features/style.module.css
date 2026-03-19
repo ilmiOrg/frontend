@@ -1,7 +1,8 @@
 /* Features Section Styles */
 .features {
   padding: var(--spacing-5xl) var(--spacing-lg);
-  background: var(--primary);
+  background: var(--black);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .featuresContainer {
@@ -9,23 +10,8 @@
   margin: 0 auto;
 }
 
-.sectionTitle {
-  text-align: center;
-  font-size: var(--fontSize-5xl);
-  font-weight: var(--fontWeight-bold);
-  margin-bottom: var(--spacing-md);
-  color: var(--textHeadline);
-}
-
-.sectionSubtitle {
-  text-align: center;
-  font-size: var(--fontSize-xl);
-  color: var(--textSecondary);
-  margin-bottom: var(--spacing-4xl);
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-  line-height: var(--lineHeight-relaxed);
+.headerWrap {
+  margin-bottom: var(--spacing-2xl);
 }
 
 .featuresGrid {
@@ -35,19 +21,19 @@
 }
 
 .featureCard {
-  background: var(--primary);
+  background: rgba(255, 255, 255, 0.02);
   padding: var(--spacing-3xl) var(--spacing-lg);
   border-radius: var(--border-radius-xl);
   text-align: center;
   transition: all var(--transition-base);
-  border: 1px solid var(--elementBorder);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
 }
 
 .featureCard:hover {
   transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-  border-color: var(--ownGreen);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
+  border-color: rgba(255, 255, 255, 0.25);
 }
 
 .featureIcon {
@@ -63,16 +49,45 @@
   font-size: var(--fontSize-2xl);
 }
 
+.featureIcon svg {
+  display: block;
+  flex-shrink: 0;
+}
+
 .featureTitle {
   font-size: var(--fontSize-2xl);
   font-weight: var(--fontWeight-semibold);
   margin-bottom: var(--spacing-md);
-  color: var(--textHeadline);
+  color: var(--text-white);
 }
 
 .featureDescription {
-  color: var(--textCopy);
+  color: rgba(255, 255, 255, 0.7);
   line-height: var(--lineHeight-relaxed);
+}
+
+:global(body[theme="light"]) .features {
+  background: var(--white-fafafa);
+  border-top-color: var(--gray-200);
+}
+
+:global(body[theme="light"]) .featureCard {
+  background: var(--white);
+  border-color: var(--gray-200);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+}
+
+:global(body[theme="light"]) .featureCard:hover {
+  border-color: var(--gray-300);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.08);
+}
+
+:global(body[theme="light"]) .featureTitle {
+  color: var(--gray-900);
+}
+
+:global(body[theme="light"]) .featureDescription {
+  color: var(--gray-600);
 }
 
 /* Responsive */
@@ -90,5 +105,3 @@
     padding: var(--spacing-xl) var(--spacing-md);
   }
 }
-
-

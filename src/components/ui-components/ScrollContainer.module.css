@@ -21,32 +21,44 @@
   scroll-behavior: smooth;
   scrollbar-width: thin;
   scrollbar-color: var(--color-primary-200) transparent;
-  
+
   /* Webkit scrollbar styling */
   &::-webkit-scrollbar {
     width: 8px;
   }
-  
+
   &::-webkit-scrollbar-track {
     background: transparent;
     border-radius: var(--radius-full);
   }
-  
+
   &::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, var(--color-primary-200) 0%, var(--color-primary-300) 100%);
+    background: linear-gradient(
+      180deg,
+      var(--color-primary-200) 0%,
+      var(--color-primary-300) 100%
+    );
     border-radius: var(--radius-full);
     border: 2px solid transparent;
     background-clip: content-box;
     transition: all 0.3s ease;
   }
-  
+
   &::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, var(--color-primary-300) 0%, var(--color-primary-400) 100%);
+    background: linear-gradient(
+      180deg,
+      var(--color-primary-300) 0%,
+      var(--color-primary-400) 100%
+    );
     background-clip: content-box;
   }
-  
+
   &::-webkit-scrollbar-thumb:active {
-    background: linear-gradient(180deg, var(--color-primary-400) 0%, var(--color-primary-500) 100%);
+    background: linear-gradient(
+      180deg,
+      var(--color-primary-400) 0%,
+      var(--color-primary-500) 100%
+    );
     background-clip: content-box;
   }
 }
@@ -120,12 +132,20 @@
 }
 
 :root.dark .scroll-container__content::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, var(--color-primary-600) 0%, var(--color-primary-700) 100%);
+  background: linear-gradient(
+    180deg,
+    var(--color-primary-600) 0%,
+    var(--color-primary-700) 100%
+  );
   background-clip: content-box;
 }
 
 :root.dark .scroll-container__content::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, var(--color-primary-500) 0%, var(--color-primary-600) 100%);
+  background: linear-gradient(
+    180deg,
+    var(--color-primary-500) 0%,
+    var(--color-primary-600) 100%
+  );
   background-clip: content-box;
 }
 
@@ -134,23 +154,31 @@
     background: var(--color-surface-dark);
     border-color: var(--color-neutral-700);
   }
-  
+
   :root:not(.light) .scroll-container:hover {
     border-color: var(--color-neutral-600);
   }
-  
+
   :root:not(.light) .scroll-container--glass {
     background: var(--slate-800-opacity-9);
     border-color: var(--border-white-1);
   }
-  
+
   :root:not(.light) .scroll-container__content::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, var(--color-primary-600) 0%, var(--color-primary-700) 100%);
+    background: linear-gradient(
+      180deg,
+      var(--color-primary-600) 0%,
+      var(--color-primary-700) 100%
+    );
     background-clip: content-box;
   }
-  
+
   :root:not(.light) .scroll-container__content::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, var(--color-primary-500) 0%, var(--color-primary-600) 100%);
+    background: linear-gradient(
+      180deg,
+      var(--color-primary-500) 0%,
+      var(--color-primary-600) 100%
+    );
     background-clip: content-box;
   }
 }
@@ -160,15 +188,15 @@
   .scroll-container__content::-webkit-scrollbar {
     width: 6px;
   }
-  
+
   .scroll-container--padded .scroll-container__content {
     padding: var(--space-4);
   }
-  
+
   .scroll-container--padded-lg .scroll-container__content {
     padding: var(--space-6);
   }
-  
+
   .scroll-container--padded-xl .scroll-container__content {
     padding: var(--space-8);
   }

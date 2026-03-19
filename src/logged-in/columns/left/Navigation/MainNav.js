@@ -1,72 +1,72 @@
-import React from 'react'
-import styles from './style.module.css'
+import React from "react";
+import styles from "./style.module.css";
 
-const MainNav = ({ currentPath = '/dashboard' }) => {
+const MainNav = ({ currentPath = "/dashboard" }) => {
   const navigationItems = [
     {
-      id: 'dashboard',
-      label: 'Dashboard',
-      icon: '📊',
-      path: '/dashboard',
-      active: currentPath === '/dashboard'
+      id: "dashboard",
+      label: "Dashboard",
+      icon: "📊",
+      path: "/dashboard",
+      active: currentPath === "/dashboard",
     },
     {
-      id: 'universities',
-      label: 'Universities',
-      icon: '🏫',
-      path: '/universities',
-      active: currentPath === '/universities'
+      id: "universities",
+      label: "Universities",
+      icon: "🏫",
+      path: "/universities",
+      active: currentPath === "/universities",
     },
     {
-      id: 'scholarships',
-      label: 'Scholarships',
-      icon: '💰',
-      path: '/scholarships',
-      active: currentPath === '/scholarships'
+      id: "scholarships",
+      label: "Scholarships",
+      icon: "💰",
+      path: "/scholarships",
+      active: currentPath === "/scholarships",
     },
     {
-      id: 'applications',
-      label: 'Applications',
-      icon: '📝',
-      path: '/applications',
-      active: currentPath === '/applications'
+      id: "applications",
+      label: "Applications",
+      icon: "📝",
+      path: "/applications",
+      active: currentPath === "/applications",
     },
     {
-      id: 'documents',
-      label: 'Documents',
-      icon: '📄',
-      path: '/documents',
-      active: currentPath === '/documents'
+      id: "documents",
+      label: "Documents",
+      icon: "📄",
+      path: "/documents",
+      active: currentPath === "/documents",
     },
     {
-      id: 'ai-matching',
-      label: 'AI Matching',
-      icon: '🤖',
-      path: '/ai-matching',
-      active: currentPath === '/ai-matching'
+      id: "ai-matching",
+      label: "AI Matching",
+      icon: "🤖",
+      path: "/ai-matching",
+      active: currentPath === "/ai-matching",
     },
     {
-      id: 'social',
-      label: 'Community',
-      icon: '👥',
-      path: '/social',
-      active: currentPath === '/social'
+      id: "social",
+      label: "Community",
+      icon: "👥",
+      path: "/social",
+      active: currentPath === "/social",
     },
     {
-      id: 'notifications',
-      label: 'Notifications',
-      icon: '🔔',
-      path: '/notifications',
-      active: currentPath === '/notifications'
+      id: "notifications",
+      label: "Notifications",
+      icon: "🔔",
+      path: "/notifications",
+      active: currentPath === "/notifications",
     },
     {
-      id: 'profile',
-      label: 'Profile',
-      icon: '👤',
-      path: '/profile',
-      active: currentPath === '/profile'
-    }
-  ]
+      id: "profile",
+      label: "Profile",
+      icon: "👤",
+      path: "/profile",
+      active: currentPath === "/profile",
+    },
+  ];
 
   return (
     <nav className={styles.mainNav}>
@@ -75,7 +75,9 @@ const MainNav = ({ currentPath = '/dashboard' }) => {
           <li key={item.id} className={styles.navItem}>
             <a
               href={item.path}
-              className={`${styles.navLink} ${item.active ? styles.active : ''}`}
+              className={`${styles.navLink} ${
+                item.active ? styles.active : ""
+              }`}
             >
               <span className={styles.navIcon}>{item.icon}</span>
               <span className={styles.navLabel}>{item.label}</span>
@@ -84,9 +86,7 @@ const MainNav = ({ currentPath = '/dashboard' }) => {
         ))}
       </ul>
     </nav>
-  )
-}
+  );
+};
 
-export default MainNav
-
-
+export default MainNav;

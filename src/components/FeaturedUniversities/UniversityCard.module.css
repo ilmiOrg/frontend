@@ -116,11 +116,11 @@
     align-items: flex-start;
     gap: var(--space-3);
   }
-  
+
   .universityStats {
     grid-template-columns: 1fr;
   }
-  
+
   .cardActions {
     flex-direction: column;
   }
@@ -130,7 +130,7 @@
   .universityCard {
     padding: var(--space-4);
   }
-  
+
   .universityLogo {
     width: 60px;
     height: 60px;

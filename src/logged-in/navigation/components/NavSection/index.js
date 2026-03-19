@@ -1,14 +1,14 @@
-import React, { useState } from 'react'
-import NavItem from '../NavItem'
-import styles from './style.module.css'
+import React, { useState } from "react";
+import NavItem from "../NavItem";
+import styles from "./style.module.css";
 
 const NavSection = ({ section }) => {
-  const [isExpanded, setIsExpanded] = useState(section?.expanded || false)
-  
+  const [isExpanded, setIsExpanded] = useState(section?.expanded || false);
+
   const handleToggle = () => {
-    setIsExpanded(!isExpanded)
-  }
-  
+    setIsExpanded(!isExpanded);
+  };
+
   // If section has no subsections, render as simple nav item
   if (!section?.sections) {
     return (
@@ -18,9 +18,9 @@ const NavSection = ({ section }) => {
         path={section?.path}
         badge={section?.badge}
       />
-    )
+    );
   }
-  
+
   // If section has subsections, render as expandable group
   return (
     <div className={styles.navSection}>
@@ -32,7 +32,7 @@ const NavSection = ({ section }) => {
         hasSubItems={true}
         isExpanded={isExpanded}
       />
-      
+
       {isExpanded && section?.sections && (
         <div className={styles.navSectionItems}>
           {section.sections.map((item) => (
@@ -48,9 +48,7 @@ const NavSection = ({ section }) => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default NavSection
-
-
+export default NavSection;

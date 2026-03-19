@@ -1,5 +1,5 @@
-import React from 'react'
-import styles from './style.module.css'
+import React from "react";
+import styles from "./style.module.css";
 
 const PageTemplate = ({ icon, title, description, actions, children }) => {
   return (
@@ -14,11 +14,9 @@ const PageTemplate = ({ icon, title, description, actions, children }) => {
         </div>
         {actions && <div className={styles.actions}>{actions}</div>}
       </div>
-      <div className={styles.content}>
-        {children}
-      </div>
+      <div className={styles.content}>{children}</div>
     </div>
-  )
-}
+  );
+};
 
-export default PageTemplate
+export default PageTemplate;

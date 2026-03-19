@@ -1,32 +1,28 @@
-import React from 'react'
-import styles from './style.module.css'
+import React from "react";
+import styles from "./style.module.css";
 
 const UserCard = ({ user = {} }) => {
   const defaultUser = {
-    name: 'John Doe',
-    email: 'john.doe@example.com',
-    avatar: '👤',
+    name: "John Doe",
+    email: "john.doe@example.com",
+    avatar: "👤",
     verified: true,
     stats: {
       applications: 5,
       matches: 12,
-      scholarships: 3
-    }
-  }
+      scholarships: 3,
+    },
+  };
 
-  const userData = { ...defaultUser, ...user }
+  const userData = { ...defaultUser, ...user };
 
   return (
     <div className={styles.userCard}>
-      <div className={styles.userAvatar}>
-        {userData.avatar}
-      </div>
+      <div className={styles.userAvatar}>{userData.avatar}</div>
       <div className={styles.userInfo}>
         <div className={styles.userName}>
           {userData.name}
-          {userData.verified && (
-            <span className={styles.verifiedBadge}>✓</span>
-          )}
+          {userData.verified && <span className={styles.verifiedBadge}>✓</span>}
         </div>
         <div className={styles.userEmail}>{userData.email}</div>
       </div>
@@ -45,9 +41,7 @@ const UserCard = ({ user = {} }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default UserCard
-
-
+export default UserCard;

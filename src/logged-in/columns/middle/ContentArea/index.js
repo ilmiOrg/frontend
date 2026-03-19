@@ -1,5 +1,5 @@
-import React from 'react'
-import styles from './style.module.css'
+import React from "react";
+import styles from "./style.module.css";
 
 const ContentArea = ({ children, title, breadcrumbs }) => {
   return (
@@ -9,7 +9,9 @@ const ContentArea = ({ children, title, breadcrumbs }) => {
         <nav className={styles.breadcrumbs}>
           {breadcrumbs.map((crumb, index) => (
             <span key={index} className={styles.breadcrumb}>
-              {index > 0 && <span className={styles.breadcrumbSeparator}>/</span>}
+              {index > 0 && (
+                <span className={styles.breadcrumbSeparator}>/</span>
+              )}
               <a href={crumb.path} className={styles.breadcrumbLink}>
                 {crumb.label}
               </a>
@@ -26,13 +28,9 @@ const ContentArea = ({ children, title, breadcrumbs }) => {
       )}
 
       {/* Main Content */}
-      <div className={styles.content}>
-        {children}
-      </div>
+      <div className={styles.content}>{children}</div>
     </div>
-  )
-}
+  );
+};
 
-export default ContentArea
-
-
+export default ContentArea;

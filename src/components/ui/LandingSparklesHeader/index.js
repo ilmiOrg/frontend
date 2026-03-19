@@ -6,16 +6,18 @@ import styles from "./style.module.css";
  * EnviroVision-style section header: big centered title with clean sparkles
  * and green→blue gradient lines. Use for Features, Pricing, About on landing.
  */
-export function LandingSparklesHeader({ title, particleColor = "#10b981", particleDensity = 120 }) {
+export function LandingSparklesHeader({
+  title,
+  particleColor = "#10b981",
+  particleDensity = 120,
+  className = "",
+}) {
   return (
-    <div className={styles.wrapper}>
+    <div className={`${styles.wrapper} ${className}`.trim()}>
       <h2 className={styles.title}>{title}</h2>
       <div className={styles.sparklesArea}>
         <div className={styles.sparklesMask}>
-          <div className={styles.gradientLine1} />
-          <div className={styles.gradientLine2} />
-          <div className={styles.gradientLine3} />
-          <div className={styles.gradientLine4} />
+          <div className={styles.topLine} />
           <SparklesCore
             background="transparent"
             minSize={0.7}

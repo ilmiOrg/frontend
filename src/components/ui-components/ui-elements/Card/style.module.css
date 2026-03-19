@@ -188,27 +188,27 @@
   .card {
     border-radius: var(--radius-md);
   }
-  
+
   .padding-medium {
     padding: var(--space-4);
   }
-  
+
   .padding-large {
     padding: var(--space-6);
   }
-  
+
   .cardHeader,
   .cardBody,
   .cardFooter {
     padding-left: var(--space-4);
     padding-right: var(--space-4);
   }
-  
+
   .cardActions {
     flex-direction: column;
     align-items: stretch;
   }
-  
+
   .cardActions > * {
     width: 100%;
   }

@@ -126,7 +126,11 @@
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background: conic-gradient(var(--color-primary) 0deg, var(--color-primary) 0deg, var(--color-neutral-200) 0deg);
+  background: conic-gradient(
+    var(--color-primary) 0deg,
+    var(--color-primary) 0deg,
+    var(--color-neutral-200) 0deg
+  );
   display: flex;
   align-items: center;
   justify-content: center;
@@ -193,7 +197,7 @@
 }
 
 .step::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   left: 100%;
@@ -229,16 +233,16 @@
   .track {
     background-color: var(--color-neutral-700);
   }
-  
+
   .label {
     color: var(--color-neutral-300);
   }
-  
+
   .circular .progressFill {
     background-color: var(--color-neutral-800);
     color: var(--color-neutral-200);
   }
-  
+
   .step {
     background-color: var(--color-neutral-800);
     border-color: var(--color-neutral-600);

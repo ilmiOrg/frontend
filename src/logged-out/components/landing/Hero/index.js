@@ -1,5 +1,5 @@
-import React from 'react'
-import styles from './style.module.css'
+import React from "react";
+import styles from "./style.module.css";
 
 const HeroSection = () => {
   return (
@@ -8,8 +8,8 @@ const HeroSection = () => {
         <div className={styles.heroContent}>
           <h1 className={styles.heroTitle}>Your Dream University Awaits</h1>
           <p className={styles.heroSubtitle}>
-            Connect with the perfect university that matches your academic aspirations, 
-            financial situation, and personal preferences.
+            Connect with the perfect university that matches your academic
+            aspirations, financial situation, and personal preferences.
           </p>
           <div className={styles.heroButtons}>
             <a href="/login" className={`${styles.btn} ${styles.btnPrimary}`}>
@@ -36,9 +36,7 @@ const HeroSection = () => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default HeroSection
-
-
+export default HeroSection;

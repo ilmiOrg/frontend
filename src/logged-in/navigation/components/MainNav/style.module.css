@@ -115,7 +115,7 @@
     transform: translateX(-100%);
     transition: transform var(--transition-base) var(--easing-smooth);
   }
-  
+
   .main-nav--open {
     transform: translateX(0);
     box-shadow: var(--shadow-2xl);
@@ -133,9 +133,8 @@
   .user-profile__email {
     font-size: 12px;
   }
-  
+
   .main-nav__sections {
     padding: 12px 8px;
   }
 }
-

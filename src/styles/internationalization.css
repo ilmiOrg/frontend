@@ -59,70 +59,70 @@
 
 /* Language-specific typography adjustments */
 [lang="ar"] {
-  font-family: 'Noto Sans Arabic', 'Arial', sans-serif;
+  font-family: "Noto Sans Arabic", "Arial", sans-serif;
   line-height: 1.8;
 }
 
 [lang="he"] {
-  font-family: 'Noto Sans Hebrew', 'Arial', sans-serif;
+  font-family: "Noto Sans Hebrew", "Arial", sans-serif;
   line-height: 1.8;
 }
 
 [lang="zh"] {
-  font-family: 'Noto Sans CJK SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-family: "Noto Sans CJK SC", "PingFang SC", "Microsoft YaHei", sans-serif;
 }
 
 [lang="ja"] {
-  font-family: 'Noto Sans CJK JP', 'Hiragino Sans', 'Yu Gothic', sans-serif;
+  font-family: "Noto Sans CJK JP", "Hiragino Sans", "Yu Gothic", sans-serif;
 }
 
 [lang="ko"] {
-  font-family: 'Noto Sans CJK KR', 'Malgun Gothic', sans-serif;
+  font-family: "Noto Sans CJK KR", "Malgun Gothic", sans-serif;
 }
 
 [lang="th"] {
-  font-family: 'Noto Sans Thai', 'Tahoma', sans-serif;
+  font-family: "Noto Sans Thai", "Tahoma", sans-serif;
 }
 
 /* Currency and number formatting classes */
 .currency-usd::before {
-  content: '$';
+  content: "$";
 }
 
 .currency-eur::before {
-  content: '€';
+  content: "€";
 }
 
 .currency-gbp::before {
-  content: '£';
+  content: "£";
 }
 
 .currency-jpy::before {
-  content: '¥';
+  content: "¥";
 }
 
 .currency-cny::before {
-  content: '¥';
+  content: "¥";
 }
 
 .currency-krw::before {
-  content: '₩';
+  content: "₩";
 }
 
 .currency-inr::before {
-  content: '₹';
+  content: "₹";
 }
 
 .currency-brl::before {
-  content: 'R$';
+  content: "R$";
 }
 
 .currency-cad::before {
-  content: 'C$';
+  content: "C$";
 }
 
 .currency-aud::before {
-  content: 'A$';
+  content: "A$";
 }
 
 /* Number formatting */
@@ -284,19 +284,19 @@
   .btn-primary {
     border: 2px solid var(--color-primary);
   }
-  
+
   .btn-secondary {
     border: 2px solid var(--color-secondary);
   }
-  
+
   .card {
     border: 2px solid var(--color-neutral-300);
   }
-  
+
   .input {
     border: 2px solid var(--color-neutral-400);
   }
-  
+
   .input:focus {
     border: 2px solid var(--color-primary);
   }
@@ -325,7 +325,7 @@
   .animate-rotate {
     animation: none;
   }
-  
+
   .hover-lift:hover,
   .card-hover:hover,
   .btn-primary:hover,
@@ -334,7 +334,7 @@
   .btn-floating:hover {
     transform: none;
   }
-  
+
   .transition-all,
   .hover-lift,
   .card-hover,
@@ -359,7 +359,7 @@
     border: 1px solid black !important;
     box-shadow: none !important;
   }
-  
+
   .card,
   .card-gradient,
   .card-elevated,
@@ -369,23 +369,23 @@
     border: 1px solid black !important;
     box-shadow: none !important;
   }
-  
+
   .modal-overlay {
     position: static !important;
     background: white !important;
   }
-  
+
   .modal-content {
     box-shadow: none !important;
     border: 1px solid black !important;
   }
-  
+
   .notification {
     position: static !important;
     box-shadow: none !important;
     border: 1px solid black !important;
   }
-  
+
   .floating-elements,
   .hero-particles,
   .hero-gradient {
@@ -400,7 +400,7 @@
 
 .focus-trap::before,
 .focus-trap::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 1px;
   height: 1px;
@@ -531,7 +531,12 @@
 
 /* Skeleton loading */
 .skeleton {
-  background: linear-gradient(90deg, var(--color-neutral-200) 25%, var(--color-neutral-100) 50%, var(--color-neutral-200) 75%);
+  background: linear-gradient(
+    90deg,
+    var(--color-neutral-200) 25%,
+    var(--color-neutral-100) 50%,
+    var(--color-neutral-200) 75%
+  );
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
   border-radius: var(--radius-md);

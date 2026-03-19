@@ -165,26 +165,26 @@
   .overlay {
     padding: var(--space-2);
   }
-  
+
   .modal {
     max-height: 95vh;
     border-radius: var(--radius-lg);
   }
-  
+
   .header,
   .content,
   .footer {
     padding: var(--space-4);
   }
-  
+
   .title {
     font-size: var(--font-size-lg);
   }
-  
+
   .footer {
     flex-direction: column;
   }
-  
+
   .footer > * {
     width: 100%;
   }
@@ -194,12 +194,12 @@
   .overlay {
     padding: 0;
   }
-  
+
   .modal {
     max-height: 100vh;
     border-radius: 0;
   }
-  
+
   .header,
   .content,
   .footer {
@@ -213,20 +213,20 @@
     background-color: var(--color-neutral-800);
     color: white;
   }
-  
+
   .header {
     border-bottom-color: var(--color-neutral-700);
   }
-  
+
   .title {
     color: white;
   }
-  
+
   .closeButton:hover {
     background-color: var(--color-neutral-700);
     color: var(--color-neutral-300);
   }
-  
+
   .footer {
     border-top-color: var(--color-neutral-700);
   }

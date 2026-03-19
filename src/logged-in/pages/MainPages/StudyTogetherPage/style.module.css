@@ -175,11 +175,11 @@
   .contentContainer {
     grid-template-columns: 1fr;
   }
-  
+
   .featureGrid {
     grid-template-columns: 1fr;
   }
-  
+
   .actionSection {
     position: static;
   }

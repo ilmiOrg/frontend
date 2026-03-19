@@ -1,6 +1,6 @@
-import React from 'react'
-import PageTemplate from '../../../shared/PageTemplate'
-import styles from './style.module.css'
+import React from "react";
+import PageTemplate from "../../../shared/PageTemplate";
+import styles from "./style.module.css";
 
 const AlumniMentorsPage = () => {
   return (
@@ -8,19 +8,16 @@ const AlumniMentorsPage = () => {
       icon="🎓"
       title="Alumni Mentors"
       description="Get guidance from university alumni"
-      actions={
-        <button className={styles.primaryBtn}>
-          Get Started
-        </button>
-      }
+      actions={<button className={styles.primaryBtn}>Get Started</button>}
     >
       <div className={styles.contentContainer}>
         <div className={styles.infoSection}>
           <h2 className={styles.sectionTitle}>Welcome to Alumni Mentors!</h2>
           <p className={styles.sectionText}>
-            Get guidance from university alumni. This powerful feature will help you achieve your university goals faster and more efficiently.
+            Get guidance from university alumni. This powerful feature will help
+            you achieve your university goals faster and more efficiently.
           </p>
-          
+
           <div className={styles.features}>
             <h3 className={styles.featuresTitle}>Key Features</h3>
             <div className={styles.featureGrid}>
@@ -47,21 +44,20 @@ const AlumniMentorsPage = () => {
             </div>
           </div>
         </div>
-        
+
         <div className={styles.actionSection}>
           <div className={styles.actionCard}>
             <h3 className={styles.actionTitle}>Ready to get started?</h3>
             <p className={styles.actionText}>
-              Begin your journey with Alumni Mentors and unlock your full potential.
+              Begin your journey with Alumni Mentors and unlock your full
+              potential.
             </p>
-            <button className={styles.actionBtn}>
-              🎓 Start Now
-            </button>
+            <button className={styles.actionBtn}>🎓 Start Now</button>
           </div>
         </div>
       </div>
     </PageTemplate>
-  )
-}
+  );
+};
 
-export default AlumniMentorsPage
+export default AlumniMentorsPage;

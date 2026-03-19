@@ -148,7 +148,7 @@
 }
 
 .notification::after {
-  content: '';
+  content: "";
   position: absolute;
   top: -2px;
   right: -2px;
@@ -165,7 +165,8 @@
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
@@ -198,7 +199,7 @@
     background-color: var(--color-neutral-700);
     color: var(--color-neutral-200);
   }
-  
+
   .outline {
     background-color: transparent;
     color: var(--color-neutral-300);

@@ -1,8 +1,8 @@
-import React from 'react'
-import styles from './style.module.css'
+import React from "react";
+import styles from "./style.module.css";
 
-const Input = ({ 
-  type = 'text',
+const Input = ({
+  type = "text",
   label,
   placeholder,
   value,
@@ -14,17 +14,19 @@ const Input = ({
   required = false,
   fullWidth = false,
   icon = null,
-  className = '',
+  className = "",
   ...props
 }) => {
   const inputClass = `
     ${styles.input} 
-    ${error ? styles.inputError : ''}
-    ${disabled ? styles.inputDisabled : ''}
-    ${fullWidth ? styles.inputFullWidth : ''}
-    ${icon ? styles.inputWithIcon : ''}
+    ${error ? styles.inputError : ""}
+    ${disabled ? styles.inputDisabled : ""}
+    ${fullWidth ? styles.inputFullWidth : ""}
+    ${icon ? styles.inputWithIcon : ""}
     ${className}
-  `.trim().replace(/\s+/g, ' ')
+  `
+    .trim()
+    .replace(/\s+/g, " ");
 
   return (
     <div className={styles.inputWrapper}>
@@ -51,8 +53,7 @@ const Input = ({
       </div>
       {error && <span className={styles.inputErrorMessage}>{error}</span>}
     </div>
-  )
-}
+  );
+};
 
-export default Input
-
+export default Input;

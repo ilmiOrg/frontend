@@ -1,33 +1,29 @@
-import React from 'react'
-import styles from './style.module.css'
+import React from "react";
+import styles from "./style.module.css";
 
-const Card = ({ 
-  children, 
-  variant = 'default',
-  padding = 'md',
-  className = '',
+const Card = ({
+  children,
+  variant = "default",
+  padding = "md",
+  className = "",
   onClick,
-  ...props 
+  ...props
 }) => {
   const cardClasses = [
     styles.card,
     styles[variant],
     styles[`padding-${padding}`],
-    onClick ? styles.clickable : '',
-    className
-  ].filter(Boolean).join(' ')
+    onClick ? styles.clickable : "",
+    className,
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   return (
-    <div
-      className={cardClasses}
-      onClick={onClick}
-      {...props}
-    >
+    <div className={cardClasses} onClick={onClick} {...props}>
       {children}
     </div>
-  )
-}
+  );
+};
 
-export default Card
-
-
+export default Card;

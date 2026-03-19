@@ -1,12 +1,12 @@
-import React from 'react'
-import ThreeColumnGrid from '../../layout/ThreeColumnGrid'
-import Card from '../../../core/ui/molecules/Card'
-import MainNav from '../../navigation/components/MainNav'
+import React from "react";
+import ThreeColumnGrid from "../../layout/ThreeColumnGrid";
+import Card from "../../../core/ui/molecules/Card";
+import MainNav from "../../navigation/components/MainNav";
 
-const PlaceholderPage = ({ 
-  icon = '🏗️', 
-  title = 'Coming Soon', 
-  description = 'This feature is under construction. Please check back later!' 
+const PlaceholderPage = ({
+  icon = "🏗️",
+  title = "Coming Soon",
+  description = "This feature is under construction. Please check back later!",
 }) => {
   const middleContent = (
     <div className="placeholder-content">
@@ -16,7 +16,7 @@ const PlaceholderPage = ({
         <p className="placeholder-description">{description}</p>
       </Card>
     </div>
-  )
+  );
 
   return (
     <ThreeColumnGrid
@@ -24,7 +24,7 @@ const PlaceholderPage = ({
       middleColumn={middleContent}
       rightColumn={null}
     />
-  )
-}
+  );
+};
 
-export default PlaceholderPage
+export default PlaceholderPage;

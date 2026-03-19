@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import ScrollContainer from '../ui-components/ScrollContainer';
-import { SparklesSectionTitle } from '../ui/SparklesSectionTitle';
-import { 
-  FiUser, 
-  FiBell, 
-  FiSettings, 
-  FiTrendingUp, 
-  FiCalendar, 
-  FiFileText, 
-  FiHeart, 
-  FiShare2, 
-  FiDownload, 
+import React, { useState, useEffect } from "react";
+import ScrollContainer from "../ui-components/ScrollContainer";
+import { SparklesSectionTitle } from "../ui/SparklesSectionTitle";
+import {
+  FiUser,
+  FiBell,
+  FiSettings,
+  FiTrendingUp,
+  FiCalendar,
+  FiFileText,
+  FiHeart,
+  FiShare2,
+  FiDownload,
   FiUpload,
   FiCheckCircle,
   FiClock,
@@ -32,9 +32,9 @@ import {
   FiEdit,
   FiTrash2,
   FiEye,
-  FiSend
-} from 'react-icons/fi';
-import styles from './style.module.css';
+  FiSend,
+} from "react-icons/fi";
+import styles from "./style.module.css";
 
 // Mock data for demonstration
 const mockDashboardData = {
@@ -43,7 +43,7 @@ const mockDashboardData = {
     email: "alex.johnson@email.com",
     avatar: "👨‍🎓",
     level: "Senior",
-    progress: 75
+    progress: 75,
   },
   stats: {
     applications: 12,
@@ -51,7 +51,7 @@ const mockDashboardData = {
     documents: 15,
     scholarships: 5,
     interviews: 3,
-    acceptances: 2
+    acceptances: 2,
   },
   recentActivity: [
     {
@@ -60,7 +60,7 @@ const mockDashboardData = {
       title: "Application submitted to Harvard University",
       time: "2 hours ago",
       status: "submitted",
-      icon: FiCheckCircle
+      icon: FiCheckCircle,
     },
     {
       id: 2,
@@ -68,7 +68,7 @@ const mockDashboardData = {
       title: "Transcript uploaded successfully",
       time: "4 hours ago",
       status: "completed",
-      icon: FiFileText
+      icon: FiFileText,
     },
     {
       id: 3,
@@ -76,7 +76,7 @@ const mockDashboardData = {
       title: "Interview scheduled with Stanford University",
       time: "1 day ago",
       status: "scheduled",
-      icon: FiCalendar
+      icon: FiCalendar,
     },
     {
       id: 4,
@@ -84,8 +84,8 @@ const mockDashboardData = {
       title: "New scholarship opportunity: Merit Scholarship",
       time: "2 days ago",
       status: "available",
-      icon: FiAward
-    }
+      icon: FiAward,
+    },
   ],
   applications: [
     {
@@ -96,7 +96,7 @@ const mockDashboardData = {
       progress: 100,
       deadline: "2024-01-15",
       matchScore: 98,
-      priority: "high"
+      priority: "high",
     },
     {
       id: 2,
@@ -106,7 +106,7 @@ const mockDashboardData = {
       progress: 75,
       deadline: "2024-01-20",
       matchScore: 95,
-      priority: "high"
+      priority: "high",
     },
     {
       id: 3,
@@ -116,7 +116,7 @@ const mockDashboardData = {
       progress: 60,
       deadline: "2024-01-25",
       matchScore: 92,
-      priority: "medium"
+      priority: "medium",
     },
     {
       id: 4,
@@ -126,8 +126,8 @@ const mockDashboardData = {
       progress: 30,
       deadline: "2024-02-01",
       matchScore: 89,
-      priority: "low"
-    }
+      priority: "low",
+    },
   ],
   matches: [
     {
@@ -138,7 +138,7 @@ const mockDashboardData = {
       location: "Cambridge, MA",
       tuition: 54000,
       ranking: 1,
-      deadline: "2024-01-15"
+      deadline: "2024-01-15",
     },
     {
       id: 2,
@@ -148,7 +148,7 @@ const mockDashboardData = {
       location: "Stanford, CA",
       tuition: 56000,
       ranking: 2,
-      deadline: "2024-01-20"
+      deadline: "2024-01-20",
     },
     {
       id: 3,
@@ -158,8 +158,8 @@ const mockDashboardData = {
       location: "Cambridge, MA",
       tuition: 53000,
       ranking: 3,
-      deadline: "2024-01-25"
-    }
+      deadline: "2024-01-25",
+    },
   ],
   scholarships: [
     {
@@ -169,7 +169,7 @@ const mockDashboardData = {
       university: "Harvard University",
       deadline: "2024-01-10",
       status: "available",
-      requirements: ["GPA 3.8+", "SAT 1400+"]
+      requirements: ["GPA 3.8+", "SAT 1400+"],
     },
     {
       id: 2,
@@ -178,7 +178,7 @@ const mockDashboardData = {
       university: "Stanford University",
       deadline: "2024-01-15",
       status: "applied",
-      requirements: ["Engineering Major", "Portfolio"]
+      requirements: ["Engineering Major", "Portfolio"],
     },
     {
       id: 3,
@@ -187,13 +187,13 @@ const mockDashboardData = {
       university: "MIT",
       deadline: "2024-01-20",
       status: "available",
-      requirements: ["Research Experience", "Recommendation"]
-    }
-  ]
+      requirements: ["Research Experience", "Recommendation"],
+    },
+  ],
 };
 
 const Dashboard = () => {
-  const [activeTab, setActiveTab] = useState('overview');
+  const [activeTab, setActiveTab] = useState("overview");
   const [data, setData] = useState(mockDashboardData);
   const [notifications, setNotifications] = useState([]);
   const [showNotifications, setShowNotifications] = useState(false);
@@ -208,10 +208,10 @@ const Dashboard = () => {
         title: "New university match found",
         message: "You have a new 95% match with UC Berkeley",
         time: "Just now",
-        read: false
+        read: false,
       };
-      
-      setNotifications(prev => [newNotification, ...prev.slice(0, 4)]);
+
+      setNotifications((prev) => [newNotification, ...prev.slice(0, 4)]);
     }, 30000); // Every 30 seconds
 
     return () => clearInterval(interval);
@@ -219,34 +219,34 @@ const Dashboard = () => {
 
   const getStatusColor = (status) => {
     switch (status) {
-      case 'submitted':
-      case 'completed':
-      case 'accepted':
-        return 'var(--color-success)';
-      case 'in_progress':
-      case 'scheduled':
-        return 'var(--color-warning)';
-      case 'draft':
-      case 'available':
-        return 'var(--color-info)';
-      case 'rejected':
-      case 'expired':
-        return 'var(--color-error)';
+      case "submitted":
+      case "completed":
+      case "accepted":
+        return "var(--color-success)";
+      case "in_progress":
+      case "scheduled":
+        return "var(--color-warning)";
+      case "draft":
+      case "available":
+        return "var(--color-info)";
+      case "rejected":
+      case "expired":
+        return "var(--color-error)";
       default:
-        return 'var(--color-neutral-500)';
+        return "var(--color-neutral-500)";
     }
   };
 
   const getStatusIcon = (status) => {
     switch (status) {
-      case 'submitted':
-      case 'completed':
+      case "submitted":
+      case "completed":
         return FiCheckCircle;
-      case 'in_progress':
-      case 'scheduled':
+      case "in_progress":
+      case "scheduled":
         return FiClock;
-      case 'draft':
-      case 'available':
+      case "draft":
+      case "available":
         return FiAlertCircle;
       default:
         return FiAlertCircle;
@@ -254,19 +254,19 @@ const Dashboard = () => {
   };
 
   const formatCurrency = (amount) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
       minimumFractionDigits: 0,
-      maximumFractionDigits: 0
+      maximumFractionDigits: 0,
     }).format(amount);
   };
 
   const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric'
+    return new Date(dateString).toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
     });
   };
 
@@ -285,26 +285,30 @@ const Dashboard = () => {
         <div className={styles.container}>
           <div className={styles.headerContent}>
             <div className={styles.userInfo}>
-              <div className={styles.avatar}>
-                {data.user.avatar}
-              </div>
+              <div className={styles.avatar}>{data.user.avatar}</div>
               <div className={styles.userDetails}>
-                <h1 className={styles.userName}>Welcome back, {data.user.name}!</h1>
-                <p className={styles.userLevel}>Level {data.user.level} • {data.user.progress}% Complete</p>
+                <h1 className={styles.userName}>
+                  Welcome back, {data.user.name}!
+                </h1>
+                <p className={styles.userLevel}>
+                  Level {data.user.level} • {data.user.progress}% Complete
+                </p>
               </div>
             </div>
-            
+
             <div className={styles.headerActions}>
-              <button 
+              <button
                 className={styles.notificationButton}
                 onClick={() => setShowNotifications(!showNotifications)}
               >
                 <FiBell />
                 {notifications.length > 0 && (
-                  <span className={styles.notificationBadge}>{notifications.length}</span>
+                  <span className={styles.notificationBadge}>
+                    {notifications.length}
+                  </span>
                 )}
               </button>
-              
+
               <button className={styles.settingsButton}>
                 <FiSettings />
               </button>
@@ -320,27 +324,36 @@ const Dashboard = () => {
             <div className={styles.notificationsContent}>
               <div className={styles.notificationsHeader}>
                 <h3>Notifications</h3>
-                <button 
+                <button
                   className={styles.clearAllButton}
                   onClick={() => setNotifications([])}
                 >
                   Clear All
                 </button>
               </div>
-              
+
               <div className={styles.notificationsList}>
                 {notifications.length === 0 ? (
                   <p className={styles.noNotifications}>No new notifications</p>
                 ) : (
-                  notifications.map(notification => (
-                    <div key={notification.id} className={styles.notificationItem}>
+                  notifications.map((notification) => (
+                    <div
+                      key={notification.id}
+                      className={styles.notificationItem}
+                    >
                       <div className={styles.notificationIcon}>
                         <FiBell />
                       </div>
                       <div className={styles.notificationContent}>
-                        <h4 className={styles.notificationTitle}>{notification.title}</h4>
-                        <p className={styles.notificationMessage}>{notification.message}</p>
-                        <span className={styles.notificationTime}>{notification.time}</span>
+                        <h4 className={styles.notificationTitle}>
+                          {notification.title}
+                        </h4>
+                        <p className={styles.notificationMessage}>
+                          {notification.message}
+                        </p>
+                        <span className={styles.notificationTime}>
+                          {notification.time}
+                        </span>
                       </div>
                     </div>
                   ))
@@ -355,44 +368,56 @@ const Dashboard = () => {
       <div className={styles.dashboardNav}>
         <div className={styles.container}>
           <nav className={styles.navTabs}>
-            <button 
-              className={`${styles.navTab} ${activeTab === 'overview' ? styles.active : ''}`}
-              onClick={() => setActiveTab('overview')}
+            <button
+              className={`${styles.navTab} ${
+                activeTab === "overview" ? styles.active : ""
+              }`}
+              onClick={() => setActiveTab("overview")}
             >
               <FiBarChart />
               Overview
             </button>
-            <button 
-              className={`${styles.navTab} ${activeTab === 'applications' ? styles.active : ''}`}
-              onClick={() => setActiveTab('applications')}
+            <button
+              className={`${styles.navTab} ${
+                activeTab === "applications" ? styles.active : ""
+              }`}
+              onClick={() => setActiveTab("applications")}
             >
               <FiFileText />
               Applications
             </button>
-            <button 
-              className={`${styles.navTab} ${activeTab === 'matches' ? styles.active : ''}`}
-              onClick={() => setActiveTab('matches')}
+            <button
+              className={`${styles.navTab} ${
+                activeTab === "matches" ? styles.active : ""
+              }`}
+              onClick={() => setActiveTab("matches")}
             >
               <FiTarget />
               Matches
             </button>
-            <button 
-              className={`${styles.navTab} ${activeTab === 'documents' ? styles.active : ''}`}
-              onClick={() => setActiveTab('documents')}
+            <button
+              className={`${styles.navTab} ${
+                activeTab === "documents" ? styles.active : ""
+              }`}
+              onClick={() => setActiveTab("documents")}
             >
               <FiUpload />
               Documents
             </button>
-            <button 
-              className={`${styles.navTab} ${activeTab === 'timeline' ? styles.active : ''}`}
-              onClick={() => setActiveTab('timeline')}
+            <button
+              className={`${styles.navTab} ${
+                activeTab === "timeline" ? styles.active : ""
+              }`}
+              onClick={() => setActiveTab("timeline")}
             >
               <FiCalendar />
               Timeline
             </button>
-            <button 
-              className={`${styles.navTab} ${activeTab === 'scholarships' ? styles.active : ''}`}
-              onClick={() => setActiveTab('scholarships')}
+            <button
+              className={`${styles.navTab} ${
+                activeTab === "scholarships" ? styles.active : ""
+              }`}
+              onClick={() => setActiveTab("scholarships")}
             >
               <FiAward />
               Scholarships
@@ -404,7 +429,7 @@ const Dashboard = () => {
       {/* Dashboard Content with Scroll Container */}
       <ScrollContainer variant="minimal" className={styles.dashboardContent}>
         <div className={styles.container}>
-          {activeTab === 'overview' && (
+          {activeTab === "overview" && (
             <div className={styles.overviewTab}>
               {/* Quick Stats */}
               <div className={styles.quickStats}>
@@ -413,37 +438,45 @@ const Dashboard = () => {
                     <FiFileText />
                   </div>
                   <div className={styles.statContent}>
-                    <div className={styles.statNumber}>{data.stats.applications}</div>
+                    <div className={styles.statNumber}>
+                      {data.stats.applications}
+                    </div>
                     <div className={styles.statLabel}>Applications</div>
                   </div>
                 </div>
-                
+
                 <div className={styles.statCard}>
                   <div className={styles.statIcon}>
                     <FiTarget />
                   </div>
                   <div className={styles.statContent}>
-                    <div className={styles.statNumber}>{data.stats.matches}</div>
+                    <div className={styles.statNumber}>
+                      {data.stats.matches}
+                    </div>
                     <div className={styles.statLabel}>Matches</div>
                   </div>
                 </div>
-                
+
                 <div className={styles.statCard}>
                   <div className={styles.statIcon}>
                     <FiUpload />
                   </div>
                   <div className={styles.statContent}>
-                    <div className={styles.statNumber}>{data.stats.documents}</div>
+                    <div className={styles.statNumber}>
+                      {data.stats.documents}
+                    </div>
                     <div className={styles.statLabel}>Documents</div>
                   </div>
                 </div>
-                
+
                 <div className={styles.statCard}>
                   <div className={styles.statIcon}>
                     <FiAward />
                   </div>
                   <div className={styles.statContent}>
-                    <div className={styles.statNumber}>{data.stats.scholarships}</div>
+                    <div className={styles.statNumber}>
+                      {data.stats.scholarships}
+                    </div>
                     <div className={styles.statLabel}>Scholarships</div>
                   </div>
                 </div>
@@ -452,26 +485,36 @@ const Dashboard = () => {
               {/* Recent Activity */}
               <div className={styles.recentActivity}>
                 <div className={styles.sectionHeader}>
-                  <SparklesSectionTitle as="h2" className={styles.sectionTitle}>Recent Activity</SparklesSectionTitle>
+                  <SparklesSectionTitle as="h2" className={styles.sectionTitle}>
+                    Recent Activity
+                  </SparklesSectionTitle>
                   <button className="btn btn-outline btn-sm">View All</button>
                 </div>
-                
+
                 <div className={styles.activityList}>
-                  {data.recentActivity.map(activity => {
+                  {data.recentActivity.map((activity) => {
                     const StatusIcon = activity.icon;
                     return (
                       <div key={activity.id} className={styles.activityItem}>
                         <div className={styles.activityIcon}>
-                          <StatusIcon style={{ color: getStatusColor(activity.status) }} />
+                          <StatusIcon
+                            style={{ color: getStatusColor(activity.status) }}
+                          />
                         </div>
                         <div className={styles.activityContent}>
-                          <h4 className={styles.activityTitle}>{activity.title}</h4>
-                          <span className={styles.activityTime}>{activity.time}</span>
+                          <h4 className={styles.activityTitle}>
+                            {activity.title}
+                          </h4>
+                          <span className={styles.activityTime}>
+                            {activity.time}
+                          </span>
                         </div>
                         <div className={styles.activityStatus}>
-                          <span 
+                          <span
                             className={styles.statusBadge}
-                            style={{ backgroundColor: getStatusColor(activity.status) }}
+                            style={{
+                              backgroundColor: getStatusColor(activity.status),
+                            }}
                           >
                             {activity.status}
                           </span>
@@ -487,36 +530,47 @@ const Dashboard = () => {
                 <div className={styles.sectionHeader}>
                   <h2 className={styles.sectionTitle}>Application Progress</h2>
                 </div>
-                
+
                 <div className={styles.progressCards}>
-                  {data.applications.map(application => (
+                  {data.applications.map((application) => (
                     <div key={application.id} className={styles.progressCard}>
                       <div className={styles.progressHeader}>
-                        <h3 className={styles.progressTitle}>{application.university}</h3>
-                        <span className={styles.matchScore}>{application.matchScore}% Match</span>
+                        <h3 className={styles.progressTitle}>
+                          {application.university}
+                        </h3>
+                        <span className={styles.matchScore}>
+                          {application.matchScore}% Match
+                        </span>
                       </div>
-                      
+
                       <div className={styles.progressBody}>
                         <div className={styles.progressInfo}>
-                          <span className={styles.programName}>{application.program}</span>
+                          <span className={styles.programName}>
+                            {application.program}
+                          </span>
                           <span className={styles.deadline}>
-                            Due: {formatDate(application.deadline)} ({getDaysUntilDeadline(application.deadline)} days)
+                            Due: {formatDate(application.deadline)} (
+                            {getDaysUntilDeadline(application.deadline)} days)
                           </span>
                         </div>
-                        
+
                         <div className={styles.progressBar}>
-                          <div 
+                          <div
                             className={styles.progressFill}
                             style={{ width: `${application.progress}%` }}
                           ></div>
                         </div>
-                        
+
                         <div className={styles.progressStats}>
-                          <span className={styles.progressPercent}>{application.progress}% Complete</span>
-                          <span className={styles.progressStatus}>{application.status}</span>
+                          <span className={styles.progressPercent}>
+                            {application.progress}% Complete
+                          </span>
+                          <span className={styles.progressStatus}>
+                            {application.status}
+                          </span>
                         </div>
                       </div>
-                      
+
                       <div className={styles.progressActions}>
                         <button className="btn btn-outline btn-sm">
                           <FiEye />
@@ -534,62 +588,80 @@ const Dashboard = () => {
             </div>
           )}
 
-          {activeTab === 'applications' && (
+          {activeTab === "applications" && (
             <div className={styles.applicationsTab}>
               <div className={styles.sectionHeader}>
-                <SparklesSectionTitle as="h2" className={styles.sectionTitle}>My Applications</SparklesSectionTitle>
+                <SparklesSectionTitle as="h2" className={styles.sectionTitle}>
+                  My Applications
+                </SparklesSectionTitle>
                 <button className="btn btn-primary">
                   <FiPlus />
                   New Application
                 </button>
               </div>
-              
+
               <div className={styles.applicationsList}>
-                {data.applications.map(application => (
+                {data.applications.map((application) => (
                   <div key={application.id} className={styles.applicationCard}>
                     <div className={styles.applicationHeader}>
                       <div className={styles.universityInfo}>
-                        <h3 className={styles.universityName}>{application.university}</h3>
-                        <p className={styles.programName}>{application.program}</p>
+                        <h3 className={styles.universityName}>
+                          {application.university}
+                        </h3>
+                        <p className={styles.programName}>
+                          {application.program}
+                        </p>
                       </div>
                       <div className={styles.applicationMeta}>
-                        <span className={styles.matchScore}>{application.matchScore}% Match</span>
-                        <span className={styles.priority}>{application.priority} Priority</span>
+                        <span className={styles.matchScore}>
+                          {application.matchScore}% Match
+                        </span>
+                        <span className={styles.priority}>
+                          {application.priority} Priority
+                        </span>
                       </div>
                     </div>
-                    
+
                     <div className={styles.applicationBody}>
                       <div className={styles.progressSection}>
                         <div className={styles.progressBar}>
-                          <div 
+                          <div
                             className={styles.progressFill}
                             style={{ width: `${application.progress}%` }}
                           ></div>
                         </div>
-                        <span className={styles.progressText}>{application.progress}% Complete</span>
+                        <span className={styles.progressText}>
+                          {application.progress}% Complete
+                        </span>
                       </div>
-                      
+
                       <div className={styles.applicationDetails}>
                         <div className={styles.detailItem}>
                           <span className={styles.detailLabel}>Status:</span>
-                          <span 
+                          <span
                             className={styles.detailValue}
-                            style={{ color: getStatusColor(application.status) }}
+                            style={{
+                              color: getStatusColor(application.status),
+                            }}
                           >
                             {application.status}
                           </span>
                         </div>
                         <div className={styles.detailItem}>
                           <span className={styles.detailLabel}>Deadline:</span>
-                          <span className={styles.detailValue}>{formatDate(application.deadline)}</span>
+                          <span className={styles.detailValue}>
+                            {formatDate(application.deadline)}
+                          </span>
                         </div>
                         <div className={styles.detailItem}>
                           <span className={styles.detailLabel}>Days Left:</span>
-                          <span className={styles.detailValue}>{getDaysUntilDeadline(application.deadline)}</span>
+                          <span className={styles.detailValue}>
+                            {getDaysUntilDeadline(application.deadline)}
+                          </span>
                         </div>
                       </div>
                     </div>
-                    
+
                     <div className={styles.applicationActions}>
                       <button className="btn btn-outline btn-sm">
                         <FiEye />
@@ -610,34 +682,40 @@ const Dashboard = () => {
             </div>
           )}
 
-          {activeTab === 'matches' && (
+          {activeTab === "matches" && (
             <div className={styles.matchesTab}>
               <div className={styles.sectionHeader}>
-                <SparklesSectionTitle as="h2" className={styles.sectionTitle}>University Matches</SparklesSectionTitle>
+                <SparklesSectionTitle as="h2" className={styles.sectionTitle}>
+                  University Matches
+                </SparklesSectionTitle>
                 <button className="btn btn-outline">
                   <FiFilter />
                   Filter Matches
                 </button>
               </div>
-              
+
               <div className={styles.matchesGrid}>
-                {data.matches.map(match => (
+                {data.matches.map((match) => (
                   <div key={match.id} className={styles.matchCard}>
                     <div className={styles.matchHeader}>
                       <div className={styles.universityLogo}>🎓</div>
                       <div className={styles.matchInfo}>
-                        <h3 className={styles.universityName}>{match.university}</h3>
+                        <h3 className={styles.universityName}>
+                          {match.university}
+                        </h3>
                         <div className={styles.matchLocation}>
                           <FiMapPin />
                           {match.location}
                         </div>
                       </div>
                       <div className={styles.matchScore}>
-                        <span className={styles.scoreNumber}>{match.matchScore}%</span>
+                        <span className={styles.scoreNumber}>
+                          {match.matchScore}%
+                        </span>
                         <span className={styles.scoreLabel}>Match</span>
                       </div>
                     </div>
-                    
+
                     <div className={styles.matchBody}>
                       <div className={styles.matchStats}>
                         <div className={styles.stat}>
@@ -653,9 +731,11 @@ const Dashboard = () => {
                           <span>Due: {formatDate(match.deadline)}</span>
                         </div>
                       </div>
-                      
+
                       <div className={styles.programs}>
-                        <h4 className={styles.programsTitle}>Available Programs:</h4>
+                        <h4 className={styles.programsTitle}>
+                          Available Programs:
+                        </h4>
                         <div className={styles.programsList}>
                           {match.programs.map((program, index) => (
                             <span key={index} className={styles.programTag}>
@@ -665,7 +745,7 @@ const Dashboard = () => {
                         </div>
                       </div>
                     </div>
-                    
+
                     <div className={styles.matchActions}>
                       <button className="btn btn-outline btn-sm">
                         <FiHeart />
@@ -685,59 +765,78 @@ const Dashboard = () => {
             </div>
           )}
 
-          {activeTab === 'scholarships' && (
+          {activeTab === "scholarships" && (
             <div className={styles.scholarshipsTab}>
               <div className={styles.sectionHeader}>
-                <SparklesSectionTitle as="h2" className={styles.sectionTitle}>Scholarship Opportunities</SparklesSectionTitle>
+                <SparklesSectionTitle as="h2" className={styles.sectionTitle}>
+                  Scholarship Opportunities
+                </SparklesSectionTitle>
                 <button className="btn btn-outline">
                   <FiSearch />
                   Find More
                 </button>
               </div>
-              
+
               <div className={styles.scholarshipsList}>
-                {data.scholarships.map(scholarship => (
+                {data.scholarships.map((scholarship) => (
                   <div key={scholarship.id} className={styles.scholarshipCard}>
                     <div className={styles.scholarshipHeader}>
                       <div className={styles.scholarshipInfo}>
-                        <h3 className={styles.scholarshipName}>{scholarship.name}</h3>
-                        <p className={styles.scholarshipUniversity}>{scholarship.university}</p>
+                        <h3 className={styles.scholarshipName}>
+                          {scholarship.name}
+                        </h3>
+                        <p className={styles.scholarshipUniversity}>
+                          {scholarship.university}
+                        </p>
                       </div>
                       <div className={styles.scholarshipAmount}>
-                        <span className={styles.amountNumber}>{formatCurrency(scholarship.amount)}</span>
+                        <span className={styles.amountNumber}>
+                          {formatCurrency(scholarship.amount)}
+                        </span>
                         <span className={styles.amountLabel}>per year</span>
                       </div>
                     </div>
-                    
+
                     <div className={styles.scholarshipBody}>
                       <div className={styles.scholarshipDetails}>
                         <div className={styles.detailItem}>
                           <span className={styles.detailLabel}>Deadline:</span>
-                          <span className={styles.detailValue}>{formatDate(scholarship.deadline)}</span>
+                          <span className={styles.detailValue}>
+                            {formatDate(scholarship.deadline)}
+                          </span>
                         </div>
                         <div className={styles.detailItem}>
                           <span className={styles.detailLabel}>Status:</span>
-                          <span 
+                          <span
                             className={styles.detailValue}
-                            style={{ color: getStatusColor(scholarship.status) }}
+                            style={{
+                              color: getStatusColor(scholarship.status),
+                            }}
                           >
                             {scholarship.status}
                           </span>
                         </div>
                       </div>
-                      
+
                       <div className={styles.requirements}>
-                        <h4 className={styles.requirementsTitle}>Requirements:</h4>
+                        <h4 className={styles.requirementsTitle}>
+                          Requirements:
+                        </h4>
                         <ul className={styles.requirementsList}>
-                          {scholarship.requirements.map((requirement, index) => (
-                            <li key={index} className={styles.requirementItem}>
-                              {requirement}
-                            </li>
-                          ))}
+                          {scholarship.requirements.map(
+                            (requirement, index) => (
+                              <li
+                                key={index}
+                                className={styles.requirementItem}
+                              >
+                                {requirement}
+                              </li>
+                            )
+                          )}
                         </ul>
                       </div>
                     </div>
-                    
+
                     <div className={styles.scholarshipActions}>
                       <button className="btn btn-outline btn-sm">
                         <FiEye />

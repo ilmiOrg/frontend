@@ -1,6 +1,6 @@
-import React from 'react'
-import PageTemplate from '../../../shared/PageTemplate'
-import styles from './style.module.css'
+import React from "react";
+import PageTemplate from "../../../shared/PageTemplate";
+import styles from "./style.module.css";
 
 const EssayReviewsPage = () => {
   return (
@@ -8,19 +8,17 @@ const EssayReviewsPage = () => {
       icon="📝"
       title="Essay Reviews"
       description="Get professional feedback on your application essays"
-      actions={
-        <button className={styles.primaryBtn}>
-          Get Started
-        </button>
-      }
+      actions={<button className={styles.primaryBtn}>Get Started</button>}
     >
       <div className={styles.contentContainer}>
         <div className={styles.infoSection}>
           <h2 className={styles.sectionTitle}>Welcome to Essay Reviews!</h2>
           <p className={styles.sectionText}>
-            Get professional feedback on your application essays. This powerful feature will help you achieve your university goals faster and more efficiently.
+            Get professional feedback on your application essays. This powerful
+            feature will help you achieve your university goals faster and more
+            efficiently.
           </p>
-          
+
           <div className={styles.features}>
             <h3 className={styles.featuresTitle}>Key Features</h3>
             <div className={styles.featureGrid}>
@@ -47,21 +45,20 @@ const EssayReviewsPage = () => {
             </div>
           </div>
         </div>
-        
+
         <div className={styles.actionSection}>
           <div className={styles.actionCard}>
             <h3 className={styles.actionTitle}>Ready to get started?</h3>
             <p className={styles.actionText}>
-              Begin your journey with Essay Reviews and unlock your full potential.
+              Begin your journey with Essay Reviews and unlock your full
+              potential.
             </p>
-            <button className={styles.actionBtn}>
-              📝 Start Now
-            </button>
+            <button className={styles.actionBtn}>📝 Start Now</button>
           </div>
         </div>
       </div>
     </PageTemplate>
-  )
-}
+  );
+};
 
-export default EssayReviewsPage
+export default EssayReviewsPage;

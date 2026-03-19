@@ -37,7 +37,11 @@
 .avatar {
   width: 60px;
   height: 60px;
-  background: linear-gradient(135deg, var(--color-primary-100) 0%, var(--color-accent-100) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-primary-100) 0%,
+    var(--color-accent-100) 100%
+  );
   border-radius: var(--radius-xl);
   display: flex;
   align-items: center;
@@ -296,13 +300,17 @@
 }
 
 .statCard::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-accent) 100%);
+  background: linear-gradient(
+    90deg,
+    var(--color-primary) 0%,
+    var(--color-accent) 100%
+  );
 }
 
 .statCard:hover {
@@ -314,7 +322,11 @@
 .statIcon {
   width: 48px;
   height: 48px;
-  background: linear-gradient(135deg, var(--color-primary-100) 0%, var(--color-accent-100) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-primary-100) 0%,
+    var(--color-accent-100) 100%
+  );
   border-radius: var(--radius-lg);
   display: flex;
   align-items: center;
@@ -509,7 +521,11 @@
 
 .progressFill {
   height: 100%;
-  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-accent) 100%);
+  background: linear-gradient(
+    90deg,
+    var(--color-primary) 0%,
+    var(--color-accent) 100%
+  );
   border-radius: var(--radius-full);
   transition: width 0.5s ease;
 }
@@ -693,7 +709,11 @@
 .universityLogo {
   width: 60px;
   height: 60px;
-  background: linear-gradient(135deg, var(--color-primary-100) 0%, var(--color-accent-100) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-primary-100) 0%,
+    var(--color-accent-100) 100%
+  );
   border-radius: var(--radius-xl);
   display: flex;
   align-items: center;
@@ -904,7 +924,7 @@
 }
 
 .requirementItem::before {
-  content: '•';
+  content: "•";
   color: var(--color-primary);
   font-weight: bold;
   position: absolute;
@@ -924,23 +944,23 @@
     gap: var(--space-4);
     text-align: center;
   }
-  
+
   .quickStats {
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   }
-  
+
   .progressCards {
     grid-template-columns: 1fr;
   }
-  
+
   .applicationsList {
     grid-template-columns: 1fr;
   }
-  
+
   .matchesGrid {
     grid-template-columns: 1fr;
   }
-  
+
   .scholarshipsList {
     grid-template-columns: 1fr;
   }
@@ -950,55 +970,55 @@
   .container {
     padding: 0 var(--space-4);
   }
-  
+
   .dashboardHeader {
     padding: var(--space-4) 0;
   }
-  
+
   .dashboardContent {
     padding: var(--space-6) 0;
   }
-  
+
   .navTabs {
     padding: 0 var(--space-2);
   }
-  
+
   .navTab {
     padding: var(--space-2) var(--space-3);
     font-size: var(--font-size-xs);
   }
-  
+
   .quickStats {
     grid-template-columns: repeat(2, 1fr);
     gap: var(--space-4);
   }
-  
+
   .statCard {
     padding: var(--space-4);
   }
-  
+
   .recentActivity,
   .progressOverview {
     padding: var(--space-4);
   }
-  
+
   .applicationCard,
   .matchCard,
   .scholarshipCard {
     padding: var(--space-4);
   }
-  
+
   .applicationActions,
   .matchActions,
   .scholarshipActions {
     flex-direction: column;
   }
-  
+
   .applicationDetails,
   .scholarshipDetails {
     grid-template-columns: 1fr;
   }
-  
+
   .matchStats {
     grid-template-columns: 1fr;
   }
@@ -1009,23 +1029,23 @@
     flex-direction: column;
     text-align: center;
   }
-  
+
   .quickStats {
     grid-template-columns: 1fr;
   }
-  
+
   .sectionHeader {
     flex-direction: column;
     gap: var(--space-3);
     align-items: stretch;
   }
-  
+
   .applicationHeader,
   .scholarshipHeader {
     flex-direction: column;
     gap: var(--space-3);
   }
-  
+
   .applicationMeta,
   .scholarshipAmount {
     align-items: flex-start;

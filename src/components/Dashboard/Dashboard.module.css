@@ -1,23 +1,32 @@
 .dashboard {
   min-height: 100vh;
-  background: linear-gradient(135deg, 
-    var(--color-neutral-50) 0%, 
-    var(--color-surface-elevated) 50%, 
-    var(--color-neutral-50) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-neutral-50) 0%,
+    var(--color-surface-elevated) 50%,
+    var(--color-neutral-50) 100%
+  );
   padding: var(--space-8);
   position: relative;
 }
 
 .dashboard::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: 
-    radial-gradient(circle at 20% 80%, rgba(37, 99, 235, 0.03) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(5, 150, 105, 0.03) 0%, transparent 50%);
+  background: radial-gradient(
+      circle at 20% 80%,
+      rgba(37, 99, 235, 0.03) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(5, 150, 105, 0.03) 0%,
+      transparent 50%
+    );
   pointer-events: none;
 }
 
@@ -232,7 +241,7 @@
 }
 
 .reasonItem::before {
-  content: '✓';
+  content: "✓";
   position: absolute;
   left: 0;
   color: var(--color-success);
@@ -419,11 +428,11 @@
     grid-template-columns: 1fr;
     gap: var(--space-6);
   }
-  
+
   .sidebar {
     order: -1;
   }
-  
+
   .matchesGrid {
     grid-template-columns: 1fr;
   }
@@ -433,53 +442,53 @@
   .dashboard {
     padding: var(--space-4);
   }
-  
+
   .greeting {
     font-size: var(--font-size-2xl);
   }
-  
+
   .stats {
     flex-direction: column;
     gap: var(--space-4);
   }
-  
+
   .stat {
     flex-direction: row;
     justify-content: space-between;
     min-width: auto;
   }
-  
+
   .tabs {
     flex-direction: column;
     gap: 0;
   }
-  
+
   .tab {
     border-bottom: none;
     border-left: 2px solid transparent;
     text-align: left;
   }
-  
+
   .tab.active {
     border-bottom-color: transparent;
     border-left-color: var(--color-primary);
   }
-  
+
   .matchHeader {
     flex-direction: column;
     align-items: flex-start;
     gap: var(--space-3);
   }
-  
+
   .matchActions {
     flex-direction: column;
   }
-  
+
   .quickActions {
     flex-direction: row;
     flex-wrap: wrap;
   }
-  
+
   .quickActionButton {
     flex: 1;
     min-width: 120px;
@@ -490,19 +499,19 @@
   .dashboard {
     padding: var(--space-3);
   }
-  
+
   .greeting {
     font-size: var(--font-size-xl);
   }
-  
+
   .matchesGrid {
     gap: var(--space-4);
   }
-  
+
   .matchCard {
     padding: var(--space-4);
   }
-  
+
   .stats {
     grid-template-columns: 1fr;
   }

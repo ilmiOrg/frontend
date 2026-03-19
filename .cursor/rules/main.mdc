@@ -70,6 +70,17 @@ export default Button
 
 **Goal**: Premium UI that rivals Linear, Notion, Figma.
 
+## 🌙 Landing + Navbar Product Defaults
+
+For current phase, keep the product focused and consistent:
+
+- Default theme must be **dark/black** on first load.
+- Default language must be **English** on first load.
+- Keep theme and language switchers visible and functional (do not remove them).
+- Logged-out and logged-in top navbars must have clean spacing, visual hierarchy, and no crowded controls.
+- Landing page must not include pricing plans; messaging should clearly state everything is free and optionally support donations.
+- Use clear, concise English copy for all newly added landing/navbar text.
+
 ```
 
 **Usage:**

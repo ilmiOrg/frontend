@@ -1,7 +1,7 @@
-import React, { Suspense, lazy } from 'react'
-import styles from './style.module.css'
+import React, { Suspense, lazy } from "react";
+import styles from "./style.module.css";
 
-const Spline = lazy(() => import('@splinetool/react-spline'))
+const Spline = lazy(() => import("@splinetool/react-spline"));
 
 /**
  * @param {Object} props
@@ -11,30 +11,40 @@ const Spline = lazy(() => import('@splinetool/react-spline'))
  * @param {number} [props.nudgeRobotRight] - Add this to the robot's position.x (moves it right). Canvas stays full width.
  * @param {string[]} [props.robotObjectNames] - Object names to try when nudging (default: ['Robot', 'Character', 'Agent'])
  */
-export function SplineScene({ scene, className = '', onLoad, nudgeRobotRight, robotObjectNames = ['Robot', 'Character', 'Agent'] }) {
+export function SplineScene({
+  scene,
+  className = "",
+  onLoad,
+  nudgeRobotRight,
+  robotObjectNames = ["Robot", "Character", "Agent"],
+}) {
   const handleLoad = React.useCallback(
     (app) => {
       if (nudgeRobotRight != null && nudgeRobotRight !== 0) {
-        const names = robotObjectNames.length ? robotObjectNames : ['Robot', 'Character', 'Agent']
-        let nudged = false
+        const names = robotObjectNames.length
+          ? robotObjectNames
+          : ["Robot", "Character", "Agent"];
+        let nudged = false;
         for (const name of names) {
-          const obj = app.findObjectByName(name)
+          const obj = app.findObjectByName(name);
           if (obj && obj.position) {
-            obj.position.x += nudgeRobotRight
-            nudged = true
-            break
+            obj.position.x += nudgeRobotRight;
+            nudged = true;
+            break;
           }
         }
-        const all = app.getAllObjects?.() || []
+        const all = app.getAllObjects?.() || [];
         if (!nudged && all.length) {
-          const lowerNames = names.map((n) => n.toLowerCase())
+          const lowerNames = names.map((n) => n.toLowerCase());
           for (const obj of all) {
             if (obj && obj.position && obj.name) {
-              const match = lowerNames.some((n) => obj.name.toLowerCase().includes(n))
+              const match = lowerNames.some((n) =>
+                obj.name.toLowerCase().includes(n)
+              );
               if (match) {
-                obj.position.x += nudgeRobotRight
-                nudged = true
-                break
+                obj.position.x += nudgeRobotRight;
+                nudged = true;
+                break;
               }
             }
           }
@@ -42,18 +52,18 @@ export function SplineScene({ scene, className = '', onLoad, nudgeRobotRight, ro
         if (!nudged && all.length) {
           for (const obj of all) {
             if (obj && obj.position) {
-              obj.position.x += nudgeRobotRight
+              obj.position.x += nudgeRobotRight;
             }
           }
         }
-        if (typeof app.requestRender === 'function') {
-          app.requestRender()
+        if (typeof app.requestRender === "function") {
+          app.requestRender();
         }
       }
-      onLoad?.(app)
+      onLoad?.(app);
     },
     [nudgeRobotRight, robotObjectNames, onLoad]
-  )
+  );
 
   return (
     <Suspense
@@ -63,7 +73,11 @@ export function SplineScene({ scene, className = '', onLoad, nudgeRobotRight, ro
         </div>
       }
     >
-      <Spline scene={scene} className={className || styles.spline} onLoad={handleLoad} />
+      <Spline
+        scene={scene}
+        className={className || styles.spline}
+        onLoad={handleLoad}
+      />
     </Suspense>
-  )
+  );
 }

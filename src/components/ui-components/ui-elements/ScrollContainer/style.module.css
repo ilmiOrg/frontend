@@ -153,7 +153,7 @@
 }
 
 .fadeTop::before {
-  content: '';
+  content: "";
   position: sticky;
   top: 0;
   left: 0;
@@ -169,7 +169,7 @@
 }
 
 .fadeBottom::after {
-  content: '';
+  content: "";
   position: sticky;
   bottom: 0;
   left: 0;
@@ -185,7 +185,7 @@
 }
 
 .fadeBoth::before {
-  content: '';
+  content: "";
   position: sticky;
   top: 0;
   left: 0;
@@ -197,7 +197,7 @@
 }
 
 .fadeBoth::after {
-  content: '';
+  content: "";
   position: sticky;
   bottom: 0;
   left: 0;
@@ -263,15 +263,15 @@
   .scrollContainer {
     -webkit-overflow-scrolling: touch;
   }
-  
+
   .small {
     max-height: 10rem;
   }
-  
+
   .medium {
     max-height: 16rem;
   }
-  
+
   .large {
     max-height: 24rem;
   }
@@ -282,35 +282,39 @@
   .default {
     scrollbar-color: var(--color-neutral-600) var(--color-neutral-800);
   }
-  
+
   .default::-webkit-scrollbar-track {
     background: var(--color-neutral-800);
   }
-  
+
   .default::-webkit-scrollbar-thumb {
     background: var(--color-neutral-600);
   }
-  
+
   .default::-webkit-scrollbar-thumb:hover {
     background: var(--color-neutral-500);
   }
-  
+
   .thin {
     scrollbar-color: var(--color-neutral-700) transparent;
   }
-  
+
   .thin::-webkit-scrollbar-thumb {
     background: var(--color-neutral-700);
   }
-  
+
   .thin::-webkit-scrollbar-thumb:hover {
     background: var(--color-neutral-600);
   }
-  
+
   .fadeTop::before,
   .fadeBottom::after,
   .fadeBoth::before,
   .fadeBoth::after {
-    background: linear-gradient(to bottom, var(--color-neutral-900), transparent);
+    background: linear-gradient(
+      to bottom,
+      var(--color-neutral-900),
+      transparent
+    );
   }
 }
