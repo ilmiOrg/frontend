@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { ScrollContainer } from "../../../../components/ui/ScrollContainer";
 import styles from "./style.module.css";
 
 const SendInfoPage = () => {
@@ -8,30 +9,6 @@ const SendInfoPage = () => {
   const [formData, setFormData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
-
-  // Fix scrollbar - only one scrollbar on the right (the page element)
-  useEffect(() => {
-    const styleEl = document.createElement("style");
-    styleEl.id = "page-scrollbar-fix";
-    styleEl.textContent = `
-      html, body, #root {
-        overflow: hidden !important;
-        height: 100vh !important;
-        max-height: 100vh !important;
-      }
-      html::-webkit-scrollbar,
-      body::-webkit-scrollbar,
-      #root::-webkit-scrollbar {
-        display: none !important;
-        width: 0 !important;
-      }
-    `;
-    document.head.appendChild(styleEl);
-    return () => {
-      const existing = document.getElementById("page-scrollbar-fix");
-      if (existing) existing.remove();
-    };
-  }, []);
 
   useEffect(() => {
     // Load EmailJS
@@ -459,6 +436,7 @@ const SendInfoPage = () => {
   if (submitSuccess) {
     return (
       <div className={styles.page}>
+        <ScrollContainer className={styles.scrollArea} disableHorizontalScroll>
         <div className={styles.successContainer}>
           <div className={styles.successIcon}>✅</div>
           <h2>Information Sent Successfully!</h2>
@@ -480,6 +458,7 @@ const SendInfoPage = () => {
             Back to Dashboard
           </button>
         </div>
+        </ScrollContainer>
       </div>
     );
   }
@@ -518,6 +497,7 @@ const SendInfoPage = () => {
         </div>
       </div>
 
+      <ScrollContainer className={styles.scrollArea} disableHorizontalScroll>
       <div className={styles.content}>
         <div className={styles.premiumOffer}>
           <div className={styles.offerIcon}>⭐</div>
@@ -562,6 +542,7 @@ const SendInfoPage = () => {
           </div>
         </form>
       </div>
+      </ScrollContainer>
     </div>
   );
 };

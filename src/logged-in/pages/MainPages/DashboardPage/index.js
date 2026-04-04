@@ -6,6 +6,7 @@ import ilmiLogo from "../../../../assets/images/ilmi-logo.jpg";
 import { SparklesSectionTitle } from "../../../../components/ui/SparklesSectionTitle";
 import { SkyToggle } from "../../../../components/ui/SkyToggle";
 import LanguageSwitcher from "../../../../components/LanguageSwitcher";
+import { ScrollContainer } from "../../../../components/ui/ScrollContainer";
 import styles from "./style.module.css";
 
 const DashboardPage = () => {
@@ -25,7 +26,6 @@ const DashboardPage = () => {
     privacy: false,
   });
   const [leftSidebarCollapsed, setLeftSidebarCollapsed] = useState(false);
-  const [rightSidebarCollapsed, setRightSidebarCollapsed] = useState(false);
   const [isDark, setIsDark] = useState(() => {
     if (typeof window === "undefined") return true;
     const saved = localStorage.getItem("theme");
@@ -34,9 +34,8 @@ const DashboardPage = () => {
     return true;
   });
 
-  // Hide ALL scrollbars when dashboard is mounted
+  // Lock document scroll; in-app scrolling uses ScrollContainer (same as landing)
   useEffect(() => {
-    // Create a style element to hide all scrollbars globally
     const styleEl = document.createElement("style");
     styleEl.id = "dashboard-no-scroll";
     styleEl.textContent = `
@@ -44,21 +43,9 @@ const DashboardPage = () => {
         overflow: hidden !important;
         height: 100vh !important;
         width: 100vw !important;
-        position: fixed !important;
-        top: 0 !important;
-        left: 0 !important;
-      }
-      html::-webkit-scrollbar,
-      body::-webkit-scrollbar,
-      #root::-webkit-scrollbar {
-        display: none !important;
-        width: 0 !important;
-        height: 0 !important;
       }
     `;
     document.head.appendChild(styleEl);
-
-    // Cleanup: remove the style element when component unmounts
     return () => {
       const existingStyle = document.getElementById("dashboard-no-scroll");
       if (existingStyle) {
@@ -342,7 +329,7 @@ const DashboardPage = () => {
     <div
       className={`${styles.dashboard} ${
         leftSidebarCollapsed ? styles.leftCollapsed : ""
-      } ${rightSidebarCollapsed ? styles.rightCollapsed : ""}`}
+      }`}
     >
       {/* Sidebar Toggle Buttons */}
       <button
@@ -352,14 +339,6 @@ const DashboardPage = () => {
       >
         {leftSidebarCollapsed ? "☰" : "✕"}
       </button>
-      <button
-        className={styles.rightSidebarToggle}
-        onClick={() => setRightSidebarCollapsed(!rightSidebarCollapsed)}
-        title={rightSidebarCollapsed ? "Show Sidebar" : "Hide Sidebar"}
-      >
-        {rightSidebarCollapsed ? "☰" : "✕"}
-      </button>
-
       {/* Liquid Shapes Background */}
       <div className={styles.liquidShape}></div>
       <div className={styles.liquidShape}></div>
@@ -379,9 +358,21 @@ const DashboardPage = () => {
           <div className={styles.tagline}>
             Your university journey starts here
           </div>
+          <button
+            type="button"
+            onClick={() => handleNavClick("/dashboard/send-info")}
+            className={`${styles.btn} ${styles.btnPrimary} ${styles.btnSm} ${styles.sidebarSendPremiumBtn}`}
+          >
+            📤 Send Info & ⭐ Get Premium
+          </button>
         </div>
 
-        <nav className={styles.leftNav}>
+        <ScrollContainer
+          className={styles.sidebarScroll}
+          disableHorizontalScroll
+          paddingAbsolute
+        >
+          <nav className={styles.leftNav}>
           {/* Main Navigation */}
           <div className={styles.navSection}>
             <div
@@ -720,11 +711,13 @@ const DashboardPage = () => {
               <span className={styles.navLabel}>Logout</span>
             </button>
           </div>
-        </nav>
+          </nav>
+        </ScrollContainer>
       </aside>
 
       {/* Main Content */}
       <main className={styles.mainContent}>
+        <ScrollContainer className={styles.mainScroll} disableHorizontalScroll>
         <div className={styles.mainContentInner}>
           {/* Top Navbar */}
           <div className={styles.topNavbar}>
@@ -2431,91 +2424,8 @@ const DashboardPage = () => {
             </div>
           </section>
         </div>
+        </ScrollContainer>
       </main>
-
-      {/* Right Sidebar */}
-      <aside
-        className={`${styles.rightSidebar} ${
-          rightSidebarCollapsed ? styles.sidebarCollapsed : ""
-        }`}
-      >
-        <div className={styles.rightSidebarHeader}>
-          <h3 className={styles.rightSidebarTitle}>Quick Tools</h3>
-          <p className={styles.rightSidebarSubtitle}>
-            Access your most used features
-          </p>
-        </div>
-        <div className={styles.rightSidebarContent}>
-          {/* Action Buttons */}
-          <div className={styles.widget}>
-            <div className={styles.actionButtons}>
-              <button
-                onClick={() => handleNavClick("/dashboard/send-info")}
-                className={`${styles.btn} ${styles.btnPrimary} ${styles.btnSm}`}
-                style={{ width: "100%" }}
-              >
-                📤 Send Info & ⭐ Get Premium
-              </button>
-            </div>
-          </div>
-
-          {/* Student Registration Progress */}
-          <div className={styles.widget}>
-            <div className={styles.registrationHeader}>
-              <div className={styles.registrationTitleRow}>
-                <span className={styles.progressEmoji}>😊</span>
-                <h4 className={styles.widgetTitle}>Registration Progress</h4>
-              </div>
-              <span className={styles.stepsCounter}>8/12 steps</span>
-            </div>
-            <div className={styles.registrationProgressContainer}>
-              <div className={styles.progressBarContainer}>
-                <div className={styles.progressBarBg}>
-                  <div
-                    className={styles.progressBarFill}
-                    style={{ width: "67%" }}
-                  ></div>
-                </div>
-                <span className={styles.progressPercentage}>67%</span>
-              </div>
-              <button
-                onClick={() => handleNavClick("/dashboard/contact-premium")}
-                className={`${styles.btn} ${styles.btnOutline} ${styles.btnSm} ${styles.registrationBtn}`}
-              >
-                Finish Registration
-              </button>
-            </div>
-          </div>
-
-          {/* Quick Reminders */}
-          <div className={styles.widget}>
-            <h4 className={styles.widgetTitle}>Important Reminders</h4>
-            <div className={styles.remindersList}>
-              <div className={`${styles.reminderCard} ${styles.urgent}`}>
-                <div className={styles.reminderIcon}>🚨</div>
-                <div className={styles.reminderContent}>
-                  <h5>Deadline Alert</h5>
-                  <p>MIT application due in 3 days</p>
-                </div>
-              </div>
-              <div className={`${styles.reminderCard} ${styles.important}`}>
-                <div className={styles.reminderIcon}>📝</div>
-                <div className={styles.reminderContent}>
-                  <h5>Document Upload</h5>
-                  <p>Upload transcripts for 5 universities</p>
-                </div>
-              </div>
-              <div className={`${styles.reminderCard} ${styles.info}`}>
-                <div className={styles.reminderIcon}>💡</div>
-                <div className={styles.reminderContent}>
-                  <h5>Scholarship Match</h5>
-                  <p>3 new scholarships match your profile</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </aside>
     </div>
   );
 };

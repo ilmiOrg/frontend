@@ -1,0 +1,17 @@
+.btn {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: rgba(255, 255, 255, 0.25);
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+.btn:hover {
+  color: rgba(52, 211, 153, 0.95);
+  text-decoration-color: rgba(52, 211, 153, 0.5);
+}

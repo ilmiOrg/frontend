@@ -1,5 +1,5 @@
 import React from "react";
-import PageTemplate from "../../shared/PageTemplate";
+import PageTemplate from "../../../shared/PageTemplate";
 import styles from "./style.module.css";
 
 const ContactPremiumPage = () => {

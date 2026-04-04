@@ -28,7 +28,7 @@
 
 .scrollContainer :global(.os-scrollbar-vertical .os-scrollbar-track) {
   width: var(--scrollbar-width) !important;
-  right: 2px !important;
+  right: 0 !important;
 }
 
 .scrollContainer :global(.os-scrollbar-horizontal .os-scrollbar-track) {
@@ -69,17 +69,17 @@
 
 .scrollContainer :global(.os-scrollbar-vertical) {
   z-index: 10 !important;
-  right: 2px !important;
-  top: 2px !important;
-  bottom: 2px !important;
+  right: 0 !important;
+  top: 0 !important;
+  bottom: 0 !important;
   width: var(--scrollbar-width) !important;
 }
 
 .scrollContainer :global(.os-scrollbar-horizontal) {
   z-index: 10 !important;
   bottom: 0 !important;
-  left: 2px !important;
-  right: 2px !important;
+  left: 0 !important;
+  right: 0 !important;
   height: var(--scrollbar-width) !important;
 }
 

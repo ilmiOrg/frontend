@@ -15,6 +15,7 @@ function ScrollContainerRender(
     scrollbarsRef,
     disableHorizontalScroll = false,
     disableVerticalScroll = false,
+    paddingAbsolute = false,
     ...rest
   },
   containerRef
@@ -51,6 +52,7 @@ function ScrollContainerRender(
   ]);
 
   const osOptions = {
+    paddingAbsolute,
     scrollbars: {
       autoHide: "never",
       theme: "os-theme-custom-blue",

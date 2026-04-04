@@ -1,35 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../../contexts/AuthContext";
+import { ScrollContainer } from "../../../../components/ui/ScrollContainer";
 import styles from "./style.module.css";
 
 const ProfilePage = () => {
   const navigate = useNavigate();
   const { logout } = useAuth();
-
-  // Fix scrollbar - only one scrollbar on the right (the page element)
-  useEffect(() => {
-    const styleEl = document.createElement("style");
-    styleEl.id = "page-scrollbar-fix";
-    styleEl.textContent = `
-      html, body, #root {
-        overflow: hidden !important;
-        height: 100vh !important;
-        max-height: 100vh !important;
-      }
-      html::-webkit-scrollbar,
-      body::-webkit-scrollbar,
-      #root::-webkit-scrollbar {
-        display: none !important;
-        width: 0 !important;
-      }
-    `;
-    document.head.appendChild(styleEl);
-    return () => {
-      const existing = document.getElementById("page-scrollbar-fix");
-      if (existing) existing.remove();
-    };
-  }, []);
 
   const handleBack = () => {
     navigate("/dashboard");
@@ -72,6 +49,7 @@ const ProfilePage = () => {
         </div>
       </div>
 
+      <ScrollContainer className={styles.scrollArea} disableHorizontalScroll>
       <div className={styles.content}>
         <div className={styles.profileCard}>
           <div className={styles.avatarSection}>
@@ -161,6 +139,7 @@ const ProfilePage = () => {
           </button>
         </div>
       </div>
+      </ScrollContainer>
     </div>
   );
 };

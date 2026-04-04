@@ -1,7 +1,0 @@
-/* App Layout Styles */
-.appLayout {
-  min-height: 100vh;
-  background: var(--primary);
-  color: var(--textHeadline);
-  font-family: var(--regularTextFont);
-}

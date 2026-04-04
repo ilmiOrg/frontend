@@ -1,17 +1,18 @@
 /* Send Info Page Styles */
 
 .page {
-  min-height: 100vh;
+  height: 100vh;
   max-height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   background: var(--gradient-slate);
   padding: var(--spacing-lg);
-  overflow-y: auto;
-  overflow-x: hidden;
-
-  /* Scrollbar styles now handled globally in core.css */
 }
 
 .header {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -39,14 +40,13 @@
   border-radius: var(--border-radius-md);
   color: var(--text-white-7);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
 .backButton:hover {
   background: var(--blue-opacity-2);
   border-color: var(--blue-opacity-4);
   color: var(--text-white);
-  transform: translateX(-2px);
 }
 
 .headerContent {
@@ -70,6 +70,12 @@
   font-size: var(--fontSize-sm);
   color: var(--text-white-6);
   margin: 4px 0 0 0;
+}
+
+.scrollArea {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
 }
 
 .content {

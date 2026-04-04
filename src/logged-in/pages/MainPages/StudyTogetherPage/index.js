@@ -1,4 +1,5 @@
 import React from "react";
+import { ScrollContainer } from "../../../../components/ui/ScrollContainer";
 import styles from "./style.module.css";
 
 const StudyTogetherPage = () => {
@@ -17,6 +18,7 @@ const StudyTogetherPage = () => {
         <button className={styles.primaryBtn}>Get Started</button>
       </div>
 
+      <ScrollContainer className={styles.scrollArea} disableHorizontalScroll>
       <div className={styles.contentContainer}>
         <div className={styles.infoSection}>
           <h2 className={styles.sectionTitle}>Welcome to Study Together!</h2>
@@ -63,6 +65,7 @@ const StudyTogetherPage = () => {
           </div>
         </div>
       </div>
+      </ScrollContainer>
     </div>
   );
 };

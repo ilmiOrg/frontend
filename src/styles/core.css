@@ -12,10 +12,11 @@
 
 html {
   font-size: 16px;
+  height: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  overflow-x: hidden; /* Prevent horizontal scroll */
+  overflow: hidden; /* No document scrollbar; each screen scrolls inside ScrollContainer / panels */
   width: 100%;
   max-width: 100vw;
   scroll-behavior: smooth;
@@ -31,23 +32,22 @@ body {
   color: var(--textCopy);
   background: var(--backgroundGradient);
   background-attachment: fixed; /* Prevent background from moving during scroll */
-  min-height: 100vh;
-  overflow-x: hidden; /* Prevent horizontal scroll */
-  overflow-y: auto; /* Allow vertical scroll only */
+  height: 100%;
+  min-height: 100%;
+  overflow: hidden; /* Clips stray DOM from extensions next to #root that would otherwise grow the page */
   width: 100%;
   max-width: 100vw;
-  /* Prevent white flashes during scrolling */
   -webkit-overflow-scrolling: touch;
   transform: translateZ(0);
   backface-visibility: hidden;
 }
 
 #root {
-  min-height: 100vh;
+  height: 100%;
+  min-height: 100%;
   width: 100%;
   max-width: 100vw;
-  overflow-x: hidden; /* Prevent horizontal scroll */
-  /* Optimize rendering */
+  overflow: hidden;
   will-change: scroll-position;
   transform: translateZ(0);
   backface-visibility: hidden;

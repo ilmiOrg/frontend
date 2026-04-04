@@ -51,7 +51,7 @@
 /* ===== BASE LAYOUT ===== */
 .dashboard {
   display: grid;
-  grid-template-columns: 280px 1fr 300px;
+  grid-template-columns: 280px 1fr;
   min-height: 100vh;
   max-height: 100vh;
   background: var(--surface-primary);
@@ -65,15 +65,7 @@
 }
 
 .dashboard.leftCollapsed {
-  grid-template-columns: 0 1fr 300px;
-}
-
-.dashboard.rightCollapsed {
-  grid-template-columns: 280px 1fr 0;
-}
-
-.dashboard.leftCollapsed.rightCollapsed {
-  grid-template-columns: 0 1fr 0;
+  grid-template-columns: 0 1fr;
 }
 
 /* ===== SUBTLE BACKGROUND EFFECTS ===== */
@@ -124,10 +116,10 @@
 }
 
 /* ===== SIDEBAR TOGGLES ===== */
-.leftSidebarToggle,
-.rightSidebarToggle {
+.leftSidebarToggle {
   position: fixed;
   top: 20px;
+  left: 224px;
   z-index: 1001;
   background: var(--gradient-blue-green);
   color: white;
@@ -144,18 +136,11 @@
   box-shadow: 0 4px 15px var(--green-opacity-3);
 }
 
-.leftSidebarToggle {
-  left: 224px;
-}
 .leftCollapsed .leftSidebarToggle {
   left: 16px;
 }
-.rightSidebarToggle {
-  right: 16px;
-}
 
-.leftSidebarToggle:hover,
-.rightSidebarToggle:hover {
+.leftSidebarToggle:hover {
   background: var(--gradient-blue-green-hover);
   transform: scale(1.05);
   box-shadow: 0 6px 20px var(--green-opacity-4);
@@ -167,27 +152,31 @@
   pointer-events: none;
 }
 
-.rightSidebar.sidebarCollapsed {
-  transform: translateX(100%);
-}
-
 /* Scrollbar styles now handled globally in core.css */
 
 /* ===== LEFT SIDEBAR ===== */
 .leftSidebar {
   background: var(--surface-secondary);
   border-right: 1px solid var(--border-subtle);
-  padding: 24px 16px;
+  /* No right padding: ScrollContainer scrollbar must sit on the sidebar edge */
+  padding: 24px 0 24px 16px;
   display: flex;
   flex-direction: column;
   height: 100vh;
-  overflow-y: auto;
-  overflow-x: hidden;
+  min-height: 0;
+  overflow: hidden;
   transition: transform var(--transition-base), opacity var(--transition-base);
 }
 
+.sidebarScroll {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  min-width: 0;
+}
+
 .sidebarHeader {
-  padding: 12px 14px 28px;
+  padding: 12px 16px 28px 14px;
 }
 
 .logo {
@@ -225,9 +214,14 @@
   letter-spacing: 0.2px;
 }
 
+.sidebarSendPremiumBtn {
+  width: 100%;
+  margin-top: 14px;
+  box-sizing: border-box;
+}
+
 /* Navigation */
 .leftNav {
-  flex: 1;
   display: flex;
   flex-direction: column;
 }
@@ -300,15 +294,25 @@
 
 /* ===== MAIN CONTENT ===== */
 .mainContent {
-  padding: 20px 0 20px 24px;
-  overflow-y: auto;
-  overflow-x: hidden;
+  padding: 0px 0 0px 20px;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
   height: 100vh;
   position: relative;
   z-index: 1;
 }
 
-/* Main content uses global scrollbar styles */
+.dashboard.leftCollapsed .mainContent {
+  padding-left: 70px;
+}
+
+.mainScroll {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+}
 
 .mainContentInner {
   padding-right: 24px;
@@ -322,7 +326,6 @@
   margin-bottom: 28px;
   padding: 14px 18px;
   background: var(--surface-secondary);
-  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
   gap: 12px;
 }
@@ -358,18 +361,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid var(--border-default);
-  transition: border-color var(--transition-fast);
+  overflow: hidden;
+  box-sizing: border-box;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22);
+  transition: box-shadow var(--transition-fast);
 }
 
 .profileAvatarCircle:hover {
-  border-color: var(--accent-blue);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
 }
 
 .profileInitial {
   font-size: 15px;
   font-weight: 700;
+  line-height: 1;
   color: var(--text-white);
+  background: none;
 }
 
 .profileInfoVertical {
@@ -832,18 +839,6 @@
 /* ===== STATUS CARD ===== */
 .statusCard {
   grid-column: span 1;
-}
-
-.statusCard::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: var(--gradient-rainbow);
-  opacity: 0.5;
-  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
 }
 
 .statusSummary {
@@ -2730,168 +2725,6 @@
   gap: 4px;
 }
 
-/* ===== RIGHT SIDEBAR ===== */
-.rightSidebar {
-  background: var(--surface-secondary);
-  border-left: 1px solid var(--border-subtle);
-  padding: 20px 16px;
-  height: 100vh;
-  overflow: hidden;
-  transition: transform var(--transition-base), opacity var(--transition-base);
-}
-
-.rightSidebarHeader {
-  margin-bottom: 20px;
-}
-
-.rightSidebarTitle {
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 4px;
-}
-
-.rightSidebarSubtitle {
-  font-size: 11px;
-  color: var(--text-tertiary);
-}
-
-.rightSidebarContent {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
-/* Widgets */
-.widget {
-  background: var(--surface-tertiary);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  padding: 16px;
-}
-
-.widgetTitle {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 14px;
-}
-
-.actionButtons {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-/* Registration Progress */
-.registrationHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 14px;
-}
-
-.registrationTitleRow {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.progressEmoji {
-  font-size: 18px;
-}
-
-.stepsCounter {
-  font-size: 10px;
-  color: var(--text-muted);
-  background: var(--surface-elevated);
-  padding: 4px 10px;
-  border-radius: var(--radius-sm);
-}
-
-.registrationProgressContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.progressBarContainer {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.progressBarBg {
-  flex: 1;
-  height: 6px;
-  background: var(--surface-elevated);
-  border-radius: 3px;
-  overflow: hidden;
-}
-
-.progressBarFill {
-  height: 100%;
-  background: var(--gradient-blue-green);
-  border-radius: 3px;
-  transition: width var(--transition-base);
-  box-shadow: 0 0 8px var(--green-opacity-4);
-}
-
-.progressPercentage {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--accent-green);
-  min-width: 36px;
-}
-
-.registrationBtn {
-  width: 100%;
-}
-
-/* Reminders */
-.remindersList {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.reminderCard {
-  display: flex;
-  gap: 10px;
-  padding: 12px;
-  background: var(--surface-elevated);
-  border-radius: var(--radius-md);
-  border-left: 3px solid transparent;
-}
-
-.reminderCard.urgent {
-  border-left-color: var(--accent-red);
-}
-
-.reminderCard.important {
-  border-left-color: var(--accent-amber);
-}
-
-.reminderCard.info {
-  border-left-color: var(--accent-blue);
-}
-
-.reminderIcon {
-  font-size: 16px;
-}
-
-.reminderContent h5 {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 2px;
-}
-
-.reminderContent p {
-  font-size: 10px;
-  color: var(--text-tertiary);
-}
-
 /* ===== BUTTONS ===== */
 .btn {
   display: inline-flex;
@@ -2991,7 +2824,7 @@
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1400px) {
   .dashboard {
-    grid-template-columns: 260px 1fr 280px;
+    grid-template-columns: 260px 1fr;
   }
 
   .achievementsGrid {
@@ -3002,10 +2835,6 @@
 @media (max-width: 1200px) {
   .dashboard {
     grid-template-columns: 240px 1fr;
-  }
-
-  .rightSidebar {
-    display: none;
   }
 
   .dashboardGridExtended {
@@ -3053,8 +2882,7 @@
     display: none;
   }
 
-  .leftSidebarToggle,
-  .rightSidebarToggle {
+  .leftSidebarToggle {
     display: none;
   }
 
