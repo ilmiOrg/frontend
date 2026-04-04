@@ -4,15 +4,13 @@ Find your perfect university with AI-powered matching, scholarships, and expert 
 
 ## 🚀 Quick Start
 
-   ```bash
-   # Install dependencies
-   npm install
-   
-   # Start development server
-   npm start
-   ```
+```bash
+cp .env.default .env   # optional; sets API URL and dev server options
+yarn install
+yarn start
+```
 
-The app will open at `http://localhost:3000`
+The dev server uses port **3002** (see `package.json` / `.env.default`).
 
 ## 🔑 Login
 
