@@ -1,7 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../../../../contexts/AuthContext";
+import { useTranslation } from "../../../../hooks/useLanguage";
 import PageTemplate from "../../../shared/PageTemplate";
-import { getUniversityBySlug } from "./searchUniversitiesData";
+import { getUniversities } from "../../../../api/universities";
+import { mapUniversityFromApi } from "./searchUniversitiesData";
+import { getFavorites, addFavorite, removeFavorite } from "../../../../api/favorites";
 import styles from "./UniversityDetailPage.module.css";
 
 function formatTuition(n) {
@@ -12,14 +16,82 @@ function formatTuition(n) {
 export default function UniversityDetailPage() {
   const { slug } = useParams();
   const navigate = useNavigate();
-  const u = slug ? getUniversityBySlug(slug) : null;
+  const { user } = useAuth();
+  const { t } = useTranslation();
+  const isGuest = user?.isGuest === true;
+  const [u, setUniversity] = useState(null);
+  const [loadingUniversity, setLoadingUniversity] = useState(true);
+  useEffect(() => {
+    if (!slug) {
+      setUniversity(null);
+      setLoadingUniversity(false);
+      return;
+    }
+    getUniversities()
+      .then((items) => {
+        const mapped = items.map(mapUniversityFromApi);
+        const found = mapped.find((item) => item.slug === slug) || null;
+        setUniversity(found);
+      })
+      .catch(() => {
+        setUniversity(null);
+      })
+      .finally(() => {
+        setLoadingUniversity(false);
+      });
+  }, [slug]);
+
 
   const [favorite, setFavorite] = useState(false);
   const [logoFailed, setLogoFailed] = useState(false);
+  const favoriteRef = useRef(false);
+
+  useEffect(() => {
+    favoriteRef.current = favorite;
+  }, [favorite]);
+
+  // Load favorite state from backend on mount
+  useEffect(() => {
+    if (isGuest || !u?.universityId) return;
+    getFavorites()
+      .then((list) => {
+        const isSaved = list.some((f) => f.universityId === u.universityId);
+        setFavorite(isSaved);
+      })
+      .catch(() => {
+        // non-critical; favorite button state defaults to false
+      });
+  }, [isGuest, u?.universityId]);
+
+  const toggleFavorite = () => {
+    if (isGuest || !u?.universityId) {
+      setFavorite((f) => !f);
+      return;
+    }
+
+    const wasFavorite = favoriteRef.current;
+    setFavorite(!wasFavorite);
+
+    const apiFn = wasFavorite ? removeFavorite : addFavorite;
+    apiFn(u.universityId).catch(() => {
+      // Revert on error
+      setFavorite(wasFavorite);
+    });
+  };
 
   useEffect(() => {
     setLogoFailed(false);
   }, [slug, u?.logoUrl]);
+
+  if (loadingUniversity) {
+    return (
+      <PageTemplate backTo="/dashboard/search/universities" icon="🔍" title="Loading...">
+        <div className={styles.notFound}>
+          <p>Loading university details...</p>
+        </div>
+      </PageTemplate>
+    );
+  }
 
   if (!u) {
     return (
@@ -100,10 +172,10 @@ export default function UniversityDetailPage() {
             <button
               type="button"
               className={`${styles.btn} ${styles.btnGhost}`}
-              onClick={() => setFavorite((f) => !f)}
+              onClick={toggleFavorite}
               aria-pressed={favorite}
             >
-              {favorite ? "★ Saved" : "☆ Add to favorites"}
+              {favorite ? `★ ${t("favoriteSaved")}` : `☆ ${t("favoriteSave")}`}
             </button>
           </div>
         </div>
