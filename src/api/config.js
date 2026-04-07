@@ -1,13 +1,13 @@
 /**
  * Backend API base URL.
- * In development: run backend in IntelliJ on port 8080 and set REACT_APP_API_URL=http://localhost:8080
+ * In development: run backend on port 8081 and set REACT_APP_API_URL=http://localhost:8081
  * (or leave unset to use this default).
  */
 export const API_BASE_URL =
-  process.env.REACT_APP_API_URL || "http://localhost:8080";
+  process.env.REACT_APP_API_URL || "http://localhost:8081";
 
 /**
- * Build full URL for an API path (e.g. '/api/v1/auth/login' -> 'http://localhost:8080/api/v1/auth/login').
+ * Build full URL for an API path (e.g. '/api/v1/auth/login' -> 'http://localhost:8081/api/v1/auth/login').
  */
 export function apiUrl(path) {
   const base = API_BASE_URL.replace(/\/$/, "");

@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from "../../../../hooks/useLanguage";
 import styles from "./UniversityResultCard.module.css";
 
 function formatTuition(n) {
@@ -32,6 +33,7 @@ export default function UniversityResultCard({
   onToggleFavorite,
 }) {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const detailPath = `/dashboard/search/universities/${u.slug}`;
 
   const slides = useMemo(() => {
@@ -44,7 +46,7 @@ export default function UniversityResultCard({
 
   useEffect(() => {
     setLogoFailed(false);
-  }, [u.id, u.logoUrl]);
+  }, [u.universityId, u.logoUrl]);
 
   useEffect(() => {
     if (slides.length < 2) return undefined;
@@ -120,10 +122,10 @@ export default function UniversityResultCard({
             <button
               type="button"
               className={`${styles.btn} ${styles.btnGhost}`}
-              onClick={() => onToggleFavorite(u.id)}
+              onClick={() => onToggleFavorite(u.universityId)}
               aria-pressed={isFavorite}
             >
-              {isFavorite ? "★ Saved" : "☆ Add to favorites"}
+              {isFavorite ? `★ ${t("favoriteSaved")}` : `☆ ${t("favoriteSave")}`}
             </button>
             <Link className={`${styles.btn} ${styles.btnOutline}`} to={detailPath}>
               Learn more

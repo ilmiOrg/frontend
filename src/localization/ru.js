@@ -120,6 +120,13 @@ const ru = {
   lightMode: "Светлая тема",
   darkMode: "Темная тема",
   toggleTheme: "Переключить тему",
+
+  // Favorites
+  favoriteSave: "Добавить в избранное",
+  favoriteSaved: "Сохранено",
+
+  // Search page
+  searchNoResults: "Нет совпадающих учебных заведений.",
 };
 
 export default ru;

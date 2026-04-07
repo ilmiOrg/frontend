@@ -1,5 +1,7 @@
-import React, { useMemo, useState, useCallback } from "react";
+import React, { useMemo, useState, useCallback, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../../contexts/AuthContext";
+import { useTranslation } from "../../../../hooks/useLanguage";
 import PageTemplate from "../../../shared/PageTemplate";
 import {
   SearchField,
@@ -12,13 +14,14 @@ import {
 import styles from "./style.module.css";
 import UniversityResultCard from "./UniversityResultCard";
 import {
-  MOCK_UNIVERSITIES,
   ALL,
   ALL_CITIES,
-  COUNTRY_OPTIONS,
-  SPECIALIZATION_OPTIONS,
+  mapUniversityFromApi,
+  countryOptionsFromUniversities,
   citiesForCountry,
 } from "./searchUniversitiesData";
+import { getFavorites, addFavorite, removeFavorite } from "../../../../api/favorites";
+import { getUniversities } from "../../../../api/universities";
 
 const EUROPE_COUNTRIES = new Set([
   "Germany",
@@ -93,6 +96,9 @@ function matchesArts(specs) {
 
 const SearchUniversitiesPage = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const { t } = useTranslation();
+  const isGuest = user?.isGuest === true;
 
   const [nameQuery, setNameQuery] = useState("");
   const [institutionType, setInstitutionType] = useState(ALL);
@@ -105,35 +111,95 @@ const SearchUniversitiesPage = () => {
   const [language, setLanguage] = useState(ALL);
   const [popular, setPopular] = useState(() => ({ ...POPULAR_INITIAL }));
   const [favoriteIds, setFavoriteIds] = useState(() => new Set());
-
-  const toggleFavorite = useCallback((id) => {
-    setFavoriteIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
-      return next;
-    });
+  const [universities, setUniversities] = useState([]);
+  const [loadingUniversities, setLoadingUniversities] = useState(true);
+  useEffect(() => {
+    getUniversities()
+      .then((items) => {
+        setUniversities(items.map(mapUniversityFromApi));
+      })
+      .catch(() => {
+        setUniversities([]);
+      })
+      .finally(() => {
+        setLoadingUniversities(false);
+      });
   }, []);
+
+
+  // Ref keeps current favoriteIds accessible inside callbacks without stale closure
+  const favoriteIdsRef = useRef(favoriteIds);
+  useEffect(() => {
+    favoriteIdsRef.current = favoriteIds;
+  }, [favoriteIds]);
+
+  // Load persisted favorites from backend on mount (authenticated users only)
+  useEffect(() => {
+    if (isGuest) return;
+    getFavorites()
+      .then((list) => {
+        setFavoriteIds(new Set(list.map((u) => u.universityId)));
+      })
+      .catch(() => {
+        // non-critical: favorites will just appear empty until next load
+      });
+  }, [isGuest]);
+
+  const toggleFavorite = useCallback(
+    (universityId) => {
+      if (isGuest) {
+        // Guest: local state only — not persisted
+        setFavoriteIds((prev) => {
+          const next = new Set(prev);
+          if (next.has(universityId)) next.delete(universityId);
+          else next.add(universityId);
+          return next;
+        });
+        return;
+      }
+
+      const wasFavorite = favoriteIdsRef.current.has(universityId);
+
+      // Optimistic update
+      setFavoriteIds((prev) => {
+        const next = new Set(prev);
+        if (next.has(universityId)) next.delete(universityId);
+        else next.add(universityId);
+        return next;
+      });
+
+      const apiFn = wasFavorite ? removeFavorite : addFavorite;
+      apiFn(universityId).catch(() => {
+        // Revert on API error
+        setFavoriteIds((prev) => {
+          const next = new Set(prev);
+          if (wasFavorite) next.add(universityId);
+          else next.delete(universityId);
+          return next;
+        });
+      });
+    },
+    [isGuest]
+  );
 
   const countrySelectOptions = useMemo(
     () =>
-      COUNTRY_OPTIONS.map((c) => ({
+      countryOptionsFromUniversities(universities).map((c) => ({
         value: c,
         label: c === ALL ? "All countries" : c,
       })),
-    []
+    [universities]
   );
 
   const specializationSelectOptions = useMemo(
-    () =>
-      SPECIALIZATION_OPTIONS.map((s) => ({
-        value: s,
-        label: s === ALL ? "All fields" : s,
-      })),
+    () => [{ value: ALL, label: "All fields" }],
     []
   );
 
-  const cityOptions = useMemo(() => citiesForCountry(country), [country]);
+  const cityOptions = useMemo(
+    () => citiesForCountry(country, universities),
+    [country, universities]
+  );
 
   const citySelectOptions = useMemo(
     () =>
@@ -156,16 +222,13 @@ const SearchUniversitiesPage = () => {
       tuitionMax === "" ? null : Math.max(0, Number(tuitionMax) || 0);
     const q = nameQuery.trim().toLowerCase();
 
-    return MOCK_UNIVERSITIES.filter((u) => {
+    return universities.filter((u) => {
       if (q && !u.name.toLowerCase().includes(q)) return false;
       if (institutionType !== ALL && u.type !== institutionType) return false;
       if (country !== ALL && u.country !== country) return false;
       if (country !== ALL && city !== ALL_CITIES && u.city !== city)
         return false;
-      if (
-        specialization !== ALL &&
-        !u.specializations.includes(specialization)
-      )
+      if (specialization !== ALL && !u.specializations.includes(specialization))
         return false;
       if (degreeLevel !== ALL && !u.degreeLevels.includes(degreeLevel))
         return false;
@@ -196,6 +259,7 @@ const SearchUniversitiesPage = () => {
     degreeLevel,
     language,
     popular,
+    universities,
   ]);
 
   const resetFilters = useCallback(() => {
@@ -334,15 +398,17 @@ const SearchUniversitiesPage = () => {
             </span>
           </div>
 
-          {filtered.length === 0 ? (
-            <p className={styles.emptyState}>No institutions match.</p>
+          {loadingUniversities ? (
+            <p className={styles.emptyState}>Loading universities...</p>
+          ) : filtered.length === 0 ? (
+            <p className={styles.emptyState}>{t("searchNoResults")}</p>
           ) : (
             <ul className={styles.resultList}>
               {filtered.map((u) => (
                 <UniversityResultCard
-                  key={u.id}
+                  key={u.universityId}
                   university={u}
-                  isFavorite={favoriteIds.has(u.id)}
+                  isFavorite={favoriteIds.has(u.universityId)}
                   onToggleFavorite={toggleFavorite}
                 />
               ))}

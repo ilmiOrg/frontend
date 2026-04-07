@@ -118,6 +118,13 @@ const en = {
   lightMode: "Light Mode",
   darkMode: "Dark Mode",
   toggleTheme: "Toggle Theme",
+
+  // Favorites
+  favoriteSave: "Add to favorites",
+  favoriteSaved: "Saved",
+
+  // Search page
+  searchNoResults: "No institutions match.",
 };
 
 export default en;
