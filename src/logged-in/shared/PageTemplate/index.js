@@ -10,11 +10,16 @@ const PageTemplate = ({
   actions,
   children,
   backTo,
+  onBack,
   headerShellClassName,
 }) => {
   const navigate = useNavigate();
 
   const handleBack = () => {
+    if (onBack) {
+      onBack();
+      return;
+    }
     navigate(backTo ?? "/dashboard");
   };
 

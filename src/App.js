@@ -15,6 +15,7 @@ import DashboardPage from "./logged-in/pages/MainPages/DashboardPage";
 import DreamUniversityPage from "./logged-in/pages/MainPages/DreamUniversityPage";
 import SearchUniversitiesPage from "./logged-in/pages/MainPages/SearchUniversitiesPage";
 import UniversityDetailPage from "./logged-in/pages/MainPages/SearchUniversitiesPage/UniversityDetailPage";
+import FavoriteUniversitiesPage from "./logged-in/pages/MainPages/SearchUniversitiesPage/FavoriteUniversitiesPage";
 import SearchScholarshipsPage from "./logged-in/pages/MainPages/SearchScholarshipsPage";
 import StudyTogetherPage from "./logged-in/pages/MainPages/StudyTogetherPage";
 import UniversityReelsPage from "./logged-in/pages/MainPages/UniversityReelsPage";
@@ -165,6 +166,15 @@ function App() {
             element={
               <ProtectedRoute>
                 <UniversityDetailPage />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/dashboard/search/universities/favorites"
+            element={
+              <ProtectedRoute>
+                <FavoriteUniversitiesPage />
               </ProtectedRoute>
             }
           />

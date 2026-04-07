@@ -405,6 +405,15 @@ const DashboardPage = () => {
                 </button>
                 <button
                   onClick={() =>
+                    handleNavClick("/dashboard/search/universities/favorites")
+                  }
+                  className={styles.navItem}
+                >
+                  <span className={styles.navIcon}>⭐</span>
+                  <span className={styles.navLabel}>Favorite Universities</span>
+                </button>
+                <button
+                  onClick={() =>
                     handleNavClick("/dashboard/search/scholarships")
                   }
                   className={styles.navItem}

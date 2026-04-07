@@ -124,6 +124,10 @@ const ru = {
   // Favorites
   favoriteSave: "Добавить в избранное",
   favoriteSaved: "Сохранено",
+  favoriteUniversitiesTitle: "Избранные университеты",
+  favoriteUniversitiesDescription:
+    "Ваш список сохраненных университетов. Вы можете убрать любой в любой момент.",
+  favoriteUniversitiesEmpty: "У вас пока нет избранных университетов.",
 
   // Search page
   searchNoResults: "Нет совпадающих учебных заведений.",

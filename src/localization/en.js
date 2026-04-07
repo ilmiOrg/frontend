@@ -122,6 +122,10 @@ const en = {
   // Favorites
   favoriteSave: "Add to favorites",
   favoriteSaved: "Saved",
+  favoriteUniversitiesTitle: "Favorite Universities",
+  favoriteUniversitiesDescription:
+    "Your saved universities list. Remove any item anytime.",
+  favoriteUniversitiesEmpty: "You have no favorite universities yet.",
 
   // Search page
   searchNoResults: "No institutions match.",
