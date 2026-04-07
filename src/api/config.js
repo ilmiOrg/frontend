@@ -1,13 +1,13 @@
 /**
  * Backend API base URL.
- * In development: run backend on port 8081 and set REACT_APP_API_URL=http://localhost:8081
+ * In development: run backend on port 8082 and set REACT_APP_API_URL=http://localhost:8082
  * (or leave unset to use this default).
  */
 export const API_BASE_URL =
-  process.env.REACT_APP_API_URL || "http://localhost:8081";
+  process.env.REACT_APP_API_URL || "http://localhost:8082";
 
 /**
- * Build full URL for an API path (e.g. '/api/v1/auth/login' -> 'http://localhost:8081/api/v1/auth/login').
+ * Build full URL for an API path (e.g. '/api/v1/auth/login' -> 'http://localhost:8082/api/v1/auth/login').
  */
 export function apiUrl(path) {
   const base = API_BASE_URL.replace(/\/$/, "");
