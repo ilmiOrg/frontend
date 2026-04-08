@@ -129,6 +129,78 @@ const en = {
 
   // Search page
   searchNoResults: "No institutions match.",
+
+  // Search Fields page
+  searchFieldsTitle: "Search by Field",
+  searchFieldsPickField: "Pick a field of study",
+  searchFieldsClearAll: "Clear all",
+  searchFieldsSelectedOne: "field selected",
+  searchFieldsSelectedMany: "fields selected",
+  searchFieldsSelectPrompt: "Select one or more fields above to see matching universities.",
+  searchFieldsDegreeLevel: "Degree level",
+  searchFieldsLanguage: "Language",
+  searchFieldsTuition: "Tuition range (€)",
+  searchFieldsResults: "Matching universities",
+  searchFieldsLoading: "Loading…",
+  searchFieldsViewDetails: "View details",
+  searchFieldsAdditionalFilters: "Additional filters",
+  searchFieldsFiltersActive: "active",
+  searchFieldsRemember: "Remember my choices",
+  searchFieldsCompact: "Compact view",
+  searchFieldsFull: "Full view",
+  searchFieldsResultOne: "result",
+  searchFieldsResultMany: "results",
+  filterAllLevels: "All levels",
+  filterBachelor: "Bachelor",
+  filterMaster: "Master",
+  filterPhd: "PhD / Doctorate",
+  filterAnyLanguage: "Any language",
+  tuitionFree: "Free / public",
+  tuitionPerYear: "/ year",
+
+  // Field Detail page
+  fieldDetailBack: "Back to fields",
+  fieldDetailUniSingular: "university offers this field",
+  fieldDetailUniPlural: "universities offer this field",
+
+  // University Detail page
+  uniDetailPrograms: "Programs at this university",
+
+  // Field + University Detail page
+  fieldUniNotFound: "University not found",
+  fieldUniBackToFields: "Back to field search",
+  fieldUniBackToResults: "Back to results",
+  fieldUniSelectedFields: "Selected fields at this university",
+  fieldUniNoMatchingFields: "No matching fields found for this university.",
+  fieldUniDegrees: "Degrees",
+  fieldUniLanguages: "Languages",
+  fieldUniViewFull: "View full university profile",
+
+  // Search Programs page
+  searchProgramsTitle: "Search Programs",
+  searchProgramsPlaceholder: "Search programs by name…",
+  searchProgramsFilters: "Filters",
+  searchProgramsCategory: "Category",
+  searchProgramsCountry: "Country",
+  searchProgramsResults: "Programs",
+
+  // Program Detail page
+  programDetailTitle: "Program Details",
+  programDetailNotFound: "Program not found.",
+  programDetailBack: "Back to programs",
+  programDetailUniversity: "University",
+  programDetailLocation: "Location",
+  programDetailDegree: "Degree",
+  programDetailLanguage: "Language",
+  programDetailDuration: "Duration",
+  programDetailTuition: "Tuition",
+  programDetailDescription: "Description",
+  programDetailWebsite: "Visit website",
+
+  // Favorite Programs page
+  favoriteProgramsTitle: "Favorite Programs",
+  favoriteProgramsEmpty: "You have no favorite programs yet.",
+  favoriteProgramsRemove: "Remove",
 };
 
 export default en;

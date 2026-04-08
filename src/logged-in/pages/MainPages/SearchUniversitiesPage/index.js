@@ -22,6 +22,7 @@ import {
 } from "./searchUniversitiesData";
 import { getFavorites, addFavorite, removeFavorite } from "../../../../api/favorites";
 import { getUniversities } from "../../../../api/universities";
+import { getUniversityFields } from "../../../../api/fields";
 
 const EUROPE_COUNTRIES = new Set([
   "Germany",
@@ -113,6 +114,7 @@ const SearchUniversitiesPage = () => {
   const [favoriteIds, setFavoriteIds] = useState(() => new Set());
   const [universities, setUniversities] = useState([]);
   const [loadingUniversities, setLoadingUniversities] = useState(true);
+  const [fieldOptions, setFieldOptions] = useState([]);
   useEffect(() => {
     getUniversities()
       .then((items) => {
@@ -124,6 +126,14 @@ const SearchUniversitiesPage = () => {
       .finally(() => {
         setLoadingUniversities(false);
       });
+  }, []);
+
+  useEffect(() => {
+    getUniversityFields()
+      .then((items) => {
+        setFieldOptions(items);
+      })
+      .catch(() => {});
   }, []);
 
 
@@ -192,8 +202,14 @@ const SearchUniversitiesPage = () => {
   );
 
   const specializationSelectOptions = useMemo(
-    () => [{ value: ALL, label: "All fields" }],
-    []
+    () => [
+      { value: ALL, label: "All fields" },
+      ...fieldOptions.map((f) => ({
+        value: f.fieldId,
+        label: f.fieldName,
+      })),
+    ],
+    [fieldOptions]
   );
 
   const cityOptions = useMemo(
@@ -228,7 +244,7 @@ const SearchUniversitiesPage = () => {
       if (country !== ALL && u.country !== country) return false;
       if (country !== ALL && city !== ALL_CITIES && u.city !== city)
         return false;
-      if (specialization !== ALL && !u.specializations.includes(specialization))
+      if (specialization !== ALL && !(u.fields || []).some((f) => f.fieldId === specialization))
         return false;
       if (degreeLevel !== ALL && !u.degreeLevels.includes(degreeLevel))
         return false;

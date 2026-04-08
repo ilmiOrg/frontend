@@ -61,77 +61,79 @@ export default function UniversityResultCard({
 
   return (
     <li className={styles.card}>
-      <div className={styles.hero}>
-        <div className={styles.slideshow}>
-          {slides.map((url, i) => (
-            <img
-              key={url}
-              src={url}
-              alt=""
-              className={`${styles.slideImg} ${
-                i === slide ? styles.slideImgVisible : ""
-              }`}
-              loading={i === 0 ? "eager" : "lazy"}
-            />
-          ))}
-        </div>
-      </div>
-
-      <div className={styles.aside}>
-        <div className={styles.brandStack}>
-          <div
-            className={`${styles.logoMark} ${
-              showLogo ? styles.logoMarkImage : ""
-            }`}
-          >
-            {showLogo ? (
+      <Link to={detailPath} className={styles.cardLink}>
+        <div className={styles.hero}>
+          <div className={styles.slideshow}>
+            {slides.map((url, i) => (
               <img
-                className={styles.logoImg}
-                src={u.logoUrl}
+                key={url}
+                src={url}
                 alt=""
-                loading="lazy"
-                onError={() => setLogoFailed(true)}
+                className={`${styles.slideImg} ${
+                  i === slide ? styles.slideImgVisible : ""
+                }`}
+                loading={i === 0 ? "eager" : "lazy"}
               />
-            ) : (
-              <span className={styles.logoFallback} aria-hidden>
-                {mark}
-              </span>
-            )}
+            ))}
           </div>
         </div>
 
-        <div className={styles.info}>
-          <h3 className={styles.title}>{u.name}</h3>
-          <p className={styles.meta}>
-            {u.type === "university" ? "University" : "College"} · {u.city},{" "}
-            {u.country}
-          </p>
-          <p className={styles.description}>{u.shortDescription}</p>
-          <p className={styles.tags}>{u.specializations.join(" · ")}</p>
-          <p className={styles.tuition}>{formatTuition(u.tuitionAnnual)}</p>
-          <p className={styles.langs}>{u.languages.join(", ")}</p>
+        <div className={styles.aside}>
+          <div className={styles.brandStack}>
+            <div
+              className={`${styles.logoMark} ${
+                showLogo ? styles.logoMarkImage : ""
+              }`}
+            >
+              {showLogo ? (
+                <img
+                  className={styles.logoImg}
+                  src={u.logoUrl}
+                  alt=""
+                  loading="lazy"
+                  onError={() => setLogoFailed(true)}
+                />
+              ) : (
+                <span className={styles.logoFallback} aria-hidden>
+                  {mark}
+                </span>
+              )}
+            </div>
+          </div>
 
-          <div className={styles.actions}>
-            <button
-              type="button"
-              className={`${styles.btn} ${styles.btnPrimary}`}
-              onClick={() => navigate("/dashboard/applications/timeline")}
-            >
-              Apply
-            </button>
-            <button
-              type="button"
-              className={`${styles.btn} ${styles.btnGhost}`}
-              onClick={() => onToggleFavorite(u.universityId)}
-              aria-pressed={isFavorite}
-            >
-              {isFavorite ? `★ ${t("favoriteSaved")}` : `☆ ${t("favoriteSave")}`}
-            </button>
-            <Link className={`${styles.btn} ${styles.btnOutline}`} to={detailPath}>
-              Learn more
-            </Link>
+          <div className={styles.info}>
+            <h3 className={styles.title}>{u.name}</h3>
+            <p className={styles.meta}>
+              {u.type === "university" ? "University" : "College"} · {u.city},{" "}
+              {u.country}
+            </p>
+            <p className={styles.description}>{u.shortDescription}</p>
+            <p className={styles.tags}>{u.specializations.join(" · ")}</p>
+            <p className={styles.tuition}>{formatTuition(u.tuitionAnnual)}</p>
+            <p className={styles.langs}>{u.languages.join(", ")}</p>
           </div>
         </div>
+      </Link>
+
+      <div className={styles.cardActions}>
+        <button
+          type="button"
+          className={`${styles.btn} ${styles.btnPrimary}`}
+          onClick={() => navigate("/dashboard/applications/timeline")}
+        >
+          Apply
+        </button>
+        <button
+          type="button"
+          className={`${styles.btn} ${styles.btnGhost}`}
+          onClick={() => onToggleFavorite(u.universityId)}
+          aria-pressed={isFavorite}
+        >
+          {isFavorite ? `★ ${t("favoriteSaved")}` : `☆ ${t("favoriteSave")}`}
+        </button>
+        <Link className={`${styles.btn} ${styles.btnOutline}`} to={detailPath}>
+          Learn more
+        </Link>
       </div>
     </li>
   );

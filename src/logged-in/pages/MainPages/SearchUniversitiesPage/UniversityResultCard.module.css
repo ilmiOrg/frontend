@@ -1,7 +1,6 @@
 .card {
-  display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(260px, 340px);
-  gap: 0;
+  display: flex;
+  flex-direction: column;
   min-height: 300px;
   padding: 0;
   overflow: hidden;
@@ -19,6 +18,26 @@
 .card:hover {
   border-color: rgba(52, 211, 153, 0.4);
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35);
+}
+
+.cardLink {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(260px, 340px);
+  gap: 0;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  min-height: 280px;
+}
+
+.cardActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 0 var(--spacing-lg, 1.35rem) var(--spacing-lg, 1.35rem);
+  justify-content: flex-end;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: var(--spacing-md, 0.75rem);
 }
 
 .hero {
@@ -168,14 +187,6 @@
   margin: 2px 0 0 0;
 }
 
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: auto;
-  padding-top: 14px;
-}
-
 .btn {
   display: inline-flex;
   align-items: center;
@@ -229,7 +240,7 @@
 }
 
 @media (max-width: 900px) {
-  .card {
+  .cardLink {
     grid-template-columns: 1fr;
     min-height: 0;
   }
@@ -260,7 +271,7 @@
 }
 
 @media (max-width: 520px) {
-  .actions {
+  .cardActions {
     flex-direction: column;
     align-items: stretch;
   }

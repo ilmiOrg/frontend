@@ -1,0 +1,128 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+  max-width: 1120px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: var(--spacing-2xl);
+  box-sizing: border-box;
+}
+
+.fieldHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  background: var(--slate-700-opacity-5, rgba(15, 23, 42, 0.35));
+  border: 1px solid var(--white-opacity-08, rgba(255, 255, 255, 0.08));
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-xl);
+}
+
+.fieldIcon {
+  font-size: 2.5rem;
+}
+
+.fieldInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.fieldName {
+  font-size: 1.5rem;
+  font-weight: var(--fontWeight-semibold);
+  color: var(--text-white, #fff);
+  margin: 0;
+}
+
+.fieldCount {
+  font-size: var(--fontSize-sm, 0.875rem);
+  color: var(--text-white-6, rgba(255, 255, 255, 0.55));
+  margin: 0;
+}
+
+.filterBar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  align-items: flex-end;
+}
+
+.filterItem {
+  min-width: 180px;
+  flex: 1;
+}
+
+.uniGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.uniCard {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.2s, background 0.2s;
+  cursor: pointer;
+}
+
+.uniCard:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.uniName {
+  font-size: var(--fontSize-base, 1rem);
+  font-weight: var(--fontWeight-semibold);
+  color: var(--text-white, #fff);
+  margin: 0;
+}
+
+.uniMeta {
+  font-size: var(--fontSize-sm, 0.875rem);
+  color: var(--text-white-6, rgba(255, 255, 255, 0.55));
+  margin: 0;
+}
+
+.uniTuition {
+  font-size: var(--fontSize-sm, 0.875rem);
+  color: var(--accent-color, #6366f1);
+  font-weight: var(--fontWeight-semibold);
+  margin: 0;
+}
+
+.uniFieldMeta {
+  font-size: 0.8125rem;
+  color: var(--text-white-6, rgba(255, 255, 255, 0.55));
+  margin: 0;
+  padding-top: var(--spacing-sm);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.emptyState {
+  font-size: var(--fontSize-sm, 0.875rem);
+  color: var(--text-white-6, rgba(255, 255, 255, 0.6));
+  line-height: 1.6;
+  margin: 0;
+  padding: var(--spacing-xl);
+  text-align: center;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: var(--border-radius-lg);
+  border: 1px dashed rgba(255, 255, 255, 0.14);
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 640px) {
+  .uniGrid {
+    grid-template-columns: 1fr;
+  }
+}

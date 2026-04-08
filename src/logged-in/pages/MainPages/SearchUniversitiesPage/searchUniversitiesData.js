@@ -16,6 +16,17 @@ function inferType(name) {
 
 export function mapUniversityFromApi(u) {
   const slug = `${slugify(u.name)}-${(u.universityId || "").slice(0, 8)}`;
+
+  const fields = u.fields || [];
+  const specializations = fields.map((f) => f.fieldName);
+
+  const langSet = new Set();
+  const degreeSet = new Set();
+  fields.forEach((f) => {
+    (f.languages || []).forEach((l) => langSet.add(l));
+    (f.degreeLevels || []).forEach((d) => degreeSet.add(d));
+  });
+
   return {
     universityId: u.universityId,
     slug,
@@ -24,11 +35,13 @@ export function mapUniversityFromApi(u) {
     name: u.name,
     type: inferType(u.name),
     country: u.countryName || "",
+    countryCode: u.countryCode || "",
     city: u.city || "",
-    specializations: [],
+    specializations,
     tuitionAnnual: Number(u.avgTuitionPerYear || 0),
-    languages: [],
-    degreeLevels: [],
+    languages: Array.from(langSet),
+    degreeLevels: Array.from(degreeSet),
+    fields,
     imageUrl: "https://picsum.photos/seed/defaultuni/640/400",
     galleryUrls: [],
     shortDescription: u.description || "",

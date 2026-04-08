@@ -4,6 +4,7 @@ import { useAuth } from "../../../../contexts/AuthContext";
 import { useTranslation } from "../../../../hooks/useLanguage";
 import PageTemplate from "../../../shared/PageTemplate";
 import { getUniversities } from "../../../../api/universities";
+import { searchPrograms } from "../../../../api/programs";
 import { mapUniversityFromApi } from "./searchUniversitiesData";
 import { getFavorites, addFavorite, removeFavorite } from "../../../../api/favorites";
 import styles from "./UniversityDetailPage.module.css";
@@ -11,6 +12,12 @@ import styles from "./UniversityDetailPage.module.css";
 function formatTuition(n) {
   if (n === 0) return "No tuition (public)";
   return `≈ €${n.toLocaleString()} / year`;
+}
+
+function formatProgramTuition(n, currency) {
+  if (n === 0) return "Free / public";
+  const sym = currency === "USD" ? "$" : "€";
+  return `≈ ${sym}${n.toLocaleString()} / year`;
 }
 
 export default function UniversityDetailPage() {
@@ -44,6 +51,8 @@ export default function UniversityDetailPage() {
 
   const [favorite, setFavorite] = useState(false);
   const [logoFailed, setLogoFailed] = useState(false);
+  const [programs, setPrograms] = useState([]);
+  const [loadingPrograms, setLoadingPrograms] = useState(false);
   const favoriteRef = useRef(false);
 
   useEffect(() => {
@@ -83,9 +92,18 @@ export default function UniversityDetailPage() {
     setLogoFailed(false);
   }, [slug, u?.logoUrl]);
 
+  useEffect(() => {
+    if (!u?.universityId) return;
+    setLoadingPrograms(true);
+    searchPrograms({ universityId: u.universityId })
+      .then(setPrograms)
+      .catch(() => setPrograms([]))
+      .finally(() => setLoadingPrograms(false));
+  }, [u?.universityId]);
+
   if (loadingUniversity) {
     return (
-      <PageTemplate backTo="/dashboard/search/universities" icon="🔍" title="Loading...">
+      <PageTemplate onBack={() => navigate(-1)} icon="🔍" title="Loading...">
         <div className={styles.notFound}>
           <p>Loading university details...</p>
         </div>
@@ -96,7 +114,7 @@ export default function UniversityDetailPage() {
   if (!u) {
     return (
       <PageTemplate
-        backTo="/dashboard/search/universities"
+        onBack={() => navigate(-1)}
         icon="🔍"
         title="Institution not found"
         actions={
@@ -117,7 +135,7 @@ export default function UniversityDetailPage() {
 
   return (
     <PageTemplate
-      backTo="/dashboard/search/universities"
+      onBack={() => navigate(-1)}
       icon="🎓"
       title={u.name}
     >
@@ -157,9 +175,21 @@ export default function UniversityDetailPage() {
           </p>
           <p className={styles.tuition}>{formatTuition(u.tuitionAnnual)}</p>
           <p className={styles.langs}>Languages: {u.languages.join(", ")}</p>
-          <p className={styles.fields}>
-            Fields: {u.specializations.join(" · ")}
-          </p>
+
+          {(u.fields || []).length > 0 && (
+            <div className={styles.fieldChips}>
+              {u.fields.map((f) => (
+                <Link
+                  key={f.fieldId}
+                  className={styles.fieldChip}
+                  to={`/dashboard/search/fields/${f.fieldSlug}`}
+                >
+                  {f.fieldName}
+                </Link>
+              ))}
+            </div>
+          )}
+
           <p className={styles.longText}>{u.detailDescription}</p>
           <div className={styles.actions}>
             <button
@@ -178,6 +208,39 @@ export default function UniversityDetailPage() {
               {favorite ? `★ ${t("favoriteSaved")}` : `☆ ${t("favoriteSave")}`}
             </button>
           </div>
+
+          {!loadingPrograms && programs.length > 0 && (
+            <section className={styles.programsSection}>
+              <h2 className={styles.sectionTitle}>
+                {t("uniDetailPrograms")} ({programs.length})
+              </h2>
+              <div className={styles.programsGrid}>
+                {programs.map((p) => (
+                  <Link
+                    key={p.programId}
+                    className={styles.programCard}
+                    to={`/dashboard/search/programs/${p.programId}`}
+                  >
+                    <span className={styles.programCategory}>
+                      {p.categoryName}
+                    </span>
+                    <h3 className={styles.programName}>{p.programName}</h3>
+                    <p className={styles.programMeta}>
+                      {p.degreeLevel} · {p.language}
+                      {p.durationYears ? ` · ${p.durationYears} yr` : ""}
+                    </p>
+                    <p className={styles.programTuition}>
+                      {formatProgramTuition(p.tuitionPerYear, p.currency)}
+                    </p>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {loadingPrograms && (
+            <p className={styles.loadingNote}>{t("searchFieldsLoading")}</p>
+          )}
         </div>
       </div>
     </PageTemplate>

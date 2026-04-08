@@ -131,6 +131,78 @@ const ru = {
 
   // Search page
   searchNoResults: "Нет совпадающих учебных заведений.",
+
+  // Search Fields page
+  searchFieldsTitle: "Поиск по направлению",
+  searchFieldsPickField: "Выберите направление обучения",
+  searchFieldsClearAll: "Очистить все",
+  searchFieldsSelectedOne: "направление выбрано",
+  searchFieldsSelectedMany: "направлений выбрано",
+  searchFieldsSelectPrompt: "Выберите одно или несколько направлений выше, чтобы увидеть подходящие университеты.",
+  searchFieldsDegreeLevel: "Степень",
+  searchFieldsLanguage: "Язык обучения",
+  searchFieldsTuition: "Стоимость обучения (€)",
+  searchFieldsResults: "Подходящие университеты",
+  searchFieldsLoading: "Загрузка…",
+  searchFieldsViewDetails: "Подробнее",
+  searchFieldsAdditionalFilters: "Дополнительные фильтры",
+  searchFieldsFiltersActive: "активно",
+  searchFieldsRemember: "Запомнить мой выбор",
+  searchFieldsCompact: "Компактный вид",
+  searchFieldsFull: "Полный вид",
+  searchFieldsResultOne: "результат",
+  searchFieldsResultMany: "результатов",
+  filterAllLevels: "Все уровни",
+  filterBachelor: "Бакалавриат",
+  filterMaster: "Магистратура",
+  filterPhd: "PhD / Докторантура",
+  filterAnyLanguage: "Любой язык",
+  tuitionFree: "Бесплатно",
+  tuitionPerYear: "/ год",
+
+  // Field Detail page
+  fieldDetailBack: "Назад к направлениям",
+  fieldDetailUniSingular: "университет предлагает это направление",
+  fieldDetailUniPlural: "университетов предлагают это направление",
+
+  // University Detail page
+  uniDetailPrograms: "Программы в этом университете",
+
+  // Field + University Detail page
+  fieldUniNotFound: "Университет не найден",
+  fieldUniBackToFields: "Назад к направлениям",
+  fieldUniBackToResults: "Назад к результатам",
+  fieldUniSelectedFields: "Выбранные направления в этом университете",
+  fieldUniNoMatchingFields: "Подходящих направлений не найдено.",
+  fieldUniDegrees: "Степени",
+  fieldUniLanguages: "Языки",
+  fieldUniViewFull: "Полный профиль университета",
+
+  // Search Programs page
+  searchProgramsTitle: "Поиск программ",
+  searchProgramsPlaceholder: "Искать программы по названию…",
+  searchProgramsFilters: "Фильтры",
+  searchProgramsCategory: "Категория",
+  searchProgramsCountry: "Страна",
+  searchProgramsResults: "Программы",
+
+  // Program Detail page
+  programDetailTitle: "О программе",
+  programDetailNotFound: "Программа не найдена.",
+  programDetailBack: "Назад к программам",
+  programDetailUniversity: "Университет",
+  programDetailLocation: "Расположение",
+  programDetailDegree: "Степень",
+  programDetailLanguage: "Язык",
+  programDetailDuration: "Длительность",
+  programDetailTuition: "Стоимость",
+  programDetailDescription: "Описание",
+  programDetailWebsite: "Перейти на сайт",
+
+  // Favorite Programs page
+  favoriteProgramsTitle: "Избранные программы",
+  favoriteProgramsEmpty: "У вас пока нет избранных программ.",
+  favoriteProgramsRemove: "Удалить",
 };
 
 export default ru;

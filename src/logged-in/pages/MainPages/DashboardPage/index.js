@@ -414,6 +414,33 @@ const DashboardPage = () => {
                 </button>
                 <button
                   onClick={() =>
+                    handleNavClick("/dashboard/search/fields")
+                  }
+                  className={styles.navItem}
+                >
+                  <span className={styles.navIcon}>📚</span>
+                  <span className={styles.navLabel}>Search Fields</span>
+                </button>
+                <button
+                  onClick={() =>
+                    handleNavClick("/dashboard/search/programs")
+                  }
+                  className={styles.navItem}
+                >
+                  <span className={styles.navIcon}>🎓</span>
+                  <span className={styles.navLabel}>Search Programs</span>
+                </button>
+                <button
+                  onClick={() =>
+                    handleNavClick("/dashboard/search/programs/favorites")
+                  }
+                  className={styles.navItem}
+                >
+                  <span className={styles.navIcon}>★</span>
+                  <span className={styles.navLabel}>Favorite Programs</span>
+                </button>
+                <button
+                  onClick={() =>
                     handleNavClick("/dashboard/search/scholarships")
                   }
                   className={styles.navItem}

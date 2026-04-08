@@ -15,12 +15,16 @@ function getToken() {
  * @returns {Promise<Array>}
  */
 export async function getUniversities(options = {}) {
-  const { countryId } = options;
-  let url = apiUrl("/api/v1/universities");
-  if (countryId) {
-    url += `?countryId=${encodeURIComponent(countryId)}`;
-  }
-  const res = await fetch(url, {
+  const url = new URL(apiUrl("/api/v1/universities"));
+  Object.entries(options).forEach(([key, val]) => {
+    if (val === null || val === undefined || val === "") return;
+    if (Array.isArray(val)) {
+      val.forEach((v) => url.searchParams.append(key, v));
+    } else {
+      url.searchParams.append(key, val);
+    }
+  });
+  const res = await fetch(url.toString(), {
     method: "GET",
     headers: jsonHeaders(),
   });

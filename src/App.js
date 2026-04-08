@@ -16,6 +16,11 @@ import DreamUniversityPage from "./logged-in/pages/MainPages/DreamUniversityPage
 import SearchUniversitiesPage from "./logged-in/pages/MainPages/SearchUniversitiesPage";
 import UniversityDetailPage from "./logged-in/pages/MainPages/SearchUniversitiesPage/UniversityDetailPage";
 import FavoriteUniversitiesPage from "./logged-in/pages/MainPages/SearchUniversitiesPage/FavoriteUniversitiesPage";
+import SearchFieldsPage from "./logged-in/pages/MainPages/SearchFieldsPage";
+import FieldSlugRouter from "./logged-in/pages/MainPages/FieldDetailPage/FieldSlugRouter";
+import SearchProgramsPage from "./logged-in/pages/MainPages/SearchProgramsPage";
+import ProgramDetailPage from "./logged-in/pages/MainPages/ProgramDetailPage";
+import FavoriteProgramsPage from "./logged-in/pages/MainPages/FavoriteProgramsPage";
 import SearchScholarshipsPage from "./logged-in/pages/MainPages/SearchScholarshipsPage";
 import StudyTogetherPage from "./logged-in/pages/MainPages/StudyTogetherPage";
 import UniversityReelsPage from "./logged-in/pages/MainPages/UniversityReelsPage";
@@ -184,6 +189,51 @@ function App() {
             element={
               <ProtectedRoute>
                 <SearchUniversitiesPage />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/dashboard/search/fields/:slug"
+            element={
+              <ProtectedRoute>
+                <FieldSlugRouter />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/dashboard/search/fields"
+            element={
+              <ProtectedRoute>
+                <SearchFieldsPage />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/dashboard/search/programs/favorites"
+            element={
+              <ProtectedRoute>
+                <FavoriteProgramsPage />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/dashboard/search/programs/:id"
+            element={
+              <ProtectedRoute>
+                <ProgramDetailPage />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/dashboard/search/programs"
+            element={
+              <ProtectedRoute>
+                <SearchProgramsPage />
               </ProtectedRoute>
             }
           />
