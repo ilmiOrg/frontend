@@ -22,14 +22,11 @@ import SearchProgramsPage from "./logged-in/pages/MainPages/SearchProgramsPage";
 import ProgramDetailPage from "./logged-in/pages/MainPages/ProgramDetailPage";
 import FavoriteProgramsPage from "./logged-in/pages/MainPages/FavoriteProgramsPage";
 import SearchScholarshipsPage from "./logged-in/pages/MainPages/SearchScholarshipsPage";
-import StudyTogetherPage from "./logged-in/pages/MainPages/StudyTogetherPage";
-import UniversityReelsPage from "./logged-in/pages/MainPages/UniversityReelsPage";
+
 import ProfilePage from "./logged-in/pages/MainPages/ProfilePage";
 import SendInfoPage from "./logged-in/pages/MainPages/SendInfoPage";
 
-// Application Pages
-import ApplicationTimelinePage from "./logged-in/pages/ApplicationPages/ApplicationTimelinePage";
-import MyDocumentsPage from "./logged-in/pages/ApplicationPages/MyDocumentsPage";
+
 
 // AI Matching Pages
 import MatchUniversitiesPage from "./logged-in/pages/AIMatchingPages/MatchUniversitiesPage";
@@ -40,10 +37,7 @@ import SimilarStudentsPage from "./logged-in/pages/AIMatchingPages/SimilarStuden
 import ConnectFriendsPage from "./logged-in/pages/CommunityPages/ConnectFriendsPage";
 import AlumniMentorsPage from "./logged-in/pages/CommunityPages/AlumniMentorsPage";
 
-// Career Pages
-import InternshipsPage from "./logged-in/pages/CareerPages/InternshipsPage";
-import MastersPage from "./logged-in/pages/CareerPages/MastersPage";
-import CareerAnalysisPage from "./logged-in/pages/CareerPages/CareerAnalysisPage";
+
 
 // Premium Pages
 import EssayReviewsPage from "./logged-in/pages/PremiumPages/EssayReviewsPage";
@@ -57,8 +51,7 @@ import EnglishPage from "./logged-in/pages/LearningPages/EnglishPage";
 import EssayWritingPage from "./logged-in/pages/LearningPages/EssayWritingPage";
 import AILiteracyPage from "./logged-in/pages/LearningPages/AILiteracyPage";
 
-// Privacy & Contact Pages
-import PrivacyDashboardPage from "./logged-in/pages/PrivacyPages/PrivacyDashboardPage";
+// Contact Pages
 import ContactPremiumPage from "./logged-in/pages/ContactPages/ContactPremiumPage";
 
 import "./styles/variables.css";
@@ -248,24 +241,6 @@ function App() {
           />
 
           <Route
-            path="/dashboard/study-together"
-            element={
-              <ProtectedRoute>
-                <StudyTogetherPage />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/dashboard/university-reels"
-            element={
-              <ProtectedRoute>
-                <UniversityReelsPage />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
             path="/dashboard/profile"
             element={
               <ProtectedRoute>
@@ -279,25 +254,6 @@ function App() {
             element={
               <ProtectedRoute>
                 <SendInfoPage />
-              </ProtectedRoute>
-            }
-          />
-
-          {/* Application Management Routes */}
-          <Route
-            path="/dashboard/applications/timeline"
-            element={
-              <ProtectedRoute>
-                <ApplicationTimelinePage />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/dashboard/applications/documents"
-            element={
-              <ProtectedRoute>
-                <MyDocumentsPage />
               </ProtectedRoute>
             }
           />
@@ -345,34 +301,6 @@ function App() {
             element={
               <ProtectedRoute>
                 <AlumniMentorsPage />
-              </ProtectedRoute>
-            }
-          />
-
-          {/* Career Routes */}
-          <Route
-            path="/dashboard/career/internships"
-            element={
-              <ProtectedRoute>
-                <InternshipsPage />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/dashboard/career/masters"
-            element={
-              <ProtectedRoute>
-                <MastersPage />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/dashboard/career/analysis"
-            element={
-              <ProtectedRoute>
-                <CareerAnalysisPage />
               </ProtectedRoute>
             }
           />
@@ -451,16 +379,7 @@ function App() {
             }
           />
 
-          {/* Privacy & Contact Routes */}
-          <Route
-            path="/dashboard/privacy"
-            element={
-              <ProtectedRoute>
-                <PrivacyDashboardPage />
-              </ProtectedRoute>
-            }
-          />
-
+          {/* Contact Routes */}
           <Route
             path="/dashboard/contact-premium"
             element={

@@ -1,146 +1,104 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../../contexts/AuthContext";
-import { ScrollContainer } from "../../../../components/ui/ScrollContainer";
+import { useTranslation } from "../../../../hooks/useLanguage";
+import PageTemplate from "../../../shared/PageTemplate";
+import { UserIcon, StarIcon, LogOutIcon, CheckIcon } from "../../../shared/Icons";
+import s from "../../../shared/ContentPage/style.module.css";
 import styles from "./style.module.css";
 
 const ProfilePage = () => {
   const navigate = useNavigate();
-  const { logout } = useAuth();
-
-  const handleBack = () => {
-    navigate("/dashboard");
-  };
+  const { logout, user } = useAuth();
+  const { t } = useTranslation();
 
   const handleLogout = () => {
     logout();
     navigate("/");
   };
 
-  return (
-    <div className={styles.page}>
-      <div className={styles.header}>
-        <div className={styles.headerLeft}>
-          <button
-            onClick={handleBack}
-            className={styles.backButton}
-            title="Back to Dashboard"
-          >
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M19 12H5M12 19l-7-7 7-7" />
-            </svg>
-          </button>
-          <div className={styles.headerContent}>
-            <span className={styles.icon}>👤</span>
-            <div>
-              <h1 className={styles.title}>My Profile</h1>
-              <p className={styles.description}>Manage your account settings</p>
-            </div>
-          </div>
-        </div>
-      </div>
+  const userName = user?.name || "Student";
+  const userEmail = user?.email || "";
 
-      <ScrollContainer className={styles.scrollArea} disableHorizontalScroll>
-      <div className={styles.content}>
+  return (
+    <PageTemplate
+      icon={<UserIcon size={22} />}
+      title={t("profileTitle")}
+      backTo="/dashboard"
+      onBack={() => navigate("/dashboard")}
+    >
+      <div className={s.layout}>
         <div className={styles.profileCard}>
           <div className={styles.avatarSection}>
             <div className={styles.avatar}>
-              <img
-                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=120&h=120&fit=crop&crop=face"
-                alt="Profile"
-              />
+              <UserIcon size={32} />
             </div>
-            <button className={styles.changeAvatarBtn}>Change Photo</button>
+            <button className={s.primaryBtn}>{t("profileChangePhoto")}</button>
           </div>
 
           <div className={styles.infoSection}>
             <div className={styles.infoGroup}>
-              <label>Full Name</label>
-              <input
-                type="text"
-                defaultValue="Alex Johnson"
-                className={styles.input}
-              />
+              <label>{t("profileFullName")}</label>
+              <input type="text" defaultValue={userName} className={styles.input} />
             </div>
             <div className={styles.infoGroup}>
-              <label>Email</label>
-              <input
-                type="email"
-                defaultValue="alex.johnson@email.com"
-                className={styles.input}
-              />
+              <label>{t("profileEmail")}</label>
+              <input type="email" defaultValue={userEmail} className={styles.input} />
             </div>
             <div className={styles.infoGroup}>
-              <label>Phone</label>
-              <input
-                type="tel"
-                defaultValue="+1 234 567 8900"
-                className={styles.input}
-              />
+              <label>{t("profilePhone")}</label>
+              <input type="tel" defaultValue="" className={styles.input} placeholder="+1 234 567 8900" />
             </div>
             <div className={styles.infoGroup}>
-              <label>Location</label>
-              <input
-                type="text"
-                defaultValue="Bishkek, Kyrgyzstan"
-                className={styles.input}
-              />
+              <label>{t("profileLocation")}</label>
+              <input type="text" defaultValue="" className={styles.input} placeholder="Bishkek, Kyrgyzstan" />
             </div>
           </div>
         </div>
 
-        <div className={styles.statsCard}>
-          <h3>Account Statistics</h3>
-          <div className={styles.statsGrid}>
-            <div className={styles.statItem}>
-              <span className={styles.statValue}>15</span>
-              <span className={styles.statLabel}>Applications</span>
-            </div>
-            <div className={styles.statItem}>
-              <span className={styles.statValue}>8</span>
-              <span className={styles.statLabel}>Scholarships</span>
-            </div>
-            <div className={styles.statItem}>
-              <span className={styles.statValue}>247</span>
-              <span className={styles.statLabel}>Profile Views</span>
-            </div>
-            <div className={styles.statItem}>
-              <span className={styles.statValue}>92%</span>
-              <span className={styles.statLabel}>Match Score</span>
-            </div>
+        <div className={s.statsRow}>
+          <div className={s.statCard}>
+            <span className={s.statNumber}>0</span>
+            <span className={s.statLabel}>{t("profileApplications")}</span>
+          </div>
+          <div className={s.statCard}>
+            <span className={s.statNumber}>0</span>
+            <span className={s.statLabel}>{t("profileScholarships")}</span>
+          </div>
+          <div className={s.statCard}>
+            <span className={s.statNumber}>0</span>
+            <span className={s.statLabel}>{t("profileViews")}</span>
           </div>
         </div>
 
-        <div className={styles.premiumCard}>
-          <div className={styles.premiumBadge}>⭐ Premium</div>
-          <h3>Premium Member</h3>
-          <p>You have access to all premium features</p>
+        <div className={s.introPanel}>
+          <div className={s.featureGrid}>
+            <div className={s.featureCard}>
+              <div className={`${s.featureIconWrap} ${s.amber}`}>
+                <StarIcon size={18} />
+              </div>
+              <div className={s.featureBody}>
+                <h4 className={s.featureTitle}>{t("profilePremium")}</h4>
+                <p className={s.featureDesc}>{t("profilePremiumDesc")}</p>
+              </div>
+            </div>
+          </div>
           <ul className={styles.premiumFeatures}>
-            <li>✓ Unlimited university matches</li>
-            <li>✓ Priority application support</li>
-            <li>✓ Exclusive scholarship alerts</li>
-            <li>✓ Direct mentor access</li>
+            <li><CheckIcon size={14} /> {t("profilePremiumMatch")}</li>
+            <li><CheckIcon size={14} /> {t("profilePremiumSupport")}</li>
+            <li><CheckIcon size={14} /> {t("profilePremiumAlerts")}</li>
+            <li><CheckIcon size={14} /> {t("profilePremiumMentor")}</li>
           </ul>
         </div>
 
         <div className={styles.actionsCard}>
-          <button className={styles.saveBtn}>Save Changes</button>
+          <button className={s.primaryBtn}>{t("profileSave")}</button>
           <button className={styles.logoutBtn} onClick={handleLogout}>
-            🚪 Logout
+            <LogOutIcon size={16} /> {t("profileLogout")}
           </button>
         </div>
       </div>
-      </ScrollContainer>
-    </div>
+    </PageTemplate>
   );
 };
 

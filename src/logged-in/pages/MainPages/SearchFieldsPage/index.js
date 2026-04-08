@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "../../../../hooks/useLanguage";
 import PageTemplate from "../../../shared/PageTemplate";
+import { BookOpenIcon, LaptopIcon, BarChartIcon, HeartPulseIcon, ScaleIcon, GearIcon, PaletteIcon, GlobeIcon, DollarIcon, LeafIcon, NewspaperIcon, BuildingIcon, BrainIcon, CheckIcon, MenuIcon, ChevronRightIcon } from "../../../shared/Icons";
 import {
   SelectField,
   NumberField,
@@ -16,18 +17,18 @@ const ALL = "all";
 const STORAGE_KEY = "ilmi_field_search_prefs";
 
 const FIELD_ICONS = {
-  "computer-science-it": "💻",
-  "business-management": "📊",
-  "medicine-health": "🏥",
-  law: "⚖️",
-  engineering: "⚙️",
-  "arts-design": "🎨",
-  "social-sciences": "🌍",
-  "economics-finance": "💰",
-  "environmental-sciences": "🌿",
-  "journalism-media": "📰",
-  architecture: "🏛️",
-  "data-science-ai": "🤖",
+  "computer-science-it": <LaptopIcon size={18} />,
+  "business-management": <BarChartIcon size={18} />,
+  "medicine-health": <HeartPulseIcon size={18} />,
+  law: <ScaleIcon size={18} />,
+  engineering: <GearIcon size={18} />,
+  "arts-design": <PaletteIcon size={18} />,
+  "social-sciences": <GlobeIcon size={18} />,
+  "economics-finance": <DollarIcon size={18} />,
+  "environmental-sciences": <LeafIcon size={18} />,
+  "journalism-media": <NewspaperIcon size={18} />,
+  architecture: <BuildingIcon size={18} />,
+  "data-science-ai": <BrainIcon size={18} />,
 };
 
 function getDegreeOptions(t) {
@@ -234,7 +235,7 @@ const SearchFieldsPage = () => {
     tuitionMax !== "";
 
   return (
-    <PageTemplate icon="📚" title={t("searchFieldsTitle")} onBack={handleBack}>
+    <PageTemplate icon={<BookOpenIcon size={22} />} title={t("searchFieldsTitle")} onBack={handleBack}>
       <div className={styles.layout}>
         <section className={styles.filtersPanel}>
           <div className={styles.filtersHead}>
@@ -272,10 +273,10 @@ const SearchFieldsPage = () => {
                     aria-pressed={isChecked}
                   >
                     <span className={styles.checkbox}>
-                      {isChecked ? "✓" : ""}
+                      {isChecked ? <CheckIcon size={14} /> : ""}
                     </span>
                     <span className={styles.fieldIcon}>
-                      {FIELD_ICONS[f.fieldSlug] || "📖"}
+                      {FIELD_ICONS[f.fieldSlug] || <BookOpenIcon size={18} />}
                     </span>
                     <span className={styles.fieldLabel}>{f.fieldName}</span>
                   </button>
@@ -285,7 +286,7 @@ const SearchFieldsPage = () => {
                     title={t("searchFieldsViewDetails")}
                     onClick={(e) => e.stopPropagation()}
                   >
-                    →
+                    <ChevronRightIcon size={16} />
                   </Link>
                 </div>
               );
@@ -396,7 +397,7 @@ const SearchFieldsPage = () => {
                   onClick={() => setViewMode("full")}
                   title={t("searchFieldsFull")}
                 >
-                  ☰
+                  <MenuIcon size={16} />
                 </button>
               </div>
             </div>

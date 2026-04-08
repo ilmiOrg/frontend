@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../../contexts/AuthContext";
-import { useTranslation } from "../../../../hooks/useLanguage";
 import Chart from "chart.js/auto";
 import { ILMI_LOGO_URL } from "../../../../lib/ilmiLogoUrl";
 import { SkyToggle } from "../../../../components/ui/SkyToggle";
@@ -13,6 +12,7 @@ import {
   HeartIcon,
   BookOpenIcon,
   GraduationCapIcon,
+  AwardIcon,
   TargetIcon,
   UsersIcon,
   MessageCircleIcon,
@@ -34,11 +34,8 @@ import {
   XIcon,
   TelegramIcon,
   ExternalLinkIcon,
-  CheckIcon,
-  ChevronRightIcon,
-} from "../../../shared/Icons";
-import styles from "./style.module.css";
-import DashboardUniSearch from "./DashboardUniSearch";
+} from "../../shared/Icons";
+import styles from "./style.clean.module.css";
 
 const TELEGRAM_LINK = "https://t.me/ilmiOfficialGroup";
 
@@ -65,53 +62,53 @@ const STATUS_DATA = [
 const NAV_SECTIONS = [
   {
     id: "main",
-    labelKey: "dashMain",
+    label: "Main",
     items: [
-      { icon: HomeIcon, labelKey: "dashDashboard", path: null, active: true },
-      { icon: StarIcon, labelKey: "dashDreamUniversity", path: "/dashboard/dream-university" },
-      { icon: SearchIcon, labelKey: "dashSearchUniversities", path: "/dashboard/search/universities" },
-      { icon: HeartIcon, labelKey: "dashFavoriteUniversities", path: "/dashboard/search/universities/favorites" },
-      { icon: BookOpenIcon, labelKey: "dashSearchFields", path: "/dashboard/search/fields" },
-      { icon: GraduationCapIcon, labelKey: "dashSearchPrograms", path: "/dashboard/search/programs" },
-      { icon: HeartIcon, labelKey: "dashFavoritePrograms", path: "/dashboard/search/programs/favorites" },
-      { icon: DollarIcon, labelKey: "dashSearchScholarships", path: "/dashboard/search/scholarships" },
+      { icon: HomeIcon, label: "Dashboard", path: null, active: true },
+      { icon: StarIcon, label: "Dream University", path: "/dashboard/dream-university" },
+      { icon: SearchIcon, label: "Search Universities", path: "/dashboard/search/universities" },
+      { icon: HeartIcon, label: "Favorite Universities", path: "/dashboard/search/universities/favorites" },
+      { icon: BookOpenIcon, label: "Search Fields", path: "/dashboard/search/fields" },
+      { icon: GraduationCapIcon, label: "Search Programs", path: "/dashboard/search/programs" },
+      { icon: HeartIcon, label: "Favorite Programs", path: "/dashboard/search/programs/favorites" },
+      { icon: DollarIcon, label: "Search Scholarships", path: "/dashboard/search/scholarships" },
     ],
   },
   {
     id: "aiMatching",
-    labelKey: "dashAiMatching",
+    label: "AI & Smart Matching",
     items: [
-      { icon: TargetIcon, labelKey: "dashMatchUniversities", path: "/dashboard/ai/match-universities" },
-      { icon: TargetIcon, labelKey: "dashMatchScholarships", path: "/dashboard/ai/match-scholarships" },
-      { icon: UsersIcon, labelKey: "dashSimilarStudents", path: "/dashboard/ai/similar-students" },
+      { icon: TargetIcon, label: "Match Universities", path: "/dashboard/ai/match-universities" },
+      { icon: TargetIcon, label: "Match Scholarships", path: "/dashboard/ai/match-scholarships" },
+      { icon: UsersIcon, label: "Similar Students", path: "/dashboard/ai/similar-students" },
     ],
   },
   {
     id: "community",
-    labelKey: "dashCommunity",
+    label: "Community",
     items: [
-      { icon: MessageCircleIcon, labelKey: "dashConnectFriends", path: "/dashboard/community/friends" },
-      { icon: GraduationCapIcon, labelKey: "dashAlumniMentors", path: "/dashboard/community/mentors" },
+      { icon: MessageCircleIcon, label: "Connect Friends", path: "/dashboard/community/friends" },
+      { icon: GraduationCapIcon, label: "Alumni Mentors", path: "/dashboard/community/mentors" },
     ],
   },
   {
     id: "premium",
-    labelKey: "dashPremiumServices",
+    label: "Premium Services",
     items: [
-      { icon: PenToolIcon, labelKey: "dashEssayReviews", path: "/dashboard/premium/essay-reviews" },
-      { icon: MicIcon, labelKey: "dashMockInterviews", path: "/dashboard/premium/mock-interviews" },
-      { icon: CrownIcon, labelKey: "dashConciergeSupport", path: "/dashboard/premium/concierge" },
+      { icon: PenToolIcon, label: "Essay Reviews", path: "/dashboard/premium/essay-reviews" },
+      { icon: MicIcon, label: "Mock Interviews", path: "/dashboard/premium/mock-interviews" },
+      { icon: CrownIcon, label: "Concierge Support", path: "/dashboard/premium/concierge" },
     ],
   },
   {
     id: "learning",
-    labelKey: "dashLearning",
+    label: "Learning & Courses",
     items: [
-      { icon: BookOpenIcon, labelKey: "dashGetCourses", path: "/dashboard/courses" },
-      { icon: CalculatorIcon, labelKey: "dashMath", path: "/dashboard/courses/math" },
-      { icon: LanguagesIcon, labelKey: "dashEnglish", path: "/dashboard/courses/english" },
-      { icon: FileEditIcon, labelKey: "dashEssayWriting", path: "/dashboard/courses/essay-writing" },
-      { icon: CpuIcon, labelKey: "dashAiLiteracy", path: "/dashboard/courses/ai-literacy" },
+      { icon: BookOpenIcon, label: "Get Courses", path: "/dashboard/courses" },
+      { icon: CalculatorIcon, label: "Math", path: "/dashboard/courses/math" },
+      { icon: LanguagesIcon, label: "English", path: "/dashboard/courses/english" },
+      { icon: FileEditIcon, label: "Essay Writing", path: "/dashboard/courses/essay-writing" },
+      { icon: CpuIcon, label: "AI Literacy", path: "/dashboard/courses/ai-literacy" },
     ],
   },
 ];
@@ -119,7 +116,6 @@ const NAV_SECTIONS = [
 const DashboardPage = () => {
   const navigate = useNavigate();
   const { logout, user } = useAuth();
-  const { t } = useTranslation();
   const viewsChartRef = useRef(null);
   const statusChartRef = useRef(null);
 
@@ -323,14 +319,14 @@ const DashboardPage = () => {
             <img src={ILMI_LOGO_URL} alt="ilmi" className={styles.logoImage} />
             <span>ilmi</span>
           </div>
-          <div className={styles.tagline}>{t("dashTagline")}</div>
+          <div className={styles.tagline}>Your university journey starts here</div>
           <button
             type="button"
             onClick={() => navigate("/dashboard/send-info")}
             className={styles.sendInfoBtn}
           >
             <SendIcon size={14} />
-            {t("dashSendInfo")}
+            Send Info & Get Premium
           </button>
         </div>
 
@@ -342,7 +338,7 @@ const DashboardPage = () => {
                   className={styles.navSectionHeader}
                   onClick={() => toggleSection(section.id)}
                 >
-                  <span>{t(section.labelKey)}</span>
+                  <span>{section.label}</span>
                   <ChevronDownIcon
                     size={14}
                     className={`${styles.chevronIcon} ${
@@ -353,14 +349,14 @@ const DashboardPage = () => {
                 {expandedSections[section.id] &&
                   section.items.map((item) => (
                     <button
-                      key={item.labelKey}
+                      key={item.label}
                       onClick={() => item.path && navigate(item.path)}
                       className={`${styles.navItem} ${item.active ? styles.active : ""}`}
                     >
                       <span className={styles.navIcon}>
                         <item.icon size={18} />
                       </span>
-                      <span className={styles.navLabel}>{t(item.labelKey)}</span>
+                      <span className={styles.navLabel}>{item.label}</span>
                     </button>
                   ))}
               </div>
@@ -377,7 +373,7 @@ const DashboardPage = () => {
                 <span className={styles.telegramIcon}>
                   <TelegramIcon size={18} />
                 </span>
-                <span className={styles.navLabel}>{t("dashJoinCommunity")}</span>
+                <span className={styles.navLabel}>Join Our Community</span>
                 <ExternalLinkIcon size={14} />
               </a>
             </div>
@@ -391,7 +387,7 @@ const DashboardPage = () => {
                 <span className={styles.navIcon}>
                   <LogOutIcon size={18} />
                 </span>
-                <span className={styles.navLabel}>{t("dashLogout")}</span>
+                <span className={styles.navLabel}>Logout</span>
               </button>
             </div>
           </nav>
@@ -422,14 +418,14 @@ const DashboardPage = () => {
                 <SkyToggle checked={isDark} onChange={toggleTheme} />
                 <button
                   className={styles.actionBtn}
-                  title={t("dashNotifications")}
+                  title="Notifications"
                 >
                   <BellIcon size={18} />
                   <span className={styles.notifBadge}>3</span>
                 </button>
                 <button
                   className={styles.actionBtn}
-                  title={t("dashProfile")}
+                  title="Profile"
                   onClick={() => navigate("/dashboard/profile")}
                 >
                   <UserIcon size={18} />
@@ -637,7 +633,58 @@ const DashboardPage = () => {
               <div className={styles.sectionHeader}>
                 <h2 className={styles.sectionTitle}>Search Universities</h2>
               </div>
-              <DashboardUniSearch />
+              <div className={styles.searchForm}>
+                <div className={styles.searchRow}>
+                  <div className={styles.searchField}>
+                    <label className={styles.searchFieldLabel}>Location</label>
+                    <select className={styles.searchSelect}>
+                      <option>Any Country</option>
+                      <option>United States</option>
+                      <option>Canada</option>
+                      <option>United Kingdom</option>
+                    </select>
+                  </div>
+                  <div className={styles.searchField}>
+                    <label className={styles.searchFieldLabel}>Major</label>
+                    <select className={styles.searchSelect}>
+                      <option>Any Major</option>
+                      <option>Computer Science</option>
+                      <option>Engineering</option>
+                      <option>Business</option>
+                    </select>
+                  </div>
+                  <div className={styles.searchField}>
+                    <label className={styles.searchFieldLabel}>Tuition Range</label>
+                    <select className={styles.searchSelect}>
+                      <option>Any Range</option>
+                      <option>$0 - $20k</option>
+                      <option>$20k - $40k</option>
+                      <option>$40k - $60k</option>
+                    </select>
+                  </div>
+                </div>
+                <button className={styles.sectionActionPrimary}>Advanced Search</button>
+              </div>
+              <div className={styles.uniGrid} style={{ marginTop: 12 }}>
+                <div className={styles.uniCard}>
+                  <div className={styles.uniCardHeader}>
+                    <div className={styles.uniLogo}>H</div>
+                    <div>
+                      <h3 className={styles.uniName}>Harvard University</h3>
+                      <p className={styles.uniLocation}>Cambridge, MA, USA</p>
+                    </div>
+                  </div>
+                  <div className={styles.uniStats}>
+                    <div className={styles.uniStat}>
+                      <span className={styles.uniStatLabel}>#3 Ranking</span>
+                      <span className={styles.uniStatValue}>98% Match</span>
+                    </div>
+                    <div className={styles.uniStat}>
+                      <span className={styles.uniStatLabel}>$54k Tuition</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* Search Scholarships */}
@@ -851,7 +898,7 @@ const DashboardPage = () => {
                       <div className={styles.mentorMeta}>
                         {m.tags.map((t) => <span key={t} className={styles.mentorTag}>{t}</span>)}
                       </div>
-                      <div className={styles.mentorRating}><StarIcon size={12} /> {m.rating}</div>
+                      <div className={styles.mentorRating}>★ {m.rating}</div>
                     </div>
                   </div>
                 ))}
@@ -969,8 +1016,8 @@ const DashboardPage = () => {
               </div>
               <div className={styles.courseGrid}>
                 {[
-                  { icon: <BookOpenIcon size={18} />, name: "SAT Prep Masterclass", desc: "Comprehensive SAT preparation", meta: ["12 weeks", "4.8"] },
-                  { icon: <FileEditIcon size={18} />, name: "College Essay Writing", desc: "Master the art of essay writing", meta: ["8 weeks", "4.9"] },
+                  { icon: <BookOpenIcon size={18} />, name: "SAT Prep Masterclass", desc: "Comprehensive SAT preparation", meta: ["12 weeks", "★ 4.8"] },
+                  { icon: <FileEditIcon size={18} />, name: "College Essay Writing", desc: "Master the art of essay writing", meta: ["8 weeks", "★ 4.9"] },
                 ].map((c) => (
                   <div key={c.name} className={styles.courseCard}>
                     <div className={styles.courseIcon}>{c.icon}</div>
@@ -1074,7 +1121,7 @@ const DashboardPage = () => {
                 ].map((m) => (
                   <div key={m.name} className={styles.moduleCard}>
                     <div className={`${styles.moduleStatus} ${m.done ? styles.moduleComplete : styles.modulePending}`}>
-                      {m.done ? <CheckIcon size={14} /> : <ChevronRightIcon size={14} />}
+                      {m.done ? "✓" : "→"}
                     </div>
                     <div>
                       <h4 className={styles.moduleName}>{m.name}</h4>

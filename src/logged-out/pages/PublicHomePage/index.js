@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../contexts/AuthContext";
-import ilmiLogo from "../../../assets/images/ilmi-logo.jpg";
+import { ILMI_LOGO_URL } from "../../../lib/ilmiLogoUrl";
 import { SplineScene } from "../../../components/SplineScene";
 import { Spotlight } from "../../../components/Spotlight";
 import { LandingSparklesHeader } from "../../../components/ui/LandingSparklesHeader";
@@ -229,7 +229,7 @@ const PublicHomePage = () => {
         <div className={styles.navContainer}>
           <div className={styles.navContainerLeft}>
             <button onClick={() => navigate("/")} className={styles.logo}>
-              <img src={ilmiLogo} alt="ilmi" className={styles.logoImage} />
+              <img src={ILMI_LOGO_URL} alt="ilmi" className={styles.logoImage} />
               <span>ilmi</span>
             </button>
           </div>
@@ -579,7 +579,7 @@ const PublicHomePage = () => {
                 <div className={styles.footerBrand}>
                   <div className={styles.footerLogo}>
                     <img
-                      src={ilmiLogo}
+                      src={ILMI_LOGO_URL}
                       alt="ilmi"
                       className={styles.footerLogoImg}
                     />

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ScrollContainer } from "../../../../components/ui/ScrollContainer";
+import { GraduationCapIcon, DollarIcon, FileEditIcon, CalendarIcon, MessageCircleIcon, StarIcon, SendIcon, CheckCircleIcon } from "../../../shared/Icons";
 import styles from "./style.module.css";
 
 const SendInfoPage = () => {
@@ -57,11 +58,11 @@ const SendInfoPage = () => {
   };
 
   const tabs = [
-    { id: "university", label: "🎓 University Info", icon: "🎓" },
-    { id: "scholarship", label: "💰 Scholarship Info", icon: "💰" },
-    { id: "application", label: "📄 Application Help", icon: "📄" },
-    { id: "meeting", label: "📅 Book Meeting", icon: "📅" },
-    { id: "other", label: "💬 Other Request", icon: "💬" },
+    { id: "university", label: "University Info", icon: <GraduationCapIcon size={16} /> },
+    { id: "scholarship", label: "Scholarship Info", icon: <DollarIcon size={16} /> },
+    { id: "application", label: "Application Help", icon: <FileEditIcon size={16} /> },
+    { id: "meeting", label: "Book Meeting", icon: <CalendarIcon size={16} /> },
+    { id: "other", label: "Other Request", icon: <MessageCircleIcon size={16} /> },
   ];
 
   const renderForm = () => {
@@ -438,14 +439,14 @@ const SendInfoPage = () => {
       <div className={styles.page}>
         <ScrollContainer className={styles.scrollArea} disableHorizontalScroll>
         <div className={styles.successContainer}>
-          <div className={styles.successIcon}>✅</div>
+          <div className={styles.successIcon}><CheckCircleIcon size={48} /></div>
           <h2>Information Sent Successfully!</h2>
           <p>
             Thank you for reaching out. Our team will review your information
             and contact you soon.
           </p>
           <div className={styles.premiumBanner}>
-            <span className={styles.premiumIcon}>⭐</span>
+            <span className={styles.premiumIcon}><StarIcon size={20} /></span>
             <div>
               <h3>Premium Access Activated!</h3>
               <p>You now have access to premium features for 7 days.</p>
@@ -486,12 +487,9 @@ const SendInfoPage = () => {
             </svg>
           </button>
           <div className={styles.headerContent}>
-            <span className={styles.icon}>📤</span>
+            <span className={styles.icon}><SendIcon size={22} /></span>
             <div>
               <h1 className={styles.title}>Send Info & Get Premium</h1>
-              <p className={styles.description}>
-                Share your information and unlock premium features
-              </p>
             </div>
           </div>
         </div>
@@ -500,7 +498,7 @@ const SendInfoPage = () => {
       <ScrollContainer className={styles.scrollArea} disableHorizontalScroll>
       <div className={styles.content}>
         <div className={styles.premiumOffer}>
-          <div className={styles.offerIcon}>⭐</div>
+          <div className={styles.offerIcon}><StarIcon size={24} /></div>
           <div className={styles.offerContent}>
             <h3>Get 7 Days Premium FREE!</h3>
             <p>
@@ -534,9 +532,9 @@ const SendInfoPage = () => {
               disabled={isSubmitting}
             >
               {isSubmitting ? (
-                <>⏳ Sending...</>
+                <>Sending...</>
               ) : (
-                <>📤 Send Information & Get Premium</>
+                <><SendIcon size={16} /> Send Information & Get Premium</>
               )}
             </button>
           </div>

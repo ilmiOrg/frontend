@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../../contexts/AuthContext";
 import { useTranslation } from "../../../../hooks/useLanguage";
 import PageTemplate from "../../../shared/PageTemplate";
+import { GraduationCapIcon, StarIcon } from "../../../shared/Icons";
 import styles from "./style.module.css";
 import { getProgramById, getFavoritePrograms, addFavoriteProgram, removeFavoriteProgram } from "../../../../api/programs";
 
@@ -61,7 +62,7 @@ const ProgramDetailPage = () => {
 
   if (loading) {
     return (
-      <PageTemplate icon="🎓" title={t("programDetailTitle")}>
+      <PageTemplate icon={<GraduationCapIcon size={22} />} title={t("programDetailTitle")}>
         <p className={styles.loading}>{t("searchFieldsLoading")}</p>
       </PageTemplate>
     );
@@ -69,14 +70,14 @@ const ProgramDetailPage = () => {
 
   if (error || !program) {
     return (
-      <PageTemplate icon="🎓" title={t("programDetailTitle")}>
+      <PageTemplate icon={<GraduationCapIcon size={22} />} title={t("programDetailTitle")}>
         <p className={styles.error}>{t("programDetailNotFound")}</p>
       </PageTemplate>
     );
   }
 
   return (
-    <PageTemplate icon="🎓" title={program.programName} onBack={() => navigate(-1)}>
+    <PageTemplate icon={<GraduationCapIcon size={22} />} title={program.programName} onBack={() => navigate(-1)}>
       <div className={styles.layout}>
         <button type="button" className={styles.backLink} onClick={() => navigate(-1)}>
           ← {t("programDetailBack")}
@@ -142,8 +143,8 @@ const ProgramDetailPage = () => {
               aria-pressed={isFavorite}
             >
               {isFavorite
-                ? `★ ${t("favoriteSaved")}`
-                : `☆ ${t("favoriteSave")}`}
+                ? <><StarIcon size={14} /> {t("favoriteSaved")}</>
+                : <><StarIcon size={14} /> {t("favoriteSave")}</>}
             </button>
             {program.website && (
               <a

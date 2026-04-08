@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../../../../contexts/AuthContext";
 import { useTranslation } from "../../../../hooks/useLanguage";
 import PageTemplate from "../../../shared/PageTemplate";
+import { SearchIcon, GraduationCapIcon, StarIcon } from "../../../shared/Icons";
 import { getUniversities } from "../../../../api/universities";
 import { searchPrograms } from "../../../../api/programs";
 import { mapUniversityFromApi } from "./searchUniversitiesData";
@@ -103,7 +104,7 @@ export default function UniversityDetailPage() {
 
   if (loadingUniversity) {
     return (
-      <PageTemplate onBack={() => navigate(-1)} icon="🔍" title="Loading...">
+      <PageTemplate onBack={() => navigate(-1)} icon={<SearchIcon size={22} />} title="Loading...">
         <div className={styles.notFound}>
           <p>Loading university details...</p>
         </div>
@@ -115,7 +116,7 @@ export default function UniversityDetailPage() {
     return (
       <PageTemplate
         onBack={() => navigate(-1)}
-        icon="🔍"
+        icon={<SearchIcon size={22} />}
         title="Institution not found"
         actions={
           <Link className={styles.backLink} to="/dashboard/search/universities">
@@ -136,7 +137,7 @@ export default function UniversityDetailPage() {
   return (
     <PageTemplate
       onBack={() => navigate(-1)}
-      icon="🎓"
+      icon={<GraduationCapIcon size={22} />}
       title={u.name}
     >
       <div className={styles.detail}>
@@ -205,7 +206,7 @@ export default function UniversityDetailPage() {
               onClick={toggleFavorite}
               aria-pressed={favorite}
             >
-              {favorite ? `★ ${t("favoriteSaved")}` : `☆ ${t("favoriteSave")}`}
+              {favorite ? <><StarIcon size={14} /> {t("favoriteSaved")}</> : <><StarIcon size={14} /> {t("favoriteSave")}</>}
             </button>
           </div>
 

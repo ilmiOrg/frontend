@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PageTemplate from "../../../shared/PageTemplate";
+import { StarIcon } from "../../../shared/Icons";
 import UniversityResultCard from "./UniversityResultCard";
 import styles from "./style.module.css";
 import { getFavorites, removeFavorite } from "../../../../api/favorites";
@@ -44,9 +45,8 @@ const FavoriteUniversitiesPage = () => {
   return (
     <PageTemplate
       onBack={() => navigate(-1)}
-      icon="⭐"
+      icon={<StarIcon size={22} />}
       title={t("favoriteUniversitiesTitle")}
-      description={t("favoriteUniversitiesDescription")}
       actions={
         <button
           type="button"

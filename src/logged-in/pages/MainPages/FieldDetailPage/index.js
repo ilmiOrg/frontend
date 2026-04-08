@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "../../../../hooks/useLanguage";
 import PageTemplate from "../../../shared/PageTemplate";
+import { BookOpenIcon, LaptopIcon, BarChartIcon, HeartPulseIcon, ScaleIcon, GearIcon, PaletteIcon, GlobeIcon, DollarIcon, LeafIcon, NewspaperIcon, BuildingIcon, BrainIcon } from "../../../shared/Icons";
 import { SelectField } from "../../../../ui-components";
 import styles from "./style.module.css";
 import { getUniversityFields } from "../../../../api/fields";
@@ -11,18 +12,18 @@ import { mapUniversityFromApi } from "../SearchUniversitiesPage/searchUniversiti
 const ALL = "all";
 
 const FIELD_ICONS = {
-  "computer-science-it": "💻",
-  "business-management": "📊",
-  "medicine-health": "🏥",
-  law: "⚖️",
-  engineering: "⚙️",
-  "arts-design": "🎨",
-  "social-sciences": "🌍",
-  "economics-finance": "💰",
-  "environmental-sciences": "🌿",
-  "journalism-media": "📰",
-  architecture: "🏛️",
-  "data-science-ai": "🤖",
+  "computer-science-it": <LaptopIcon size={18} />,
+  "business-management": <BarChartIcon size={18} />,
+  "medicine-health": <HeartPulseIcon size={18} />,
+  law: <ScaleIcon size={18} />,
+  engineering: <GearIcon size={18} />,
+  "arts-design": <PaletteIcon size={18} />,
+  "social-sciences": <GlobeIcon size={18} />,
+  "economics-finance": <DollarIcon size={18} />,
+  "environmental-sciences": <LeafIcon size={18} />,
+  "journalism-media": <NewspaperIcon size={18} />,
+  architecture: <BuildingIcon size={18} />,
+  "data-science-ai": <BrainIcon size={18} />,
 };
 
 function getDegreeOptions(t) {
@@ -102,7 +103,7 @@ const FieldDetailPage = () => {
   }, [universities, field, degreeLevel, language]);
 
   const pageTitle = field ? field.fieldName : t("searchFieldsLoading");
-  const icon = field ? (FIELD_ICONS[field.fieldSlug] || "📖") : "📚";
+  const icon = field ? (FIELD_ICONS[field.fieldSlug] || <BookOpenIcon size={22} />) : <BookOpenIcon size={22} />;
 
   return (
     <PageTemplate icon={icon} title={pageTitle} onBack={() => navigate(-1)}>

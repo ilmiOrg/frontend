@@ -1,59 +1,73 @@
 import React from "react";
+import { useTranslation } from "../../../../hooks/useLanguage";
 import PageTemplate from "../../../shared/PageTemplate";
-import styles from "./style.module.css";
+import { MicIcon, CpuIcon, MessageCircleIcon, BookOpenIcon, TrendingUpIcon } from "../../../shared/Icons";
+import s from "../../../shared/ContentPage/style.module.css";
+
+const FEATURES = [
+  { key: "mockInterviewsAi", descKey: "mockInterviewsAiDesc", Icon: CpuIcon, color: "" },
+  { key: "mockInterviewsFeedback", descKey: "mockInterviewsFeedbackDesc", Icon: MessageCircleIcon, color: "green" },
+  { key: "mockInterviewsBank", descKey: "mockInterviewsBankDesc", Icon: BookOpenIcon, color: "purple" },
+  { key: "mockInterviewsTrack", descKey: "mockInterviewsTrackDesc", Icon: TrendingUpIcon, color: "amber" },
+];
+
+const TYPES = [
+  { key: "mockInterviewsGeneral", Icon: MicIcon },
+  { key: "mockInterviewsTechnical", Icon: CpuIcon },
+  { key: "mockInterviewsScholarship", Icon: BookOpenIcon },
+  { key: "mockInterviewsPortfolio", Icon: MessageCircleIcon },
+];
 
 const MockInterviewsPage = () => {
+  const { t } = useTranslation();
+
   return (
     <PageTemplate
-      icon="🎤"
-      title="Mock Interviews"
-      description="Practice with real admission officers"
-      actions={<button className={styles.primaryBtn}>Get Started</button>}
+      icon={<MicIcon size={22} />}
+      title={t("mockInterviewsTitle")}
+      actions={<button className={s.primaryBtn}>{t("getStarted")}</button>}
     >
-      <div className={styles.contentContainer}>
-        <div className={styles.infoSection}>
-          <h2 className={styles.sectionTitle}>Welcome to Mock Interviews!</h2>
-          <p className={styles.sectionText}>
-            Practice with real admission officers. This powerful feature will
-            help you achieve your university goals faster and more efficiently.
-          </p>
-
-          <div className={styles.features}>
-            <h3 className={styles.featuresTitle}>Key Features</h3>
-            <div className={styles.featureGrid}>
-              <div className={styles.featureCard}>
-                <span className={styles.featureIcon}>⚡</span>
-                <h4>Fast & Efficient</h4>
-                <p>Get results quickly with our optimized system</p>
+      <div className={s.layout}>
+        <div className={s.introPanel}>
+          <p className={s.introText}>{t("mockInterviewsIntro")}</p>
+          <div className={s.featureGrid}>
+            {FEATURES.map((f) => (
+              <div key={f.key} className={s.featureCard}>
+                <div className={`${s.featureIconWrap} ${f.color ? s[f.color] : ""}`}>
+                  <f.Icon size={18} />
+                </div>
+                <div className={s.featureBody}>
+                  <h4 className={s.featureTitle}>{t(f.key)}</h4>
+                  <p className={s.featureDesc}>{t(f.descKey)}</p>
+                </div>
               </div>
-              <div className={styles.featureCard}>
-                <span className={styles.featureIcon}>🎯</span>
-                <h4>Highly Accurate</h4>
-                <p>AI-powered recommendations tailored to you</p>
-              </div>
-              <div className={styles.featureCard}>
-                <span className={styles.featureIcon}>🔒</span>
-                <h4>Secure & Private</h4>
-                <p>Your data is protected and confidential</p>
-              </div>
-              <div className={styles.featureCard}>
-                <span className={styles.featureIcon}>💪</span>
-                <h4>Expert Support</h4>
-                <p>24/7 assistance from our team</p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
 
-        <div className={styles.actionSection}>
-          <div className={styles.actionCard}>
-            <h3 className={styles.actionTitle}>Ready to get started?</h3>
-            <p className={styles.actionText}>
-              Begin your journey with Mock Interviews and unlock your full
-              potential.
-            </p>
-            <button className={styles.actionBtn}>🎤 Start Now</button>
+        <hr className={s.divider} />
+        <h3 className={s.sectionLabel}>{t("popularTopics")}</h3>
+
+        <div className={s.cardGrid}>
+          {TYPES.map((item) => (
+            <div key={item.key} className={s.contentCard}>
+              <div className={s.cardHeader}>
+                <div className={s.cardIcon}>
+                  <item.Icon size={18} />
+                </div>
+                <h4 className={s.cardTitle}>{t(item.key)}</h4>
+              </div>
+              <span className={`${s.metaBadge} ${s.highlight}`}>{t("comingSoon")}</span>
+            </div>
+          ))}
+        </div>
+
+        <div className={s.ctaPanel}>
+          <div className={s.ctaBody}>
+            <h3 className={s.ctaTitle}>{t("mockInterviewsTitle")}</h3>
+            <p className={s.ctaDesc}>{t("mockInterviewsIntro")}</p>
           </div>
+          <button className={s.ctaBtn}>{t("startNow")}</button>
         </div>
       </div>
     </PageTemplate>

@@ -1,62 +1,49 @@
 import React from "react";
+import { useTranslation } from "../../../../hooks/useLanguage";
 import PageTemplate from "../../../shared/PageTemplate";
-import styles from "./style.module.css";
+import { TargetIcon, ZapIcon, ListChecksIcon, SearchIcon, FlameIcon } from "../../../shared/Icons";
+import s from "../../../shared/ContentPage/style.module.css";
+
+const FEATURES = [
+  { key: "internshipsFeature1", descKey: "internshipsFeature1Desc", Icon: ZapIcon, color: "" },
+  { key: "internshipsFeature2", descKey: "internshipsFeature2Desc", Icon: ListChecksIcon, color: "green" },
+  { key: "internshipsFeature3", descKey: "internshipsFeature3Desc", Icon: SearchIcon, color: "purple" },
+  { key: "internshipsFeature4", descKey: "internshipsFeature4Desc", Icon: FlameIcon, color: "amber" },
+];
 
 const InternshipsPage = () => {
+  const { t } = useTranslation();
+
   return (
     <PageTemplate
-      icon="💼"
-      title="Internships Matching"
-      description="Find internship opportunities that match your goals"
-      actions={<button className={styles.primaryBtn}>Get Started</button>}
+      icon={<TargetIcon size={22} />}
+      title={t("internshipsTitle")}
+      actions={<button className={s.primaryBtn}>{t("internshipsCta")}</button>}
     >
-      <div className={styles.contentContainer}>
-        <div className={styles.infoSection}>
-          <h2 className={styles.sectionTitle}>
-            Welcome to Internships Matching!
-          </h2>
-          <p className={styles.sectionText}>
-            Find internship opportunities that match your goals. This powerful
-            feature will help you achieve your university goals faster and more
-            efficiently.
-          </p>
-
-          <div className={styles.features}>
-            <h3 className={styles.featuresTitle}>Key Features</h3>
-            <div className={styles.featureGrid}>
-              <div className={styles.featureCard}>
-                <span className={styles.featureIcon}>⚡</span>
-                <h4>Fast & Efficient</h4>
-                <p>Get results quickly with our optimized system</p>
+      <div className={s.layout}>
+        <div className={s.introPanel}>
+          <p className={s.introText}>{t("internshipsDesc")}</p>
+          <div className={s.featureGrid}>
+            {FEATURES.map((f) => (
+              <div key={f.key} className={s.featureCard}>
+                <div className={`${s.featureIconWrap} ${f.color ? s[f.color] : ""}`}>
+                  <f.Icon size={18} />
+                </div>
+                <div className={s.featureBody}>
+                  <h4 className={s.featureTitle}>{t(f.key)}</h4>
+                  <p className={s.featureDesc}>{t(f.descKey)}</p>
+                </div>
               </div>
-              <div className={styles.featureCard}>
-                <span className={styles.featureIcon}>🎯</span>
-                <h4>Highly Accurate</h4>
-                <p>AI-powered recommendations tailored to you</p>
-              </div>
-              <div className={styles.featureCard}>
-                <span className={styles.featureIcon}>🔒</span>
-                <h4>Secure & Private</h4>
-                <p>Your data is protected and confidential</p>
-              </div>
-              <div className={styles.featureCard}>
-                <span className={styles.featureIcon}>💪</span>
-                <h4>Expert Support</h4>
-                <p>24/7 assistance from our team</p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
 
-        <div className={styles.actionSection}>
-          <div className={styles.actionCard}>
-            <h3 className={styles.actionTitle}>Ready to get started?</h3>
-            <p className={styles.actionText}>
-              Begin your journey with Internships Matching and unlock your full
-              potential.
-            </p>
-            <button className={styles.actionBtn}>💼 Start Now</button>
+        <div className={s.ctaPanel}>
+          <div className={s.ctaBody}>
+            <h3 className={s.ctaTitle}>{t("internshipsCta")}</h3>
+            <p className={s.ctaDesc}>{t("internshipsDesc")}</p>
           </div>
+          <button className={s.ctaBtn}>{t("getStarted")}</button>
         </div>
       </div>
     </PageTemplate>

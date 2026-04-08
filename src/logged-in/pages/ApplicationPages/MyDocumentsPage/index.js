@@ -1,60 +1,49 @@
 import React from "react";
+import { useTranslation } from "../../../../hooks/useLanguage";
 import PageTemplate from "../../../shared/PageTemplate";
-import styles from "./style.module.css";
+import { FileEditIcon, ShieldIcon, SendIcon, ListChecksIcon, ZapIcon } from "../../../shared/Icons";
+import s from "../../../shared/ContentPage/style.module.css";
+
+const FEATURES = [
+  { key: "myDocsFeature1", descKey: "myDocsFeature1Desc", Icon: ShieldIcon, color: "" },
+  { key: "myDocsFeature2", descKey: "myDocsFeature2Desc", Icon: ZapIcon, color: "green" },
+  { key: "myDocsFeature3", descKey: "myDocsFeature3Desc", Icon: SendIcon, color: "purple" },
+  { key: "myDocsFeature4", descKey: "myDocsFeature4Desc", Icon: ListChecksIcon, color: "amber" },
+];
 
 const MyDocumentsPage = () => {
+  const { t } = useTranslation();
+
   return (
     <PageTemplate
-      icon="📄"
-      title="My Documents"
-      description="Manage your application documents and transcripts"
-      actions={<button className={styles.primaryBtn}>Get Started</button>}
+      icon={<FileEditIcon size={22} />}
+      title={t("myDocsTitle")}
+      actions={<button className={s.primaryBtn}>{t("myDocsCta")}</button>}
     >
-      <div className={styles.contentContainer}>
-        <div className={styles.infoSection}>
-          <h2 className={styles.sectionTitle}>Welcome to My Documents!</h2>
-          <p className={styles.sectionText}>
-            Manage your application documents and transcripts. This powerful
-            feature will help you achieve your university goals faster and more
-            efficiently.
-          </p>
-
-          <div className={styles.features}>
-            <h3 className={styles.featuresTitle}>Key Features</h3>
-            <div className={styles.featureGrid}>
-              <div className={styles.featureCard}>
-                <span className={styles.featureIcon}>⚡</span>
-                <h4>Fast & Efficient</h4>
-                <p>Get results quickly with our optimized system</p>
+      <div className={s.layout}>
+        <div className={s.introPanel}>
+          <p className={s.introText}>{t("myDocsDesc")}</p>
+          <div className={s.featureGrid}>
+            {FEATURES.map((f) => (
+              <div key={f.key} className={s.featureCard}>
+                <div className={`${s.featureIconWrap} ${f.color ? s[f.color] : ""}`}>
+                  <f.Icon size={18} />
+                </div>
+                <div className={s.featureBody}>
+                  <h4 className={s.featureTitle}>{t(f.key)}</h4>
+                  <p className={s.featureDesc}>{t(f.descKey)}</p>
+                </div>
               </div>
-              <div className={styles.featureCard}>
-                <span className={styles.featureIcon}>🎯</span>
-                <h4>Highly Accurate</h4>
-                <p>AI-powered recommendations tailored to you</p>
-              </div>
-              <div className={styles.featureCard}>
-                <span className={styles.featureIcon}>🔒</span>
-                <h4>Secure & Private</h4>
-                <p>Your data is protected and confidential</p>
-              </div>
-              <div className={styles.featureCard}>
-                <span className={styles.featureIcon}>💪</span>
-                <h4>Expert Support</h4>
-                <p>24/7 assistance from our team</p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
 
-        <div className={styles.actionSection}>
-          <div className={styles.actionCard}>
-            <h3 className={styles.actionTitle}>Ready to get started?</h3>
-            <p className={styles.actionText}>
-              Begin your journey with My Documents and unlock your full
-              potential.
-            </p>
-            <button className={styles.actionBtn}>📄 Start Now</button>
+        <div className={s.ctaPanel}>
+          <div className={s.ctaBody}>
+            <h3 className={s.ctaTitle}>{t("myDocsCta")}</h3>
+            <p className={s.ctaDesc}>{t("myDocsDesc")}</p>
           </div>
+          <button className={s.ctaBtn}>{t("getStarted")}</button>
         </div>
       </div>
     </PageTemplate>

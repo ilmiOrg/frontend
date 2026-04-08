@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import loaders from "../localization";
+import en from "../localization/en";
 
 // Language configuration (EN, RU, Tajik, Kyrgyz, Kazakh)
 const languages = {
@@ -10,8 +11,8 @@ const languages = {
   kk: { name: "Қазақша", shortCode: "KK", flag: "🇰🇿", dir: "ltr" },
 };
 
-// Translation cache
-let translations = {};
+// Translation cache — English loaded synchronously so it's available on first render
+let translations = { en };
 
 // Language detection
 const detectLanguage = () => {
@@ -101,11 +102,13 @@ const switchLanguage = async (languageCode) => {
 export const useLanguage = () => {
   const [currentLanguage, setCurrentLanguage] = useState(detectLanguage);
   const [isLoading, setIsLoading] = useState(false);
+  const [, setTranslationsVersion] = useState(0);
 
   useEffect(() => {
     const handleLanguageChange = (event) => {
       if (event.detail && event.detail.language) {
         setCurrentLanguage(event.detail.language);
+        setTranslationsVersion((v) => v + 1);
       }
     };
 
@@ -151,22 +154,22 @@ export const useLanguage = () => {
 // Custom hook for translations
 export const useTranslation = () => {
   const { currentLanguage } = useLanguage();
+  const [, setReady] = useState(0);
+
+  useEffect(() => {
+    if (!translations[currentLanguage]) {
+      loadLanguage(currentLanguage).then(() => {
+        setReady((v) => v + 1);
+      });
+    }
+  }, [currentLanguage]);
 
   const t = (key) => {
     const translation = translations[currentLanguage];
     if (!translation) {
-      console.warn(`No translations found for language: ${currentLanguage}`);
       return key;
     }
-
-    if (!translation[key]) {
-      console.warn(
-        `Translation not found for key: ${key} in language: ${currentLanguage}`
-      );
-      return key;
-    }
-
-    return translation[key];
+    return translation[key] || key;
   };
 
   return { t, currentLanguage };

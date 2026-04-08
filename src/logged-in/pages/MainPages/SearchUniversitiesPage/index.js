@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../../contexts/AuthContext";
 import { useTranslation } from "../../../../hooks/useLanguage";
 import PageTemplate from "../../../shared/PageTemplate";
+import { SearchIcon } from "../../../shared/Icons";
 import {
   SearchField,
   SelectField,
@@ -298,7 +299,7 @@ const SearchUniversitiesPage = () => {
   return (
     <PageTemplate
       headerShellClassName={styles.searchHeaderShell}
-      icon="🔍"
+      icon={<SearchIcon size={22} />}
       title="Search universities & colleges"
       actions={<AccentButton onClick={smartMatch}>Smart Match</AccentButton>}
     >

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "../../../../hooks/useLanguage";
 import PageTemplate from "../../../shared/PageTemplate";
+import { StarIcon } from "../../../shared/Icons";
 import styles from "./style.module.css";
 import { getFavoritePrograms, removeFavoriteProgram } from "../../../../api/programs";
 
@@ -33,7 +34,7 @@ const FavoriteProgramsPage = () => {
   }, []);
 
   return (
-    <PageTemplate icon="★" title={t("favoriteProgramsTitle")}>
+    <PageTemplate icon={<StarIcon size={22} />} title={t("favoriteProgramsTitle")}>
       <div className={styles.layout}>
         {loading ? (
           <p className={styles.emptyState}>{t("searchFieldsLoading")}</p>

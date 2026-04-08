@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../../contexts/AuthContext";
 import { useTranslation } from "../../../../hooks/useLanguage";
 import PageTemplate from "../../../shared/PageTemplate";
+import { GraduationCapIcon, StarIcon } from "../../../shared/Icons";
 import {
   SearchField,
   SelectField,
@@ -161,7 +162,7 @@ const SearchProgramsPage = () => {
   );
 
   return (
-    <PageTemplate icon="🎓" title={t("searchProgramsTitle")} onBack={() => navigate(-1)}>
+    <PageTemplate icon={<GraduationCapIcon size={22} />} title={t("searchProgramsTitle")} onBack={() => navigate(-1)}>
       <div className={styles.layout}>
         <section className={styles.filtersPanel}>
           <SearchField
@@ -278,8 +279,8 @@ const SearchProgramsPage = () => {
                           aria-pressed={isFav}
                         >
                           {isFav
-                            ? `★ ${t("favoriteSaved")}`
-                            : `☆ ${t("favoriteSave")}`}
+                            ? <><StarIcon size={14} /> {t("favoriteSaved")}</>
+                            : <><StarIcon size={14} /> {t("favoriteSave")}</>}
                         </button>
                         <Link
                           className={`${styles.btn} ${styles.btnOutline}`}

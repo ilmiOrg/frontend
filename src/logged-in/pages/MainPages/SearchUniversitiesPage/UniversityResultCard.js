@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "../../../../hooks/useLanguage";
+import { StarIcon } from "../../../shared/Icons";
 import styles from "./UniversityResultCard.module.css";
 
 function formatTuition(n) {
@@ -129,7 +130,7 @@ export default function UniversityResultCard({
           onClick={() => onToggleFavorite(u.universityId)}
           aria-pressed={isFavorite}
         >
-          {isFavorite ? `★ ${t("favoriteSaved")}` : `☆ ${t("favoriteSave")}`}
+          {isFavorite ? <><StarIcon size={14} /> {t("favoriteSaved")}</> : <><StarIcon size={14} /> {t("favoriteSave")}</>}
         </button>
         <Link className={`${styles.btn} ${styles.btnOutline}`} to={detailPath}>
           Learn more

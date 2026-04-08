@@ -1,60 +1,49 @@
 import React from "react";
+import { useTranslation } from "../../../../hooks/useLanguage";
 import PageTemplate from "../../../shared/PageTemplate";
-import styles from "./style.module.css";
+import { PlayCircleIcon, MapPinIcon, UsersIcon, CalendarIcon, ExternalLinkIcon } from "../../../shared/Icons";
+import s from "../../../shared/ContentPage/style.module.css";
+
+const FEATURES = [
+  { key: "uniReelsFeature1", descKey: "uniReelsFeature1Desc", Icon: MapPinIcon, color: "" },
+  { key: "uniReelsFeature2", descKey: "uniReelsFeature2Desc", Icon: UsersIcon, color: "green" },
+  { key: "uniReelsFeature3", descKey: "uniReelsFeature3Desc", Icon: ExternalLinkIcon, color: "purple" },
+  { key: "uniReelsFeature4", descKey: "uniReelsFeature4Desc", Icon: CalendarIcon, color: "amber" },
+];
 
 const UniversityReelsPage = () => {
+  const { t } = useTranslation();
+
   return (
     <PageTemplate
-      icon="🎬"
-      title="University Reels"
-      description="Watch university tours and student life videos"
-      actions={<button className={styles.primaryBtn}>Get Started</button>}
+      icon={<PlayCircleIcon size={22} />}
+      title={t("uniReelsTitle")}
+      actions={<button className={s.primaryBtn}>{t("uniReelsCta")}</button>}
     >
-      <div className={styles.contentContainer}>
-        <div className={styles.infoSection}>
-          <h2 className={styles.sectionTitle}>Welcome to University Reels!</h2>
-          <p className={styles.sectionText}>
-            Watch university tours and student life videos. This powerful
-            feature will help you achieve your university goals faster and more
-            efficiently.
-          </p>
-
-          <div className={styles.features}>
-            <h3 className={styles.featuresTitle}>Key Features</h3>
-            <div className={styles.featureGrid}>
-              <div className={styles.featureCard}>
-                <span className={styles.featureIcon}>⚡</span>
-                <h4>Fast & Efficient</h4>
-                <p>Get results quickly with our optimized system</p>
+      <div className={s.layout}>
+        <div className={s.introPanel}>
+          <p className={s.introText}>{t("uniReelsDesc")}</p>
+          <div className={s.featureGrid}>
+            {FEATURES.map((f) => (
+              <div key={f.key} className={s.featureCard}>
+                <div className={`${s.featureIconWrap} ${f.color ? s[f.color] : ""}`}>
+                  <f.Icon size={18} />
+                </div>
+                <div className={s.featureBody}>
+                  <h4 className={s.featureTitle}>{t(f.key)}</h4>
+                  <p className={s.featureDesc}>{t(f.descKey)}</p>
+                </div>
               </div>
-              <div className={styles.featureCard}>
-                <span className={styles.featureIcon}>🎯</span>
-                <h4>Highly Accurate</h4>
-                <p>AI-powered recommendations tailored to you</p>
-              </div>
-              <div className={styles.featureCard}>
-                <span className={styles.featureIcon}>🔒</span>
-                <h4>Secure & Private</h4>
-                <p>Your data is protected and confidential</p>
-              </div>
-              <div className={styles.featureCard}>
-                <span className={styles.featureIcon}>💪</span>
-                <h4>Expert Support</h4>
-                <p>24/7 assistance from our team</p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
 
-        <div className={styles.actionSection}>
-          <div className={styles.actionCard}>
-            <h3 className={styles.actionTitle}>Ready to get started?</h3>
-            <p className={styles.actionText}>
-              Begin your journey with University Reels and unlock your full
-              potential.
-            </p>
-            <button className={styles.actionBtn}>🎬 Start Now</button>
+        <div className={s.ctaPanel}>
+          <div className={s.ctaBody}>
+            <h3 className={s.ctaTitle}>{t("uniReelsCta")}</h3>
+            <p className={s.ctaDesc}>{t("uniReelsDesc")}</p>
           </div>
+          <button className={s.ctaBtn}>{t("getStarted")}</button>
         </div>
       </div>
     </PageTemplate>

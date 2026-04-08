@@ -1,59 +1,51 @@
 import React from "react";
+import { useTranslation } from "../../../../hooks/useLanguage";
 import PageTemplate from "../../../shared/PageTemplate";
-import styles from "./style.module.css";
+import { GraduationCapIcon, TrendingUpIcon, BookOpenIcon, LanguagesIcon, UsersIcon } from "../../../shared/Icons";
+import s from "../../../shared/ContentPage/style.module.css";
+
+const FEATURES = [
+  { key: "alumniMentorsCareer", descKey: "alumniMentorsCareerDesc", Icon: TrendingUpIcon, color: "" },
+  { key: "alumniMentorsTips", descKey: "alumniMentorsTipsDesc", Icon: BookOpenIcon, color: "green" },
+  { key: "alumniMentorsCulture", descKey: "alumniMentorsCultureDesc", Icon: LanguagesIcon, color: "purple" },
+  { key: "alumniMentorsAccess", descKey: "alumniMentorsAccessDesc", Icon: UsersIcon, color: "amber" },
+];
 
 const AlumniMentorsPage = () => {
+  const { t } = useTranslation();
+
   return (
     <PageTemplate
-      icon="🎓"
-      title="Alumni Mentors"
-      description="Get guidance from university alumni"
-      actions={<button className={styles.primaryBtn}>Get Started</button>}
+      icon={<GraduationCapIcon size={22} />}
+      title={t("alumniMentorsTitle")}
+      actions={<button className={s.primaryBtn}>{t("getStarted")}</button>}
     >
-      <div className={styles.contentContainer}>
-        <div className={styles.infoSection}>
-          <h2 className={styles.sectionTitle}>Welcome to Alumni Mentors!</h2>
-          <p className={styles.sectionText}>
-            Get guidance from university alumni. This powerful feature will help
-            you achieve your university goals faster and more efficiently.
-          </p>
-
-          <div className={styles.features}>
-            <h3 className={styles.featuresTitle}>Key Features</h3>
-            <div className={styles.featureGrid}>
-              <div className={styles.featureCard}>
-                <span className={styles.featureIcon}>⚡</span>
-                <h4>Fast & Efficient</h4>
-                <p>Get results quickly with our optimized system</p>
+      <div className={s.layout}>
+        <div className={s.introPanel}>
+          <p className={s.introText}>{t("alumniMentorsIntro")}</p>
+          <div className={s.featureGrid}>
+            {FEATURES.map((f) => (
+              <div key={f.key} className={s.featureCard}>
+                <div className={`${s.featureIconWrap} ${f.color ? s[f.color] : ""}`}>
+                  <f.Icon size={18} />
+                </div>
+                <div className={s.featureBody}>
+                  <h4 className={s.featureTitle}>{t(f.key)}</h4>
+                  <p className={s.featureDesc}>{t(f.descKey)}</p>
+                </div>
               </div>
-              <div className={styles.featureCard}>
-                <span className={styles.featureIcon}>🎯</span>
-                <h4>Highly Accurate</h4>
-                <p>AI-powered recommendations tailored to you</p>
-              </div>
-              <div className={styles.featureCard}>
-                <span className={styles.featureIcon}>🔒</span>
-                <h4>Secure & Private</h4>
-                <p>Your data is protected and confidential</p>
-              </div>
-              <div className={styles.featureCard}>
-                <span className={styles.featureIcon}>💪</span>
-                <h4>Expert Support</h4>
-                <p>24/7 assistance from our team</p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
 
-        <div className={styles.actionSection}>
-          <div className={styles.actionCard}>
-            <h3 className={styles.actionTitle}>Ready to get started?</h3>
-            <p className={styles.actionText}>
-              Begin your journey with Alumni Mentors and unlock your full
-              potential.
-            </p>
-            <button className={styles.actionBtn}>🎓 Start Now</button>
+        <p className={s.emptyState}>{t("comingSoon")}</p>
+
+        <div className={s.ctaPanel}>
+          <div className={s.ctaBody}>
+            <h3 className={s.ctaTitle}>{t("alumniMentorsTitle")}</h3>
+            <p className={s.ctaDesc}>{t("alumniMentorsIntro")}</p>
           </div>
+          <button className={s.ctaBtn}>{t("startNow")}</button>
         </div>
       </div>
     </PageTemplate>

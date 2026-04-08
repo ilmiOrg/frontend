@@ -2,24 +2,25 @@ import React, { useState, useEffect, useMemo } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useTranslation } from "../../../../hooks/useLanguage";
 import PageTemplate from "../../../shared/PageTemplate";
+import { BookOpenIcon, GraduationCapIcon, LaptopIcon, BarChartIcon, HeartPulseIcon, ScaleIcon, GearIcon, PaletteIcon, GlobeIcon, DollarIcon, LeafIcon, NewspaperIcon, BuildingIcon, BrainIcon, ChevronRightIcon } from "../../../shared/Icons";
 import styles from "./FieldUniversityDetailPage.module.css";
 import { getUniversityFields } from "../../../../api/fields";
 import { getUniversities } from "../../../../api/universities";
 import { mapUniversityFromApi } from "../SearchUniversitiesPage/searchUniversitiesData";
 
 const FIELD_ICONS = {
-  "computer-science-it": "💻",
-  "business-management": "📊",
-  "medicine-health": "🏥",
-  law: "⚖️",
-  engineering: "⚙️",
-  "arts-design": "🎨",
-  "social-sciences": "🌍",
-  "economics-finance": "💰",
-  "environmental-sciences": "🌿",
-  "journalism-media": "📰",
-  architecture: "🏛️",
-  "data-science-ai": "🤖",
+  "computer-science-it": <LaptopIcon size={18} />,
+  "business-management": <BarChartIcon size={18} />,
+  "medicine-health": <HeartPulseIcon size={18} />,
+  law: <ScaleIcon size={18} />,
+  engineering: <GearIcon size={18} />,
+  "arts-design": <PaletteIcon size={18} />,
+  "social-sciences": <GlobeIcon size={18} />,
+  "economics-finance": <DollarIcon size={18} />,
+  "environmental-sciences": <LeafIcon size={18} />,
+  "journalism-media": <NewspaperIcon size={18} />,
+  architecture: <BuildingIcon size={18} />,
+  "data-science-ai": <BrainIcon size={18} />,
 };
 
 function formatTuition(n, t) {
@@ -71,7 +72,7 @@ export default function FieldUniversityDetailPage() {
 
   if (loading) {
     return (
-      <PageTemplate icon="📚" title={t("searchFieldsLoading")} onBack={() => navigate(-1)}>
+      <PageTemplate icon={<BookOpenIcon size={22} />} title={t("searchFieldsLoading")} onBack={() => navigate(-1)}>
         <p className={styles.loadingText}>{t("searchFieldsLoading")}</p>
       </PageTemplate>
     );
@@ -79,7 +80,7 @@ export default function FieldUniversityDetailPage() {
 
   if (!university) {
     return (
-      <PageTemplate icon="📚" title={t("fieldUniNotFound")} onBack={() => navigate(-1)}>
+      <PageTemplate icon={<BookOpenIcon size={22} />} title={t("fieldUniNotFound")} onBack={() => navigate(-1)}>
         <div className={styles.emptyState}>
           <p>{t("fieldUniNotFound")}</p>
           <Link className={styles.backBtn} to="/dashboard/search/fields">
@@ -92,7 +93,7 @@ export default function FieldUniversityDetailPage() {
 
   return (
     <PageTemplate
-      icon="🎓"
+      icon={<GraduationCapIcon size={22} />}
       title={university.name}
       onBack={() => navigate(-1)}
     >
@@ -132,14 +133,14 @@ export default function FieldUniversityDetailPage() {
                 <div key={f.fieldId} className={styles.fieldCard}>
                   <div className={styles.fieldCardHeader}>
                     <span className={styles.fieldIcon}>
-                      {FIELD_ICONS[f.fieldSlug] || "📖"}
+                      {FIELD_ICONS[f.fieldSlug] || <BookOpenIcon size={18} />}
                     </span>
                     <h3 className={styles.fieldName}>{f.fieldName}</h3>
                     <Link
                       to={`/dashboard/search/fields/${f.fieldSlug}`}
                       className={styles.fieldViewLink}
                     >
-                      {t("searchFieldsViewDetails")} →
+                      {t("searchFieldsViewDetails")} <ChevronRightIcon size={14} />
                     </Link>
                   </div>
 
