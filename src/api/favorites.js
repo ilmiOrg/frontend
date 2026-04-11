@@ -11,7 +11,7 @@ function getToken() {
 export async function getFavorites() {
   const token = getToken();
   if (!token) return [];
-  const res = await fetch(apiUrl("/api/v1/students/favorites"), {
+  const res = await fetch(apiUrl("/api/v1/students/favorite-universities"), {
     method: "GET",
     headers: jsonHeaders(token),
   });
@@ -25,7 +25,7 @@ export async function getFavorites() {
 export async function addFavorite(universityId) {
   const token = getToken();
   if (!token) throw new Error("Not authenticated");
-  const res = await fetch(apiUrl(`/api/v1/students/favorites/${universityId}`), {
+  const res = await fetch(apiUrl(`/api/v1/students/favorite-universities/${universityId}`), {
     method: "POST",
     headers: jsonHeaders(token),
   });
@@ -39,7 +39,7 @@ export async function addFavorite(universityId) {
 export async function removeFavorite(universityId) {
   const token = getToken();
   if (!token) throw new Error("Not authenticated");
-  const res = await fetch(apiUrl(`/api/v1/students/favorites/${universityId}`), {
+  const res = await fetch(apiUrl(`/api/v1/students/favorite-universities/${universityId}`), {
     method: "DELETE",
     headers: jsonHeaders(token),
   });
