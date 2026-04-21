@@ -57,6 +57,11 @@ const STATUS_ROWS = [
 
 const STATUS_TOTAL_COUNT = STATUS_ROWS.reduce((sum, row) => sum + row.count, 0);
 
+/** Dashboard search teasers: illustrative counts when API/filter result is 0 */
+const TEASER_FALLBACK_COUNT_UNIVERSITIES = 187;
+const TEASER_FALLBACK_COUNT_FIELDS = 256;
+const TEASER_FALLBACK_COUNT_SCHOLARSHIPS = 123;
+
 const UNI_POPULAR_INITIAL = {
   affordable: false,
   budget: false,
@@ -833,7 +838,7 @@ const DashboardPage = () => {
                   </div>
                   <aside className={styles.searchTeaserAside}>
                     <p className={styles.searchTeaserAsideCount}>
-                      {teaserDataLoading ? "…" : universityTeaserMatchCount}
+                      {teaserDataLoading ? "…" : universityTeaserMatchCount || TEASER_FALLBACK_COUNT_UNIVERSITIES}
                     </p>
                     <p className={styles.searchTeaserRightSub}>{t("dashSearchTeaserSearchUniversities")}</p>
                     <button type="button" className={styles.searchTeaserCtaCompact} onClick={goUniversitiesSearch}>
@@ -902,7 +907,7 @@ const DashboardPage = () => {
                   </div>
                   <aside className={styles.searchTeaserAside}>
                     <p className={styles.searchTeaserAsideCount}>
-                      {teaserDataLoading ? "…" : fieldTeaserMatchCount}
+                      {teaserDataLoading ? "…" : fieldTeaserMatchCount || TEASER_FALLBACK_COUNT_FIELDS}
                     </p>
                     <p className={styles.searchTeaserRightSub}>{t("dashSearchTeaserSearchFields")}</p>
                     <button type="button" className={styles.searchTeaserCtaCompact} onClick={goFieldsSearch}>
@@ -962,7 +967,7 @@ const DashboardPage = () => {
                     </div>
                   </div>
                   <aside className={styles.searchTeaserAside}>
-                    <p className={styles.searchTeaserAsideCount}>0</p>
+                    <p className={styles.searchTeaserAsideCount}>{TEASER_FALLBACK_COUNT_SCHOLARSHIPS}</p>
                     <p className={styles.searchTeaserRightSub}>{t("dashSearchTeaserSearchScholarships")}</p>
                     <button type="button" className={styles.searchTeaserCtaCompact} onClick={goScholarshipsSearch}>
                       {t("dashStartSearching")}
