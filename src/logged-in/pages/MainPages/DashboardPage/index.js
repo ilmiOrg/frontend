@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../../contexts/AuthContext";
 import { useTranslation } from "../../../../hooks/useLanguage";
@@ -16,120 +16,372 @@ import {
   TargetIcon,
   UsersIcon,
   MessageCircleIcon,
-  PenToolIcon,
-  MicIcon,
-  CrownIcon,
-  CalculatorIcon,
-  LanguagesIcon,
-  FileEditIcon,
-  CpuIcon,
-  LogOutIcon,
-  ChevronDownIcon,
   BellIcon,
-  UserIcon,
   SendIcon,
-  FlameIcon,
   DollarIcon,
+  PenToolIcon,
   MenuIcon,
   XIcon,
   TelegramIcon,
   ExternalLinkIcon,
-  CheckIcon,
+  CalendarIcon,
   ChevronRightIcon,
 } from "../../../shared/Icons";
 import styles from "./style.module.css";
-import DashboardUniSearch from "./DashboardUniSearch";
+import { getUniversities } from "../../../../api/universities";
+import { getUniversityFields } from "../../../../api/fields";
+import { mapUniversityFromApi } from "../SearchUniversitiesPage/searchUniversitiesData";
+import { filterUniversitiesTeaser, countUniversitiesForFieldTeaser } from "./teaserUniversityFilter";
+import IlmiContactHub from "../../../../components/IlmiContactHub";
 
 const TELEGRAM_LINK = "https://t.me/ilmiOfficialGroup";
 
-const CHART_COLORS = {
-  textMuted: "#94A3B8",
-  gridLine: "rgba(255, 255, 255, 0.06)",
-  purple: "#7c3aed",
-  green: "#10b981",
-  blue: "#3B82F6",
-  amber: "#F59E0B",
-  red: "#EF4444",
-  violet: "#8B5CF6",
-  bg: "#0F172A",
-};
+/**
+ * Wikimedia Commons campus / architecture photo (Special:FilePath redirects to CDN).
+ * File names must match Commons exactly (see file pages on commons.wikimedia.org).
+ */
+function commonsCampusPhoto(fileName, width = 1024) {
+  return `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(fileName)}?width=${width}`;
+}
 
-const STATUS_DATA = [
-  { label: "Plan to Apply", count: 5, color: CHART_COLORS.blue },
-  { label: "Applied", count: 4, color: CHART_COLORS.amber },
-  { label: "Accepted", count: 3, color: CHART_COLORS.green },
-  { label: "Waitlist", count: 2, color: CHART_COLORS.violet },
-  { label: "Rejected", count: 1, color: CHART_COLORS.red },
+/** Official-style UCA wordmark (Wikimedia Commons, public domain / simple shapes). */
+const DREAM_UCA_LOGO_URL = "https://upload.wikimedia.org/wikipedia/commons/5/50/Logo_UCA.svg";
+
+const STATUS_ROWS = [
+  { key: "dashStatusPlan", count: 5, color: "rgba(59, 130, 246, 0.9)" },
+  { key: "dashStatusApplied", count: 4, color: "rgba(245, 158, 11, 0.9)" },
+  { key: "dashStatusAccepted", count: 3, color: "rgba(16, 185, 129, 0.9)" },
+  { key: "dashStatusWaitlist", count: 2, color: "rgba(139, 92, 246, 0.9)" },
+  { key: "dashStatusRejected", count: 1, color: "rgba(239, 68, 68, 0.9)" },
 ];
 
-const NAV_SECTIONS = [
+const STATUS_TOTAL_COUNT = STATUS_ROWS.reduce((sum, row) => sum + row.count, 0);
+
+const UNI_POPULAR_INITIAL = {
+  affordable: false,
+  budget: false,
+  english: false,
+  europe: false,
+  business: false,
+  medicine: false,
+  arts: false,
+};
+
+const UNI_TEASER_POPULAR_CHIPS = [
+  { key: "affordable", labelKey: "dashUniPopUnder10k" },
+  { key: "budget", labelKey: "dashUniPopUnder5k" },
+  { key: "english", labelKey: "dashFilterEnglishTaught" },
+  { key: "europe", labelKey: "dashFilterEurope" },
+  { key: "business", labelKey: "dashUniPopBusinessLaw" },
+  { key: "medicine", labelKey: "dashUniPopMedicine" },
+  { key: "arts", labelKey: "dashUniPopArts" },
+];
+
+const FIELD_ALL = "all";
+
+const FIELD_TEASER_DEGREE_CHIPS = [
+  { id: FIELD_ALL, labelKey: "dashFilterAll" },
+  { id: "bachelor", labelKey: "dashProgramFilterBachelor" },
+  { id: "master", labelKey: "dashProgramFilterMaster" },
+  { id: "phd", labelKey: "filterPhd" },
+];
+
+const FIELD_TEASER_SLUG_CHIPS = [
+  { slug: "computer-science-it", labelKey: "dashFieldTeaserCs" },
+  { slug: "business-management", labelKey: "dashFieldTeaserBusiness" },
+  { slug: "medicine-health", labelKey: "dashFieldTeaserMedicine" },
+  { slug: "engineering", labelKey: "dashFieldTeaserEngineering" },
+  { slug: "arts-design", labelKey: "dashFieldTeaserArts" },
+];
+
+/** AI dashboard: university tiles (demo data, i18n keys) */
+const AI_UNI_MATCH_ROWS = [
+  {
+    id: "mit",
+    nameKey: "dashUni1Name",
+    locKey: "dashUni1Loc",
+    rankKey: "dashUni1Rank",
+    match: 95,
+    initials: "MI",
+    commonsFile: "Great_Dome,_MIT_-_IMG_8390.JPG",
+  },
+  {
+    id: "stanford",
+    nameKey: "dashUni2Name",
+    locKey: "dashUni2Loc",
+    rankKey: "dashUni2Rank",
+    match: 92,
+    initials: "ST",
+    commonsFile: "Stanford_University_Main_Quad_(cropped).jpg",
+  },
+  {
+    id: "uca",
+    nameKey: "dashUcaName",
+    locKey: "dashUcaLocation",
+    rankKey: null,
+    match: 89,
+    initials: "UC",
+    commonsFile: "University_of_Central_Asia_Naryn_Campus_aerial_shot.jpg",
+  },
+];
+
+const AI_SCHOL_MATCH_ROWS = [
+  {
+    id: "merit",
+    titleKey: "dashScholPreviewMeritTitle",
+    metaKey: "dashScholPreviewMeritMeta",
+    match: 91,
+    commonsFile: "Radcliffe_Camera,_Oxford,_UK.jpg",
+  },
+  {
+    id: "need",
+    titleKey: "dashScholPreviewNeedTitle",
+    metaKey: "dashScholPreviewNeedMeta",
+    match: 87,
+    commonsFile: "Long_Room_Interior,_Trinity_College_Dublin,_Ireland_-_Diliff.jpg",
+  },
+  {
+    id: "intl",
+    titleKey: "dashAiScholCardIntlTitle",
+    metaKey: "dashAiScholCardIntlMeta",
+    match: 84,
+    commonsFile: "Low_Memorial_Library_Columbia_University_NYC.jpg",
+  },
+];
+
+const AI_SIMILAR_STUDENT_ROWS = [
+  {
+    id: "s1",
+    initials: "AK",
+    nameKey: "dashFriendSampleName",
+    descKey: "dashFriendSampleDesc",
+    match: 94,
+    similarityKeys: ["dashSimilarTagField", "dashSimilarOverlapGpa", "dashSimilarOverlapShortlist", "dashSimilarOverlapIntake"],
+  },
+  {
+    id: "s2",
+    initials: "EK",
+    nameKey: "dashSimilarStudent2Name",
+    descKey: "dashSimilarStudent2Desc",
+    match: 88,
+    similarityKeys: ["dashSimilarTagRegion", "dashSimilarOverlapScholarFirst", "dashSimilarOverlapEuTargets", "dashSimilarOverlapAidFocus"],
+  },
+  {
+    id: "s3",
+    initials: "TB",
+    nameKey: "dashSimilarStudent3Name",
+    descKey: "dashSimilarStudent3Desc",
+    match: 85,
+    similarityKeys: ["dashSimilarTagScores", "dashSimilarOverlapEuropeList", "dashSimilarOverlapIelts", "dashSimilarOverlapStemExtra"],
+  },
+];
+
+const CONNECTION_FRIEND_ROWS = [
+  { id: "cf1", initials: "AK", nameKey: "dashFriendSampleName", descKey: "dashFriendSampleDesc", online: true },
+  { id: "cf2", initials: "ED", nameKey: "dashFriend2SampleName", descKey: "dashFriend2SampleDesc", online: true },
+  { id: "cf3", initials: "SK", nameKey: "dashFriend3SampleName", descKey: "dashFriend3SampleDesc", online: false },
+];
+
+const SIDEBAR_NAV_GROUPS = [
   {
     id: "main",
     labelKey: "dashMain",
     items: [
-      { icon: HomeIcon, labelKey: "dashDashboard", path: null, active: true },
-      { icon: StarIcon, labelKey: "dashDreamUniversity", path: "/dashboard/dream-university" },
-      { icon: SearchIcon, labelKey: "dashSearchUniversities", path: "/dashboard/search/universities" },
-      { icon: HeartIcon, labelKey: "dashFavoriteUniversities", path: "/dashboard/search/universities/favorites" },
-      { icon: BookOpenIcon, labelKey: "dashSearchFields", path: "/dashboard/search/fields" },
-      { icon: GraduationCapIcon, labelKey: "dashSearchPrograms", path: "/dashboard/search/programs" },
-      { icon: HeartIcon, labelKey: "dashFavoritePrograms", path: "/dashboard/search/programs/favorites" },
-      { icon: DollarIcon, labelKey: "dashSearchScholarships", path: "/dashboard/search/scholarships" },
+      { icon: HomeIcon, labelKey: "dashDashboard", path: null, active: true, descKey: "dashCardDashboardDesc" },
+      { icon: StarIcon, labelKey: "dashDreamUniversity", path: "/dashboard/dream-university", descKey: "dashCardDreamDesc" },
+      { icon: SearchIcon, labelKey: "dashSearchUniversities", path: "/dashboard/search/universities", descKey: "dashCardUniversitiesDesc" },
+      { icon: HeartIcon, labelKey: "dashFavoriteUniversities", path: "/dashboard/search/universities/favorites", descKey: "dashCardFavoriteUniversitiesDesc" },
+      { icon: BookOpenIcon, labelKey: "dashSearchFields", path: "/dashboard/search/fields", descKey: "dashCardFieldsDesc" },
+      { icon: GraduationCapIcon, labelKey: "dashSearchPrograms", path: "/dashboard/search/programs", descKey: "dashCardProgramsDesc" },
+      { icon: HeartIcon, labelKey: "dashFavoritePrograms", path: "/dashboard/search/programs/favorites", descKey: "dashCardFavoriteProgramsDesc" },
+      { icon: SearchIcon, labelKey: "dashSearchScholarships", path: "/dashboard/search/scholarships", descKey: "dashCardScholarshipsDesc" },
     ],
   },
   {
-    id: "aiMatching",
-    labelKey: "dashAiMatching",
+    id: "aiTools",
+    labelKey: "dashNavAiTools",
     items: [
-      { icon: TargetIcon, labelKey: "dashMatchUniversities", path: "/dashboard/ai/match-universities" },
-      { icon: TargetIcon, labelKey: "dashMatchScholarships", path: "/dashboard/ai/match-scholarships" },
-      { icon: UsersIcon, labelKey: "dashSimilarStudents", path: "/dashboard/ai/similar-students" },
+      {
+        icon: TargetIcon,
+        labelKey: "dashMatchUniversities",
+        path: "/dashboard/ai/match-universities",
+        descKey: "dashCardMatchUniversitiesDesc",
+      },
+      {
+        icon: TargetIcon,
+        labelKey: "dashMatchScholarships",
+        path: "/dashboard/ai/match-scholarships",
+        descKey: "dashCardMatchScholarshipsDesc",
+      },
+      {
+        icon: UsersIcon,
+        labelKey: "dashSimilarStudents",
+        path: "/dashboard/ai/similar-students",
+        descKey: "dashCardSimilarStudentsDesc",
+      },
     ],
   },
   {
-    id: "community",
-    labelKey: "dashCommunity",
-    items: [
-      { icon: MessageCircleIcon, labelKey: "dashConnectFriends", path: "/dashboard/community/friends" },
-      { icon: GraduationCapIcon, labelKey: "dashAlumniMentors", path: "/dashboard/community/mentors" },
-    ],
+    id: "friends",
+    labelKey: "dashNavFriendsAndMentors",
+    items: [{ icon: MessageCircleIcon, labelKey: "dashConnectFriends", path: "/dashboard/community/friends", descKey: "dashCardFriendsDesc" }],
   },
   {
-    id: "premium",
-    labelKey: "dashPremiumServices",
+    id: "contactPremium",
+    labelKey: "dashNavSectionContactPremium",
     items: [
-      { icon: PenToolIcon, labelKey: "dashEssayReviews", path: "/dashboard/premium/essay-reviews" },
-      { icon: MicIcon, labelKey: "dashMockInterviews", path: "/dashboard/premium/mock-interviews" },
-      { icon: CrownIcon, labelKey: "dashConciergeSupport", path: "/dashboard/premium/concierge" },
-    ],
-  },
-  {
-    id: "learning",
-    labelKey: "dashLearning",
-    items: [
-      { icon: BookOpenIcon, labelKey: "dashGetCourses", path: "/dashboard/courses" },
-      { icon: CalculatorIcon, labelKey: "dashMath", path: "/dashboard/courses/math" },
-      { icon: LanguagesIcon, labelKey: "dashEnglish", path: "/dashboard/courses/english" },
-      { icon: FileEditIcon, labelKey: "dashEssayWriting", path: "/dashboard/courses/essay-writing" },
-      { icon: CpuIcon, labelKey: "dashAiLiteracy", path: "/dashboard/courses/ai-literacy" },
+      { icon: BellIcon, labelKey: "dashContactPremium", path: "/dashboard/contact-premium", descKey: "dashCardContactPremiumDesc" },
     ],
   },
 ];
 
 const DashboardPage = () => {
   const navigate = useNavigate();
-  const { logout, user } = useAuth();
+  const { user } = useAuth();
   const { t } = useTranslation();
   const viewsChartRef = useRef(null);
   const statusChartRef = useRef(null);
 
-  const [expandedSections, setExpandedSections] = useState({ main: true });
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [isDark, setIsDark] = useState(() => {
     if (typeof window === "undefined") return true;
     const saved = localStorage.getItem("theme");
     return saved !== "light";
   });
+  const [uniTeaserQuery, setUniTeaserQuery] = useState("");
+  const [uniTeaserPopular, setUniTeaserPopular] = useState(() => ({ ...UNI_POPULAR_INITIAL }));
+  const [fieldTeaserSlugs, setFieldTeaserSlugs] = useState(() => new Set());
+  const [fieldTeaserDegree, setFieldTeaserDegree] = useState(FIELD_ALL);
+  const [fieldTeaserEnglish, setFieldTeaserEnglish] = useState(false);
+  const [scholarshipTeaserFilter, setScholarshipTeaserFilter] = useState("all");
+  const [fieldTeaserQuery, setFieldTeaserQuery] = useState("");
+  const [scholarshipTeaserQuery, setScholarshipTeaserQuery] = useState("");
+  const [universitiesForTeaser, setUniversitiesForTeaser] = useState([]);
+  const [fieldsCatalog, setFieldsCatalog] = useState([]);
+  const [teaserDataLoading, setTeaserDataLoading] = useState(true);
+  const [dreamLogoFailed, setDreamLogoFailed] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      setTeaserDataLoading(true);
+      try {
+        const [uniRaw, fieldRaw] = await Promise.all([getUniversities(), getUniversityFields()]);
+        if (cancelled) return;
+        setUniversitiesForTeaser((uniRaw || []).map(mapUniversityFromApi));
+        setFieldsCatalog(Array.isArray(fieldRaw) ? fieldRaw : []);
+      } catch {
+        if (!cancelled) {
+          setUniversitiesForTeaser([]);
+          setFieldsCatalog([]);
+        }
+      } finally {
+        if (!cancelled) setTeaserDataLoading(false);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const toggleUniTeaserPopular = useCallback((key) => {
+    setUniTeaserPopular((p) => ({ ...p, [key]: !p[key] }));
+  }, []);
+
+  const clearUniTeaser = useCallback(() => {
+    setUniTeaserQuery("");
+    setUniTeaserPopular({ ...UNI_POPULAR_INITIAL });
+  }, []);
+
+  const universitiesSearchTo = useMemo(() => {
+    const params = new URLSearchParams();
+    if (uniTeaserQuery.trim()) params.set("q", uniTeaserQuery.trim());
+    const keys = Object.entries(uniTeaserPopular)
+      .filter(([, on]) => on)
+      .map(([k]) => k);
+    if (keys.length) params.set("popular", keys.join(","));
+    const qs = params.toString();
+    return qs ? `/dashboard/search/universities?${qs}` : "/dashboard/search/universities";
+  }, [uniTeaserQuery, uniTeaserPopular]);
+
+  const goUniversitiesSearch = useCallback(() => {
+    navigate(universitiesSearchTo);
+  }, [navigate, universitiesSearchTo]);
+
+  const toggleFieldTeaserSlug = useCallback((slug) => {
+    setFieldTeaserSlugs((prev) => {
+      const next = new Set(prev);
+      if (next.has(slug)) next.delete(slug);
+      else next.add(slug);
+      return next;
+    });
+  }, []);
+
+  const clearFieldTeaser = useCallback(() => {
+    setFieldTeaserSlugs(new Set());
+    setFieldTeaserDegree(FIELD_ALL);
+    setFieldTeaserEnglish(false);
+    setFieldTeaserQuery("");
+  }, []);
+
+  const fieldsSearchTo = useMemo(() => {
+    const params = new URLSearchParams();
+    if (fieldTeaserDegree !== FIELD_ALL) params.set("degree", fieldTeaserDegree);
+    if (fieldTeaserEnglish) params.set("language", "English");
+    if (fieldTeaserSlugs.size) params.set("fields", [...fieldTeaserSlugs].join(","));
+    if (fieldTeaserQuery.trim()) params.set("q", fieldTeaserQuery.trim());
+    const qs = params.toString();
+    return qs ? `/dashboard/search/fields?${qs}` : "/dashboard/search/fields";
+  }, [fieldTeaserDegree, fieldTeaserEnglish, fieldTeaserQuery, fieldTeaserSlugs]);
+
+  const goFieldsSearch = useCallback(() => {
+    navigate(fieldsSearchTo);
+  }, [navigate, fieldsSearchTo]);
+
+  const scholarshipsSearchTo = useMemo(() => {
+    const params = new URLSearchParams();
+    if (scholarshipTeaserFilter !== "all") params.set("filter", scholarshipTeaserFilter);
+    if (scholarshipTeaserQuery.trim()) params.set("q", scholarshipTeaserQuery.trim());
+    const qs = params.toString();
+    return qs ? `/dashboard/search/scholarships?${qs}` : "/dashboard/search/scholarships";
+  }, [scholarshipTeaserFilter, scholarshipTeaserQuery]);
+
+  const universityTeaserMatchCount = useMemo(() => {
+    if (!universitiesForTeaser.length) return 0;
+    return filterUniversitiesTeaser(universitiesForTeaser, uniTeaserQuery, uniTeaserPopular).length;
+  }, [uniTeaserPopular, uniTeaserQuery, universitiesForTeaser]);
+
+  const fieldSelectedIds = useMemo(() => {
+    const map = new Map(fieldsCatalog.map((f) => [f.fieldSlug, f.fieldId]));
+    const ids = new Set();
+    fieldTeaserSlugs.forEach((slug) => {
+      const id = map.get(slug);
+      if (id) ids.add(id);
+    });
+    return ids;
+  }, [fieldsCatalog, fieldTeaserSlugs]);
+
+  const fieldTeaserMatchCount = useMemo(() => {
+    if (!fieldsCatalog.length) return 0;
+    const q = fieldTeaserQuery.trim().toLowerCase();
+    if (fieldSelectedIds.size === 0) {
+      return fieldsCatalog.filter((f) => !q || (f.fieldName || "").toLowerCase().includes(q)).length;
+    }
+    if (!universitiesForTeaser.length) return 0;
+    const lang = fieldTeaserEnglish ? "English" : FIELD_ALL;
+    return countUniversitiesForFieldTeaser(universitiesForTeaser, fieldSelectedIds, fieldTeaserDegree, lang);
+  }, [
+    fieldSelectedIds,
+    fieldTeaserDegree,
+    fieldTeaserEnglish,
+    fieldTeaserQuery,
+    fieldsCatalog,
+    universitiesForTeaser,
+  ]);
+
+  const goScholarshipsSearch = useCallback(() => {
+    navigate(scholarshipsSearchTo);
+  }, [navigate, scholarshipsSearchTo]);
 
   useEffect(() => {
     const styleEl = document.createElement("style");
@@ -141,56 +393,9 @@ const DashboardPage = () => {
   }, []);
 
   useEffect(() => {
-    const handler = () =>
-      setIsDark(document.body.getAttribute("theme") === "dark");
+    const handler = () => setIsDark(document.body.getAttribute("theme") === "dark");
     window.addEventListener("themeChanged", handler);
     return () => window.removeEventListener("themeChanged", handler);
-  }, []);
-
-  useEffect(() => {
-    let script = document.querySelector(
-      'script[src="https://cdn.voiceflow.com/widget-next/bundle.mjs"]'
-    );
-    if (!script) {
-      script = document.createElement("script");
-      script.type = "text/javascript";
-      script.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs";
-      script.onload = () => {
-        window.voiceflow?.chat.load({
-          verify: { projectID: "68e16d089e709b6501735885" },
-          url: "https://general-runtime.voiceflow.com",
-          versionID: "production",
-          voice: { url: "https://runtime-api.voiceflow.com" },
-        });
-      };
-      document.head.appendChild(script);
-    }
-
-    const chatStyle = document.createElement("style");
-    chatStyle.id = "voiceflow-viewport-position";
-    chatStyle.textContent =
-      '[id*="voiceflow"],[class*="vf-widget"],[class*="vf-chat"],iframe[src*="voiceflow"],div[id*="voiceflow"],div[class*="vf-widget"]{position:fixed!important;z-index:99999!important;}';
-    document.head.appendChild(chatStyle);
-
-    const moveWidget = () => {
-      document
-        .querySelectorAll('[id*="voiceflow"],[class*="vf-widget"]')
-        .forEach((w) => {
-          if (w.parentElement && w.parentElement.tagName !== "BODY") {
-            document.body.appendChild(w);
-          }
-        });
-    };
-
-    const interval = setInterval(moveWidget, 500);
-    const observer = new MutationObserver(moveWidget);
-    observer.observe(document.body, { childList: true, subtree: true });
-
-    return () => {
-      clearInterval(interval);
-      observer.disconnect();
-      document.getElementById("voiceflow-viewport-position")?.remove();
-    };
   }, []);
 
   useEffect(() => {
@@ -208,28 +413,28 @@ const DashboardPage = () => {
               {
                 label: "Universities",
                 data: [3, 5, 8, 10, 12, 15],
-                borderColor: CHART_COLORS.purple,
-                backgroundColor: "rgba(124, 58, 237, 0.1)",
+                borderColor: "#C026D3",
+                backgroundColor: "rgba(192, 38, 211, 0.12)",
                 tension: 0.4,
                 fill: false,
-                pointBackgroundColor: CHART_COLORS.purple,
+                pointBackgroundColor: "#C026D3",
                 pointBorderColor: "#fff",
                 pointBorderWidth: 2,
-                pointRadius: 5,
-                pointHoverRadius: 7,
+                pointRadius: 4,
+                pointHoverRadius: 6,
               },
               {
                 label: "Scholarships",
                 data: [2, 3, 5, 6, 7, 8],
-                borderColor: CHART_COLORS.green,
-                backgroundColor: "rgba(16, 185, 129, 0.1)",
+                borderColor: "#22C55E",
+                backgroundColor: "rgba(34, 197, 94, 0.12)",
                 tension: 0.4,
                 fill: false,
-                pointBackgroundColor: CHART_COLORS.green,
+                pointBackgroundColor: "#22C55E",
                 pointBorderColor: "#fff",
                 pointBorderWidth: 2,
-                pointRadius: 5,
-                pointHoverRadius: 7,
+                pointRadius: 4,
+                pointHoverRadius: 6,
               },
             ],
           },
@@ -239,12 +444,12 @@ const DashboardPage = () => {
             plugins: {
               legend: {
                 position: "top",
-                labels: { color: CHART_COLORS.textMuted, usePointStyle: true, padding: 16 },
+                labels: { color: "rgba(255,255,255,0.68)", usePointStyle: true, padding: 16 },
               },
             },
             scales: {
-              x: { grid: { color: CHART_COLORS.gridLine }, ticks: { color: CHART_COLORS.textMuted } },
-              y: { grid: { color: CHART_COLORS.gridLine }, ticks: { color: CHART_COLORS.textMuted } },
+              x: { grid: { color: "rgba(255,255,255,0.08)" }, ticks: { color: "rgba(255,255,255,0.52)" } },
+              y: { grid: { color: "rgba(255,255,255,0.08)" }, ticks: { color: "rgba(255,255,255,0.52)" } },
             },
           },
         });
@@ -255,21 +460,22 @@ const DashboardPage = () => {
         statusChart = new Chart(ctx, {
           type: "doughnut",
           data: {
-            labels: STATUS_DATA.map((s) => s.label),
+            labels: STATUS_ROWS.map((s) => t(s.key)),
             datasets: [
               {
-                data: STATUS_DATA.map((s) => s.count),
-                backgroundColor: STATUS_DATA.map((s) => s.color),
-                borderWidth: 3,
-                borderColor: CHART_COLORS.bg,
+                data: STATUS_ROWS.map((s) => s.count),
+                backgroundColor: STATUS_ROWS.map((s) => s.color),
+                borderWidth: 2,
+                borderColor: "rgba(10, 14, 22, 0.95)",
+                hoverBorderColor: "rgba(255, 255, 255, 0.12)",
               },
             ],
           },
           options: {
             responsive: true,
             maintainAspectRatio: false,
-            plugins: { legend: { display: false } },
-            cutout: "55%",
+            plugins: { legend: { display: false }, tooltip: { enabled: true } },
+            cutout: "44%",
           },
         });
       }
@@ -280,10 +486,7 @@ const DashboardPage = () => {
       viewsChart?.destroy();
       statusChart?.destroy();
     };
-  }, []);
-
-  const toggleSection = (id) =>
-    setExpandedSections((prev) => ({ ...prev, [id]: !prev[id] }));
+  }, [t]);
 
   const toggleTheme = () => {
     const next = !isDark;
@@ -297,10 +500,16 @@ const DashboardPage = () => {
     );
   };
 
+  const nameFromUser = user?.name?.trim() || "";
+  const nameTokens = nameFromUser.split(/\s+/).filter(Boolean);
+  const displayFullName =
+    nameTokens.length >= 2 ? nameFromUser : t("dashDefaultDisplayName");
+  const initialsSource = displayFullName.trim().split(/\s+/).filter(Boolean);
   const userInitial =
-    user?.email?.[0]?.toUpperCase() || user?.name?.[0]?.toUpperCase() || "U";
-  const userName = user?.name || "Student";
-  const userEmail = user?.email || "student@ilmi.demo";
+    initialsSource.length > 1
+      ? `${initialsSource[0][0]}${initialsSource[1][0]}`.toUpperCase()
+      : (initialsSource[0]?.[0] || "N").toUpperCase();
+  const userAvatar = user?.photoUrl || user?.avatarUrl || null;
 
   return (
     <div className={`${styles.dashboard} ${sidebarCollapsed ? styles.leftCollapsed : ""}`}>
@@ -316,7 +525,6 @@ const DashboardPage = () => {
       <div className={styles.liquidShape} />
       <div className={styles.liquidShape} />
 
-      {/* Sidebar */}
       <aside className={`${styles.sidebar} ${sidebarCollapsed ? styles.sidebarCollapsed : ""}`}>
         <div className={styles.sidebarHeader}>
           <div className={styles.logo}>
@@ -336,24 +544,16 @@ const DashboardPage = () => {
 
         <ScrollContainer className={styles.sidebarScroll} disableHorizontalScroll paddingAbsolute>
           <nav className={styles.nav}>
-            {NAV_SECTIONS.map((section) => (
-              <div key={section.id} className={styles.navSection}>
-                <button
-                  className={styles.navSectionHeader}
-                  onClick={() => toggleSection(section.id)}
-                >
-                  <span>{t(section.labelKey)}</span>
-                  <ChevronDownIcon
-                    size={14}
-                    className={`${styles.chevronIcon} ${
-                      expandedSections[section.id] ? styles.chevronOpen : styles.chevronClosed
-                    }`}
-                  />
-                </button>
-                {expandedSections[section.id] &&
-                  section.items.map((item) => (
+            {SIDEBAR_NAV_GROUPS.map((group) => (
+              <div key={group.id} className={styles.navSection}>
+                <p className={styles.navSectionLabel}>{t(group.labelKey)}</p>
+                {group.items.map((item) => (
+                  <div key={item.path || item.labelKey} className={styles.navItemBlock}>
+                    {item.subsectionKey ? (
+                      <p className={styles.navSubsectionLabel}>{t(item.subsectionKey)}</p>
+                    ) : null}
                     <button
-                      key={item.labelKey}
+                      type="button"
                       onClick={() => item.path && navigate(item.path)}
                       className={`${styles.navItem} ${item.active ? styles.active : ""}`}
                     >
@@ -362,11 +562,11 @@ const DashboardPage = () => {
                       </span>
                       <span className={styles.navLabel}>{t(item.labelKey)}</span>
                     </button>
-                  ))}
+                  </div>
+                ))}
               </div>
             ))}
 
-            {/* Telegram */}
             <div className={styles.navSection}>
               <a
                 href={TELEGRAM_LINK}
@@ -381,112 +581,116 @@ const DashboardPage = () => {
                 <ExternalLinkIcon size={14} />
               </a>
             </div>
-
-            {/* Logout */}
-            <div className={styles.navSection}>
-              <button
-                onClick={() => { logout(); navigate("/"); }}
-                className={styles.logoutItem}
-              >
-                <span className={styles.navIcon}>
-                  <LogOutIcon size={18} />
-                </span>
-                <span className={styles.navLabel}>{t("dashLogout")}</span>
-              </button>
-            </div>
           </nav>
         </ScrollContainer>
       </aside>
 
-      {/* Main Content */}
       <main className={styles.mainContent}>
         <ScrollContainer className={styles.mainScroll} disableHorizontalScroll>
           <div className={styles.mainInner}>
-            {/* Top Bar */}
             <div className={styles.topBar}>
               <div className={styles.topBarLeft}>
-                <div className={styles.profileSection}>
-                  <div className={styles.avatar}>{userInitial}</div>
-                  <div className={styles.profileInfo}>
-                    <span className={styles.profileName}>{userName}</span>
-                    <span className={styles.profileEmail}>{userEmail}</span>
-                  </div>
-                  <span className={styles.timezone}>GMT+6</span>
-                </div>
+                <h1 className={styles.welcomeBarTitle}>
+                  {t("dashWelcomeBackPrefix")} {displayFullName}
+                </h1>
               </div>
               <div className={styles.topBarRight}>
-                <div className={styles.streakBadge}>
-                  <span className={styles.streakIcon}><FlameIcon size={16} /></span>
-                  <span>47</span>
-                </div>
                 <SkyToggle checked={isDark} onChange={toggleTheme} />
-                <button
-                  className={styles.actionBtn}
-                  title={t("dashNotifications")}
-                >
+                <button className={styles.actionBtn} title={t("dashNotifications")}>
                   <BellIcon size={18} />
                   <span className={styles.notifBadge}>3</span>
                 </button>
                 <button
-                  className={styles.actionBtn}
+                  className={styles.topProfileButton}
                   title={t("dashProfile")}
                   onClick={() => navigate("/dashboard/profile")}
                 >
-                  <UserIcon size={18} />
+                  <span className={styles.topProfileAvatar}>
+                    {userAvatar ? (
+                      <img src={userAvatar} alt={t("dashProfile")} className={styles.topProfileImage} />
+                    ) : (
+                      userInitial
+                    )}
+                  </span>
+                  <span className={styles.topProfileText}>
+                    <span className={styles.topProfileName}>{displayFullName}</span>
+                  </span>
                 </button>
               </div>
             </div>
 
-            {/* Dashboard Grid - Top Cards */}
             <div className={styles.dashGrid}>
-              {/* Dream University */}
               <div className={styles.dreamCard}>
-                <div className={styles.dreamHeader}>
-                  <h3 className={styles.dreamTitle}>Dream University</h3>
-                  <div className={styles.dreamProgress}>
-                    <div className={styles.progressRing}>
-                      <svg className={styles.progressRingSvg} width="44" height="44">
-                        <defs>
-                          <linearGradient id="dreamGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stopColor="#2563EB" />
-                            <stop offset="100%" stopColor="#10B981" />
-                          </linearGradient>
-                        </defs>
-                        <circle className={styles.ringBg} cx="22" cy="22" r="18" />
-                        <circle className={styles.ringFill} cx="22" cy="22" r="18" />
-                      </svg>
-                      <span className={styles.progressPercent}>92%</span>
+                <div className={styles.dreamHero}>
+                  <div className={styles.dreamLogoWrap}>
+                    {!dreamLogoFailed ? (
+                      <img
+                        src={DREAM_UCA_LOGO_URL}
+                        alt={t("dashUcaName")}
+                        className={styles.dreamLogoImg}
+                        onError={() => setDreamLogoFailed(true)}
+                      />
+                    ) : (
+                      <span className={styles.dreamLogoFallback} aria-hidden>
+                        UCA
+                      </span>
+                    )}
+                  </div>
+                  <div className={styles.dreamHeroMain}>
+                    <div className={styles.dreamTopRow}>
+                      <h3 className={styles.dreamTitle}>{t("dashDreamUniversity")}</h3>
+                      <div className={styles.dreamProgress}>
+                        <div className={styles.progressRing}>
+                          <svg className={styles.progressRingSvg} width="48" height="48" viewBox="0 0 48 48">
+                            <defs>
+                              <linearGradient id="dreamGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stopColor="#2563EB" />
+                                <stop offset="100%" stopColor="#10B981" />
+                              </linearGradient>
+                            </defs>
+                            <circle className={styles.ringBg} cx="24" cy="24" r="20" />
+                            <circle className={styles.ringFill} cx="24" cy="24" r="20" />
+                          </svg>
+                          <span className={styles.progressPercent}>92%</span>
+                        </div>
+                        <div className={styles.progressLabel}>
+                          <span className={styles.progressMatch}>{t("dashPerfectMatch")}</span>
+                          <span className={styles.progressUni}>{t("dashDreamPeakLabel")}</span>
+                        </div>
+                      </div>
                     </div>
-                    <div className={styles.progressLabel}>
-                      <span className={styles.progressMatch}>Perfect Match</span>
-                      <span className={styles.progressUni}>UCA Peak</span>
-                    </div>
+                    <div className={styles.dreamSchoolName}>{t("dashUcaName")}</div>
+                    <div className={styles.dreamLocation}>{t("dashUcaLocation")}</div>
                   </div>
                 </div>
-                <div className={styles.dreamBody}>
-                  <div className={styles.dreamLogo}>
-                    <GraduationCapIcon size={22} stroke="white" />
+                <div className={styles.dreamPills}>
+                  <span className={styles.dreamPill}>{t("dashDreamPillFit")}</span>
+                  <span className={styles.dreamPill}>{t("dashDreamPillDeadline")}</span>
+                  <span className={styles.dreamPill}>{t("dashDreamPillDocs")}</span>
+                </div>
+                <div className={styles.dreamReadiness}>
+                  <div className={styles.dreamReadinessHead}>
+                    <span>{t("dashDreamReadinessLabel")}</span>
+                    <span className={styles.dreamReadinessValue}>92%</span>
                   </div>
-                  <div className={styles.dreamInfo}>
-                    <div className={styles.dreamName}>University of Central Asia</div>
-                    <div className={styles.dreamLocation}>Naryn, Kyrgyzstan</div>
+                  <div className={styles.dreamReadinessTrack} role="presentation">
+                    <div className={styles.dreamReadinessFill} style={{ width: "92%" }} />
                   </div>
                 </div>
                 <div className={styles.dreamActions}>
-                  <button className={`${styles.dreamBtn} ${styles.dreamBtnPrimary}`}>
-                    Start Climb
+                  <button type="button" className={`${styles.dreamBtn} ${styles.dreamBtnPrimary}`}>
+                    {t("dashStartClimb")}
                   </button>
-                  <button className={`${styles.dreamBtn} ${styles.dreamBtnSecondary}`}>
-                    Pack List
+                  <button type="button" className={`${styles.dreamBtn} ${styles.dreamBtnSecondary}`}>
+                    {t("dashPackList")}
                   </button>
                 </div>
               </div>
 
-              {/* Deadlines */}
               <div className={styles.deadlinesCard}>
                 <div className={styles.cardHeader}>
-                  <h3 className={styles.cardTitle}>Upcoming Deadlines</h3>
-                  <button className={styles.cardAction}>Show All</button>
+                  <h3 className={styles.cardTitle}>{t("dashUpcomingDeadlines")}</h3>
+                  <button type="button" className={styles.cardAction}>{t("dashShowAll")}</button>
                 </div>
                 <div className={styles.deadlineList}>
                   <div className={styles.deadlineRow}>
@@ -494,239 +698,95 @@ const DashboardPage = () => {
                       <GraduationCapIcon size={14} />
                     </div>
                     <div className={styles.deadlineInfo}>
-                      <div className={styles.deadlineTitle}>UCA Application</div>
-                      <div className={styles.deadlineDate}>Oct 6, 2025</div>
+                      <div className={styles.deadlineTitle}>{t("dashUcaApplication")}</div>
+                      <div className={styles.deadlineDate}>{t("dashOct6")}</div>
                     </div>
                     <div className={styles.deadlineBar}>
-                      <div className={styles.deadlineFill} style={{ width: "90%", background: CHART_COLORS.red }} />
+                      <div className={styles.deadlineFill} style={{ width: "90%", background: "rgba(239,68,68,0.9)" }} />
                     </div>
-                    <div className={styles.deadlineTime}>45 min left</div>
+                    <div className={styles.deadlineTime}>{t("dashTime45m")}</div>
                   </div>
                   <div className={styles.deadlineRow}>
                     <div className={`${styles.deadlineIcon} ${styles.deadlineWarning}`}>
                       <DollarIcon size={14} />
                     </div>
                     <div className={styles.deadlineInfo}>
-                      <div className={styles.deadlineTitle}>AUCA Scholarship</div>
-                      <div className={styles.deadlineDate}>Oct 6, 2025</div>
+                      <div className={styles.deadlineTitle}>{t("dashAucaScholarship")}</div>
+                      <div className={styles.deadlineDate}>{t("dashOct6")}</div>
                     </div>
                     <div className={styles.deadlineBar}>
-                      <div className={styles.deadlineFill} style={{ width: "75%", background: CHART_COLORS.amber }} />
+                      <div className={styles.deadlineFill} style={{ width: "75%", background: "rgba(245,158,11,0.9)" }} />
                     </div>
-                    <div className={styles.deadlineTime}>2h 15m left</div>
+                    <div className={styles.deadlineTime}>{t("dashTime2h15m")}</div>
                   </div>
                   <div className={styles.deadlineRow}>
                     <div className={`${styles.deadlineIcon} ${styles.deadlineNormal}`}>
                       <PenToolIcon size={14} />
                     </div>
                     <div className={styles.deadlineInfo}>
-                      <div className={styles.deadlineTitle}>MIT Application</div>
-                      <div className={styles.deadlineDate}>Oct 8, 2025</div>
+                      <div className={styles.deadlineTitle}>{t("dashMitApplication")}</div>
+                      <div className={styles.deadlineDate}>{t("dashOct8")}</div>
                     </div>
                     <div className={styles.deadlineBar}>
-                      <div className={styles.deadlineFill} style={{ width: "50%", background: CHART_COLORS.green }} />
+                      <div className={styles.deadlineFill} style={{ width: "50%", background: "rgba(16,185,129,0.9)" }} />
                     </div>
-                    <div className={styles.deadlineTime}>2d 3h left</div>
+                    <div className={styles.deadlineTime}>{t("dashTime2d3h")}</div>
+                  </div>
+                  <div className={styles.deadlineRow}>
+                    <div className={`${styles.deadlineIcon} ${styles.deadlineNormal}`}>
+                      <CalendarIcon size={14} />
+                    </div>
+                    <div className={styles.deadlineInfo}>
+                      <div className={styles.deadlineTitle}>{t("dashDeadlineFarTitle")}</div>
+                      <div className={styles.deadlineDate}>{t("dashDeadlineFarDate")}</div>
+                    </div>
+                    <div className={styles.deadlineBar}>
+                      <div className={styles.deadlineFill} style={{ width: "14%", background: "rgba(99, 102, 241, 0.85)" }} />
+                    </div>
+                    <div className={styles.deadlineTime}>{t("dashTimeAbout9mo")}</div>
                   </div>
                 </div>
               </div>
 
-              {/* Charts */}
               <div className={styles.chartCard}>
                 <div className={styles.cardHeader}>
-                  <h3 className={styles.cardTitle}>University & Scholarship Views</h3>
-                  <span className={styles.chartStats}>Total: 23</span>
+                  <h3 className={styles.cardTitle}>{t("dashViewsTitle")}</h3>
+                  <span className={styles.chartStats}>{t("dashViewsTotal")}</span>
                 </div>
-                <p className={styles.cardDescription}>
-                  Track how many universities and scholarships you have viewed
-                </p>
                 <div className={styles.chartWrap}>
                   <canvas ref={viewsChartRef} />
                 </div>
               </div>
 
-              {/* Status */}
               <div className={styles.statusCard}>
                 <div className={styles.cardHeader}>
-                  <h3 className={styles.cardTitle}>Application Status</h3>
-                  <span className={styles.statusTotal}>15 Total</span>
+                  <h3 className={styles.cardTitle}>{t("dashApplicationStatus")}</h3>
+                  <span className={styles.statusTotal}>{t("dashStatusTotal")}</span>
                 </div>
                 <div className={styles.statusContainer}>
                   <div className={styles.statusChart}>
                     <canvas ref={statusChartRef} />
+                    <div className={styles.statusChartCenter} aria-hidden="true">
+                      <span className={styles.statusChartCenterValue}>{STATUS_TOTAL_COUNT}</span>
+                      <span className={styles.statusChartCenterLabel}>{t("dashStatusDonutLabel")}</span>
+                    </div>
                   </div>
                   <div className={styles.statusLegend}>
-                    {STATUS_DATA.map((s) => (
-                      <div key={s.label} className={styles.statusRow}>
-                        <div className={styles.statusDot} style={{ background: s.color }} />
-                        <span className={styles.statusCount}>{s.count}</span>
-                        <span className={styles.statusLabel}>{s.label}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Recommended Universities */}
-            <div className={styles.section}>
-              <div className={styles.sectionHeader}>
-                <h2 className={styles.sectionTitle}>Recommended Universities</h2>
-                <button className={styles.sectionActionPrimary}>View All</button>
-              </div>
-              <div className={styles.uniGrid}>
-                {[
-                  { abbr: "MIT", name: "Massachusetts Institute of Technology", loc: "Cambridge, MA, USA", rank: "#1 Ranking", match: "95% Match", tuition: "$53k Tuition" },
-                  { abbr: "ST", name: "Stanford University", loc: "Stanford, CA, USA", rank: "#2 Ranking", match: "92% Match", tuition: "$56k Tuition" },
-                ].map((u) => (
-                  <div key={u.abbr} className={styles.uniCard}>
-                    <div className={styles.uniCardHeader}>
-                      <div className={styles.uniLogo}>{u.abbr}</div>
-                      <div>
-                        <h3 className={styles.uniName}>{u.name}</h3>
-                        <p className={styles.uniLocation}>{u.loc}</p>
-                      </div>
-                    </div>
-                    <div className={styles.uniStats}>
-                      <div className={styles.uniStat}>
-                        <span className={styles.uniStatLabel}>{u.rank}</span>
-                        <span className={styles.uniStatValue}>{u.match}</span>
-                      </div>
-                      <div className={styles.uniStat}>
-                        <span className={styles.uniStatLabel}>{u.tuition}</span>
-                      </div>
-                    </div>
-                    <div className={styles.uniActions}>
-                      <button className={styles.uniBtnOutline}>Save</button>
-                      <button className={styles.uniBtnOutline}>Compare</button>
-                      <button className={styles.uniBtnPrimary}>Apply</button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Smart Matching */}
-            <div className={styles.section}>
-              <div className={styles.sectionHeader}>
-                <h2 className={styles.sectionTitle}>Smart Matching</h2>
-              </div>
-              <p className={styles.matchContent}>
-                Our AI-powered algorithm matches you with universities that align with your academic goals, budget, and preferences.
-              </p>
-              <div className={styles.matchFeatures}>
-                <div className={styles.featureCard}>
-                  <div className={styles.featureIcon}><DollarIcon size={18} /></div>
-                  <div>
-                    <h4 className={styles.featureTitle}>Scholarship Finder</h4>
-                    <p className={styles.featureDesc}>Discover thousands of scholarship opportunities tailored to your profile and academic achievements.</p>
-                  </div>
-                </div>
-                <div className={styles.featureCard}>
-                  <div className={styles.featureIcon}><TargetIcon size={18} /></div>
-                  <div>
-                    <h4 className={styles.featureTitle}>Compare & Analyze</h4>
-                    <p className={styles.featureDesc}>Compare universities side by side with detailed statistics, rankings, and student reviews.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Search Universities */}
-            <div className={styles.section}>
-              <div className={styles.sectionHeader}>
-                <h2 className={styles.sectionTitle}>Search Universities</h2>
-              </div>
-              <DashboardUniSearch />
-            </div>
-
-            {/* Search Scholarships */}
-            <div className={styles.section}>
-              <div className={styles.sectionHeader}>
-                <h2 className={styles.sectionTitle}>Search Scholarships</h2>
-              </div>
-              <div className={styles.searchForm}>
-                <div className={styles.searchRow}>
-                  <div className={styles.searchField}>
-                    <label className={styles.searchFieldLabel}>Amount Range</label>
-                    <select className={styles.searchSelect}>
-                      <option>Any Amount</option>
-                      <option>$1k - $5k</option>
-                      <option>$5k - $10k</option>
-                      <option>$10k+</option>
-                    </select>
-                  </div>
-                  <div className={styles.searchField}>
-                    <label className={styles.searchFieldLabel}>Deadline</label>
-                    <select className={styles.searchSelect}>
-                      <option>Any Time</option>
-                      <option>Next Month</option>
-                      <option>Next 3 Months</option>
-                      <option>Next 6 Months</option>
-                    </select>
-                  </div>
-                  <div className={styles.searchField}>
-                    <label className={styles.searchFieldLabel}>Type</label>
-                    <select className={styles.searchSelect}>
-                      <option>Any Type</option>
-                      <option>Merit-based</option>
-                      <option>Need-based</option>
-                      <option>Minority</option>
-                    </select>
-                  </div>
-                </div>
-                <button className={styles.sectionActionPrimary}>Find Scholarships</button>
-              </div>
-              <div className={styles.scholarshipCard}>
-                <div className={styles.scholarshipHeader}>
-                  <h4 className={styles.scholarshipName}>Gates Millennium Scholarship</h4>
-                  <span className={styles.scholarshipAmount}>$25,000</span>
-                </div>
-                <p className={styles.scholarshipDesc}>
-                  Full scholarship for outstanding minority students pursuing undergraduate degrees.
-                </p>
-                <div className={styles.scholarshipFooter}>
-                  <span className={styles.scholarshipDeadline}>Deadline: March 15</span>
-                  <span className={styles.scholarshipMatch}>95% Match</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Match Universities */}
-            <div className={styles.section}>
-              <div className={styles.sectionHeader}>
-                <h2 className={styles.sectionTitle}>Match Universities</h2>
-                <button className={styles.sectionActionPrimary}>Run AI Match</button>
-              </div>
-              <div className={styles.communityGrid}>
-                <div>
-                  <h4 className={styles.featureTitle}>Your Profile</h4>
-                  <div className={styles.statsRow} style={{ marginTop: 8 }}>
-                    {[
-                      { label: "GPA", value: "3.8" },
-                      { label: "SAT Score", value: "1450" },
-                      { label: "Budget", value: "$40-60k" },
-                    ].map((s) => (
-                      <div key={s.label} className={styles.statCard}>
-                        <div className={styles.statNumber}>{s.value}</div>
-                        <div className={styles.statLabel}>{s.label}</div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <div>
-                  <h4 className={styles.featureTitle}>AI Matched</h4>
-                  <div className={styles.matchGrid} style={{ marginTop: 8 }}>
-                    {[
-                      { pct: "98%", name: "Carnegie Mellon University", desc: "Perfect match for CS program" },
-                      { pct: "92%", name: "Georgia Tech", desc: "Strong engineering program" },
-                    ].map((m) => (
-                      <div key={m.name} className={styles.matchCard}>
-                        <div className={styles.matchPercent}>{m.pct}</div>
-                        <div>
-                          <h4 className={styles.matchName}>{m.name}</h4>
-                          <p className={styles.matchDesc}>{m.desc}</p>
+                    {STATUS_ROWS.map((row, idx) => (
+                      <div
+                        key={row.key}
+                        className={`${styles.statusRow} ${
+                          idx === STATUS_ROWS.length - 1 && STATUS_ROWS.length % 2 === 1 ? styles.statusRowFull : ""
+                        }`}
+                      >
+                        <div className={styles.statusRowMain}>
+                          <div className={styles.statusDot} style={{ background: row.color }} />
+                          <span className={styles.statusCount}>{row.count}</span>
+                          <span className={styles.statusLabel}>{t(row.key)}</span>
                         </div>
+                        <span className={styles.statusRowShare}>
+                          {Math.round((row.count / STATUS_TOTAL_COUNT) * 100)}%
+                        </span>
                       </div>
                     ))}
                   </div>
@@ -734,356 +794,386 @@ const DashboardPage = () => {
               </div>
             </div>
 
-            {/* Match Scholarships */}
-            <div className={styles.section}>
+            <section className={styles.section}>
               <div className={styles.sectionHeader}>
-                <h2 className={styles.sectionTitle}>Match Scholarships</h2>
-                <button className={styles.sectionActionPrimary}>Find Matches</button>
+                <h2 className={styles.sectionTitle}>{t("dashSearchUniversities")}</h2>
               </div>
-              <div className={styles.statsRow}>
-                <div className={styles.statCard}>
-                  <div className={styles.statNumber}>47</div>
-                  <div className={styles.statLabel}>Available</div>
-                </div>
-                <div className={styles.statCard}>
-                  <div className={styles.statNumber}>$2.3M</div>
-                  <div className={styles.statLabel}>Total Value</div>
-                </div>
-                <div className={styles.statCard}>
-                  <div className={styles.statNumber}>15</div>
-                  <div className={styles.statLabel}>High Match</div>
-                </div>
-              </div>
-              <div className={styles.matchGrid}>
-                {[
-                  { pct: "95%", name: "National Merit Scholarship", amt: "$2,500/year", desc: "For high-achieving students" },
-                  { pct: "88%", name: "STEM Excellence Award", amt: "$5,000/year", desc: "Computer Science students" },
-                ].map((m) => (
-                  <div key={m.name} className={styles.matchCard}>
-                    <div className={styles.matchPercent}>{m.pct}</div>
-                    <div>
-                      <h4 className={styles.matchName}>{m.name}</h4>
-                      <p className={styles.matchDesc}>{m.amt} — {m.desc}</p>
+              <div className={styles.searchTeaser}>
+                <div className={styles.searchTeaserSplit}>
+                  <div className={styles.searchTeaserFilters}>
+                    <div className={styles.previewSearchBar}>
+                      <SearchIcon size={16} />
+                      <input
+                        type="search"
+                        className={styles.previewSearchInput}
+                        value={uniTeaserQuery}
+                        onChange={(e) => setUniTeaserQuery(e.target.value)}
+                        placeholder={t("dashSearchUniPlaceholder")}
+                        aria-label={t("dashSearchUniPlaceholder")}
+                      />
+                    </div>
+                    <div className={styles.searchTeaserPopularRow}>
+                      <p className={styles.searchTeaserPopularLabel}>{t("dashSearchPopularFilters")}</p>
+                      <button type="button" className={styles.searchTeaserClear} onClick={clearUniTeaser}>
+                        {t("dashSearchClearFilters")}
+                      </button>
+                    </div>
+                    <div className={styles.previewChipRow}>
+                      {UNI_TEASER_POPULAR_CHIPS.map(({ key, labelKey }) => (
+                        <button
+                          key={key}
+                          type="button"
+                          className={`${styles.previewChip} ${uniTeaserPopular[key] ? styles.previewChipActive : ""}`}
+                          onClick={() => toggleUniTeaserPopular(key)}
+                        >
+                          {t(labelKey)}
+                        </button>
+                      ))}
                     </div>
                   </div>
-                ))}
+                  <aside className={styles.searchTeaserAside}>
+                    <p className={styles.searchTeaserAsideCount}>
+                      {teaserDataLoading ? "…" : universityTeaserMatchCount}
+                    </p>
+                    <p className={styles.searchTeaserRightSub}>{t("dashSearchTeaserSearchUniversities")}</p>
+                    <button type="button" className={styles.searchTeaserCtaCompact} onClick={goUniversitiesSearch}>
+                      {t("dashStartSearching")}
+                    </button>
+                  </aside>
+                </div>
               </div>
-            </div>
+            </section>
 
-            {/* Similar Students */}
-            <div className={styles.section}>
+            <section className={styles.section}>
               <div className={styles.sectionHeader}>
-                <h2 className={styles.sectionTitle}>Similar Students</h2>
-                <button className={styles.sectionActionPrimary}>View All</button>
+                <h2 className={styles.sectionTitle}>{t("dashSearchFields")}</h2>
               </div>
-              <div className={styles.communityGrid}>
-                {[
-                  { init: "A", name: "Alex Chen", desc: "MIT '28 | Computer Science", stats: ["GPA: 3.9", "SAT: 1520"], score: "94% Similar" },
-                  { init: "S", name: "Sarah Johnson", desc: "Stanford '28 | Engineering", stats: ["GPA: 3.8", "SAT: 1480"], score: "89% Similar" },
-                ].map((s) => (
-                  <div key={s.name} className={styles.personCard}>
-                    <div className={styles.personAvatar}>{s.init}</div>
-                    <div>
-                      <h4 className={styles.personName}>{s.name}</h4>
-                      <p className={styles.personDesc}>{s.desc}</p>
-                      <div className={styles.personStats}>
-                        {s.stats.map((st) => <span key={st}>{st}</span>)}
+              <div className={styles.searchTeaser}>
+                <div className={styles.searchTeaserSplit}>
+                  <div className={styles.searchTeaserFilters}>
+                    <div className={styles.previewSearchBar}>
+                      <SearchIcon size={16} />
+                      <input
+                        type="search"
+                        className={styles.previewSearchInput}
+                        value={fieldTeaserQuery}
+                        onChange={(e) => setFieldTeaserQuery(e.target.value)}
+                        placeholder={t("dashSearchFieldPlaceholder")}
+                        aria-label={t("dashSearchFieldPlaceholder")}
+                      />
+                    </div>
+                    <div className={styles.searchTeaserPopularRow}>
+                      <p className={styles.searchTeaserPopularLabel}>{t("dashSearchPopularFilters")}</p>
+                      <button type="button" className={styles.searchTeaserClear} onClick={clearFieldTeaser}>
+                        {t("dashSearchClearFilters")}
+                      </button>
+                    </div>
+                    <div className={styles.previewChipRow}>
+                      {FIELD_TEASER_DEGREE_CHIPS.map((chip) => (
+                        <button
+                          key={chip.id}
+                          type="button"
+                          className={`${styles.previewChip} ${fieldTeaserDegree === chip.id ? styles.previewChipActive : ""}`}
+                          onClick={() => setFieldTeaserDegree(chip.id)}
+                        >
+                          {chip.labelKey === "filterPhd" ? t("filterPhd") : t(chip.labelKey)}
+                        </button>
+                      ))}
+                      <button
+                        type="button"
+                        className={`${styles.previewChip} ${fieldTeaserEnglish ? styles.previewChipActive : ""}`}
+                        onClick={() => setFieldTeaserEnglish((v) => !v)}
+                      >
+                        {t("dashFilterEnglishTaught")}
+                      </button>
+                    </div>
+                    <div className={styles.previewChipRow}>
+                      {FIELD_TEASER_SLUG_CHIPS.map(({ slug, labelKey }) => (
+                        <button
+                          key={slug}
+                          type="button"
+                          className={`${styles.previewChip} ${fieldTeaserSlugs.has(slug) ? styles.previewChipActive : ""}`}
+                          onClick={() => toggleFieldTeaserSlug(slug)}
+                        >
+                          {t(labelKey)}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <aside className={styles.searchTeaserAside}>
+                    <p className={styles.searchTeaserAsideCount}>
+                      {teaserDataLoading ? "…" : fieldTeaserMatchCount}
+                    </p>
+                    <p className={styles.searchTeaserRightSub}>{t("dashSearchTeaserSearchFields")}</p>
+                    <button type="button" className={styles.searchTeaserCtaCompact} onClick={goFieldsSearch}>
+                      {t("dashStartSearching")}
+                    </button>
+                  </aside>
+                </div>
+              </div>
+            </section>
+
+            <section className={styles.section}>
+              <div className={styles.sectionHeader}>
+                <h2 className={styles.sectionTitle}>{t("dashSearchScholarships")}</h2>
+              </div>
+              <div className={styles.searchTeaser}>
+                <div className={styles.searchTeaserSplit}>
+                  <div className={styles.searchTeaserFilters}>
+                    <div className={styles.previewSearchBar}>
+                      <SearchIcon size={16} />
+                      <input
+                        type="search"
+                        className={styles.previewSearchInput}
+                        value={scholarshipTeaserQuery}
+                        onChange={(e) => setScholarshipTeaserQuery(e.target.value)}
+                        placeholder={t("dashSearchScholarshipPlaceholder")}
+                        aria-label={t("dashSearchScholarshipPlaceholder")}
+                      />
+                    </div>
+                    <div className={styles.searchTeaserPopularRow}>
+                      <p className={styles.searchTeaserPopularLabel}>{t("dashSearchPopularFilters")}</p>
+                      <button
+                        type="button"
+                        className={styles.searchTeaserClear}
+                        onClick={() => {
+                          setScholarshipTeaserFilter("all");
+                          setScholarshipTeaserQuery("");
+                        }}
+                      >
+                        {t("dashSearchClearFilters")}
+                      </button>
+                    </div>
+                    <div className={styles.previewChipRow}>
+                      {[
+                        { id: "all", labelKey: "dashFilterAll" },
+                        { id: "merit", labelKey: "dashScholarshipFilterMerit" },
+                        { id: "need", labelKey: "dashScholarshipFilterNeed" },
+                      ].map((chip) => (
+                        <button
+                          key={chip.id}
+                          type="button"
+                          className={`${styles.previewChip} ${scholarshipTeaserFilter === chip.id ? styles.previewChipActive : ""}`}
+                          onClick={() => setScholarshipTeaserFilter(chip.id)}
+                        >
+                          {t(chip.labelKey)}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <aside className={styles.searchTeaserAside}>
+                    <p className={styles.searchTeaserAsideCount}>0</p>
+                    <p className={styles.searchTeaserRightSub}>{t("dashSearchTeaserSearchScholarships")}</p>
+                    <button type="button" className={styles.searchTeaserCtaCompact} onClick={goScholarshipsSearch}>
+                      {t("dashStartSearching")}
+                    </button>
+                  </aside>
+                </div>
+              </div>
+            </section>
+
+            <section className={styles.section}>
+              <div className={styles.sectionHeader}>
+                <h2 className={styles.sectionTitle}>{t("dashAiDashboardUniTitle")}</h2>
+              </div>
+              <div className={`${styles.aiShowcaseRow} ${styles.aiShowcaseRowUni}`}>
+                <div className={styles.aiShowcaseCardsTrack}>
+                  {AI_UNI_MATCH_ROWS.map((row) => (
+                    <button
+                      key={row.id}
+                      type="button"
+                      className={styles.aiShowcaseUniCard}
+                      onClick={() => navigate("/dashboard/ai/match-universities")}
+                      aria-label={`${t(row.nameKey)} · ${row.match}% ${t("dashMatch")}`}
+                    >
+                      <div className={styles.aiShowcaseUniMedia}>
+                        <img
+                          src={commonsCampusPhoto(row.commonsFile, 960)}
+                          alt=""
+                          className={styles.aiShowcaseUniImg}
+                          loading="lazy"
+                          width={960}
+                          height={600}
+                        />
+                        <div className={styles.aiShowcaseUniMediaScrim} aria-hidden />
+                        <span className={styles.aiShowcaseUniBadge}>{row.match}%</span>
+                        <span className={styles.aiShowcaseUniInitials} aria-hidden>
+                          {row.initials}
+                        </span>
                       </div>
-                      <div className={styles.personScore}>{s.score}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Connect Friends */}
-            <div className={styles.section}>
-              <div className={styles.sectionHeader}>
-                <h2 className={styles.sectionTitle}>Connect Friends</h2>
-                <button className={styles.sectionActionPrimary}>Invite Friends</button>
-              </div>
-              <div className={styles.statsRow} style={{ marginBottom: 12 }}>
-                <div className={styles.statCard}>
-                  <div className={styles.statNumber}>12</div>
-                  <div className={styles.statLabel}>Connected</div>
-                </div>
-                <div className={styles.statCard}>
-                  <div className={styles.statNumber}>5</div>
-                  <div className={styles.statLabel}>Pending</div>
-                </div>
-                <div className={styles.statCard} />
-              </div>
-              <div className={styles.communityGrid}>
-                {[
-                  { init: "M", name: "Mike Rodriguez", desc: "Applying to same universities", online: true },
-                  { init: "E", name: "Emma Wilson", desc: "Shared 3 scholarships", online: false },
-                ].map((f) => (
-                  <div key={f.name} className={styles.personCard}>
-                    <div className={styles.personAvatar}>{f.init}</div>
-                    <div>
-                      <h4 className={styles.personName}>{f.name}</h4>
-                      <p className={styles.personDesc}>{f.desc}</p>
-                      <span className={`${styles.personStatus} ${f.online ? styles.personOnline : styles.personOffline}`}>
-                        {f.online ? "Online" : "Offline"}
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Alumni Mentors */}
-            <div className={styles.section}>
-              <div className={styles.sectionHeader}>
-                <h2 className={styles.sectionTitle}>Alumni Mentors</h2>
-                <button className={styles.sectionActionPrimary}>Find Mentor</button>
-              </div>
-              <div className={styles.communityGrid}>
-                {[
-                  { init: "J", name: "Dr. Jennifer Liu", desc: "MIT '15 | Software Engineer at Google", tags: ["Computer Science", "Career Guidance"], rating: "4.9" },
-                  { init: "R", name: "Robert Kim", desc: "Stanford '12 | Investment Banker", tags: ["Business", "Finance"], rating: "4.8" },
-                ].map((m) => (
-                  <div key={m.name} className={styles.personCard}>
-                    <div className={styles.personAvatar}>{m.init}</div>
-                    <div>
-                      <h4 className={styles.personName}>{m.name}</h4>
-                      <p className={styles.personDesc}>{m.desc}</p>
-                      <div className={styles.mentorMeta}>
-                        {m.tags.map((t) => <span key={t} className={styles.mentorTag}>{t}</span>)}
+                      <div className={styles.aiShowcaseUniBody}>
+                        <p className={styles.aiShowcaseUniName}>{t(row.nameKey)}</p>
+                        <p className={styles.aiShowcaseUniLoc}>{t(row.locKey)}</p>
+                        {row.rankKey ? (
+                          <p className={styles.aiShowcaseUniRank}>
+                            {t("dashRank")} · {t(row.rankKey)}
+                          </p>
+                        ) : null}
                       </div>
-                      <div className={styles.mentorRating}><StarIcon size={12} /> {m.rating}</div>
-                    </div>
-                  </div>
-                ))}
+                    </button>
+                  ))}
+                </div>
+                <button
+                  type="button"
+                  className={`${styles.aiShowcaseWholeListBtn} ${styles.aiShowcaseWholeListBtnUni} ${styles.aiShowcaseWholeListBtnSlim}`}
+                  onClick={() => navigate("/dashboard/ai/match-universities")}
+                  aria-label={`${t("dashCtaSeeAllUniversityMatches")} · ${t("dashMatchUniversities")}`}
+                >
+                  <span className={styles.aiShowcaseWholeListBtnText}>{t("dashCtaSeeAllUniversityMatches")}</span>
+                  <span className={styles.aiShowcaseWholeListBtnIcon} aria-hidden>
+                    <ChevronRightIcon size={18} />
+                  </span>
+                </button>
               </div>
-            </div>
+            </section>
 
-            {/* Essay Reviews */}
-            <div className={styles.section}>
+            <section className={styles.section}>
               <div className={styles.sectionHeader}>
-                <h2 className={styles.sectionTitle}>Essay Reviews</h2>
-                <button className={styles.sectionActionPrimary}>Submit Essay</button>
+                <h2 className={styles.sectionTitle}>{t("dashAiDashboardScholTitle")}</h2>
               </div>
-              <div className={styles.premiumGrid}>
-                <div className={styles.premiumCard}>
-                  <h4 className={styles.premiumTitle}>Basic Review</h4>
-                  <div className={styles.premiumPrice}>$49</div>
-                  <ul className={styles.premiumFeatures}>
-                    <li>Grammar & Style Check</li>
-                    <li>Basic Feedback</li>
-                    <li>24-hour turnaround</li>
+              <div className={`${styles.aiShowcaseRow} ${styles.aiShowcaseRowSchol}`}>
+                <div className={styles.aiShowcaseCardsTrack}>
+                  {AI_SCHOL_MATCH_ROWS.map((row) => (
+                    <button
+                      key={row.id}
+                      type="button"
+                      className={styles.aiShowcaseScholCard}
+                      onClick={() => navigate("/dashboard/ai/match-scholarships")}
+                      aria-label={`${t(row.titleKey)} · ${row.match}% ${t("dashMatch")}`}
+                    >
+                      <div className={styles.aiShowcaseScholMedia}>
+                        <img
+                          src={commonsCampusPhoto(row.commonsFile, 960)}
+                          alt=""
+                          className={styles.aiShowcaseScholImg}
+                          loading="lazy"
+                          width={960}
+                          height={600}
+                        />
+                        <div className={styles.aiShowcaseScholMediaScrim} aria-hidden />
+                        <span className={styles.aiShowcaseScholBadge}>{row.match}%</span>
+                      </div>
+                      <div className={styles.aiShowcaseScholBody}>
+                        <p className={styles.aiShowcaseScholLabel}>{t("dashMatch")}</p>
+                        <p className={styles.aiShowcaseScholTitle}>{t(row.titleKey)}</p>
+                        <p className={styles.aiShowcaseScholMeta}>{t(row.metaKey)}</p>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+                <button
+                  type="button"
+                  className={`${styles.aiShowcaseWholeListBtn} ${styles.aiShowcaseWholeListBtnSchol} ${styles.aiShowcaseWholeListBtnSlim}`}
+                  onClick={() => navigate("/dashboard/ai/match-scholarships")}
+                  aria-label={`${t("dashCtaSeeAllScholarshipMatches")} · ${t("dashMatchScholarships")}`}
+                >
+                  <span className={styles.aiShowcaseWholeListBtnText}>{t("dashCtaSeeAllScholarshipMatches")}</span>
+                  <span className={styles.aiShowcaseWholeListBtnIcon} aria-hidden>
+                    <ChevronRightIcon size={18} />
+                  </span>
+                </button>
+              </div>
+            </section>
+
+            <section className={styles.section}>
+              <div className={styles.sectionHeader}>
+                <h2 id="dashboard-heading-friends-hub" className={styles.sectionTitle}>
+                  {t("dashFriendsCombinedSectionTitle")}
+                </h2>
+              </div>
+              <div className={styles.friendsHubPanel}>
+                <div className={styles.friendsHubSplit}>
+                  <div className={styles.friendsHubLeft}>
+                  <h3 className={styles.friendsHubColumnTitle}>{t("dashFriendsSimilarColumnTitle")}</h3>
+                  <ul className={styles.friendsHubSimilarList} aria-label={t("dashFriendsSimilarColumnTitle")}>
+                    {AI_SIMILAR_STUDENT_ROWS.slice(0, 2).map((row) => (
+                      <li key={row.id} className={styles.friendsHubSimilarItem}>
+                        <div className={styles.friendsHubPeerCard}>
+                          <button
+                            type="button"
+                            className={`${styles.aiPeerCard} ${styles.friendsHubPeerMain}`}
+                            onClick={() => navigate("/dashboard/ai/similar-students")}
+                            aria-label={`${t(row.nameKey)} · ${row.match}%`}
+                          >
+                            <span className={styles.aiPeerAvatar} aria-hidden>
+                              {row.initials}
+                            </span>
+                            <span className={styles.aiPeerBody}>
+                              <span className={styles.aiPeerHeadRow}>
+                                <span className={styles.aiPeerName}>{t(row.nameKey)}</span>
+                                <span className={styles.aiPeerMatch}>{row.match}%</span>
+                              </span>
+                              <span className={styles.aiPeerDesc}>{t(row.descKey)}</span>
+                              <span className={styles.aiPeerChipRow} role="list" aria-label={t("dashSimilaritiesLabel")}>
+                                {row.similarityKeys.slice(0, 3).map((key) => (
+                                  <span key={key} className={styles.aiPeerSimilarityChip} role="listitem">
+                                    {t(key)}
+                                  </span>
+                                ))}
+                              </span>
+                            </span>
+                          </button>
+                          <button
+                            type="button"
+                            className={`${styles.aiPeerAddFriendBtn} ${styles.friendsHubPeerAdd}`}
+                            onClick={() => navigate("/dashboard/community/friends")}
+                            aria-label={`${t("dashSimilarStudentsAddFriend")}: ${t(row.nameKey)}`}
+                          >
+                            {t("dashSimilarStudentsAddFriend")}
+                          </button>
+                        </div>
+                      </li>
+                    ))}
+                    <li className={`${styles.friendsHubSimilarItem} ${styles.friendsHubSimilarSeeMoreItem}`}>
+                      <button
+                        type="button"
+                        className={`${styles.friendsHubSeeMoreBtn} ${styles.friendsHubSeeMoreInRow}`}
+                        onClick={() => navigate("/dashboard/ai/similar-students")}
+                      >
+                        <span className={styles.friendsHubSeeMoreInRowLabel}>{t("dashFriendsSimilarSeeMore")}</span>
+                        <ChevronRightIcon size={18} aria-hidden />
+                      </button>
+                    </li>
                   </ul>
-                </div>
-                <div className={styles.premiumCard}>
-                  <h4 className={styles.premiumTitle}>Premium Review</h4>
-                  <div className={styles.premiumPrice}>$99</div>
-                  <ul className={styles.premiumFeatures}>
-                    <li>Comprehensive Analysis</li>
-                    <li>Personalized Feedback</li>
-                    <li>12-hour turnaround</li>
-                    <li>Revision suggestions</li>
-                  </ul>
-                </div>
-              </div>
-              <div className={styles.reviewItem}>
-                <div className={styles.reviewRating}>9.2/10</div>
-                <div>
-                  <h5 className={styles.reviewTitle}>Personal Statement - MIT</h5>
-                  <p className={styles.reviewDesc}>Excellent structure and compelling narrative</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Mock Interviews */}
-            <div className={styles.section}>
-              <div className={styles.sectionHeader}>
-                <h2 className={styles.sectionTitle}>Mock Interviews</h2>
-                <button className={styles.sectionActionPrimary}>Schedule Interview</button>
-              </div>
-              <div className={styles.interviewGrid}>
-                <div className={styles.interviewCard}>
-                  <div className={styles.interviewIcon}><GraduationCapIcon size={18} /></div>
-                  <div>
-                    <h4 className={styles.interviewTitle}>University Admissions</h4>
-                    <p className={styles.interviewDesc}>Practice for college interviews</p>
-                    <div className={styles.interviewPrice}>$75</div>
                   </div>
-                </div>
-                <div className={styles.interviewCard}>
-                  <div className={styles.interviewIcon}><CrownIcon size={18} /></div>
-                  <div>
-                    <h4 className={styles.interviewTitle}>Job Interviews</h4>
-                    <p className={styles.interviewDesc}>Prepare for internship interviews</p>
-                    <div className={styles.interviewPrice}>$100</div>
-                  </div>
-                </div>
-              </div>
-              <div className={styles.statsRow}>
-                <div className={styles.statCard}>
-                  <div className={styles.statNumber}>15</div>
-                  <div className={styles.statLabel}>Completed</div>
-                </div>
-                <div className={styles.statCard}>
-                  <div className={styles.statNumber}>8.7</div>
-                  <div className={styles.statLabel}>Avg Rating</div>
-                </div>
-                <div className={styles.statCard} />
-              </div>
-            </div>
-
-            {/* Concierge Support */}
-            <div className={styles.section}>
-              <div className={styles.sectionHeader}>
-                <h2 className={styles.sectionTitle}>Concierge Support</h2>
-                <button className={styles.sectionActionPrimary}>Get Support</button>
-              </div>
-              <div className={styles.serviceGrid}>
-                {[
-                  { icon: <BellIcon size={16} />, title: "24/7 Support", desc: "Round-the-clock assistance" },
-                  { icon: <TargetIcon size={16} />, title: "Personal Advisor", desc: "Dedicated application specialist" },
-                  { icon: <BookOpenIcon size={16} />, title: "Application Review", desc: "Complete application check" },
-                ].map((s) => (
-                  <div key={s.title} className={styles.serviceItem}>
-                    <div className={styles.serviceIcon}>{s.icon}</div>
-                    <div>
-                      <h4 className={styles.serviceTitle}>{s.title}</h4>
-                      <p className={styles.serviceDesc}>{s.desc}</p>
+                  <aside className={styles.friendsHubRight} aria-label={t("dashFriendsOnlineColumnTitle")}>
+                    <h3 className={styles.friendsHubRightTitle}>{t("dashFriendsOnlineColumnTitle")}</h3>
+                    <div className={styles.friendsHubOnlinePanel}>
+                      <p className={styles.friendsHubSubTitle}>{t("dashFriendsOnlineNow")}</p>
+                      <ul className={styles.friendsHubOnlineList}>
+                        {CONNECTION_FRIEND_ROWS.filter((r) => r.online).length === 0 ? (
+                          <li className={styles.friendsHubOnlineEmpty}>{t("dashFriendsOnlineEmpty")}</li>
+                        ) : (
+                          CONNECTION_FRIEND_ROWS.filter((r) => r.online).map((row) => (
+                            <li key={row.id} className={styles.friendsHubOnlineItem}>
+                              <span className={styles.friendsHubOnlineDot} aria-hidden />
+                              <span className={styles.friendsHubOnlineName}>{t(row.nameKey)}</span>
+                            </li>
+                          ))
+                        )}
+                      </ul>
                     </div>
-                  </div>
-                ))}
-              </div>
-              <div className={styles.liveSupportBox}>
-                <h4 className={styles.liveSupportTitle}>Live Support</h4>
-                <p className={styles.liveSupportMsg}>
-                  <span className={styles.liveSupportBold}>I need help with my MIT application</span>
-                  <br />I will connect you with our MIT specialist right away!
-                </p>
-              </div>
-            </div>
-
-            {/* Get Courses */}
-            <div className={styles.section}>
-              <div className={styles.sectionHeader}>
-                <h2 className={styles.sectionTitle}>Courses</h2>
-                <button className={styles.sectionActionPrimary}>Browse Courses</button>
-              </div>
-              <div className={styles.courseGrid}>
-                {[
-                  { icon: <BookOpenIcon size={18} />, name: "SAT Prep Masterclass", desc: "Comprehensive SAT preparation", meta: ["12 weeks", "4.8"] },
-                  { icon: <FileEditIcon size={18} />, name: "College Essay Writing", desc: "Master the art of essay writing", meta: ["8 weeks", "4.9"] },
-                ].map((c) => (
-                  <div key={c.name} className={styles.courseCard}>
-                    <div className={styles.courseIcon}>{c.icon}</div>
-                    <div>
-                      <h4 className={styles.courseName}>{c.name}</h4>
-                      <p className={styles.courseDesc}>{c.desc}</p>
-                      <div className={styles.courseMeta}>
-                        {c.meta.map((m) => <span key={m}>{m}</span>)}
-                      </div>
+                    <div className={styles.friendsHubActionsCard}>
+                      <button
+                        type="button"
+                        className={styles.friendsHubActionsRow}
+                        onClick={() => navigate("/dashboard/community/friends")}
+                      >
+                        <span className={styles.friendsHubActionsRowLabel}>
+                          {t("dashFriendsSeeCountCta").replace(
+                            "{{count}}",
+                            String(CONNECTION_FRIEND_ROWS.length),
+                          )}
+                        </span>
+                        <ChevronRightIcon size={16} aria-hidden className={styles.friendsHubActionsChevron} />
+                      </button>
                     </div>
-                  </div>
-                ))}
+                  </aside>
+                </div>
               </div>
-            </div>
+            </section>
 
-            {/* Math */}
-            <div className={styles.section}>
-              <div className={styles.sectionHeader}>
-                <h2 className={styles.sectionTitle}>Math</h2>
-                <button className={styles.sectionActionPrimary}>Start Learning</button>
-              </div>
-              {[
-                { name: "Algebra I", pct: 75 },
-                { name: "Calculus", pct: 45 },
-              ].map((p) => (
-                <div key={p.name} className={styles.progressItem}>
-                  <div className={styles.progressLabel}>
-                    <span className={styles.progressName}>{p.name}</span>
-                    <span className={styles.progressValue}>{p.pct}%</span>
-                  </div>
-                  <div className={styles.progressBar}>
-                    <div className={styles.progressFill} style={{ width: `${p.pct}%` }} />
-                  </div>
-                </div>
-              ))}
-              <div className={styles.problemCard}>
-                <p className={styles.problemText}>Solve for x: 2x + 5 = 13</p>
-                <div className={styles.problemActions}>
-                  <button className={styles.sectionActionOutline}>Show Hint</button>
-                  <button className={styles.sectionActionPrimary}>Submit Answer</button>
-                </div>
-              </div>
-            </div>
-
-            {/* English */}
-            <div className={styles.section}>
-              <div className={styles.sectionHeader}>
-                <h2 className={styles.sectionTitle}>English</h2>
-                <button className={styles.sectionActionPrimary}>Start Learning</button>
-              </div>
-              {[
-                { name: "Grammar Fundamentals", pct: 80, desc: "Master essential grammar rules" },
-                { name: "Reading Comprehension", pct: 60, desc: "Improve reading skills" },
-              ].map((m) => (
-                <div key={m.name} style={{ marginBottom: 14 }}>
-                  <div className={styles.progressLabel}>
-                    <span className={styles.progressName}>{m.name}</span>
-                    <span className={styles.progressValue}>{m.pct}%</span>
-                  </div>
-                  <div className={styles.progressBar}>
-                    <div className={styles.progressFill} style={{ width: `${m.pct}%` }} />
-                  </div>
-                  <p className={styles.cardDescription} style={{ marginTop: 4 }}>{m.desc}</p>
-                </div>
-              ))}
-            </div>
-
-            {/* Essay Writing */}
-            <div className={styles.section}>
-              <div className={styles.sectionHeader}>
-                <h2 className={styles.sectionTitle}>Essay Writing</h2>
-                <button className={styles.sectionActionPrimary}>Start Writing</button>
-              </div>
-              <div className={styles.toolGrid}>
-                <div className={styles.toolCard}>
-                  <h4 className={styles.toolTitle}>Essay Templates</h4>
-                  <p className={styles.toolDesc}>Pre-built structures for different essay types</p>
-                </div>
-                <div className={styles.toolCard}>
-                  <h4 className={styles.toolTitle}>Writing Prompts</h4>
-                  <p className={styles.toolDesc}>Practice with real college prompts</p>
-                </div>
-              </div>
-              <div className={styles.essayItem}>
-                <h5 className={styles.essayTitle}>Personal Statement Draft</h5>
-                <span className={styles.essayStatus}>In Progress</span>
-              </div>
-            </div>
-
-            {/* AI Literacy */}
-            <div className={styles.section}>
-              <div className={styles.sectionHeader}>
-                <h2 className={styles.sectionTitle}>AI Literacy</h2>
-                <button className={styles.sectionActionPrimary}>Start Course</button>
-              </div>
-              <div className={styles.moduleGrid}>
-                {[
-                  { name: "Introduction to AI", desc: "Understanding artificial intelligence basics", done: true },
-                  { name: "Machine Learning Fundamentals", desc: "Core concepts and applications", done: false },
-                  { name: "Future of AI", desc: "Ethics and implications", done: false },
-                ].map((m) => (
-                  <div key={m.name} className={styles.moduleCard}>
-                    <div className={`${styles.moduleStatus} ${m.done ? styles.moduleComplete : styles.modulePending}`}>
-                      {m.done ? <CheckIcon size={14} /> : <ChevronRightIcon size={14} />}
-                    </div>
-                    <div>
-                      <h4 className={styles.moduleName}>{m.name}</h4>
-                      <p className={styles.moduleDesc}>{m.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <IlmiContactHub variant="embedded" t={t} />
           </div>
         </ScrollContainer>
       </main>

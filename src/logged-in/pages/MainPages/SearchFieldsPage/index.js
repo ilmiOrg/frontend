@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "../../../../hooks/useLanguage";
 import PageTemplate from "../../../shared/PageTemplate";
 import { BookOpenIcon, LaptopIcon, BarChartIcon, HeartPulseIcon, ScaleIcon, GearIcon, PaletteIcon, GlobeIcon, DollarIcon, LeafIcon, NewspaperIcon, BuildingIcon, BrainIcon, CheckIcon, MenuIcon, ChevronRightIcon } from "../../../shared/Icons";
@@ -80,6 +80,7 @@ function savePrefs(prefs) {
 const SearchFieldsPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   const saved = useMemo(() => loadPrefs(), []);
 
@@ -143,6 +144,29 @@ const SearchFieldsPage = () => {
       .then(setFields)
       .catch(() => {});
   }, []);
+
+  useEffect(() => {
+    if (!fields.length) return;
+    const degree = searchParams.get("degree");
+    if (degree && ["bachelor", "master", "phd"].includes(degree)) {
+      setDegreeLevel(degree);
+    }
+    const lang = searchParams.get("language");
+    if (lang && lang !== ALL) {
+      setLanguage(lang);
+    }
+    const fieldsCsv = searchParams.get("fields");
+    if (fieldsCsv) {
+      const slugs = fieldsCsv.split(",").map((s) => s.trim()).filter(Boolean);
+      const idBySlug = new Map(fields.map((f) => [f.fieldSlug, f.fieldId]));
+      const next = new Set();
+      slugs.forEach((slug) => {
+        const id = idBySlug.get(slug);
+        if (id) next.add(id);
+      });
+      if (next.size) setSelectedFieldIds(next);
+    }
+  }, [fields, searchParams]);
 
   useEffect(() => {
     setLoading(true);

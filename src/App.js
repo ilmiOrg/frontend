@@ -32,24 +32,8 @@ import SendInfoPage from "./logged-in/pages/MainPages/SendInfoPage";
 import MatchUniversitiesPage from "./logged-in/pages/AIMatchingPages/MatchUniversitiesPage";
 import MatchScholarshipsPage from "./logged-in/pages/AIMatchingPages/MatchScholarshipsPage";
 import SimilarStudentsPage from "./logged-in/pages/AIMatchingPages/SimilarStudentsPage";
-
-// Community Pages
 import ConnectFriendsPage from "./logged-in/pages/CommunityPages/ConnectFriendsPage";
 import AlumniMentorsPage from "./logged-in/pages/CommunityPages/AlumniMentorsPage";
-
-
-
-// Premium Pages
-import EssayReviewsPage from "./logged-in/pages/PremiumPages/EssayReviewsPage";
-import MockInterviewsPage from "./logged-in/pages/PremiumPages/MockInterviewsPage";
-import ConciergeSupportPage from "./logged-in/pages/PremiumPages/ConciergeSupportPage";
-
-// Learning Pages
-import GetCoursesPage from "./logged-in/pages/LearningPages/GetCoursesPage";
-import MathPage from "./logged-in/pages/LearningPages/MathPage";
-import EnglishPage from "./logged-in/pages/LearningPages/EnglishPage";
-import EssayWritingPage from "./logged-in/pages/LearningPages/EssayWritingPage";
-import AILiteracyPage from "./logged-in/pages/LearningPages/AILiteracyPage";
 
 // Contact Pages
 import ContactPremiumPage from "./logged-in/pages/ContactPages/ContactPremiumPage";
@@ -286,7 +270,6 @@ function App() {
             }
           />
 
-          {/* Community Routes */}
           <Route
             path="/dashboard/community/friends"
             element={
@@ -301,80 +284,6 @@ function App() {
             element={
               <ProtectedRoute>
                 <AlumniMentorsPage />
-              </ProtectedRoute>
-            }
-          />
-
-          {/* Premium Services Routes */}
-          <Route
-            path="/dashboard/premium/essay-reviews"
-            element={
-              <ProtectedRoute>
-                <EssayReviewsPage />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/dashboard/premium/mock-interviews"
-            element={
-              <ProtectedRoute>
-                <MockInterviewsPage />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/dashboard/premium/concierge"
-            element={
-              <ProtectedRoute>
-                <ConciergeSupportPage />
-              </ProtectedRoute>
-            }
-          />
-
-          {/* Learning & Courses Routes */}
-          <Route
-            path="/dashboard/courses"
-            element={
-              <ProtectedRoute>
-                <GetCoursesPage />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/dashboard/courses/math"
-            element={
-              <ProtectedRoute>
-                <MathPage />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/dashboard/courses/english"
-            element={
-              <ProtectedRoute>
-                <EnglishPage />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/dashboard/courses/essay-writing"
-            element={
-              <ProtectedRoute>
-                <EssayWritingPage />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/dashboard/courses/ai-literacy"
-            element={
-              <ProtectedRoute>
-                <AILiteracyPage />
               </ProtectedRoute>
             }
           />

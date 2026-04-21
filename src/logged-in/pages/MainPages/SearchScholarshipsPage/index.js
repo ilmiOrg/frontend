@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useMemo } from "react";
+import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "../../../../hooks/useLanguage";
 import PageTemplate from "../../../shared/PageTemplate";
 import { DollarIcon, CalendarIcon, MapPinIcon, CheckIcon } from "../../../shared/Icons";
@@ -13,6 +14,11 @@ const FEATURES = [
 
 const SearchScholarshipsPage = () => {
   const { t } = useTranslation();
+  const [searchParams] = useSearchParams();
+  const filterFromUrl = useMemo(() => {
+    const f = (searchParams.get("filter") || "").toLowerCase();
+    return f === "merit" || f === "need" ? f : null;
+  }, [searchParams]);
 
   return (
     <PageTemplate
@@ -22,7 +28,11 @@ const SearchScholarshipsPage = () => {
     >
       <div className={s.layout}>
         <div className={s.introPanel}>
-          <p className={s.introText}>{t("searchScholarshipsIntro")}</p>
+          <p className={s.introText}>
+            {filterFromUrl
+              ? t(filterFromUrl === "merit" ? "dashScholarshipUrlHintMerit" : "dashScholarshipUrlHintNeed")
+              : t("searchScholarshipsIntro")}
+          </p>
           <div className={s.featureGrid}>
             {FEATURES.map((f) => (
               <div key={f.key} className={s.featureCard}>

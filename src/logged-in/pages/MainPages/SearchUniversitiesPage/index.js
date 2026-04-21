@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useCallback, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "../../../../contexts/AuthContext";
 import { useTranslation } from "../../../../hooks/useLanguage";
 import PageTemplate from "../../../shared/PageTemplate";
@@ -98,6 +98,7 @@ function matchesArts(specs) {
 
 const SearchUniversitiesPage = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { user } = useAuth();
   const { t } = useTranslation();
   const isGuest = user?.isGuest === true;
@@ -137,6 +138,23 @@ const SearchUniversitiesPage = () => {
       .catch(() => {});
   }, []);
 
+  useEffect(() => {
+    const q = searchParams.get("q");
+    if (q !== null && q !== "") setNameQuery(q);
+    const pop = searchParams.get("popular");
+    if (pop) {
+      const keys = pop.split(",").map((k) => k.trim()).filter(Boolean);
+      setPopular((prev) => {
+        const next = { ...POPULAR_INITIAL };
+        keys.forEach((key) => {
+          if (Object.prototype.hasOwnProperty.call(POPULAR_INITIAL, key)) {
+            next[key] = true;
+          }
+        });
+        return next;
+      });
+    }
+  }, [searchParams]);
 
   // Ref keeps current favoriteIds accessible inside callbacks without stale closure
   const favoriteIdsRef = useRef(favoriteIds);
