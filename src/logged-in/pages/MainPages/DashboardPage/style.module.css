@@ -907,18 +907,18 @@
 
 .statusContainer {
   display: grid;
-  grid-template-columns: minmax(180px, 220px) minmax(0, 1fr);
-  gap: 24px 28px;
+  grid-template-columns: minmax(132px, 164px) minmax(0, 1fr);
+  gap: 18px 22px;
   align-items: center;
 }
 
 .statusChart {
   position: relative;
   width: 100%;
-  max-width: 220px;
+  max-width: 164px;
   aspect-ratio: 1;
   height: auto;
-  min-height: 180px;
+  min-height: 132px;
   margin: 0 auto;
 }
 
@@ -940,7 +940,7 @@
 }
 
 .statusChartCenterValue {
-  font-size: clamp(26px, 5.5vw, 34px);
+  font-size: clamp(17px, 3.8vw, 23px);
   font-weight: 800;
   line-height: 1;
   color: rgba(255, 255, 255, 0.96);
@@ -948,11 +948,11 @@
 }
 
 .statusChartCenterLabel {
-  margin-top: 6px;
-  font-size: 10px;
+  margin-top: 4px;
+  font-size: 9px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   color: rgba(255, 255, 255, 0.38);
 }
 
@@ -2021,8 +2021,8 @@
   }
 
   .statusChart {
-    max-width: 260px;
-    min-height: 200px;
+    max-width: 200px;
+    min-height: 156px;
   }
 
   .statusLegend {

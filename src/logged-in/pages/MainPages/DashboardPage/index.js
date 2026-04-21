@@ -475,7 +475,7 @@ const DashboardPage = () => {
             responsive: true,
             maintainAspectRatio: false,
             plugins: { legend: { display: false }, tooltip: { enabled: true } },
-            cutout: "44%",
+            cutout: "54%",
           },
         });
       }
