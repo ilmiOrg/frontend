@@ -42,3 +42,24 @@
   border-color: rgba(52, 211, 153, 0.55);
   box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.2);
 }
+
+:global(body[theme="light"]) .label {
+  color: var(--on-surface-variant);
+}
+:global(body[theme="light"]) .input {
+  background: var(--surface-container);
+  border: 1px solid var(--outline-ghost);
+  color: var(--on-surface);
+}
+:global(body[theme="light"]) .input::placeholder {
+  color: var(--on-surface-muted);
+}
+:global(body[theme="light"]) .input:hover {
+  background: var(--surface-container-high);
+  border-color: var(--outline);
+}
+:global(body[theme="light"]) .input:focus {
+  background: var(--surface-container-lowest);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(0, 108, 81, 0.18);
+}

@@ -8,16 +8,32 @@ function getToken() {
     : null;
 }
 
+/**
+ * Backend exposes program categories only as the `Field` enum on each Program
+ * (no GET /api/v1/programs/categories route exists in master). Mirror the
+ * enum as a client-side catalog so the filter UI still works. Shape matches
+ * what the page expects: { categoryId, categoryName }.
+ */
+const PROGRAM_CATEGORIES = [
+  { categoryId: "COMPUTER_SCIENCE", categoryName: "Computer Science & IT" },
+  { categoryId: "ENGINEERING", categoryName: "Engineering" },
+  { categoryId: "MEDICINE", categoryName: "Medicine & Health" },
+  { categoryId: "LAW", categoryName: "Law" },
+  { categoryId: "BUSINESS", categoryName: "Business & Management" },
+  { categoryId: "ECONOMICS", categoryName: "Economics" },
+  { categoryId: "MATHEMATICS", categoryName: "Mathematics" },
+  { categoryId: "PHYSICS", categoryName: "Physics" },
+  { categoryId: "BIOLOGY", categoryName: "Biology" },
+  { categoryId: "CHEMISTRY", categoryName: "Chemistry" },
+  { categoryId: "HUMANITIES", categoryName: "Humanities" },
+  { categoryId: "SOCIAL_SCIENCES", categoryName: "Social Sciences" },
+  { categoryId: "ARTS", categoryName: "Arts & Design" },
+  { categoryId: "EDUCATION", categoryName: "Education" },
+  { categoryId: "ARCHITECTURE", categoryName: "Architecture" },
+];
+
 export async function getProgramCategories() {
-  const res = await fetch(apiUrl("/api/v1/programs/categories"), {
-    method: "GET",
-    headers: jsonHeaders(),
-  });
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error(text || "Failed to fetch program categories");
-  }
-  return res.json();
+  return PROGRAM_CATEGORIES;
 }
 
 export async function searchPrograms(params = {}) {

@@ -171,3 +171,30 @@
     display: none;
   }
 }
+
+/* Light theme · Digital Curator */
+:global(body[theme="light"]) .filtersPanel {
+  background: var(--surface-container-lowest);
+  border: 1px solid var(--outline-ghost);
+  box-shadow: var(--shadow-floating);
+}
+:global(body[theme="light"]) .filtersDivider,
+:global(body[theme="light"]) .resultsSection {
+  border-top-color: var(--outline-ghost);
+}
+:global(body[theme="light"]) .panelTitle,
+:global(body[theme="light"]) .rangeLabel {
+  color: var(--on-surface-variant);
+}
+:global(body[theme="light"]) .resultsTitle {
+  color: var(--on-surface);
+}
+:global(body[theme="light"]) .resultsCount,
+:global(body[theme="light"]) .rangeSep,
+:global(body[theme="light"]) .emptyState {
+  color: var(--on-surface-variant);
+}
+:global(body[theme="light"]) .emptyState {
+  background: var(--surface-container-low);
+  border: 1px dashed var(--outline-ghost);
+}

@@ -37,3 +37,24 @@
   border-color: rgba(52, 211, 153, 0.65);
   color: #fff;
 }
+
+:global(body[theme="light"]) .chip {
+  background: var(--surface-container);
+  border: 1px solid var(--outline-ghost);
+  color: var(--on-surface-variant);
+}
+:global(body[theme="light"]) .chip:hover {
+  background: var(--surface-container-high);
+  border-color: var(--primary);
+  color: var(--on-surface);
+}
+:global(body[theme="light"]) .chipPressed {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--on-primary);
+  box-shadow: 0 0 0 1px var(--primary), 0 4px 16px rgba(0, 108, 81, 0.2);
+}
+:global(body[theme="light"]) .chipPressed:hover {
+  background: var(--on-primary-container);
+  color: var(--on-primary);
+}

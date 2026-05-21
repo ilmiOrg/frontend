@@ -341,11 +341,11 @@
 
 .heroLineGradient {
   display: block;
-  background: linear-gradient(90deg, #00f0ff 0%, #00ff88 100%);
+  background: linear-gradient(90deg, #7afbce 0%, #006c51 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  filter: drop-shadow(0 4px 12px rgba(0, 240, 255, 0.3));
+  filter: drop-shadow(0 4px 12px rgba(122, 251, 206, 0.35));
 }
 
 .heroDescription {
@@ -364,8 +364,8 @@
 }
 
 .btnHero {
-  background: var(--text-white);
-  color: var(--black);
+  background: var(--primary);
+  color: var(--on-primary);
   border: none;
   padding: 16px 36px;
   border-radius: 12px;
@@ -373,12 +373,14 @@
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 24px rgba(122, 251, 206, 0.25);
 }
 
 .btnHero:hover {
+  background: var(--primary-container);
+  color: var(--on-primary-container);
   transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(255, 255, 255, 0.25);
+  box-shadow: 0 12px 32px rgba(122, 251, 206, 0.35);
 }
 
 .btnSecondary {
@@ -1700,4 +1702,108 @@
   border-color: var(--gray-300);
   background: var(--gray-50);
   color: var(--gray-500);
+}
+
+/* =============================================================================
+   LIGHT THEME · Digital Curator overrides
+   ========================================================================== */
+:global(body[theme="light"]) .page {
+  background: var(--surface);
+  color: var(--on-surface);
+}
+
+:global(body[theme="light"]) .navbar {
+  background: rgba(247, 249, 251, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--outline-ghost);
+}
+
+:global(body[theme="light"]) .logo {
+  color: var(--on-surface);
+}
+
+:global(body[theme="light"]) .btnPrimary {
+  background: var(--primary-container);
+  color: var(--on-primary-container);
+}
+:global(body[theme="light"]) .btnPrimary:hover {
+  background: var(--primary);
+  color: var(--on-primary);
+  box-shadow: 0 6px 20px rgba(0, 108, 81, 0.25);
+}
+
+:global(body[theme="light"]) .hero {
+  background: var(--surface);
+}
+
+:global(body[theme="light"]) .heroOverlay {
+  background: linear-gradient(
+    to right,
+    rgba(247, 249, 251, 0.92) 0%,
+    rgba(247, 249, 251, 0.7) 30%,
+    rgba(247, 249, 251, 0.3) 50%,
+    rgba(247, 249, 251, 0) 100%
+  );
+}
+
+:global(body[theme="light"]) .heroLine {
+  color: var(--on-surface);
+}
+
+:global(body[theme="light"]) .heroLineGradient {
+  background: var(--gradient-hero);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 4px 12px rgba(0, 108, 81, 0.18));
+}
+
+:global(body[theme="light"]) .heroDescription {
+  color: var(--on-surface-variant);
+}
+
+:global(body[theme="light"]) .btnHero {
+  background: var(--primary);
+  color: var(--on-primary);
+  box-shadow: 0 8px 24px rgba(0, 108, 81, 0.2);
+}
+:global(body[theme="light"]) .btnHero:hover {
+  background: var(--on-primary-container);
+  box-shadow: 0 12px 32px rgba(0, 108, 81, 0.3);
+}
+
+:global(body[theme="light"]) .btnSecondary {
+  background: var(--surface-container-lowest);
+  color: var(--on-surface);
+  border: 1px solid var(--outline-ghost);
+}
+:global(body[theme="light"]) .btnSecondary:hover {
+  background: var(--surface-container-low);
+  border-color: var(--primary);
+}
+
+:global(body[theme="light"]) .contactSubmitBtn {
+  background: var(--primary);
+  color: var(--on-primary);
+}
+:global(body[theme="light"]) .contactSubmitBtn:hover {
+  background: var(--on-primary-container);
+  box-shadow: 0 8px 24px rgba(0, 108, 81, 0.25);
+}
+
+:global(body[theme="light"]) .footerCopy {
+  color: var(--on-surface-muted);
+}
+
+:global(body[theme="light"]) .partners {
+  background: var(--surface);
+  border-top: 1px solid var(--outline-ghost);
+}
+
+:global(body[theme="light"]) .logoCarousel::before {
+  background: linear-gradient(90deg, var(--surface) 0%, rgba(247, 249, 251, 0) 100%);
+}
+:global(body[theme="light"]) .logoCarousel::after {
+  background: linear-gradient(270deg, var(--surface) 0%, rgba(247, 249, 251, 0) 100%);
 }

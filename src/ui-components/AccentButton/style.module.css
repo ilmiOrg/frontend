@@ -25,3 +25,15 @@
 .btn:active {
   transform: translateY(0);
 }
+
+:global(body[theme="light"]) .btn {
+  background: var(--primary);
+  color: var(--on-primary);
+  border: 1px solid var(--primary);
+  box-shadow: 0 4px 16px rgba(0, 108, 81, 0.18);
+}
+:global(body[theme="light"]) .btn:hover {
+  background: var(--on-primary-container);
+  border-color: var(--on-primary-container);
+  box-shadow: 0 8px 24px rgba(0, 108, 81, 0.28);
+}

@@ -370,3 +370,101 @@
     text-align: center;
   }
 }
+
+/* Light theme · Digital Curator */
+:global(body[theme="light"]) .page {
+  background: var(--surface);
+  color: var(--on-surface);
+}
+:global(body[theme="light"]) .header {
+  background: var(--surface-container-lowest);
+  border: 1px solid var(--outline-ghost);
+  box-shadow: var(--shadow-floating);
+}
+:global(body[theme="light"]) .title,
+:global(body[theme="light"]) .offerContent h3,
+:global(body[theme="light"]) .successContainer h2,
+:global(body[theme="light"]) .premiumBanner h3 {
+  color: var(--on-surface);
+}
+:global(body[theme="light"]) .description,
+:global(body[theme="light"]) .offerContent p,
+:global(body[theme="light"]) .successContainer > p,
+:global(body[theme="light"]) .premiumBanner p {
+  color: var(--on-surface-variant);
+}
+:global(body[theme="light"]) .backButton {
+  background: var(--surface-container);
+  border: 1px solid var(--outline-ghost);
+  color: var(--on-surface-variant);
+}
+:global(body[theme="light"]) .backButton:hover {
+  background: var(--primary-container);
+  border-color: var(--primary);
+  color: var(--on-primary-container);
+}
+:global(body[theme="light"]) .premiumOffer,
+:global(body[theme="light"]) .premiumBanner {
+  background: linear-gradient(135deg, rgba(0, 108, 81, 0.08), rgba(122, 251, 206, 0.18));
+  border: 1px solid rgba(0, 108, 81, 0.2);
+  color: var(--on-surface);
+}
+:global(body[theme="light"]) .tabs {
+  background: var(--surface-container);
+  border: 1px solid var(--outline-ghost);
+}
+:global(body[theme="light"]) .tab {
+  color: var(--on-surface-variant);
+}
+:global(body[theme="light"]) .tab:hover {
+  background: var(--surface-container-high);
+  color: var(--on-surface);
+}
+:global(body[theme="light"]) .activeTab {
+  background: var(--primary);
+  color: var(--on-primary);
+}
+:global(body[theme="light"]) .form,
+:global(body[theme="light"]) .successContainer {
+  background: var(--surface-container-lowest);
+  border: 1px solid var(--outline-ghost);
+  box-shadow: var(--shadow-floating);
+}
+:global(body[theme="light"]) .formGroup label {
+  color: var(--on-surface-variant);
+}
+:global(body[theme="light"]) .input,
+:global(body[theme="light"]) .select,
+:global(body[theme="light"]) .textarea {
+  background: var(--surface-container);
+  border: 1px solid var(--outline-ghost);
+  color: var(--on-surface);
+}
+:global(body[theme="light"]) .input::placeholder,
+:global(body[theme="light"]) .textarea::placeholder {
+  color: var(--on-surface-muted);
+}
+:global(body[theme="light"]) .input:focus,
+:global(body[theme="light"]) .select:focus,
+:global(body[theme="light"]) .textarea:focus {
+  border-color: var(--primary);
+  background: var(--surface-container-lowest);
+}
+:global(body[theme="light"]) .select option {
+  background: var(--surface-container-lowest);
+  color: var(--on-surface);
+}
+:global(body[theme="light"]) .submitBtn,
+:global(body[theme="light"]) .backToDashboard {
+  background: var(--primary);
+  color: var(--on-primary);
+}
+:global(body[theme="light"]) .submitBtn:hover:not(:disabled),
+:global(body[theme="light"]) .backToDashboard:hover {
+  background: var(--on-primary-container);
+}
+:global(body[theme="light"]) .successIcon,
+:global(body[theme="light"]) .premiumIcon,
+:global(body[theme="light"]) .offerIcon {
+  color: var(--primary);
+}

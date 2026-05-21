@@ -556,3 +556,67 @@
     min-width: auto;
   }
 }
+
+/* Light theme · Digital Curator */
+:global(body[theme="light"]) .filtersPanel {
+  background: var(--surface-container-lowest);
+  border: 1px solid var(--outline-ghost);
+  box-shadow: var(--shadow-floating);
+}
+:global(body[theme="light"]) .panelTitle,
+:global(body[theme="light"]) .rangeLabel,
+:global(body[theme="light"]) .selectionHint {
+  color: var(--on-surface-variant);
+}
+:global(body[theme="light"]) .fieldCard {
+  background: var(--surface-container-lowest);
+  border: 1px solid var(--outline-ghost);
+  color: var(--on-surface);
+}
+:global(body[theme="light"]) .fieldCard:hover {
+  background: var(--surface-container-low);
+  border-color: var(--primary);
+}
+:global(body[theme="light"]) .fieldCardSelected {
+  background: var(--primary-container);
+  border-color: var(--primary);
+  color: var(--on-primary-container);
+}
+:global(body[theme="light"]) .checkbox {
+  background: var(--surface-container);
+  border: 1px solid var(--outline-ghost);
+}
+:global(body[theme="light"]) .fieldCardSelected .checkbox {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--on-primary);
+}
+:global(body[theme="light"]) .fieldIcon,
+:global(body[theme="light"]) .fieldLabel {
+  color: var(--on-surface);
+}
+:global(body[theme="light"]) .fieldDetailLink {
+  background: var(--surface-container);
+  color: var(--on-surface-variant);
+  border: 1px solid var(--outline-ghost);
+}
+:global(body[theme="light"]) .fieldDetailLink:hover {
+  background: var(--primary);
+  color: var(--on-primary);
+  border-color: var(--primary);
+}
+:global(body[theme="light"]) .filtersToggle {
+  background: var(--surface-container);
+  border: 1px solid var(--outline-ghost);
+  color: var(--on-surface);
+}
+:global(body[theme="light"]) .filtersToggle:hover,
+:global(body[theme="light"]) .filtersToggleActive {
+  background: var(--primary-container);
+  border-color: var(--primary);
+  color: var(--on-primary-container);
+}
+:global(body[theme="light"]) .filtersBadge {
+  background: var(--primary);
+  color: var(--on-primary);
+}

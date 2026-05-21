@@ -127,3 +127,40 @@
 .btnDanger:hover {
   background: rgba(248, 113, 113, 0.12);
 }
+
+/* Light theme · Digital Curator */
+:global(body[theme="light"]) .emptyState {
+  background: var(--surface-container-low);
+  border: 1px dashed var(--outline-ghost);
+  color: var(--on-surface-variant);
+}
+:global(body[theme="light"]) .programCard {
+  background: var(--surface-container-lowest);
+  border: 1px solid var(--outline-ghost);
+  box-shadow: var(--shadow-floating);
+  color: var(--on-surface);
+}
+:global(body[theme="light"]) .programName {
+  color: var(--on-surface);
+}
+:global(body[theme="light"]) .programCategory,
+:global(body[theme="light"]) .programMeta {
+  color: var(--on-surface-variant);
+}
+:global(body[theme="light"]) .programTuition {
+  color: var(--primary);
+}
+:global(body[theme="light"]) .btnOutline {
+  background: var(--surface-container);
+  color: var(--on-surface);
+  border: 1px solid var(--outline-ghost);
+}
+:global(body[theme="light"]) .btnOutline:hover {
+  background: var(--surface-container-high);
+  border-color: var(--primary);
+}
+:global(body[theme="light"]) .btnDanger {
+  background: rgba(179, 38, 30, 0.1);
+  color: var(--error);
+  border: 1px solid rgba(179, 38, 30, 0.3);
+}

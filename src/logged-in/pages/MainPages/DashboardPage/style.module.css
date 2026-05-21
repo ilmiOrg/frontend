@@ -1,24 +1,15 @@
 /* ============================================
-   ilmi DASHBOARD - Clean Design System
+   ilmi DASHBOARD content cards
    ============================================ */
 
-/* ===== BASE LAYOUT ===== */
-.dashboard {
-  display: grid;
-  grid-template-columns: 260px 1fr;
-  min-height: 100vh;
-  max-height: 100vh;
-  background: var(--surface-primary, rgba(8, 12, 16, 1));
-  color: rgba(255, 255, 255, 0.95);
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  position: fixed;
-  inset: 0;
-  overflow: hidden;
-  transition: grid-template-columns 250ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.dashboard.leftCollapsed {
-  grid-template-columns: 0 1fr;
+/* Rendered inside <DashboardLayout> -> .mainContent .outletWrap */
+.dashboardInner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+  color: var(--on-surface);
+  font-family: var(--font-body);
+  width: 100%;
 }
 
 /* ===== SUBTLE BACKGROUND ===== */
@@ -3447,4 +3438,511 @@
 
 .premiumConnList li:last-child {
   margin-bottom: 0;
+}
+
+/* =============================================================================
+   LIGHT THEME · Digital Curator overrides (Dashboard)
+   --------------------------------------------------------------------------- */
+:global(body[theme="light"]) .dashboard {
+  background: var(--surface);
+  color: var(--on-surface);
+}
+
+:global(body[theme="light"]) .sidebar {
+  background: var(--surface-container-low);
+  border-right: 1px solid var(--outline-ghost);
+}
+
+:global(body[theme="light"]) .navItem,
+:global(body[theme="light"]) .navLabel,
+:global(body[theme="light"]) .tagline {
+  color: var(--on-surface-variant);
+}
+:global(body[theme="light"]) .navItem:hover {
+  background: var(--surface-container);
+  color: var(--on-surface);
+}
+:global(body[theme="light"]) .navItem.active {
+  background: var(--primary-container);
+  color: var(--on-primary-container);
+}
+:global(body[theme="light"]) .navItem.active .navIcon,
+:global(body[theme="light"]) .navItem:hover .navIcon {
+  color: var(--on-primary-container);
+}
+:global(body[theme="light"]) .navIcon {
+  color: var(--on-surface-muted);
+}
+:global(body[theme="light"]) .navSectionLabel {
+  color: var(--on-surface-muted);
+}
+:global(body[theme="light"]) .telegramLink {
+  background: var(--surface-container);
+  color: var(--on-surface-variant);
+  border: 1px solid var(--outline-ghost);
+}
+:global(body[theme="light"]) .telegramLink:hover {
+  background: var(--surface-container-high);
+  color: var(--on-surface);
+}
+:global(body[theme="light"]) .logoutItem {
+  color: var(--on-surface-variant);
+}
+:global(body[theme="light"]) .logoutItem:hover {
+  background: var(--surface-container);
+  color: var(--error);
+}
+
+:global(body[theme="light"]) .mainContent {
+  background: var(--surface);
+}
+
+:global(body[theme="light"]) .topBar,
+:global(body[theme="light"]) .welcomeBarTitle,
+:global(body[theme="light"]) .profileName,
+:global(body[theme="light"]) .topProfileName,
+:global(body[theme="light"]) .cardTitle,
+:global(body[theme="light"]) .sectionTitle,
+:global(body[theme="light"]) .dreamTitle,
+:global(body[theme="light"]) .dreamSchoolName,
+:global(body[theme="light"]) .uniName,
+:global(body[theme="light"]) .statusChartCenterValue,
+:global(body[theme="light"]) .statusTotal,
+:global(body[theme="light"]) .featureTitle,
+:global(body[theme="light"]) .personName,
+:global(body[theme="light"]) .matchName,
+:global(body[theme="light"]) .premiumTitle,
+:global(body[theme="light"]) .courseName,
+:global(body[theme="light"]) .scholarshipName,
+:global(body[theme="light"]) .interviewTitle,
+:global(body[theme="light"]) .serviceTitle,
+:global(body[theme="light"]) .deadlineTitle,
+:global(body[theme="light"]) .statNumber {
+  color: var(--on-surface);
+}
+
+:global(body[theme="light"]) .profileEmail,
+:global(body[theme="light"]) .timezone,
+:global(body[theme="light"]) .cardDescription,
+:global(body[theme="light"]) .sectionLead,
+:global(body[theme="light"]) .dreamLocation,
+:global(body[theme="light"]) .uniLocation,
+:global(body[theme="light"]) .uniStatLabel,
+:global(body[theme="light"]) .scholarshipDesc,
+:global(body[theme="light"]) .featureDesc,
+:global(body[theme="light"]) .personDesc,
+:global(body[theme="light"]) .matchDesc,
+:global(body[theme="light"]) .courseDesc,
+:global(body[theme="light"]) .interviewDesc,
+:global(body[theme="light"]) .serviceDesc,
+:global(body[theme="light"]) .reviewDesc,
+:global(body[theme="light"]) .deadlineDate,
+:global(body[theme="light"]) .statusLabel,
+:global(body[theme="light"]) .statLabel,
+:global(body[theme="light"]) .progressLabel,
+:global(body[theme="light"]) .statusChartCenterLabel,
+:global(body[theme="light"]) .premiumConnList,
+:global(body[theme="light"]) .liveSupportMsg {
+  color: var(--on-surface-variant);
+}
+
+:global(body[theme="light"]) .card,
+:global(body[theme="light"]) .dreamCard,
+:global(body[theme="light"]) .deadlinesCard,
+:global(body[theme="light"]) .chartCard,
+:global(body[theme="light"]) .statusCard,
+:global(body[theme="light"]) .section,
+:global(body[theme="light"]) .uniCard,
+:global(body[theme="light"]) .featureCard,
+:global(body[theme="light"]) .scholarshipCard,
+:global(body[theme="light"]) .personCard,
+:global(body[theme="light"]) .matchCard,
+:global(body[theme="light"]) .statCard,
+:global(body[theme="light"]) .premiumCard,
+:global(body[theme="light"]) .reviewItem,
+:global(body[theme="light"]) .interviewCard,
+:global(body[theme="light"]) .serviceItem,
+:global(body[theme="light"]) .courseCard,
+:global(body[theme="light"]) .moduleCard {
+  background: var(--surface-container-lowest);
+  border: 1px solid var(--outline-ghost);
+  color: var(--on-surface);
+  box-shadow: var(--shadow-floating);
+}
+
+:global(body[theme="light"]) .card:hover,
+:global(body[theme="light"]) .uniCard:hover,
+:global(body[theme="light"]) .featureCard:hover,
+:global(body[theme="light"]) .personCard:hover,
+:global(body[theme="light"]) .matchCard:hover,
+:global(body[theme="light"]) .premiumCard:hover,
+:global(body[theme="light"]) .courseCard:hover {
+  background: var(--surface-container-low);
+  box-shadow: var(--shadow-hover);
+}
+
+:global(body[theme="light"]) .actionBtn,
+:global(body[theme="light"]) .topProfileButton,
+:global(body[theme="light"]) .streakBadge,
+:global(body[theme="light"]) .uniBtnOutline,
+:global(body[theme="light"]) .dreamBtnSecondary,
+:global(body[theme="light"]) .sectionActionOutline {
+  background: var(--surface-container);
+  border: 1px solid var(--outline-ghost);
+  color: var(--on-surface);
+}
+
+:global(body[theme="light"]) .actionBtn:hover,
+:global(body[theme="light"]) .topProfileButton:hover,
+:global(body[theme="light"]) .uniBtnOutline:hover,
+:global(body[theme="light"]) .dreamBtnSecondary:hover,
+:global(body[theme="light"]) .sectionActionOutline:hover {
+  background: var(--surface-container-high);
+  border-color: var(--primary);
+}
+
+:global(body[theme="light"]) .uniBtnPrimary,
+:global(body[theme="light"]) .dreamBtnPrimary,
+:global(body[theme="light"]) .sectionActionPrimary {
+  background: var(--primary);
+  color: var(--on-primary);
+  border: none;
+}
+:global(body[theme="light"]) .uniBtnPrimary:hover,
+:global(body[theme="light"]) .dreamBtnPrimary:hover,
+:global(body[theme="light"]) .sectionActionPrimary:hover {
+  background: var(--on-primary-container);
+  box-shadow: 0 8px 20px rgba(0, 108, 81, 0.22);
+}
+
+:global(body[theme="light"]) .sendInfoBtn {
+  background: var(--primary);
+  color: var(--on-primary);
+}
+:global(body[theme="light"]) .sendInfoBtn:hover {
+  background: var(--on-primary-container);
+}
+
+:global(body[theme="light"]) .deadlineRow,
+:global(body[theme="light"]) .progressBar {
+  background: var(--surface-container);
+}
+:global(body[theme="light"]) .deadlineRow:hover {
+  background: var(--surface-container-high);
+}
+
+:global(body[theme="light"]) .dreamPill,
+:global(body[theme="light"]) .mentorTag {
+  background: var(--surface-container);
+  color: var(--on-surface-variant);
+  border: 1px solid var(--outline-ghost);
+}
+
+:global(body[theme="light"]) .searchSelect {
+  background: var(--surface-container-lowest);
+  color: var(--on-surface);
+  border: 1px solid var(--outline-ghost);
+}
+:global(body[theme="light"]) .searchSelect:hover,
+:global(body[theme="light"]) .searchSelect:focus {
+  border-color: var(--primary);
+  outline: none;
+}
+
+:global(body[theme="light"]) .sidebarToggle {
+  background: var(--gradient-hero);
+  color: var(--on-primary);
+}
+
+:global(body[theme="light"]) .logo {
+  background: var(--gradient-hero);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+:global(body[theme="light"]) .notifBadge {
+  background: var(--error);
+  color: var(--on-primary);
+}
+
+:global(body[theme="light"]) .avatar,
+:global(body[theme="light"]) .topProfileAvatar {
+  background: var(--primary-container);
+  color: var(--on-primary-container);
+}
+
+:global(body[theme="light"]) .topBar {
+  background: var(--glass-card);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--outline-ghost);
+  box-shadow: var(--shadow-floating);
+}
+
+:global(body[theme="light"]) .welcomeBarTitle {
+  color: var(--on-surface);
+}
+
+:global(body[theme="light"]) .progressPercent,
+:global(body[theme="light"]) .dreamReadinessValue {
+  color: var(--primary);
+}
+
+:global(body[theme="light"]) .ringFill {
+  stroke: var(--primary);
+}
+:global(body[theme="light"]) .ringBg {
+  stroke: var(--outline-ghost);
+}
+
+:global(body[theme="light"]) .progressLabel,
+:global(body[theme="light"]) .dreamReadinessHead {
+  color: var(--on-surface-variant);
+}
+
+:global(body[theme="light"]) .dreamReadinessTrack {
+  background: var(--surface-container);
+}
+:global(body[theme="light"]) .dreamReadinessFill {
+  background: var(--gradient-hero);
+}
+
+:global(body[theme="light"]) .liquidShape {
+  opacity: 0.05;
+}
+
+:global(body[theme="light"]) .friendsHubPanel,
+:global(body[theme="light"]) .friendsHubOnlinePanel,
+:global(body[theme="light"]) .friendsHubActionsCard,
+:global(body[theme="light"]) .friendsHubPeerCard,
+:global(body[theme="light"]) .aiPeerCard,
+:global(body[theme="light"]) .aiShowcaseUniCard,
+:global(body[theme="light"]) .aiShowcaseScholCard,
+:global(body[theme="light"]) .friendConnCard,
+:global(body[theme="light"]) .friendConnList .friendConnCard,
+:global(body[theme="light"]) .premiumConnCard,
+:global(body[theme="light"]) .toolCard,
+:global(body[theme="light"]) .essayItem,
+:global(body[theme="light"]) .problemCard,
+:global(body[theme="light"]) .quickLinkCard,
+:global(body[theme="light"]) .navItemBlock {
+  background: var(--surface-container-lowest);
+  border: 1px solid var(--outline-ghost);
+  color: var(--on-surface);
+  box-shadow: var(--shadow-floating);
+}
+
+:global(body[theme="light"]) .aiShowcaseUniName,
+:global(body[theme="light"]) .aiShowcaseScholTitle,
+:global(body[theme="light"]) .aiPeerName,
+:global(body[theme="light"]) .friendConnName,
+:global(body[theme="light"]) .friendsHubColumnTitle,
+:global(body[theme="light"]) .friendsHubRightTitle,
+:global(body[theme="light"]) .friendsHubSubTitle,
+:global(body[theme="light"]) .friendsHubOnlineName,
+:global(body[theme="light"]) .dashConnAsideCount,
+:global(body[theme="light"]) .dashConnAsideNameItem,
+:global(body[theme="light"]) .quickLinkTitle,
+:global(body[theme="light"]) .toolTitle,
+:global(body[theme="light"]) .essayTitle,
+:global(body[theme="light"]) .moduleName,
+:global(body[theme="light"]) .previewListTitle,
+:global(body[theme="light"]) .previewResultsTitle {
+  color: var(--on-surface);
+}
+
+:global(body[theme="light"]) .aiShowcaseUniLoc,
+:global(body[theme="light"]) .aiShowcaseScholMeta,
+:global(body[theme="light"]) .aiShowcaseUniRank,
+:global(body[theme="light"]) .aiShowcaseScholLabel,
+:global(body[theme="light"]) .aiPeerDesc,
+:global(body[theme="light"]) .friendConnDesc,
+:global(body[theme="light"]) .friendsHubOnlineEmpty,
+:global(body[theme="light"]) .dashConnAsideLabel,
+:global(body[theme="light"]) .quickLinkDesc,
+:global(body[theme="light"]) .toolDesc,
+:global(body[theme="light"]) .moduleDesc,
+:global(body[theme="light"]) .previewListMeta,
+:global(body[theme="light"]) .previewResultsCount,
+:global(body[theme="light"]) .navSubsectionLabel {
+  color: var(--on-surface-variant);
+}
+
+:global(body[theme="light"]) .aiShowcaseWholeListBtn,
+:global(body[theme="light"]) .friendsHubSeeMoreBtn,
+:global(body[theme="light"]) .friendsHubSeeMoreInRow,
+:global(body[theme="light"]) .aiShowcaseWholeListBtnSlim,
+:global(body[theme="light"]) .dashConnAsideCta,
+:global(body[theme="light"]) .friendsHubActionsRow,
+:global(body[theme="light"]) .aiPeerAddFriendBtn,
+:global(body[theme="light"]) .friendsHubPeerCard .friendsHubPeerAdd {
+  background: var(--surface-container);
+  border: 1px solid var(--outline-ghost);
+  color: var(--on-surface);
+}
+
+:global(body[theme="light"]) .aiShowcaseWholeListBtn:hover,
+:global(body[theme="light"]) .friendsHubSeeMoreBtn:hover,
+:global(body[theme="light"]) .friendsHubActionsRow:hover,
+:global(body[theme="light"]) .aiPeerAddFriendBtn:hover,
+:global(body[theme="light"]) .friendsHubPeerCard .friendsHubPeerAdd:hover {
+  background: var(--primary-container);
+  color: var(--on-primary-container);
+  border-color: var(--primary);
+}
+
+:global(body[theme="light"]) .friendConnChat {
+  background: var(--primary-container);
+  color: var(--on-primary-container);
+  border: 1px solid var(--primary);
+}
+:global(body[theme="light"]) .friendConnChat:hover {
+  background: var(--primary);
+  color: var(--on-primary);
+}
+
+:global(body[theme="light"]) .previewSearchBar,
+:global(body[theme="light"]) .previewSearchInput {
+  background: var(--surface-container-lowest);
+  color: var(--on-surface);
+  border: 1px solid var(--outline-ghost);
+}
+:global(body[theme="light"]) .previewSearchInput::placeholder {
+  color: var(--on-surface-muted);
+}
+
+:global(body[theme="light"]) .previewChip,
+:global(body[theme="light"]) .aiPeerSimilarityChip,
+:global(body[theme="light"]) .friendsHubActionsChevron {
+  background: var(--surface-container);
+  color: var(--on-surface-variant);
+  border: 1px solid var(--outline-ghost);
+}
+:global(body[theme="light"]) .previewChipActive {
+  background: var(--primary);
+  color: var(--on-primary);
+  border-color: var(--primary);
+}
+
+:global(body[theme="light"]) .aiPeerAvatar {
+  background: var(--primary-container);
+  color: var(--on-primary-container);
+}
+
+:global(body[theme="light"]) .friendsHubOnlineDot,
+:global(body[theme="light"]) .friendConnOnline {
+  background: var(--primary);
+}
+:global(body[theme="light"]) .friendConnAway {
+  background: var(--warning);
+}
+
+:global(body[theme="light"]) .premiumConnList {
+  color: var(--on-surface-variant);
+}
+
+:global(body[theme="light"]) .friendsHubLeft,
+:global(body[theme="light"]) .friendsHubSplit > * {
+  background: transparent;
+  border: none;
+  border-right: none;
+}
+:global(body[theme="light"]) .friendsHubLeft {
+  background: var(--surface-container-low);
+  border: 1px solid var(--outline-ghost);
+}
+:global(body[theme="light"]) .friendsHubPeerCard {
+  background: var(--surface-container-lowest);
+  border: 1px solid var(--outline-ghost);
+  box-shadow: var(--shadow-floating);
+}
+:global(body[theme="light"]) .friendsHubPeerCard .friendsHubPeerMain:hover {
+  background: var(--surface-container-low);
+}
+:global(body[theme="light"]) .friendsHubRight {
+  background: transparent;
+}
+
+:global(body[theme="light"]) .dashConnAside,
+:global(body[theme="light"]) .dashConnAsideFriends {
+  background: var(--surface-container-lowest);
+  border: 1px solid var(--outline-ghost);
+  box-shadow: var(--shadow-floating);
+}
+
+:global(body[theme="light"]) .aiShowcaseCardsTrack,
+:global(body[theme="light"]) .aiShowcaseRow {
+  background: transparent;
+}
+
+:global(body[theme="light"]) .liveSupportBox {
+  background: var(--surface-container-low);
+  border: 1px solid var(--outline-ghost);
+  color: var(--on-surface-variant);
+}
+:global(body[theme="light"]) .liveSupportTitle,
+:global(body[theme="light"]) .liveSupportBold {
+  color: var(--on-surface);
+}
+
+:global(body[theme="light"]) .scholarshipFooter,
+:global(body[theme="light"]) .scholarshipDeadline,
+:global(body[theme="light"]) .scholarshipMatch,
+:global(body[theme="light"]) .scholarshipAmount {
+  color: var(--on-surface-variant);
+}
+:global(body[theme="light"]) .scholarshipAmount {
+  color: var(--primary);
+  font-weight: var(--fontWeight-bold);
+}
+
+:global(body[theme="light"]) .uniStats,
+:global(body[theme="light"]) .uniStat {
+  color: var(--on-surface-variant);
+}
+:global(body[theme="light"]) .uniStatValue {
+  color: var(--on-surface);
+  font-weight: var(--fontWeight-bold);
+}
+
+:global(body[theme="light"]) .deadlineUrgent {
+  background: rgba(179, 38, 30, 0.1);
+  color: var(--error);
+}
+:global(body[theme="light"]) .deadlineWarning {
+  background: rgba(183, 132, 0, 0.12);
+  color: var(--warning);
+}
+:global(body[theme="light"]) .deadlineNormal {
+  background: rgba(0, 108, 81, 0.1);
+  color: var(--primary);
+}
+
+:global(body[theme="light"]) .reviewRating,
+:global(body[theme="light"]) .premiumPrice,
+:global(body[theme="light"]) .interviewPrice {
+  color: var(--primary);
+}
+
+:global(body[theme="light"]) .premiumOffer,
+:global(body[theme="light"]) .premiumBanner {
+  background: linear-gradient(135deg, rgba(0, 108, 81, 0.08), rgba(122, 251, 206, 0.18));
+  border: 1px solid rgba(0, 108, 81, 0.2);
+  color: var(--on-surface);
+}
+
+:global(body[theme="light"]) .matchPercent {
+  background: var(--primary-container);
+  color: var(--on-primary-container);
+}
+
+:global(body[theme="light"]) .personStats,
+:global(body[theme="light"]) .personScore,
+:global(body[theme="light"]) .personStatus,
+:global(body[theme="light"]) .courseMeta,
+:global(body[theme="light"]) .moduleStatus,
+:global(body[theme="light"]) .essayStatus,
+:global(body[theme="light"]) .mentorRating {
+  color: var(--on-surface-variant);
 }

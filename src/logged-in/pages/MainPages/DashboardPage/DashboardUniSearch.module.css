@@ -182,3 +182,49 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Light theme · Digital Curator */
+:global(body[theme="light"]) .root,
+:global(body[theme="light"]) .empty {
+  color: var(--on-surface);
+}
+:global(body[theme="light"]) .panelTitle,
+:global(body[theme="light"]) .resultCount,
+:global(body[theme="light"]) .cardName {
+  color: var(--on-surface);
+}
+:global(body[theme="light"]) .tuitionLabel,
+:global(body[theme="light"]) .tuitionSep,
+:global(body[theme="light"]) .cardMeta {
+  color: var(--on-surface-variant);
+}
+:global(body[theme="light"]) .compactCard {
+  background: var(--surface-container-lowest);
+  border: 1px solid var(--outline-ghost);
+}
+:global(body[theme="light"]) .compactCard:hover {
+  background: var(--surface-container-low);
+  border-color: var(--primary);
+}
+:global(body[theme="light"]) .cardBadge {
+  background: var(--primary-container);
+}
+:global(body[theme="light"]) .badgeText {
+  color: var(--on-primary-container);
+}
+:global(body[theme="light"]) .cardTuition {
+  color: var(--primary);
+}
+:global(body[theme="light"]) .showMore {
+  background: var(--surface-container);
+  border: 1px solid var(--outline-ghost);
+  color: var(--on-surface-variant);
+}
+:global(body[theme="light"]) .showMore:hover {
+  background: var(--surface-container-high);
+  border-color: var(--primary);
+  color: var(--on-surface);
+}
+:global(body[theme="light"]) .divider {
+  background: var(--outline-ghost);
+}

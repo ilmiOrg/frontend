@@ -171,3 +171,59 @@
   color: #f87171;
   padding: var(--spacing-2xl);
 }
+
+/* Light theme · Digital Curator */
+:global(body[theme="light"]) .backLink {
+  color: var(--primary);
+}
+:global(body[theme="light"]) .card {
+  background: var(--surface-container-lowest);
+  border: 1px solid var(--outline-ghost);
+  box-shadow: var(--shadow-floating);
+}
+:global(body[theme="light"]) .header {
+  border-bottom: 1px solid var(--outline-ghost);
+}
+:global(body[theme="light"]) .programName {
+  color: var(--on-surface);
+}
+:global(body[theme="light"]) .categoryBadge {
+  background: var(--primary-container);
+  color: var(--on-primary-container);
+  border: 1px solid var(--primary);
+}
+:global(body[theme="light"]) .metaLabel {
+  color: var(--on-surface-muted);
+}
+:global(body[theme="light"]) .metaValue {
+  color: var(--on-surface);
+}
+:global(body[theme="light"]) .tuitionValue {
+  color: var(--primary);
+}
+:global(body[theme="light"]) .descTitle {
+  color: var(--on-surface);
+}
+:global(body[theme="light"]) .descBody {
+  color: var(--on-surface-variant);
+}
+:global(body[theme="light"]) .btnPrimary {
+  background: var(--primary);
+  color: var(--on-primary);
+}
+:global(body[theme="light"]) .btnPrimary:hover {
+  background: var(--on-primary-container);
+}
+:global(body[theme="light"]) .btnOutline {
+  background: var(--surface-container);
+  color: var(--on-surface);
+  border: 1px solid var(--outline-ghost);
+}
+:global(body[theme="light"]) .btnOutline:hover {
+  background: var(--surface-container-high);
+  border-color: var(--primary);
+}
+:global(body[theme="light"]) .loading,
+:global(body[theme="light"]) .error {
+  color: var(--on-surface-variant);
+}

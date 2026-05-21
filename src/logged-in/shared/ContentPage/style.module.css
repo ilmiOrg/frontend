@@ -611,3 +611,160 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+/* =============================================================================
+   LIGHT THEME · Digital Curator overrides (ContentPage shared)
+   --------------------------------------------------------------------------- */
+:global(body[theme="light"]) .introPanel {
+  background: var(--surface-container-lowest);
+  border: 1px solid var(--outline-ghost);
+  box-shadow: var(--shadow-floating);
+}
+:global(body[theme="light"]) .introText {
+  color: var(--on-surface-variant);
+}
+:global(body[theme="light"]) .featureCard,
+:global(body[theme="light"]) .contentCard,
+:global(body[theme="light"]) .statCard,
+:global(body[theme="light"]) .listItem,
+:global(body[theme="light"]) .priceCard,
+:global(body[theme="light"]) .personCard {
+  background: var(--surface-container-lowest);
+  border: 1px solid var(--outline-ghost);
+  color: var(--on-surface);
+}
+:global(body[theme="light"]) .featureCard:hover,
+:global(body[theme="light"]) .listItem:hover,
+:global(body[theme="light"]) .personCard:hover {
+  background: var(--surface-container-low);
+  border-color: var(--primary);
+}
+:global(body[theme="light"]) .contentCard:hover,
+:global(body[theme="light"]) .priceCard:hover {
+  border-color: var(--primary);
+}
+:global(body[theme="light"]) .priceCard.featured {
+  background: var(--primary-container);
+  border-color: var(--primary);
+  color: var(--on-primary-container);
+}
+
+:global(body[theme="light"]) .featureTitle,
+:global(body[theme="light"]) .cardTitle,
+:global(body[theme="light"]) .statNumber,
+:global(body[theme="light"]) .progressName,
+:global(body[theme="light"]) .ctaTitle,
+:global(body[theme="light"]) .priceAmount,
+:global(body[theme="light"]) .personName,
+:global(body[theme="light"]) .listTitle {
+  color: var(--on-surface);
+}
+
+:global(body[theme="light"]) .featureDesc,
+:global(body[theme="light"]) .cardDesc,
+:global(body[theme="light"]) .ctaDesc,
+:global(body[theme="light"]) .statLabel,
+:global(body[theme="light"]) .personRole,
+:global(body[theme="light"]) .listSubtext,
+:global(body[theme="light"]) .priceName,
+:global(body[theme="light"]) .priceFeatures li,
+:global(body[theme="light"]) .emptyState,
+:global(body[theme="light"]) .sectionLabel {
+  color: var(--on-surface-variant);
+}
+
+:global(body[theme="light"]) .divider {
+  border-top-color: var(--outline-ghost);
+}
+
+:global(body[theme="light"]) .featureIconWrap,
+:global(body[theme="light"]) .cardIcon,
+:global(body[theme="light"]) .listIcon {
+  background: var(--primary-container);
+  color: var(--on-primary-container);
+}
+:global(body[theme="light"]) .featureIconWrap.green,
+:global(body[theme="light"]) .cardIcon.green {
+  background: rgba(0, 108, 81, 0.12);
+  color: var(--primary);
+}
+:global(body[theme="light"]) .featureIconWrap.purple,
+:global(body[theme="light"]) .cardIcon.purple {
+  background: rgba(77, 94, 131, 0.12);
+  color: var(--secondary);
+}
+:global(body[theme="light"]) .featureIconWrap.amber,
+:global(body[theme="light"]) .cardIcon.amber {
+  background: rgba(183, 132, 0, 0.12);
+  color: var(--warning);
+}
+:global(body[theme="light"]) .featureIconWrap.rose {
+  background: rgba(179, 38, 30, 0.12);
+  color: var(--error);
+}
+:global(body[theme="light"]) .featureIconWrap.cyan {
+  background: rgba(0, 108, 81, 0.12);
+  color: var(--primary);
+}
+
+:global(body[theme="light"]) .metaBadge {
+  background: var(--surface-container);
+  color: var(--on-surface-variant);
+  border-color: var(--outline-ghost);
+}
+:global(body[theme="light"]) .metaBadge.highlight {
+  background: var(--primary-container);
+  color: var(--on-primary-container);
+  border-color: var(--primary);
+}
+:global(body[theme="light"]) .metaBadge.success {
+  background: rgba(0, 108, 81, 0.12);
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+:global(body[theme="light"]) .progressPct {
+  color: var(--primary);
+}
+:global(body[theme="light"]) .progressTrack {
+  background: var(--surface-container);
+}
+:global(body[theme="light"]) .progressFill {
+  background: var(--gradient-hero);
+}
+
+:global(body[theme="light"]) .ctaPanel {
+  background: var(--primary-container);
+  border-color: var(--primary);
+  color: var(--on-primary-container);
+}
+:global(body[theme="light"]) .ctaPanel .ctaTitle,
+:global(body[theme="light"]) .ctaPanel .ctaDesc {
+  color: var(--on-primary-container);
+}
+
+:global(body[theme="light"]) .ctaBtn,
+:global(body[theme="light"]) .priceBtn,
+:global(body[theme="light"]) .primaryBtn {
+  background: var(--primary);
+  color: var(--on-primary);
+}
+:global(body[theme="light"]) .ctaBtn:hover,
+:global(body[theme="light"]) .priceBtn:hover,
+:global(body[theme="light"]) .primaryBtn:hover {
+  background: var(--on-primary-container);
+}
+
+:global(body[theme="light"]) .emptyState {
+  background: var(--surface-container-low);
+  border: 1px dashed var(--outline-ghost);
+}
+
+:global(body[theme="light"]) .personAvatar {
+  background: var(--primary-container);
+  color: var(--on-primary-container);
+}
+
+:global(body[theme="light"]) .priceFeatures li::before {
+  color: var(--primary);
+}

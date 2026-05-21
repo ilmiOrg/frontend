@@ -52,3 +52,26 @@
 .heroBookBtn:hover {
   filter: brightness(1.05);
 }
+
+/* Light theme · Digital Curator */
+:global(body[theme="light"]) .hero {
+  background: linear-gradient(135deg, rgba(255, 226, 137, 0.18), rgba(122, 251, 206, 0.18));
+  border: 1px solid rgba(0, 108, 81, 0.2);
+  box-shadow: var(--shadow-floating);
+  color: var(--on-surface);
+}
+:global(body[theme="light"]) .heroKicker {
+  color: var(--warning);
+}
+:global(body[theme="light"]) .heroIntro {
+  color: var(--on-surface-variant);
+}
+:global(body[theme="light"]) .heroBookBtn {
+  background: var(--primary);
+  color: var(--on-primary);
+  box-shadow: 0 8px 22px rgba(0, 108, 81, 0.2);
+}
+:global(body[theme="light"]) .heroBookBtn:hover {
+  background: var(--on-primary-container);
+  filter: none;
+}

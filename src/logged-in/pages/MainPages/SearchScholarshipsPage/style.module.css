@@ -151,3 +151,47 @@
     position: static;
   }
 }
+
+/* Light theme · Digital Curator */
+:global(body[theme="light"]) .infoSection,
+:global(body[theme="light"]) .features,
+:global(body[theme="light"]) .actionCard {
+  background: var(--surface-container-lowest);
+  border: 1px solid var(--outline-ghost);
+  box-shadow: var(--shadow-floating);
+  color: var(--on-surface);
+}
+:global(body[theme="light"]) .sectionTitle,
+:global(body[theme="light"]) .featuresTitle,
+:global(body[theme="light"]) .actionTitle {
+  color: var(--on-surface);
+}
+:global(body[theme="light"]) .sectionText,
+:global(body[theme="light"]) .actionText,
+:global(body[theme="light"]) .featureCard p {
+  color: var(--on-surface-variant);
+}
+:global(body[theme="light"]) .featureCard {
+  background: var(--surface-container);
+  border: 1px solid var(--outline-ghost);
+}
+:global(body[theme="light"]) .featureCard:hover {
+  background: var(--surface-container-high);
+  border-color: var(--primary);
+}
+:global(body[theme="light"]) .featureCard h4 {
+  color: var(--on-surface);
+}
+:global(body[theme="light"]) .featureIcon {
+  background: var(--primary-container);
+  color: var(--on-primary-container);
+}
+:global(body[theme="light"]) .actionBtn,
+:global(body[theme="light"]) .primaryBtn {
+  background: var(--primary);
+  color: var(--on-primary);
+}
+:global(body[theme="light"]) .actionBtn:hover,
+:global(body[theme="light"]) .primaryBtn:hover {
+  background: var(--on-primary-container);
+}

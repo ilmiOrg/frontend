@@ -431,3 +431,119 @@
     flex-direction: column;
   }
 }
+
+/* Light theme · Digital Curator */
+:global(body[theme="light"]) .page {
+  background: var(--surface);
+  color: var(--on-surface);
+}
+:global(body[theme="light"]) .header {
+  background: var(--surface-container-lowest);
+  border: 1px solid var(--outline-ghost);
+  box-shadow: var(--shadow-floating);
+}
+:global(body[theme="light"]) .title {
+  color: var(--on-surface);
+}
+:global(body[theme="light"]) .description {
+  color: var(--on-surface-variant);
+}
+:global(body[theme="light"]) .backButton {
+  background: var(--surface-container);
+  border: 1px solid var(--outline-ghost);
+  color: var(--on-surface-variant);
+}
+:global(body[theme="light"]) .backButton:hover {
+  background: var(--primary-container);
+  border-color: var(--primary);
+  color: var(--on-primary-container);
+}
+:global(body[theme="light"]) .profileCard,
+:global(body[theme="light"]) .statsCard,
+:global(body[theme="light"]) .premiumCard,
+:global(body[theme="light"]) .actionsCard,
+:global(body[theme="light"]) .shareCard {
+  background: var(--surface-container-lowest);
+  border: 1px solid var(--outline-ghost);
+  color: var(--on-surface);
+  box-shadow: var(--shadow-floating);
+}
+:global(body[theme="light"]) .avatar {
+  background: var(--primary-container);
+  color: var(--on-primary-container);
+  border: 1px solid var(--outline-ghost);
+}
+:global(body[theme="light"]) .changeAvatarBtn {
+  background: var(--primary);
+  color: var(--on-primary);
+}
+:global(body[theme="light"]) .changeAvatarBtn:hover {
+  background: var(--on-primary-container);
+}
+:global(body[theme="light"]) .infoGroup label {
+  color: var(--on-surface-variant);
+}
+:global(body[theme="light"]) .input,
+:global(body[theme="light"]) .textarea {
+  background: var(--surface-container);
+  border: 1px solid var(--outline-ghost);
+  color: var(--on-surface);
+}
+:global(body[theme="light"]) .input::placeholder,
+:global(body[theme="light"]) .textarea::placeholder {
+  color: var(--on-surface-muted);
+}
+:global(body[theme="light"]) .input:focus,
+:global(body[theme="light"]) .textarea:focus {
+  border-color: var(--primary);
+  background: var(--surface-container-lowest);
+}
+:global(body[theme="light"]) .inputReadonly {
+  background: var(--surface-container-high);
+  color: var(--on-surface-variant);
+}
+:global(body[theme="light"]) .fieldHint {
+  color: var(--on-surface-muted);
+}
+:global(body[theme="light"]) .noticeBanner {
+  background: var(--surface-container);
+  border: 1px solid var(--outline-ghost);
+  color: var(--on-surface-variant);
+}
+:global(body[theme="light"]) .messageSuccess {
+  background: rgba(0, 108, 81, 0.1);
+  border: 1px solid rgba(0, 108, 81, 0.3);
+  color: var(--primary);
+}
+:global(body[theme="light"]) .messageError {
+  background: rgba(179, 38, 30, 0.1);
+  border: 1px solid rgba(179, 38, 30, 0.3);
+  color: var(--error);
+}
+:global(body[theme="light"]) .shareTitle,
+:global(body[theme="light"]) .statsCard h3,
+:global(body[theme="light"]) .premiumCard h3 {
+  color: var(--on-surface);
+}
+:global(body[theme="light"]) .shareDesc,
+:global(body[theme="light"]) .statLabel,
+:global(body[theme="light"]) .premiumCard p,
+:global(body[theme="light"]) .linkPreview {
+  color: var(--on-surface-variant);
+}
+:global(body[theme="light"]) .statValue {
+  color: var(--on-surface);
+}
+:global(body[theme="light"]) .qrWrap {
+  background: var(--white);
+  padding: 8px;
+  border-radius: var(--border-radius-md);
+}
+:global(body[theme="light"]) .premiumBadge {
+  background: var(--primary);
+  color: var(--on-primary);
+}
+:global(body[theme="light"]) .statItem {
+  background: var(--surface-container);
+  border: 1px solid var(--outline-ghost);
+}

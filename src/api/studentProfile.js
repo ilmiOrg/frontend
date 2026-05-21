@@ -1,42 +1,52 @@
-import { apiUrl, jsonHeaders } from "./config";
+/**
+ * Local-only student profile.
+ *
+ * Backend `master` has no GET/PUT /api/v1/students/me/profile route — the
+ * only persisted identity is the JWT payload (email). Until a profile
+ * endpoint exists, store editable profile data in localStorage so the
+ * Profile page keeps working end-to-end without 403s.
+ */
 
-const AUTH_TOKEN_KEY = "token";
+const PROFILE_KEY = "studentProfile";
+const AUTH_EMAIL_KEY = "userEmail";
 
-function getToken() {
-  return typeof localStorage !== "undefined"
-    ? localStorage.getItem(AUTH_TOKEN_KEY)
-    : null;
+function readEmailFromAuth() {
+  if (typeof localStorage === "undefined") return "";
+  return localStorage.getItem(AUTH_EMAIL_KEY) || "";
+}
+
+function readStored() {
+  if (typeof localStorage === "undefined") return null;
+  try {
+    const raw = localStorage.getItem(PROFILE_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch (_) {
+    return null;
+  }
+}
+
+function emptyProfile() {
+  return {
+    firstName: "",
+    lastName: "",
+    phone: "",
+    location: "",
+    photoUrl: "",
+    certifications: "",
+  };
 }
 
 export async function getStudentProfile() {
-  const token = getToken();
-  if (!token) {
-    throw new Error("Not authenticated");
-  }
-  const res = await fetch(apiUrl("/api/v1/students/me/profile"), {
-    method: "GET",
-    headers: jsonHeaders(token),
-  });
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error(text || "Failed to load profile");
-  }
-  return res.json();
+  const stored = readStored() || emptyProfile();
+  return { ...stored, email: readEmailFromAuth() };
 }
 
 export async function updateStudentProfile(payload) {
-  const token = getToken();
-  if (!token) {
-    throw new Error("Not authenticated");
+  if (typeof localStorage === "undefined") {
+    throw new Error("Storage unavailable");
   }
-  const res = await fetch(apiUrl("/api/v1/students/me/profile"), {
-    method: "PUT",
-    headers: jsonHeaders(token),
-    body: JSON.stringify(payload),
-  });
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error(text || "Failed to save profile");
-  }
-  return res.json();
+  const merged = { ...(readStored() || emptyProfile()), ...payload };
+  delete merged.email;
+  localStorage.setItem(PROFILE_KEY, JSON.stringify(merged));
+  return { ...merged, email: readEmailFromAuth() };
 }

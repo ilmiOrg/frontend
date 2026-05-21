@@ -1,6 +1,4 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import { ScrollContainer } from "../../../components/ui/ScrollContainer";
 import styles from "./style.module.css";
 
 const PageTemplate = ({
@@ -9,20 +7,8 @@ const PageTemplate = ({
   description,
   actions,
   children,
-  backTo,
-  onBack,
   headerShellClassName,
 }) => {
-  const navigate = useNavigate();
-
-  const handleBack = () => {
-    if (onBack) {
-      onBack();
-      return;
-    }
-    navigate(backTo ?? "/dashboard");
-  };
-
   return (
     <div className={styles.page}>
       <div
@@ -32,24 +18,6 @@ const PageTemplate = ({
       >
         <div className={styles.header}>
           <div className={styles.headerLeft}>
-            <button
-              onClick={handleBack}
-              className={styles.backButton}
-              title={backTo ? "Back" : "Back to Dashboard"}
-            >
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M19 12H5M12 19l-7-7 7-7" />
-              </svg>
-            </button>
             <div className={styles.headerContent}>
               {icon && <span className={styles.icon}>{icon}</span>}
               <div>
@@ -63,13 +31,7 @@ const PageTemplate = ({
           {actions && <div className={styles.actions}>{actions}</div>}
         </div>
       </div>
-      <ScrollContainer
-        className={styles.scrollArea}
-        disableHorizontalScroll
-        paddingAbsolute
-      >
-        <div className={styles.scrollInner}>{children}</div>
-      </ScrollContainer>
+      <div className={styles.scrollInner}>{children}</div>
     </div>
   );
 };

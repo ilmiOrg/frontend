@@ -130,3 +130,46 @@
   background: rgba(255, 255, 255, 0.15);
   border-radius: 4px;
 }
+
+:global(body[theme="light"]) .label {
+  color: var(--on-surface-variant);
+}
+:global(body[theme="light"]) .trigger {
+  background: var(--surface-container);
+  border: 1px solid var(--outline-ghost);
+  color: var(--on-surface);
+}
+:global(body[theme="light"]) .trigger:hover {
+  background: var(--surface-container-high);
+  border-color: var(--primary);
+}
+:global(body[theme="light"]) .trigger:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(0, 108, 81, 0.18);
+}
+:global(body[theme="light"]) .chevron {
+  color: var(--on-surface-muted);
+}
+:global(body[theme="light"]) .chevronOpen {
+  color: var(--primary);
+}
+:global(body[theme="light"]) .menu {
+  background: var(--surface-container-lowest);
+  border: 1px solid var(--outline-ghost);
+  box-shadow: var(--shadow-floating);
+}
+:global(body[theme="light"]) .option {
+  color: var(--on-surface);
+}
+:global(body[theme="light"]) .option:hover,
+:global(body[theme="light"]) .optionActive {
+  background: var(--surface-container-high);
+  color: var(--on-surface);
+}
+:global(body[theme="light"]) .optionSelected {
+  background: var(--primary-container);
+  color: var(--on-primary-container);
+}
+:global(body[theme="light"]) .menu::-webkit-scrollbar-thumb {
+  background: var(--outline);
+}

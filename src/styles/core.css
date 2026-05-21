@@ -26,15 +26,15 @@ html {
 }
 
 body {
-  font-family: var(--regularTextFont);
-  font-size: var(--regularFontSize);
-  line-height: var(--lineHeight);
-  color: var(--textCopy);
-  background: var(--backgroundGradient);
-  background-attachment: fixed; /* Prevent background from moving during scroll */
+  font-family: var(--font-body);
+  font-size: var(--body-lg);
+  line-height: var(--lineHeight-normal);
+  color: var(--on-surface);
+  background: var(--surface);
+  background-attachment: fixed;
   height: 100%;
   min-height: 100%;
-  overflow: hidden; /* Clips stray DOM from extensions next to #root that would otherwise grow the page */
+  overflow: hidden;
   width: 100%;
   max-width: 100vw;
   -webkit-overflow-scrolling: touch;
@@ -54,7 +54,7 @@ body {
 }
 
 /* ========================================
-   TYPOGRAPHY
+   TYPOGRAPHY — Editorial Authority
    ======================================== */
 h1,
 h2,
@@ -62,93 +62,112 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: var(--headlineFont);
+  font-family: var(--font-headline);
   font-weight: var(--fontWeight-bold);
-  line-height: 1.2;
+  line-height: var(--lineHeight-tight);
+  letter-spacing: var(--letter-spacing-display);
   margin-bottom: 0.5em;
-  color: var(--textHeadline);
+  color: var(--on-surface);
 }
 
 h1 {
-  font-size: var(--headlineFontSize);
-  font-weight: var(--fontWeight-extrabold);
+  font-size: var(--display-md);
+  font-weight: var(--fontWeight-bold);
 }
 h2 {
-  font-size: var(--titleFontSize);
+  font-size: var(--headline-lg);
   font-weight: var(--fontWeight-bold);
 }
 h3 {
-  font-size: var(--largeFontSize);
+  font-size: var(--headline-md);
   font-weight: var(--fontWeight-semibold);
 }
 h4 {
-  font-size: var(--mediumFontSize);
+  font-size: var(--headline-sm);
   font-weight: var(--fontWeight-semibold);
+  letter-spacing: -0.01em;
 }
 h5 {
-  font-size: var(--regularFontSize);
+  font-size: var(--title-md);
   font-weight: var(--fontWeight-medium);
+  letter-spacing: -0.005em;
 }
 h6 {
-  font-size: var(--regularFontSize);
+  font-size: var(--body-lg);
   font-weight: var(--fontWeight-medium);
+  letter-spacing: 0;
 }
 
 p {
   margin-bottom: 1em;
-  color: var(--textCopy);
-  line-height: var(--lineHeight);
+  color: var(--on-surface-variant);
+  line-height: var(--lineHeight-relaxed);
+}
+
+/* Editorial label (Manrope all-caps + tracking) */
+.label,
+.eyebrow {
+  font-family: var(--font-label);
+  font-size: var(--label-md);
+  font-weight: var(--fontWeight-semibold);
+  letter-spacing: var(--letter-spacing-label);
+  text-transform: uppercase;
+  color: var(--on-surface-muted);
 }
 
 /* Text Utilities */
 .text-headline {
-  color: var(--textHeadline);
+  color: var(--on-surface);
 }
 .text-copy {
-  color: var(--textCopy);
+  color: var(--on-surface-variant);
 }
 .text-secondary {
-  color: var(--textSecondary);
+  color: var(--on-surface-muted);
 }
 .text-tertiary {
-  color: var(--textTertiary);
+  color: var(--on-surface-muted);
 }
 .text-disabled {
-  color: var(--textDisabled);
+  color: var(--on-surface-muted);
+  opacity: 0.5;
 }
 .text-highlight {
-  color: var(--textHighlight);
+  color: var(--primary);
 }
 .text-link {
-  color: var(--textLink);
+  color: var(--primary);
 }
 .text-success {
-  color: var(--textSuccess);
+  color: var(--success);
 }
 .text-error {
-  color: var(--textError);
+  color: var(--error);
 }
 .text-warning {
-  color: var(--textWarning);
+  color: var(--warning);
 }
 
 /* ========================================
    LINKS
    ======================================== */
 a {
-  color: var(--textLink);
+  color: var(--primary);
   text-decoration: none;
   transition: color var(--transition-fast);
   cursor: pointer;
 }
 
 a:hover {
-  color: var(--ownBlue);
+  color: var(--on-primary-container);
   text-decoration: underline;
+  text-decoration-color: rgba(122, 251, 206, 0.4);
+  text-underline-offset: 2px;
+  text-decoration-thickness: 2px;
 }
 
 a:active {
-  color: var(--ownBlueDark);
+  color: var(--on-primary-container);
 }
 
 /* ========================================
@@ -213,7 +232,7 @@ body,
    FOCUS STYLES
    ======================================== */
 *:focus {
-  outline: 2px solid var(--borderFocus);
+  outline: 2px solid var(--primary);
   outline-offset: 2px;
 }
 
@@ -222,7 +241,7 @@ body,
 }
 
 *:focus-visible {
-  outline: 2px solid var(--borderFocus);
+  outline: 2px solid var(--primary);
   outline-offset: 2px;
 }
 
@@ -230,24 +249,25 @@ body,
    SELECTION
    ======================================== */
 ::selection {
-  background: var(--ownGreenBackground);
-  color: var(--textHeadline);
+  background: var(--primary-container);
+  color: var(--on-primary-container);
 }
 
 ::-moz-selection {
-  background: var(--ownGreenBackground);
-  color: var(--textHeadline);
+  background: var(--primary-container);
+  color: var(--on-primary-container);
 }
 
 /* ========================================
    BUTTONS (Base)
    ======================================== */
 button {
-  font-family: var(--regularTextFont);
+  font-family: var(--font-body);
   cursor: pointer;
   border: none;
   background: none;
   padding: 0;
+  color: inherit;
 }
 
 button:disabled {
@@ -261,9 +281,9 @@ button:disabled {
 input,
 textarea,
 select {
-  font-family: var(--regularTextFont);
-  font-size: var(--regularFontSize);
-  color: var(--inputText);
+  font-family: var(--font-body);
+  font-size: var(--body-md);
+  color: var(--on-surface);
 }
 
 input:disabled,
@@ -279,15 +299,16 @@ select:disabled {
 code {
   font-family: "SF Mono", "Monaco", "Inconsolata", "Fira Code", monospace;
   font-size: 0.9em;
-  background: var(--codeBackground);
-  color: var(--codeText);
+  background: var(--surface-container);
+  color: var(--on-surface);
   padding: 2px 6px;
   border-radius: var(--border-radius-sm);
 }
 
 pre {
   font-family: "SF Mono", "Monaco", "Inconsolata", "Fira Code", monospace;
-  background: var(--codeBackground);
+  background: var(--surface-container);
+  color: var(--on-surface);
   padding: 16px;
   border-radius: var(--border-radius-md);
   overflow-x: auto;
@@ -442,7 +463,7 @@ pre code {
   font-weight: var(--fontWeight-light);
 }
 .font-regular {
-  font-weight: var(--fontWeight-regular);
+  font-weight: var(--fontWeight-normal);
 }
 .font-medium {
   font-weight: var(--fontWeight-medium);
@@ -549,10 +570,83 @@ pre code {
   position: absolute;
   top: -40px;
   left: 0;
-  background: var(--ownGreen);
-  color: white;
+  background: var(--primary);
+  color: var(--on-primary);
   padding: 8px;
   z-index: 100;
+}
+
+/* ========================================
+   DIGITAL CURATOR HELPERS
+   ======================================== */
+/* Tonal layering — use these instead of borders */
+.surface {
+  background: var(--surface);
+  color: var(--on-surface);
+}
+.surface-card {
+  background: var(--surface-container-lowest);
+  color: var(--on-surface);
+  border-radius: var(--border-radius-lg);
+}
+.surface-section {
+  background: var(--surface-container-low);
+  color: var(--on-surface);
+}
+.surface-elevated-card {
+  background: var(--surface-container-lowest);
+  color: var(--on-surface);
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-floating);
+}
+
+/* Glass overlays — for floating nav, search overlays, tooltips */
+.glass {
+  background: var(--glass-surface);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+}
+.glass-card {
+  background: var(--glass-card);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-radius: var(--border-radius-lg);
+}
+
+/* Hero gradient (Neon Mint → Deep Mint) */
+.gradient-hero {
+  background: var(--gradient-hero);
+}
+.gradient-mint-glow {
+  background: var(--gradient-mint-glow);
+}
+
+/* Ghost outline — last-resort accessibility border */
+.ghost-outline {
+  border: 1px solid var(--outline-ghost);
+}
+
+/* Editorial display steps */
+.display-lg {
+  font-family: var(--font-display);
+  font-size: var(--display-lg);
+  font-weight: var(--fontWeight-bold);
+  line-height: var(--lineHeight-tight);
+  letter-spacing: var(--letter-spacing-display);
+}
+.display-md {
+  font-family: var(--font-display);
+  font-size: var(--display-md);
+  font-weight: var(--fontWeight-bold);
+  line-height: var(--lineHeight-tight);
+  letter-spacing: var(--letter-spacing-display);
+}
+.display-sm {
+  font-family: var(--font-display);
+  font-size: var(--display-sm);
+  font-weight: var(--fontWeight-semibold);
+  line-height: var(--lineHeight-tight);
+  letter-spacing: var(--letter-spacing-display);
 }
 
 .skip-to-content:focus {

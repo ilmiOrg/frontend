@@ -15,3 +15,12 @@
   color: rgba(52, 211, 153, 0.95);
   text-decoration-color: rgba(52, 211, 153, 0.5);
 }
+
+:global(body[theme="light"]) .btn {
+  color: var(--on-surface-muted);
+  text-decoration-color: var(--outline-ghost);
+}
+:global(body[theme="light"]) .btn:hover {
+  color: var(--primary);
+  text-decoration-color: var(--primary);
+}

@@ -26,3 +26,7 @@ coverage/
 
 # CRA / tooling caches
 .eslintcache
+
+# Playwright screenshots + MCP logs (kept out of repo)
+.playwright/
+.playwright-mcp/

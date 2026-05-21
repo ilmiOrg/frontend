@@ -1,0 +1,380 @@
+/* ============================================================================
+   Dashboard shell — persistent sidebar + topbar across every /dashboard route
+============================================================================ */
+
+.shell {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 100vh;
+  max-height: 100vh;
+  background: var(--surface);
+  color: var(--on-surface);
+  font-family: var(--font-body);
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* ===== Sidebar (always visible) ===== */
+.sidebar {
+  background: var(--surface-container-low);
+  border-right: 1px solid var(--outline-ghost);
+  padding: 20px 0 20px 12px;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.sidebarScroll {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+}
+
+.sidebarHeader {
+  padding: 8px 14px 20px;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: var(--letter-spacing-display);
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.logo:hover {
+  color: var(--on-primary-container);
+}
+
+.logoImage {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--border-radius-md);
+  object-fit: cover;
+}
+
+.tagline {
+  margin: 6px 0 14px;
+  font-size: var(--label-md);
+  color: var(--on-surface-muted);
+  letter-spacing: 0.04em;
+}
+
+.sendInfoBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 14px;
+  width: 100%;
+  background: var(--primary);
+  color: var(--on-primary);
+  border: none;
+  border-radius: var(--border-radius-md);
+  font-family: inherit;
+  font-size: var(--body-sm);
+  font-weight: var(--fontWeight-semibold);
+  cursor: pointer;
+  transition: background var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.sendInfoBtn:hover {
+  background: var(--on-primary-container);
+  box-shadow: 0 6px 18px rgba(0, 108, 81, 0.22);
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 0 12px 12px 0;
+}
+
+.navSection {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.navSectionLabel {
+  margin: 4px 0 6px;
+  padding: 0 12px;
+  font-size: var(--label-sm);
+  font-weight: var(--fontWeight-semibold);
+  letter-spacing: var(--letter-spacing-label);
+  text-transform: uppercase;
+  color: var(--on-surface-muted);
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 12px;
+  background: none;
+  border: none;
+  border-radius: var(--border-radius-md);
+  color: var(--on-surface-variant);
+  font-family: inherit;
+  font-size: var(--body-sm);
+  font-weight: var(--fontWeight-medium);
+  text-align: left;
+  cursor: pointer;
+  transition: background var(--transition-fast), color var(--transition-fast);
+  position: relative;
+}
+
+.navItem:hover {
+  background: var(--surface-container);
+  color: var(--on-surface);
+}
+
+.navItem.active {
+  background: var(--primary-container);
+  color: var(--on-primary-container);
+}
+
+.navItem.active::before {
+  content: "";
+  position: absolute;
+  left: -12px;
+  top: 8px;
+  bottom: 8px;
+  width: 3px;
+  background: var(--primary);
+  border-radius: 999px;
+}
+
+.navIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+  flex-shrink: 0;
+}
+
+.navItem.active .navIcon,
+.navItem:hover .navIcon {
+  color: inherit;
+}
+
+.navLabel {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.telegramLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: var(--border-radius-md);
+  background: var(--surface-container);
+  border: 1px solid var(--outline-ghost);
+  color: var(--on-surface-variant);
+  font-size: var(--body-sm);
+  font-weight: var(--fontWeight-medium);
+  text-decoration: none;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.telegramLink:hover {
+  background: var(--surface-container-high);
+  color: var(--on-surface);
+  border-color: var(--primary);
+}
+
+.telegramIcon {
+  display: inline-flex;
+  color: var(--primary);
+}
+
+/* ===== Main content ===== */
+.mainContent {
+  background: var(--surface);
+  min-height: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.mainScroll {
+  flex: 1;
+  min-height: 0;
+}
+
+.outletWrap {
+  padding: 24px 28px 56px;
+  box-sizing: border-box;
+}
+
+/* ===== Top bar ===== */
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 28px;
+  background: var(--glass-surface);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-bottom: 1px solid var(--outline-ghost);
+  flex-shrink: 0;
+}
+
+.topBarLeft {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.welcomeBarTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: var(--fontWeight-bold);
+  letter-spacing: -0.01em;
+  color: var(--on-surface);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.topBarRight {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.actionBtn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--border-radius-md);
+  background: var(--surface-container);
+  border: 1px solid var(--outline-ghost);
+  color: var(--on-surface-variant);
+  cursor: pointer;
+  transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.actionBtn:hover {
+  background: var(--surface-container-high);
+  color: var(--on-surface);
+  border-color: var(--primary);
+}
+
+.notifBadge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: var(--error);
+  color: var(--on-primary);
+  font-size: 10px;
+  font-weight: var(--fontWeight-bold);
+  border-radius: 999px;
+  padding: 0 6px;
+  min-width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.topProfileButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px 4px 4px;
+  background: var(--surface-container);
+  border: 1px solid var(--outline-ghost);
+  border-radius: 999px;
+  color: var(--on-surface);
+  font-family: inherit;
+  font-size: var(--body-sm);
+  font-weight: var(--fontWeight-medium);
+  cursor: pointer;
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+
+.topProfileButton:hover {
+  background: var(--surface-container-high);
+  border-color: var(--primary);
+}
+
+.topProfileAvatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: var(--primary-container);
+  color: var(--on-primary-container);
+  font-weight: var(--fontWeight-bold);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  overflow: hidden;
+}
+
+.topProfileImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.topProfileText {
+  display: inline-flex;
+  flex-direction: column;
+  line-height: 1.2;
+  min-width: 0;
+}
+
+.topProfileName {
+  font-weight: var(--fontWeight-semibold);
+  color: var(--on-surface);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 160px;
+}
+
+@media (max-width: 900px) {
+  .shell {
+    grid-template-columns: 240px 1fr;
+  }
+  .outletWrap {
+    padding: 20px 16px 48px;
+  }
+  .topBar {
+    padding: 10px 16px;
+  }
+  .welcomeBarTitle {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 720px) {
+  .shell {
+    grid-template-columns: 220px 1fr;
+  }
+}

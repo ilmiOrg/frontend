@@ -1,29 +1,12 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../../../contexts/AuthContext";
 import { useTranslation } from "../../../../hooks/useLanguage";
 import Chart from "chart.js/auto";
-import { ILMI_LOGO_URL } from "../../../../lib/ilmiLogoUrl";
-import { SkyToggle } from "../../../../components/ui/SkyToggle";
-import { ScrollContainer } from "../../../../components/ui/ScrollContainer";
 import {
-  HomeIcon,
-  StarIcon,
   SearchIcon,
-  HeartIcon,
-  BookOpenIcon,
   GraduationCapIcon,
-  TargetIcon,
-  UsersIcon,
-  MessageCircleIcon,
-  BellIcon,
-  SendIcon,
   DollarIcon,
   PenToolIcon,
-  MenuIcon,
-  XIcon,
-  TelegramIcon,
-  ExternalLinkIcon,
   CalendarIcon,
   ChevronRightIcon,
 } from "../../../shared/Icons";
@@ -33,8 +16,6 @@ import { getUniversityFields } from "../../../../api/fields";
 import { mapUniversityFromApi } from "../SearchUniversitiesPage/searchUniversitiesData";
 import { filterUniversitiesTeaser, countUniversitiesForFieldTeaser } from "./teaserUniversityFilter";
 import IlmiContactHub from "../../../../components/IlmiContactHub";
-
-const TELEGRAM_LINK = "https://t.me/ilmiOfficialGroup";
 
 /**
  * Wikimedia Commons campus / architecture photo (Special:FilePath redirects to CDN).
@@ -187,72 +168,13 @@ const CONNECTION_FRIEND_ROWS = [
   { id: "cf3", initials: "SK", nameKey: "dashFriend3SampleName", descKey: "dashFriend3SampleDesc", online: false },
 ];
 
-const SIDEBAR_NAV_GROUPS = [
-  {
-    id: "main",
-    labelKey: "dashMain",
-    items: [
-      { icon: HomeIcon, labelKey: "dashDashboard", path: null, active: true, descKey: "dashCardDashboardDesc" },
-      { icon: StarIcon, labelKey: "dashDreamUniversity", path: "/dashboard/dream-university", descKey: "dashCardDreamDesc" },
-      { icon: SearchIcon, labelKey: "dashSearchUniversities", path: "/dashboard/search/universities", descKey: "dashCardUniversitiesDesc" },
-      { icon: HeartIcon, labelKey: "dashFavoriteUniversities", path: "/dashboard/search/universities/favorites", descKey: "dashCardFavoriteUniversitiesDesc" },
-      { icon: BookOpenIcon, labelKey: "dashSearchFields", path: "/dashboard/search/fields", descKey: "dashCardFieldsDesc" },
-      { icon: GraduationCapIcon, labelKey: "dashSearchPrograms", path: "/dashboard/search/programs", descKey: "dashCardProgramsDesc" },
-      { icon: HeartIcon, labelKey: "dashFavoritePrograms", path: "/dashboard/search/programs/favorites", descKey: "dashCardFavoriteProgramsDesc" },
-      { icon: SearchIcon, labelKey: "dashSearchScholarships", path: "/dashboard/search/scholarships", descKey: "dashCardScholarshipsDesc" },
-    ],
-  },
-  {
-    id: "aiTools",
-    labelKey: "dashNavAiTools",
-    items: [
-      {
-        icon: TargetIcon,
-        labelKey: "dashMatchUniversities",
-        path: "/dashboard/ai/match-universities",
-        descKey: "dashCardMatchUniversitiesDesc",
-      },
-      {
-        icon: TargetIcon,
-        labelKey: "dashMatchScholarships",
-        path: "/dashboard/ai/match-scholarships",
-        descKey: "dashCardMatchScholarshipsDesc",
-      },
-      {
-        icon: UsersIcon,
-        labelKey: "dashSimilarStudents",
-        path: "/dashboard/ai/similar-students",
-        descKey: "dashCardSimilarStudentsDesc",
-      },
-    ],
-  },
-  {
-    id: "friends",
-    labelKey: "dashNavFriendsAndMentors",
-    items: [{ icon: MessageCircleIcon, labelKey: "dashConnectFriends", path: "/dashboard/community/friends", descKey: "dashCardFriendsDesc" }],
-  },
-  {
-    id: "contactPremium",
-    labelKey: "dashNavSectionContactPremium",
-    items: [
-      { icon: BellIcon, labelKey: "dashContactPremium", path: "/dashboard/contact-premium", descKey: "dashCardContactPremiumDesc" },
-    ],
-  },
-];
-
 const DashboardPage = () => {
   const navigate = useNavigate();
-  const { user } = useAuth();
   const { t } = useTranslation();
+
   const viewsChartRef = useRef(null);
   const statusChartRef = useRef(null);
 
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  const [isDark, setIsDark] = useState(() => {
-    if (typeof window === "undefined") return true;
-    const saved = localStorage.getItem("theme");
-    return saved !== "light";
-  });
   const [uniTeaserQuery, setUniTeaserQuery] = useState("");
   const [uniTeaserPopular, setUniTeaserPopular] = useState(() => ({ ...UNI_POPULAR_INITIAL }));
   const [fieldTeaserSlugs, setFieldTeaserSlugs] = useState(() => new Set());
@@ -389,21 +311,6 @@ const DashboardPage = () => {
   }, [navigate, scholarshipsSearchTo]);
 
   useEffect(() => {
-    const styleEl = document.createElement("style");
-    styleEl.id = "dashboard-no-scroll";
-    styleEl.textContent =
-      "html, body, #root { overflow: hidden !important; height: 100vh !important; width: 100vw !important; }";
-    document.head.appendChild(styleEl);
-    return () => document.getElementById("dashboard-no-scroll")?.remove();
-  }, []);
-
-  useEffect(() => {
-    const handler = () => setIsDark(document.body.getAttribute("theme") === "dark");
-    window.addEventListener("themeChanged", handler);
-    return () => window.removeEventListener("themeChanged", handler);
-  }, []);
-
-  useEffect(() => {
     let viewsChart = null;
     let statusChart = null;
 
@@ -493,137 +400,8 @@ const DashboardPage = () => {
     };
   }, [t]);
 
-  const toggleTheme = () => {
-    const next = !isDark;
-    setIsDark(next);
-    document.body.setAttribute("theme", next ? "dark" : "light");
-    document.documentElement.classList.toggle("dark", next);
-    document.documentElement.classList.toggle("light", !next);
-    localStorage.setItem("theme", next ? "dark" : "light");
-    window.dispatchEvent(
-      new CustomEvent("themeChanged", { detail: { theme: next ? "dark" : "light", isDark: next } })
-    );
-  };
-
-  const nameFromUser = user?.name?.trim() || "";
-  const nameTokens = nameFromUser.split(/\s+/).filter(Boolean);
-  const displayFullName =
-    nameTokens.length >= 2 ? nameFromUser : t("dashDefaultDisplayName");
-  const initialsSource = displayFullName.trim().split(/\s+/).filter(Boolean);
-  const userInitial =
-    initialsSource.length > 1
-      ? `${initialsSource[0][0]}${initialsSource[1][0]}`.toUpperCase()
-      : (initialsSource[0]?.[0] || "N").toUpperCase();
-  const userAvatar = user?.photoUrl || user?.avatarUrl || null;
-
   return (
-    <div className={`${styles.dashboard} ${sidebarCollapsed ? styles.leftCollapsed : ""}`}>
-      <button
-        className={styles.sidebarToggle}
-        onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-        title={sidebarCollapsed ? "Show Sidebar" : "Hide Sidebar"}
-      >
-        {sidebarCollapsed ? <MenuIcon size={16} /> : <XIcon size={16} />}
-      </button>
-
-      <div className={styles.liquidShape} />
-      <div className={styles.liquidShape} />
-      <div className={styles.liquidShape} />
-
-      <aside className={`${styles.sidebar} ${sidebarCollapsed ? styles.sidebarCollapsed : ""}`}>
-        <div className={styles.sidebarHeader}>
-          <div className={styles.logo}>
-            <img src={ILMI_LOGO_URL} alt="ilmi" className={styles.logoImage} />
-            <span>ilmi</span>
-          </div>
-          <div className={styles.tagline}>{t("dashTagline")}</div>
-          <button
-            type="button"
-            onClick={() => navigate("/dashboard/send-info")}
-            className={styles.sendInfoBtn}
-          >
-            <SendIcon size={14} />
-            {t("dashSendInfo")}
-          </button>
-        </div>
-
-        <ScrollContainer className={styles.sidebarScroll} disableHorizontalScroll paddingAbsolute>
-          <nav className={styles.nav}>
-            {SIDEBAR_NAV_GROUPS.map((group) => (
-              <div key={group.id} className={styles.navSection}>
-                <p className={styles.navSectionLabel}>{t(group.labelKey)}</p>
-                {group.items.map((item) => (
-                  <div key={item.path || item.labelKey} className={styles.navItemBlock}>
-                    {item.subsectionKey ? (
-                      <p className={styles.navSubsectionLabel}>{t(item.subsectionKey)}</p>
-                    ) : null}
-                    <button
-                      type="button"
-                      onClick={() => item.path && navigate(item.path)}
-                      className={`${styles.navItem} ${item.active ? styles.active : ""}`}
-                    >
-                      <span className={styles.navIcon}>
-                        <item.icon size={18} />
-                      </span>
-                      <span className={styles.navLabel}>{t(item.labelKey)}</span>
-                    </button>
-                  </div>
-                ))}
-              </div>
-            ))}
-
-            <div className={styles.navSection}>
-              <a
-                href={TELEGRAM_LINK}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.telegramLink}
-              >
-                <span className={styles.telegramIcon}>
-                  <TelegramIcon size={18} />
-                </span>
-                <span className={styles.navLabel}>{t("dashJoinCommunity")}</span>
-                <ExternalLinkIcon size={14} />
-              </a>
-            </div>
-          </nav>
-        </ScrollContainer>
-      </aside>
-
-      <main className={styles.mainContent}>
-        <ScrollContainer className={styles.mainScroll} disableHorizontalScroll>
-          <div className={styles.mainInner}>
-            <div className={styles.topBar}>
-              <div className={styles.topBarLeft}>
-                <h1 className={styles.welcomeBarTitle}>
-                  {t("dashWelcomeBackPrefix")} {displayFullName}
-                </h1>
-              </div>
-              <div className={styles.topBarRight}>
-                <SkyToggle checked={isDark} onChange={toggleTheme} />
-                <button className={styles.actionBtn} title={t("dashNotifications")}>
-                  <BellIcon size={18} />
-                  <span className={styles.notifBadge}>3</span>
-                </button>
-                <button
-                  className={styles.topProfileButton}
-                  title={t("dashProfile")}
-                  onClick={() => navigate("/dashboard/profile")}
-                >
-                  <span className={styles.topProfileAvatar}>
-                    {userAvatar ? (
-                      <img src={userAvatar} alt={t("dashProfile")} className={styles.topProfileImage} />
-                    ) : (
-                      userInitial
-                    )}
-                  </span>
-                  <span className={styles.topProfileText}>
-                    <span className={styles.topProfileName}>{displayFullName}</span>
-                  </span>
-                </button>
-              </div>
-            </div>
-
+    <div className={styles.dashboardInner}>
             <div className={styles.dashGrid}>
               <div className={styles.dreamCard}>
                 <div className={styles.dreamHero}>
@@ -1179,9 +957,6 @@ const DashboardPage = () => {
             </section>
 
             <IlmiContactHub variant="embedded" t={t} />
-          </div>
-        </ScrollContainer>
-      </main>
     </div>
   );
 };

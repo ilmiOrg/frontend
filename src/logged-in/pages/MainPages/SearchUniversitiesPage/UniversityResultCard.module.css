@@ -284,3 +284,81 @@
     flex-direction: column;
   }
 }
+
+:global(body[theme="light"]) .card {
+  background: var(--surface-container-lowest);
+  border: 1px solid var(--outline-ghost);
+  box-shadow: var(--shadow-floating);
+}
+:global(body[theme="light"]) .card:hover {
+  border-color: var(--primary);
+  box-shadow: var(--shadow-hover);
+}
+:global(body[theme="light"]) .hero {
+  background: var(--surface-container-low);
+}
+:global(body[theme="light"]) .aside {
+  background: var(--surface-container-lowest);
+  border-left: 1px solid var(--outline-ghost);
+}
+:global(body[theme="light"]) .cardActions {
+  border-top: 1px solid var(--outline-ghost);
+}
+:global(body[theme="light"]) .title {
+  color: var(--on-surface);
+}
+:global(body[theme="light"]) .meta,
+:global(body[theme="light"]) .tags,
+:global(body[theme="light"]) .langs {
+  color: var(--on-surface-muted);
+}
+:global(body[theme="light"]) .description {
+  color: var(--on-surface-variant);
+}
+:global(body[theme="light"]) .tuition {
+  color: var(--primary);
+}
+:global(body[theme="light"]) .logoMark {
+  border: 1px solid var(--outline-ghost);
+}
+:global(body[theme="light"]) .logoFallback {
+  background: var(--primary);
+  color: var(--on-primary);
+  border-color: var(--primary);
+  box-shadow: 0 8px 28px rgba(0, 108, 81, 0.18);
+}
+:global(body[theme="light"]) .btnPrimary {
+  background: var(--primary);
+  color: var(--on-primary);
+  border-color: var(--primary);
+}
+:global(body[theme="light"]) .btnPrimary:hover {
+  background: var(--on-primary-container);
+  border-color: var(--on-primary-container);
+  filter: none;
+}
+:global(body[theme="light"]) .btnGhost {
+  background: var(--surface-container);
+  color: var(--on-surface);
+  border-color: var(--outline-ghost);
+}
+:global(body[theme="light"]) .btnGhost:hover {
+  background: var(--surface-container-high);
+  border-color: var(--primary);
+}
+:global(body[theme="light"]) .btnOutline {
+  background: transparent;
+  color: var(--primary);
+  border-color: var(--primary);
+}
+:global(body[theme="light"]) .btnOutline:hover {
+  background: var(--primary-container);
+  color: var(--on-primary-container);
+  border-color: var(--primary);
+}
+@media (max-width: 900px) {
+  :global(body[theme="light"]) .aside {
+    border-left: none;
+    border-top: 1px solid var(--outline-ghost);
+  }
+}
