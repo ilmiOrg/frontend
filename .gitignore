@@ -30,3 +30,4 @@ coverage/
 # Playwright screenshots + MCP logs (kept out of repo)
 .playwright/
 .playwright-mcp/
+.yarn/
