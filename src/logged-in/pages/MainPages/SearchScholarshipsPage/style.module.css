@@ -15,12 +15,12 @@
 .sectionTitle {
   font-size: var(--titleFontSize);
   font-weight: var(--fontWeight-bold);
-  color: var(--textHeadline);
+  color: var(--on-surface);
   margin-bottom: var(--spacing-md);
 }
 
 .sectionText {
-  color: var(--textSecondary);
+  color: var(--on-surface-variant);
   line-height: var(--lineHeight);
   margin-bottom: var(--spacing-xl);
 }
@@ -32,7 +32,7 @@
 .featuresTitle {
   font-size: var(--largeFontSize);
   font-weight: var(--fontWeight-semibold);
-  color: var(--textHeadline);
+  color: var(--on-surface);
   margin-bottom: var(--spacing-lg);
 }
 
@@ -44,20 +44,16 @@
 
 .featureCard {
   padding: var(--spacing-lg);
-  background: linear-gradient(
-    135deg,
-    rgba(5, 150, 105, 0.05) 0%,
-    rgba(37, 99, 235, 0.05) 100%
-  );
+  background: var(--gradient-mint-glow);
   border-radius: var(--border-radius-md);
-  border: 1px solid rgba(5, 150, 105, 0.1);
+  border: 1px solid var(--outline-ghost);
   transition: all var(--transition-base);
 }
 
 .featureCard:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-sm);
-  border-color: var(--ownGreen);
+  border-color: var(--primary);
 }
 
 .featureIcon {
@@ -69,13 +65,13 @@
 .featureCard h4 {
   font-size: var(--mediumFontSize);
   font-weight: var(--fontWeight-semibold);
-  color: var(--textHeadline);
+  color: var(--on-surface);
   margin-bottom: var(--spacing-xs);
 }
 
 .featureCard p {
   font-size: var(--smallFontSize);
-  color: var(--textSecondary);
+  color: var(--on-surface-variant);
   margin: 0;
 }
 
@@ -85,7 +81,7 @@
 }
 
 .actionCard {
-  background: linear-gradient(135deg, var(--ownGreen), var(--ownBlue));
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
   color: white;
   border-radius: var(--border-radius-lg);
   padding: var(--spacing-2xl);
@@ -106,7 +102,7 @@
 .actionBtn {
   padding: var(--spacing-md) var(--spacing-xl);
   background: white;
-  color: var(--ownGreen);
+  color: var(--primary);
   border: none;
   border-radius: var(--border-radius-md);
   font-size: var(--regularFontSize);
@@ -118,12 +114,12 @@
 
 .actionBtn:hover {
   transform: scale(1.05);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-md);
 }
 
 .primaryBtn {
   padding: var(--spacing-sm) var(--spacing-lg);
-  background: linear-gradient(135deg, var(--ownGreen), var(--ownBlue));
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
   color: white;
   border: none;
   border-radius: var(--border-radius-md);
@@ -135,7 +131,7 @@
 
 .primaryBtn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(5, 150, 105, 0.3);
+  box-shadow: var(--shadow-floating);
 }
 
 @media (max-width: 968px) {

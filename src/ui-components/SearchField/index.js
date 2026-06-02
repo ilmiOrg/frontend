@@ -1,4 +1,5 @@
 import React, { useId } from "react";
+import { useTranslation } from "../../hooks/useLanguage";
 import styles from "./style.module.css";
 
 const SearchIcon = () => (
@@ -22,18 +23,21 @@ const SearchIcon = () => (
 export default function SearchField({
   value,
   onChange,
-  placeholder = "Search by institution name…",
-  label = "Search institutions",
+  placeholder,
+  label,
   id: idProp,
   className = "",
 }) {
+  const { t } = useTranslation();
   const uid = useId();
   const id = idProp || `search-${uid}`;
+  const effectivePlaceholder = placeholder ?? t("searchUniNamePlaceholder");
+  const effectiveLabel = label ?? t("searchFieldDefaultPlaceholder");
 
   return (
     <div className={`${styles.wrap} ${className}`.trim()}>
       <label htmlFor={id} className={styles.visuallyHidden}>
-        {label}
+        {effectiveLabel}
       </label>
       <div className={styles.inner}>
         <SearchIcon />
@@ -43,7 +47,7 @@ export default function SearchField({
           enterKeyHint="search"
           autoComplete="off"
           className={styles.input}
-          placeholder={placeholder}
+          placeholder={effectivePlaceholder}
           value={value}
           onChange={(e) => onChange(e.target.value)}
         />

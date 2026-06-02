@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../contexts/AuthContext";
+import { useTranslation } from "../../../hooks/useLanguage";
 import { getCountries } from "../../../api/countries";
 import styles from "../LoginPage/style.module.css";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -28,7 +30,7 @@ const RegisterPage = () => {
     e.preventDefault();
     setError("");
     if (!countryId || !countryId.trim()) {
-      setError("Please select a country.");
+      setError(t("registerSelectCountryError"));
       return;
     }
     const payload = {
@@ -44,7 +46,7 @@ const RegisterPage = () => {
       !payload.lastName ||
       !payload.password
     ) {
-      setError("Please fill in all fields.");
+      setError(t("registerFillAllError"));
       return;
     }
     setIsLoading(true);
@@ -52,7 +54,7 @@ const RegisterPage = () => {
       await register(payload);
       navigate("/dashboard");
     } catch (err) {
-      setError(err.message || "Registration failed.");
+      setError(err.message || t("registerFailedError"));
     } finally {
       setIsLoading(false);
     }
@@ -77,9 +79,7 @@ const RegisterPage = () => {
         >
           <div className={styles["login-header"] || styles.loginHeader}>
             <h1 className={styles.logo}>ilmi</h1>
-            <p className={styles.subtitle}>
-              Create your account — choose your country to join.
-            </p>
+            <p className={styles.subtitle}>{t("registerSubtitle")}</p>
           </div>
 
           {error && (
@@ -94,7 +94,7 @@ const RegisterPage = () => {
           >
             <div className={styles.formGroup}>
               <label htmlFor="firstName" className={styles.formLabel}>
-                First name
+                {t("registerFirstName")}
               </label>
               <input
                 type="text"
@@ -102,13 +102,13 @@ const RegisterPage = () => {
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
                 className={styles.formInput}
-                placeholder="First name"
+                placeholder={t("registerFirstName")}
                 required
               />
             </div>
             <div className={styles.formGroup}>
               <label htmlFor="lastName" className={styles.formLabel}>
-                Last name
+                {t("registerLastName")}
               </label>
               <input
                 type="text"
@@ -116,13 +116,13 @@ const RegisterPage = () => {
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
                 className={styles.formInput}
-                placeholder="Last name"
+                placeholder={t("registerLastName")}
                 required
               />
             </div>
             <div className={styles.formGroup}>
               <label htmlFor="email" className={styles.formLabel}>
-                Email
+                {t("registerEmail")}
               </label>
               <input
                 type="email"
@@ -130,13 +130,13 @@ const RegisterPage = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className={styles.formInput}
-                placeholder="you@example.com"
+                placeholder={t("registerEmailPlaceholder")}
                 required
               />
             </div>
             <div className={styles.formGroup}>
               <label htmlFor="password" className={styles.formLabel}>
-                Password
+                {t("registerPassword")}
               </label>
               <input
                 type="password"
@@ -144,13 +144,13 @@ const RegisterPage = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className={styles.formInput}
-                placeholder="Password"
+                placeholder={t("registerPassword")}
                 required
               />
             </div>
             <div className={styles.formGroup}>
               <label htmlFor="country" className={styles.formLabel}>
-                Country
+                {t("registerCountry")}
               </label>
               <select
                 id="country"
@@ -167,8 +167,8 @@ const RegisterPage = () => {
               >
                 <option value="">
                   {countriesLoading
-                    ? "Loading countries..."
-                    : "Select your country"}
+                    ? t("registerCountriesLoading")
+                    : t("registerSelectCountry")}
                 </option>
                 {countries.map((c) => (
                   <option key={c.countryId} value={c.countryId}>
@@ -178,13 +178,12 @@ const RegisterPage = () => {
               </select>
               {!countriesLoading && countries.length > 0 && (
                 <span className={styles.formHint} id="country-hint">
-                  Required to create your account.
+                  {t("registerCountryHint")}
                 </span>
               )}
               {!countriesLoading && countries.length === 0 && (
                 <span className={styles.formHint} id="country-hint">
-                  No countries loaded. Start the backend and ensure the database
-                  has countries, or use &quot;Continue as guest&quot; below.
+                  {t("registerNoCountriesHint")}
                 </span>
               )}
             </div>
@@ -194,30 +193,30 @@ const RegisterPage = () => {
               className={styles.loginButton}
               disabled={isLoading || countries.length === 0}
             >
-              {isLoading ? "Creating account..." : "Create account & join"}
+              {isLoading ? t("registerSubmitting") : t("registerSubmit")}
             </button>
           </form>
 
           <div className={styles["login-footer"] || styles.loginFooter}>
             <p>
-              Already have an account?{" "}
+              {t("registerHaveAccount")}{" "}
               <button
                 type="button"
                 onClick={() => navigate("/login")}
                 className={styles.linkButton}
               >
-                Log in
+                {t("registerLogIn")}
               </button>
             </p>
-            <p style={{ marginTop: "0.75rem" }}>
+            <p className={styles.guestRow}>
               <button
                 type="button"
                 onClick={handleContinueAsGuest}
                 className={styles.linkButton}
               >
-                Continue as guest
+                {t("loginContinueAsGuest")}
               </button>{" "}
-              — try the app without signing up.
+              {t("registerGuestSuffix")}
             </p>
           </div>
         </div>

@@ -5,8 +5,8 @@
   --navbar-height: 72px;
   display: flex;
   flex-direction: column;
-  background: var(--black);
-  color: var(--white-fafafa);
+  background: var(--surface);
+  color: var(--on-surface);
   font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
   height: 100vh;
   width: 100%;
@@ -37,10 +37,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(10, 10, 10, 0.9);
+  background: color-mix(in srgb, var(--surface) 90%, transparent);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid var(--outline-ghost);
   box-sizing: border-box;
 }
 
@@ -94,7 +94,7 @@
   cursor: pointer;
   font-size: 20px;
   font-weight: 700;
-  color: var(--color-contrast);
+  color: var(--on-surface);
   white-space: nowrap;
 }
 
@@ -111,7 +111,7 @@
   padding: 8px 6px;
   background: none;
   border: none;
-  color: rgba(255, 255, 255, 0.88);
+  color: var(--on-surface-variant);
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -121,7 +121,7 @@
 }
 
 .navLink:hover {
-  color: var(--text-white);
+  color: var(--on-surface);
 }
 
 .navButtons {
@@ -136,7 +136,7 @@
   padding: 8px 16px;
   background: transparent;
   border: none;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--on-surface);
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
@@ -146,16 +146,16 @@
 }
 
 .btnGhost:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: var(--text-white);
+  background: var(--surface-container-high);
+  color: var(--on-surface);
 }
 
 .btnPrimary {
   display: inline-flex;
   align-items: center;
   padding: 8px 18px;
-  background: var(--text-white);
-  color: var(--black);
+  background: var(--primary);
+  color: var(--on-primary);
   border: none;
   border-radius: 8px;
   font-size: 14px;
@@ -166,8 +166,9 @@
 }
 
 .btnPrimary:hover {
-  background: rgba(255, 255, 255, 0.95);
-  box-shadow: 0 2px 12px rgba(255, 255, 255, 0.2);
+  background: var(--primary-container);
+  color: var(--on-primary-container);
+  box-shadow: var(--shadow-md);
 }
 
 .navControls {
@@ -177,59 +178,22 @@
   gap: 6px;
   padding-left: 10px;
   margin-left: 4px;
-  border-left: 1px solid rgba(255, 255, 255, 0.2);
+  border-left: 1px solid var(--outline-ghost);
 }
 
 /* Only theme toggle gets the pill button look; language switcher is self-contained */
 .navControls .navThemeWrap :global(button) {
   padding: 6px 10px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--color-contrast);
+  border: 1px solid var(--outline-ghost);
+  background: var(--surface-container);
+  color: var(--on-surface);
   border-radius: 6px;
   cursor: pointer;
 }
 
 .navControls .navThemeWrap :global(button:hover) {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.3);
-}
-
-:global(body[theme="light"]) .navbar {
-  background: rgba(255, 255, 255, 0.95);
-  border-bottom-color: var(--gray-200);
-}
-
-:global(body[theme="light"]) .navLink {
-  color: var(--gray-700);
-}
-
-:global(body[theme="light"]) .navLink:hover {
-  color: var(--gray-900);
-}
-
-:global(body[theme="light"]) .btnGhost {
-  color: var(--gray-800);
-}
-
-:global(body[theme="light"]) .btnGhost:hover {
-  background: var(--gray-100);
-  color: var(--gray-900);
-}
-
-:global(body[theme="light"]) .navControls {
-  border-left-color: var(--gray-300);
-}
-
-:global(body[theme="light"]) .navControls .navThemeWrap :global(button) {
-  border-color: var(--gray-300);
-  background: var(--gray-100);
-  color: var(--gray-800);
-}
-
-:global(body[theme="light"]) .navControls .navThemeWrap :global(button:hover) {
-  background: var(--gray-200);
-  border-color: var(--gray-400);
+  background: var(--surface-container-high);
+  border-color: var(--outline-variant);
 }
 
 /* ===== HERO ===== */
@@ -239,7 +203,7 @@
   height: calc(100vh - var(--navbar-height));
   min-height: 500px;
   overflow: hidden;
-  background: var(--black);
+  background: var(--surface);
   flex-shrink: 0;
 }
 
@@ -276,9 +240,9 @@
   pointer-events: none;
   background: linear-gradient(
     to right,
-    rgba(10, 10, 10, 0.85) 0%,
-    rgba(10, 10, 10, 0.5) 30%,
-    rgba(10, 10, 10, 0.2) 50%,
+    color-mix(in srgb, var(--surface) 85%, transparent) 0%,
+    color-mix(in srgb, var(--surface) 50%, transparent) 30%,
+    color-mix(in srgb, var(--surface) 20%, transparent) 50%,
     transparent 100%
   );
 }
@@ -336,22 +300,22 @@
 
 .heroLine {
   display: block;
-  color: var(--text-white);
+  color: var(--on-surface);
 }
 
 .heroLineGradient {
   display: block;
-  background: linear-gradient(90deg, #7afbce 0%, #006c51 100%);
+  background: var(--gradient-hero);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  filter: drop-shadow(0 4px 12px rgba(122, 251, 206, 0.35));
+  filter: drop-shadow(var(--shadow-md));
 }
 
 .heroDescription {
   font-size: 20px;
   line-height: 1.6;
-  color: rgba(255, 255, 255, 0.75);
+  color: var(--on-surface-variant);
   margin-bottom: 40px;
   max-width: 42ch;
   font-weight: 400;
@@ -373,23 +337,23 @@
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  box-shadow: 0 8px 24px rgba(122, 251, 206, 0.25);
+  box-shadow: var(--shadow-md);
 }
 
 .btnHero:hover {
   background: var(--primary-container);
   color: var(--on-primary-container);
   transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(122, 251, 206, 0.35);
+  box-shadow: var(--shadow-floating);
 }
 
 .btnSecondary {
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--text-white);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: var(--surface-container);
+  color: var(--on-surface);
+  border: 1px solid var(--outline-variant);
   padding: 16px 32px;
   border-radius: 12px;
   font-size: 18px;
@@ -400,8 +364,8 @@
 }
 
 .btnSecondary:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.5);
+  background: var(--surface-container-high);
+  border-color: var(--primary);
   transform: translateY(-2px);
 }
 
@@ -420,8 +384,8 @@
 /* ===== PARTNERS ===== */
 .partners {
   padding: 92px 32px 40px;
-  background: var(--black);
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  background: var(--surface);
+  border-top: 1px solid var(--outline-ghost);
 }
 
 .partnersContainer {
@@ -455,12 +419,12 @@
 
 .logoCarousel::before {
   left: 0;
-  background: linear-gradient(90deg, var(--black) 0%, rgba(10, 10, 10, 0) 100%);
+  background: linear-gradient(90deg, var(--surface) 0%, color-mix(in srgb, var(--surface) 0%, transparent) 100%);
 }
 
 .logoCarousel::after {
   right: 0;
-  background: linear-gradient(270deg, var(--black) 0%, rgba(10, 10, 10, 0) 100%);
+  background: linear-gradient(270deg, var(--surface) 0%, color-mix(in srgb, var(--surface) 0%, transparent) 100%);
 }
 
 .logoTrack {
@@ -513,8 +477,8 @@
 /* ===== ABOUT ===== */
 .about {
   padding: 100px 32px 80px;
-  background: var(--black);
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  background: var(--surface);
+  border-top: 1px solid var(--outline-ghost);
   scroll-margin-top: 80px;
 }
 
@@ -528,20 +492,9 @@
   margin-top: 18px;
   padding: 18px;
   border-radius: 28px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background:
-    radial-gradient(
-      1200px 280px at 0% 0%,
-      rgba(0, 240, 255, 0.08),
-      rgba(0, 240, 255, 0)
-    ),
-    radial-gradient(
-      800px 240px at 100% 100%,
-      rgba(0, 255, 136, 0.07),
-      rgba(0, 255, 136, 0)
-    ),
-    rgba(255, 255, 255, 0.01);
-  box-shadow: 0 24px 56px rgba(0, 0, 0, 0.28);
+  border: 1px solid var(--outline-ghost);
+  background: var(--gradient-mint-glow), var(--surface-container-low);
+  box-shadow: var(--shadow-floating);
 }
 
 .aboutTopGrid {
@@ -552,8 +505,8 @@
 }
 
 .aboutTextBlock {
-  background: rgba(255, 255, 255, 0.025);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: var(--surface-container-low);
+  border: 1px solid var(--outline-ghost);
   border-radius: 18px;
   padding: 22px;
   text-align: left;
@@ -563,7 +516,7 @@
   font-size: clamp(22px, 2.2vw, 30px);
   line-height: 1.35;
   letter-spacing: -0.01em;
-  color: rgba(255, 255, 255, 0.95);
+  color: var(--on-surface);
   margin: 0 0 14px;
   font-weight: 600;
 }
@@ -571,7 +524,7 @@
 .aboutCopy {
   font-size: 15px;
   line-height: 1.55;
-  color: rgba(255, 255, 255, 0.75);
+  color: var(--on-surface-variant);
   margin: 0;
   max-width: 100%;
 }
@@ -585,8 +538,8 @@
 }
 
 .aboutStatCard {
-  background: rgba(255, 255, 255, 0.025);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: var(--surface-container-low);
+  border: 1px solid var(--outline-ghost);
   border-radius: 14px;
   padding: 14px 12px;
   text-align: center;
@@ -608,15 +561,15 @@
 }
 
 .aboutStatCard:nth-child(1) {
-  border-color: rgba(0, 240, 255, 0.28);
+  border-color: var(--primary);
 }
 
 .aboutStatCard:nth-child(2) {
-  border-color: rgba(0, 255, 136, 0.28);
+  border-color: var(--primary-container);
 }
 
 .aboutStatCard:nth-child(3) {
-  border-color: rgba(255, 255, 255, 0.2);
+  border-color: var(--outline-variant);
 }
 
 .aboutStatNumber {
@@ -624,7 +577,7 @@
   font-size: 20px;
   line-height: 1.1;
   font-weight: 800;
-  color: var(--text-white);
+  color: var(--on-surface);
 }
 
 .aboutStatCard:first-child .aboutStatNumber {
@@ -634,7 +587,7 @@
 .aboutStatLabel {
   margin: 4px 0 0;
   font-size: 11px;
-  color: rgba(255, 255, 255, 0.74);
+  color: var(--on-surface-variant);
   letter-spacing: 0.02em;
   line-height: 1.2;
 }
@@ -642,7 +595,7 @@
 .aboutSupportSection {
   margin-top: 12px;
   padding-top: 12px;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-top: 1px solid var(--outline-ghost);
 }
 
 .aboutSupportGrid {
@@ -655,8 +608,8 @@
 .aboutSupportCard {
   min-height: 100px;
   width: 100%;
-  background: rgba(255, 255, 255, 0.025);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: var(--surface-container-low);
+  border: 1px solid var(--outline-ghost);
   border-radius: 14px;
   padding: 16px;
   text-align: center;
@@ -671,14 +624,14 @@
   font-size: 11px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.55);
+  color: var(--on-surface-muted);
   font-weight: 600;
 }
 
 .aboutSupportValue {
   font-size: 17px;
   font-weight: 700;
-  color: var(--text-white);
+  color: var(--on-surface);
   letter-spacing: 0.02em;
   line-height: 1.3;
   word-break: break-all;
@@ -688,13 +641,13 @@
   width: 100%;
   min-height: 80px;
   border-radius: 10px;
-  border: 1px dashed rgba(255, 255, 255, 0.24);
-  background: rgba(255, 255, 255, 0.05);
+  border: 1px dashed var(--outline-variant);
+  background: var(--surface-container);
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  color: rgba(255, 255, 255, 0.55);
+  color: var(--on-surface-muted);
   font-size: 11px;
   padding: 12px;
   box-sizing: border-box;
@@ -703,8 +656,8 @@
 /* ===== FAQ ===== */
 .faqSection {
   padding: 80px 32px 80px;
-  background: var(--black);
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  background: var(--surface);
+  border-top: 1px solid var(--outline-ghost);
   scroll-margin-top: 80px;
 }
 
@@ -722,15 +675,15 @@
 .faqItem {
   margin-bottom: 10px;
   border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--outline-ghost);
+  background: var(--surface-container-low);
   overflow: hidden;
   transition: border-color 0.25s ease, background 0.25s ease;
 }
 
 .faqItem:hover {
-  border-color: rgba(255, 255, 255, 0.18);
-  background: rgba(255, 255, 255, 0.03);
+  border-color: var(--outline-variant);
+  background: var(--surface-container);
 }
 
 .faqQuestionWrap {
@@ -751,7 +704,7 @@
 .faqQuestion {
   font-size: 16px;
   font-weight: 600;
-  color: var(--text-white);
+  color: var(--on-surface);
   line-height: 1.4;
 }
 
@@ -760,7 +713,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--on-surface-variant);
   transition: transform 0.25s ease;
 }
 
@@ -784,8 +737,8 @@
   padding-top: 0;
   font-size: 15px;
   line-height: 1.6;
-  color: rgba(255, 255, 255, 0.72);
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--on-surface-variant);
+  border-top: 1px solid var(--outline-ghost);
   padding-top: 12px;
   margin: 0 18px 16px;
   margin-top: 0;
@@ -794,8 +747,8 @@
 /* ===== CONTACT US ===== */
 .contactSection {
   padding: 80px 32px 80px;
-  background: var(--black);
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  background: var(--surface);
+  border-top: 1px solid var(--outline-ghost);
   scroll-margin-top: 80px;
 }
 
@@ -815,8 +768,8 @@
 /* Shared block style for left and right columns */
 .contactBlock {
   border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--outline-ghost);
+  background: var(--surface-container-low);
   padding: 24px;
   min-height: 180px;
   display: flex;
@@ -829,7 +782,7 @@
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.55);
+  color: var(--on-surface-muted);
 }
 
 .contactInfoBlock {
@@ -856,8 +809,8 @@
   gap: 8px;
   padding: 20px 16px;
   border-radius: 0;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--outline-ghost);
+  background: var(--surface-container-low);
   text-decoration: none;
   color: inherit;
   transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease;
@@ -866,8 +819,8 @@
 }
 
 .contactItemCard:hover {
-  border-color: rgba(255, 255, 255, 0.28);
-  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--outline-variant);
+  background: var(--surface-container);
   transform: translateY(-2px);
 }
 
@@ -876,13 +829,13 @@
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.55);
+  color: var(--on-surface-muted);
 }
 
 .contactItemValue {
   font-size: 15px;
   font-weight: 600;
-  color: var(--text-white);
+  color: var(--on-surface);
   text-align: center;
   word-break: break-all;
 }
@@ -892,7 +845,7 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--on-surface);
 }
 
 .contactSocialIconSvg {
@@ -920,7 +873,7 @@
 .contactLabel {
   font-size: 12px;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--on-surface-variant);
 }
 
 .contactInput,
@@ -928,9 +881,9 @@
   width: 100%;
   padding: 12px 14px;
   border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: rgba(255, 255, 255, 0.04);
-  color: var(--text-white);
+  border: 1px solid var(--outline-variant);
+  background: var(--surface-container);
+  color: var(--on-surface);
   font-size: 15px;
   font-family: inherit;
   transition: border-color 0.25s ease;
@@ -939,13 +892,13 @@
 
 .contactInput::placeholder,
 .contactTextarea::placeholder {
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--on-surface-muted);
 }
 
 .contactInput:focus,
 .contactTextarea:focus {
   outline: none;
-  border-color: rgba(255, 255, 255, 0.4);
+  border-color: var(--primary);
 }
 
 .contactTextarea {
@@ -958,8 +911,8 @@
   padding: 14px 24px;
   border-radius: 12px;
   border: none;
-  background: var(--text-white);
-  color: var(--black);
+  background: var(--primary);
+  color: var(--on-primary);
   font-size: 15px;
   font-weight: 700;
   cursor: pointer;
@@ -969,7 +922,7 @@
 
 .contactSubmitBtn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.15);
+  box-shadow: var(--shadow-md);
 }
 
 .contactSuccess {
@@ -980,13 +933,13 @@
 .contactSuccess p {
   margin: 0 0 16px;
   font-size: 16px;
-  color: rgba(255, 255, 255, 0.85);
+  color: var(--on-surface);
 }
 
 /* ===== EXPLAINER ===== */
 .explain {
   padding: 100px 32px 40px;
-  background: var(--black);
+  background: var(--surface);
   scroll-margin-top: 80px;
 }
 
@@ -1009,37 +962,33 @@
   text-align: left;
   position: relative;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--outline-ghost);
 }
 
 .explainCardFree {
-  background: linear-gradient(
-    180deg,
-    rgba(0, 255, 136, 0.05) 0%,
-    rgba(255, 255, 255, 0.01) 100%
-  );
-  border-color: rgba(0, 255, 136, 0.2);
+  background: var(--gradient-mint-glow), var(--surface-container-low);
+  border-color: var(--primary);
 }
 
 .explainCardPaid {
   background: linear-gradient(
     180deg,
-    rgba(255, 184, 0, 0.05) 0%,
-    rgba(255, 255, 255, 0.01) 100%
+    var(--surface-container) 0%,
+    var(--surface-container-low) 100%
   );
-  border-color: rgba(255, 184, 0, 0.2);
+  border-color: var(--warning);
 }
 
 .explainIconWrap {
   width: 56px;
   height: 56px;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--surface-container);
   border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 24px;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--on-surface);
 }
 
 .explainIconWrap svg {
@@ -1050,14 +999,14 @@
 .explainTitle {
   font-size: 24px;
   font-weight: 700;
-  color: var(--text-white);
+  color: var(--on-surface);
   margin-bottom: 12px;
 }
 
 .explainDesc {
   font-size: 16px;
   line-height: 1.6;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--on-surface-variant);
   margin-bottom: 24px;
 }
 
@@ -1072,7 +1021,7 @@
 
 .explainList li {
   font-size: 16px;
-  color: var(--text-white);
+  color: var(--on-surface);
   display: flex;
   align-items: center;
   gap: 8px;
@@ -1090,14 +1039,14 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--ownGreen, #00ff88);
+  background: var(--primary);
 }
 
 /* ===== PREMIUM HELP ===== */
 .premium {
   padding: 140px 32px;
-  background: var(--black);
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  background: var(--surface);
+  border-top: 1px solid var(--outline-ghost);
   scroll-margin-top: 80px;
 }
 
@@ -1109,7 +1058,7 @@
 
 .premiumSubtitle {
   font-size: 18px;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--on-surface-variant);
   margin: -40px auto 60px;
   max-width: 600px;
   line-height: 1.6;
@@ -1118,7 +1067,7 @@
 .premiumWarning {
   display: block;
   margin-top: 8px;
-  color: #ffb800;
+  color: var(--warning);
   font-weight: 600;
   font-size: 16px;
   letter-spacing: 0.5px;
@@ -1131,8 +1080,8 @@
 }
 
 .premiumStepCard {
-  background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(180deg, var(--surface-container) 0%, var(--surface-container-low) 100%);
+  border: 1px solid var(--outline-ghost);
   border-radius: 24px;
   padding: 40px 32px;
   text-align: left;
@@ -1144,14 +1093,14 @@
 
 .premiumStepCard:hover {
   transform: translateY(-8px);
-  border-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
+  border-color: var(--outline-variant);
+  box-shadow: var(--shadow-floating);
 }
 
 .premiumStepNumber {
   font-size: 48px;
   font-weight: 800;
-  color: rgba(255, 255, 255, 0.1);
+  color: var(--on-surface-muted);
   margin-bottom: 16px;
   line-height: 1;
 }
@@ -1159,26 +1108,26 @@
 .premiumStepTitle {
   font-size: 22px;
   font-weight: 700;
-  color: var(--text-white);
+  color: var(--on-surface);
   margin-bottom: 12px;
 }
 
 .premiumStepDesc {
   font-size: 15px;
   line-height: 1.6;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--on-surface-variant);
 }
 
 .premiumStepDesc strong {
-  color: var(--text-white);
+  color: var(--on-surface);
   font-weight: 600;
 }
 
 /* ===== FREE + DONATION ===== */
 .support {
   padding: 140px 32px;
-  background: linear-gradient(180deg, var(--black) 0%, #080808 100%);
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  background: linear-gradient(180deg, var(--surface) 0%, var(--surface-container-low) 100%);
+  border-top: 1px solid var(--outline-ghost);
   scroll-margin-top: 80px;
 }
 
@@ -1214,15 +1163,15 @@
 
 .supportLead {
   font-size: 20px;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--on-surface-variant);
   line-height: 1.6;
   margin: 0 0 40px;
   max-width: 500px;
 }
 
 .supportDonationCard {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--surface-container-low);
+  border: 1px solid var(--outline-ghost);
   border-radius: 32px;
   padding: 48px;
   backdrop-filter: blur(10px);
@@ -1231,7 +1180,7 @@
 .donationHeader {
   font-size: 24px;
   font-weight: 700;
-  color: var(--text-white);
+  color: var(--on-surface);
   margin-bottom: 24px;
   text-align: center;
 }
@@ -1247,29 +1196,29 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px dashed rgba(255, 255, 255, 0.2);
+  background: var(--surface-container);
+  border: 1px dashed var(--outline-variant);
   border-radius: 16px;
   padding: 24px;
   transition: all 0.3s ease;
 }
 
 .supportItem:hover {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.4);
+  background: var(--surface-container-high);
+  border-color: var(--primary);
 }
 
 .supportLabel {
   font-size: 14px;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--on-surface-muted);
   font-weight: 600;
 }
 
 .supportValue {
   font-size: 16px;
-  color: var(--text-white);
+  color: var(--on-surface);
   font-weight: 500;
 }
 
@@ -1277,13 +1226,13 @@
 .qrDummy {
   width: 100%;
   height: 120px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 2px dashed rgba(255, 255, 255, 0.2);
+  background: var(--surface-container);
+  border: 2px dashed var(--outline-variant);
   border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--on-surface-muted);
   font-size: 14px;
   font-style: italic;
   padding: 16px;
@@ -1292,8 +1241,8 @@
 }
 
 .btnSupport {
-  background: var(--text-white);
-  color: var(--black);
+  background: var(--primary);
+  color: var(--on-primary);
   border: none;
   padding: 16px 40px;
   border-radius: 12px;
@@ -1305,14 +1254,14 @@
 
 .btnSupport:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(255, 255, 255, 0.2);
+  box-shadow: var(--shadow-floating);
 }
 
 /* ===== FOOTER ===== */
 .footer {
   padding: 40px 32px;
-  background: var(--black);
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  background: var(--surface);
+  border-top: 1px solid var(--outline-ghost);
 }
 
 .footerContainer {
@@ -1335,7 +1284,7 @@
   gap: 12px;
   font-size: 18px;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--on-surface);
 }
 
 .footerLogoImg {
@@ -1347,7 +1296,7 @@
 
 .footerCopy {
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--on-surface-muted);
 }
 
 .footerLinks {
@@ -1358,7 +1307,7 @@
 .footerLink {
   background: none;
   border: none;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--on-surface-muted);
   font-size: 15px;
   font-weight: 500;
   cursor: pointer;
@@ -1367,7 +1316,7 @@
 }
 
 .footerLink:hover {
-  color: var(--text-white);
+  color: var(--on-surface);
 }
 
 /* ===== RESPONSIVE ===== */
@@ -1388,11 +1337,11 @@
     gap: 40px;
     text-align: center;
   }
-  
+
   .supportInfo {
     text-align: center;
   }
-  
+
   .supportInfo :global(.landing-sparkles-header) {
     justify-content: center;
   }
@@ -1495,315 +1444,4 @@
     flex-direction: column;
     gap: 12px;
   }
-}
-
-/* ===== LIGHT MODE PRESERVATION ===== */
-:global(body[theme="light"]) .page {
-  background: var(--white-fafafa);
-  color: var(--textCopy);
-}
-
-:global(body[theme="light"]) .premium,
-:global(body[theme="light"]) .support,
-:global(body[theme="light"]) .footer {
-  background: var(--white-fafafa);
-  border-top-color: var(--gray-200);
-}
-
-:global(body[theme="light"]) .premiumCard,
-:global(body[theme="light"]) .supportCard {
-  background: var(--white);
-  border-color: var(--gray-200);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
-}
-
-:global(body[theme="light"]) .premiumTitle,
-:global(body[theme="light"]) .supportValue,
-:global(body[theme="light"]) .footerLogo {
-  color: var(--color-contrast);
-}
-
-:global(body[theme="light"]) .premiumDesc,
-:global(body[theme="light"]) .supportLead,
-:global(body[theme="light"]) .premiumSubtitle {
-  color: var(--gray-600);
-}
-
-:global(body[theme="light"]) .supportItem {
-  background: var(--gray-50);
-  border-color: var(--gray-300);
-}
-
-:global(body[theme="light"]) .footerLink {
-  color: var(--gray-500);
-}
-
-:global(body[theme="light"]) .footerLink:hover {
-  color: var(--gray-900);
-}
-
-:global(body[theme="light"]) .about,
-:global(body[theme="light"]) .faqSection,
-:global(body[theme="light"]) .contactSection {
-  background: var(--white-fafafa);
-  border-top-color: var(--gray-200);
-}
-
-:global(body[theme="light"]) .faqItem {
-  border-color: var(--gray-200);
-  background: var(--white);
-}
-
-:global(body[theme="light"]) .faqItem:hover {
-  border-color: var(--gray-300);
-  background: var(--gray-50);
-}
-
-:global(body[theme="light"]) .faqQuestion {
-  color: var(--gray-900);
-}
-
-:global(body[theme="light"]) .faqAnswer {
-  color: var(--gray-600);
-  border-top-color: var(--gray-200);
-}
-
-:global(body[theme="light"]) .faqChevron {
-  color: var(--gray-500);
-}
-
-:global(body[theme="light"]) .contactItemCard {
-  border-color: var(--gray-200);
-  background: var(--white);
-}
-
-:global(body[theme="light"]) .contactItemCard:hover {
-  border-color: var(--gray-300);
-  background: var(--gray-50);
-}
-
-:global(body[theme="light"]) .contactItemTitle {
-  color: var(--gray-500);
-}
-
-:global(body[theme="light"]) .contactItemValue {
-  color: var(--gray-900);
-}
-
-:global(body[theme="light"]) .contactItemIcon {
-  color: var(--gray-700);
-}
-
-:global(body[theme="light"]) .contactBlock {
-  border-color: var(--gray-200);
-  background: var(--white);
-}
-
-:global(body[theme="light"]) .contactBlockTitle {
-  color: var(--gray-500);
-}
-
-:global(body[theme="light"]) .contactFormCard {
-  border-color: transparent;
-  background: transparent;
-}
-
-:global(body[theme="light"]) .contactLabel {
-  color: var(--gray-700);
-}
-
-:global(body[theme="light"]) .contactInput,
-:global(body[theme="light"]) .contactTextarea {
-  border-color: var(--gray-300);
-  background: var(--gray-50);
-  color: var(--gray-900);
-}
-
-:global(body[theme="light"]) .contactInput::placeholder,
-:global(body[theme="light"]) .contactTextarea::placeholder {
-  color: var(--gray-400);
-}
-
-:global(body[theme="light"]) .contactInput:focus,
-:global(body[theme="light"]) .contactTextarea:focus {
-  border-color: var(--gray-500);
-}
-
-:global(body[theme="light"]) .contactSuccess p {
-  color: var(--gray-700);
-}
-
-:global(body[theme="light"]) .partners {
-  background: var(--white-fafafa);
-  border-top-color: var(--gray-200);
-}
-
-:global(body[theme="light"]) .logoCarousel::before {
-  background: linear-gradient(
-    90deg,
-    var(--white-fafafa) 0%,
-    rgba(255, 255, 255, 0) 100%
-  );
-}
-
-:global(body[theme="light"]) .logoCarousel::after {
-  background: linear-gradient(
-    270deg,
-    var(--white-fafafa) 0%,
-    rgba(255, 255, 255, 0) 100%
-  );
-}
-
-:global(body[theme="light"]) .logoItem:hover {
-  opacity: 0.85;
-}
-
-:global(body[theme="light"]) .aboutLead {
-  color: var(--gray-900);
-}
-
-:global(body[theme="light"]) .aboutCopy {
-  color: var(--gray-600);
-}
-
-:global(body[theme="light"]) .aboutStatCard,
-:global(body[theme="light"]) .aboutTextBlock,
-:global(body[theme="light"]) .aboutSupportCard {
-  background: var(--white);
-  border-color: var(--gray-200);
-}
-
-:global(body[theme="light"]) .aboutShell {
-  background: var(--white);
-  border-color: var(--gray-200);
-  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.07);
-}
-
-:global(body[theme="light"]) .aboutSupportCard {
-  border-style: solid;
-}
-
-:global(body[theme="light"]) .aboutStatNumber,
-:global(body[theme="light"]) .aboutSupportValue {
-  color: var(--gray-900);
-}
-
-:global(body[theme="light"]) .aboutStatLabel,
-:global(body[theme="light"]) .aboutLead,
-:global(body[theme="light"]) .aboutCopy {
-  color: var(--gray-600);
-}
-
-:global(body[theme="light"]) .aboutSupportLabel {
-  color: var(--gray-500);
-}
-
-:global(body[theme="light"]) .aboutQrDummy {
-  border-color: var(--gray-300);
-  background: var(--gray-50);
-  color: var(--gray-500);
-}
-
-/* =============================================================================
-   LIGHT THEME · Digital Curator overrides
-   ========================================================================== */
-:global(body[theme="light"]) .page {
-  background: var(--surface);
-  color: var(--on-surface);
-}
-
-:global(body[theme="light"]) .navbar {
-  background: rgba(247, 249, 251, 0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--outline-ghost);
-}
-
-:global(body[theme="light"]) .logo {
-  color: var(--on-surface);
-}
-
-:global(body[theme="light"]) .btnPrimary {
-  background: var(--primary-container);
-  color: var(--on-primary-container);
-}
-:global(body[theme="light"]) .btnPrimary:hover {
-  background: var(--primary);
-  color: var(--on-primary);
-  box-shadow: 0 6px 20px rgba(0, 108, 81, 0.25);
-}
-
-:global(body[theme="light"]) .hero {
-  background: var(--surface);
-}
-
-:global(body[theme="light"]) .heroOverlay {
-  background: linear-gradient(
-    to right,
-    rgba(247, 249, 251, 0.92) 0%,
-    rgba(247, 249, 251, 0.7) 30%,
-    rgba(247, 249, 251, 0.3) 50%,
-    rgba(247, 249, 251, 0) 100%
-  );
-}
-
-:global(body[theme="light"]) .heroLine {
-  color: var(--on-surface);
-}
-
-:global(body[theme="light"]) .heroLineGradient {
-  background: var(--gradient-hero);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  filter: drop-shadow(0 4px 12px rgba(0, 108, 81, 0.18));
-}
-
-:global(body[theme="light"]) .heroDescription {
-  color: var(--on-surface-variant);
-}
-
-:global(body[theme="light"]) .btnHero {
-  background: var(--primary);
-  color: var(--on-primary);
-  box-shadow: 0 8px 24px rgba(0, 108, 81, 0.2);
-}
-:global(body[theme="light"]) .btnHero:hover {
-  background: var(--on-primary-container);
-  box-shadow: 0 12px 32px rgba(0, 108, 81, 0.3);
-}
-
-:global(body[theme="light"]) .btnSecondary {
-  background: var(--surface-container-lowest);
-  color: var(--on-surface);
-  border: 1px solid var(--outline-ghost);
-}
-:global(body[theme="light"]) .btnSecondary:hover {
-  background: var(--surface-container-low);
-  border-color: var(--primary);
-}
-
-:global(body[theme="light"]) .contactSubmitBtn {
-  background: var(--primary);
-  color: var(--on-primary);
-}
-:global(body[theme="light"]) .contactSubmitBtn:hover {
-  background: var(--on-primary-container);
-  box-shadow: 0 8px 24px rgba(0, 108, 81, 0.25);
-}
-
-:global(body[theme="light"]) .footerCopy {
-  color: var(--on-surface-muted);
-}
-
-:global(body[theme="light"]) .partners {
-  background: var(--surface);
-  border-top: 1px solid var(--outline-ghost);
-}
-
-:global(body[theme="light"]) .logoCarousel::before {
-  background: linear-gradient(90deg, var(--surface) 0%, rgba(247, 249, 251, 0) 100%);
-}
-:global(body[theme="light"]) .logoCarousel::after {
-  background: linear-gradient(270deg, var(--surface) 0%, rgba(247, 249, 251, 0) 100%);
 }

@@ -3,37 +3,46 @@
   font-size: 0.875rem;
   font-weight: 700;
   letter-spacing: 0.02em;
-  color: #fff;
-  background: linear-gradient(
-    135deg,
-    rgba(5, 150, 105, 0.35) 0%,
-    rgba(37, 99, 235, 0.4) 100%
-  );
-  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: var(--on-primary);
+  background: var(--primary);
+  border: 1px solid var(--primary);
   border-radius: 12px;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-  box-shadow: 0 4px 16px rgba(5, 150, 105, 0.12);
+  box-shadow: var(--shadow-md);
 }
 
 .btn:hover {
   transform: translateY(-1px);
-  box-shadow: 0 8px 24px rgba(5, 150, 105, 0.22);
-  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: var(--shadow-floating);
+  background: var(--on-primary-container);
+  border-color: var(--on-primary-container);
 }
 
 .btn:active {
   transform: translateY(0);
 }
 
-:global(body[theme="light"]) .btn {
-  background: var(--primary);
-  color: var(--on-primary);
-  border: 1px solid var(--primary);
-  box-shadow: 0 4px 16px rgba(0, 108, 81, 0.18);
+.secondary {
+  background: var(--secondary);
+  color: var(--on-secondary);
+  border-color: var(--secondary);
 }
-:global(body[theme="light"]) .btn:hover {
-  background: var(--on-primary-container);
-  border-color: var(--on-primary-container);
-  box-shadow: 0 8px 24px rgba(0, 108, 81, 0.28);
+
+.secondary:hover {
+  background: var(--secondary);
+  border-color: var(--secondary);
+}
+
+.ghost {
+  background: transparent;
+  color: var(--on-surface);
+  border: 1px solid var(--outline-ghost);
+  box-shadow: none;
+}
+
+.ghost:hover {
+  background: transparent;
+  border-color: var(--outline-variant);
+  box-shadow: none;
 }

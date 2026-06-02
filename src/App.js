@@ -42,22 +42,7 @@ import "./styles/core.css";
 import "./styles/animations.css";
 
 const FullPageLoader = () => (
-  <div
-    style={{
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      minHeight: "100vh",
-      background: "var(--surface)",
-      color: "var(--on-surface)",
-      fontFamily: "var(--font-body)",
-      fontSize: "1rem",
-      letterSpacing: "0.05em",
-      textTransform: "uppercase",
-    }}
-  >
-    Loading…
-  </div>
+  <div className="full-page-loader">Loading…</div>
 );
 
 const ProtectedRoute = ({ children }) => {

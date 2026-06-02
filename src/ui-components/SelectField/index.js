@@ -1,4 +1,5 @@
 import React, { useId, useState, useRef, useEffect, useCallback } from "react";
+import { useTranslation } from "../../hooks/useLanguage";
 import styles from "./style.module.css";
 
 const Chevron = ({ open }) => (
@@ -27,6 +28,7 @@ export default function SelectField({
   className = "",
   compact = false,
 }) {
+  const { t } = useTranslation();
   const uid = useId();
   const id = idProp || `select-${uid}`;
   const listId = `${id}-listbox`;
@@ -122,7 +124,7 @@ export default function SelectField({
         aria-expanded={open}
         aria-controls={listId}
         aria-labelledby={label ? `${id}-label` : undefined}
-        aria-label={label ? undefined : "Select option"}
+        aria-label={label ? undefined : t("selectFieldDefaultPlaceholder")}
         aria-activedescendant={
           open && highlightIndex >= 0 ? `${id}-opt-${highlightIndex}` : undefined
         }

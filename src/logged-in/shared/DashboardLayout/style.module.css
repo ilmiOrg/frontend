@@ -90,7 +90,7 @@
 
 .sendInfoBtn:hover {
   background: var(--on-primary-container);
-  box-shadow: 0 6px 18px rgba(0, 108, 81, 0.22);
+  box-shadow: var(--shadow-floating);
 }
 
 .nav {
@@ -260,6 +260,10 @@
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.langSwitcher {
+  margin-right: 4px;
 }
 
 .actionBtn {

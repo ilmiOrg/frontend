@@ -5,6 +5,7 @@ import { useTranslation } from "../../../hooks/useLanguage";
 import { ILMI_LOGO_URL } from "../../../lib/ilmiLogoUrl";
 import { SkyToggle } from "../../../components/ui/SkyToggle";
 import { ScrollContainer } from "../../../components/ui/ScrollContainer";
+import LanguageSwitcher from "../../../components/LanguageSwitcher";
 import {
   HomeIcon,
   StarIcon,
@@ -195,6 +196,7 @@ const DashboardLayout = () => {
             </h1>
           </div>
           <div className={styles.topBarRight}>
+            <LanguageSwitcher className={styles.langSwitcher} />
             <SkyToggle checked={isDark} onChange={toggleTheme} />
             <button className={styles.actionBtn} title={t("dashNotifications")}>
               <BellIcon size={18} />

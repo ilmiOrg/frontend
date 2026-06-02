@@ -14,14 +14,16 @@
   display: flex;
   align-items: center;
   gap: var(--spacing-lg);
-  background: var(--slate-700-opacity-5, rgba(15, 23, 42, 0.35));
-  border: 1px solid var(--white-opacity-08, rgba(255, 255, 255, 0.08));
+  background: var(--surface-container-low);
+  border: 1px solid var(--outline-ghost);
   border-radius: var(--border-radius-lg);
   padding: var(--spacing-xl);
+  box-shadow: var(--shadow-floating);
 }
 
 .fieldIcon {
   font-size: 2.5rem;
+  color: var(--primary);
 }
 
 .fieldInfo {
@@ -33,13 +35,13 @@
 .fieldName {
   font-size: 1.5rem;
   font-weight: var(--fontWeight-semibold);
-  color: var(--text-white, #fff);
+  color: var(--on-surface);
   margin: 0;
 }
 
 .fieldCount {
   font-size: var(--fontSize-sm, 0.875rem);
-  color: var(--text-white-6, rgba(255, 255, 255, 0.55));
+  color: var(--on-surface-variant);
   margin: 0;
 }
 
@@ -48,11 +50,13 @@
   flex-wrap: wrap;
   gap: var(--spacing-md);
   align-items: flex-end;
+  color: var(--on-surface-variant);
 }
 
 .filterItem {
   min-width: 180px;
   flex: 1;
+  color: var(--on-surface-variant);
 }
 
 .uniGrid {
@@ -62,8 +66,8 @@
 }
 
 .uniCard {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--surface-container-low);
+  border: 1px solid var(--outline-ghost);
   border-radius: var(--border-radius-lg);
   padding: var(--spacing-lg);
   display: flex;
@@ -73,51 +77,52 @@
   color: inherit;
   transition: border-color 0.2s, background 0.2s;
   cursor: pointer;
+  box-shadow: var(--shadow-floating);
 }
 
 .uniCard:hover {
-  background: rgba(255, 255, 255, 0.07);
-  border-color: rgba(255, 255, 255, 0.18);
+  background: var(--surface-container-high);
+  border-color: var(--primary);
 }
 
 .uniName {
   font-size: var(--fontSize-base, 1rem);
   font-weight: var(--fontWeight-semibold);
-  color: var(--text-white, #fff);
+  color: var(--on-surface);
   margin: 0;
 }
 
 .uniMeta {
   font-size: var(--fontSize-sm, 0.875rem);
-  color: var(--text-white-6, rgba(255, 255, 255, 0.55));
+  color: var(--on-surface-variant);
   margin: 0;
 }
 
 .uniTuition {
   font-size: var(--fontSize-sm, 0.875rem);
-  color: var(--accent-color, #6366f1);
+  color: var(--primary);
   font-weight: var(--fontWeight-semibold);
   margin: 0;
 }
 
 .uniFieldMeta {
   font-size: 0.8125rem;
-  color: var(--text-white-6, rgba(255, 255, 255, 0.55));
+  color: var(--on-surface-variant);
   margin: 0;
   padding-top: var(--spacing-sm);
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid var(--outline-ghost);
 }
 
 .emptyState {
   font-size: var(--fontSize-sm, 0.875rem);
-  color: var(--text-white-6, rgba(255, 255, 255, 0.6));
+  color: var(--on-surface-variant);
   line-height: 1.6;
   margin: 0;
   padding: var(--spacing-xl);
   text-align: center;
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--surface-container-low);
   border-radius: var(--border-radius-lg);
-  border: 1px dashed rgba(255, 255, 255, 0.14);
+  border: 1px dashed var(--outline-ghost);
   grid-column: 1 / -1;
 }
 
@@ -125,49 +130,4 @@
   .uniGrid {
     grid-template-columns: 1fr;
   }
-}
-
-/* Light theme · Digital Curator */
-:global(body[theme="light"]) .fieldHeader {
-  background: var(--surface-container-lowest);
-  border: 1px solid var(--outline-ghost);
-  box-shadow: var(--shadow-floating);
-}
-:global(body[theme="light"]) .fieldIcon {
-  background: var(--primary-container);
-  color: var(--on-primary-container);
-}
-:global(body[theme="light"]) .fieldName {
-  color: var(--on-surface);
-}
-:global(body[theme="light"]) .fieldCount {
-  color: var(--on-surface-variant);
-}
-:global(body[theme="light"]) .filterBar,
-:global(body[theme="light"]) .filterItem {
-  color: var(--on-surface-variant);
-}
-:global(body[theme="light"]) .uniCard {
-  background: var(--surface-container-lowest);
-  border: 1px solid var(--outline-ghost);
-  box-shadow: var(--shadow-floating);
-}
-:global(body[theme="light"]) .uniCard:hover {
-  border-color: var(--primary);
-  box-shadow: var(--shadow-hover);
-}
-:global(body[theme="light"]) .uniName {
-  color: var(--on-surface);
-}
-:global(body[theme="light"]) .uniMeta,
-:global(body[theme="light"]) .uniFieldMeta {
-  color: var(--on-surface-variant);
-}
-:global(body[theme="light"]) .uniTuition {
-  color: var(--primary);
-}
-:global(body[theme="light"]) .emptyState {
-  background: var(--surface-container-low);
-  border: 1px dashed var(--outline-ghost);
-  color: var(--on-surface-variant);
 }

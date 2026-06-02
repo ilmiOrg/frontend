@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useTranslation } from "../../../../hooks/useLanguage";
 import PageTemplate from "../../../shared/PageTemplate";
 import { BookOpenIcon, LaptopIcon, BarChartIcon, HeartPulseIcon, ScaleIcon, GearIcon, PaletteIcon, GlobeIcon, DollarIcon, LeafIcon, NewspaperIcon, BuildingIcon, BrainIcon, CheckIcon, MenuIcon, ChevronRightIcon } from "../../../shared/Icons";
@@ -79,7 +79,6 @@ function savePrefs(prefs) {
 
 const SearchFieldsPage = () => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
   const saved = useMemo(() => loadPrefs(), []);
@@ -248,10 +247,6 @@ const SearchFieldsPage = () => {
       .filter(Boolean);
   }, [fields, selectedFieldIds]);
 
-  const handleBack = useCallback(() => {
-    navigate(-1);
-  }, [navigate]);
-
   const hasActiveFilters =
     degreeLevel !== ALL ||
     language !== ALL ||
@@ -259,7 +254,7 @@ const SearchFieldsPage = () => {
     tuitionMax !== "";
 
   return (
-    <PageTemplate icon={<BookOpenIcon size={22} />} title={t("searchFieldsTitle")} onBack={handleBack}>
+    <PageTemplate icon={<BookOpenIcon size={22} />} title={t("searchFieldsTitle")}>
       <div className={styles.layout}>
         <section className={styles.filtersPanel}>
           <div className={styles.filtersHead}>

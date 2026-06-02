@@ -1,99 +1,14 @@
 /* Profile Page Styles */
 
-.page {
-  height: 100vh;
-  max-height: 100vh;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  background: var(--gradient-slate);
-  padding: var(--spacing-lg);
-}
-
-.header {
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: var(--spacing-xl);
-  padding: var(--spacing-lg);
-  background: var(--slate-700-opacity-5);
-  border-radius: var(--border-radius-lg);
-  border: 1px solid var(--white-opacity-08);
-}
-
-.headerLeft {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-md);
-}
-
-.backButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  background: var(--white-opacity-05);
-  border: 1px solid var(--border-white-1);
-  border-radius: var(--border-radius-md);
-  color: var(--text-white-7);
-  cursor: pointer;
-  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
-}
-
-.backButton:hover {
-  background: var(--blue-opacity-2);
-  border-color: var(--blue-opacity-4);
-  color: var(--text-white);
-}
-
-.headerContent {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-md);
-}
-
-.icon {
-  font-size: 32px;
-}
-
-.title {
-  font-size: var(--fontSize-2xl);
-  font-weight: var(--fontWeight-bold);
-  color: var(--text-white);
-  margin: 0;
-}
-
-.description {
-  font-size: var(--fontSize-sm);
-  color: var(--text-white-6);
-  margin: 4px 0 0 0;
-}
-
-.scrollArea {
-  flex: 1;
-  min-height: 0;
-  width: 100%;
-}
-
-.content {
-  max-width: 800px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-lg);
-}
-
 .profileCard,
 .statsCard,
 .premiumCard,
 .actionsCard {
-  background: var(--slate-700-opacity-5);
+  background: var(--surface-container-low);
   border-radius: var(--border-radius-lg);
-  border: 1px solid var(--white-opacity-08);
+  border: 1px solid var(--outline-ghost);
   padding: var(--spacing-xl);
+  box-shadow: var(--shadow-floating);
 }
 
 .avatarSection {
@@ -103,7 +18,7 @@
   gap: var(--spacing-md);
   margin-bottom: var(--spacing-xl);
   padding-bottom: var(--spacing-xl);
-  border-bottom: 1px solid var(--border-white-1);
+  border-bottom: 1px solid var(--outline-ghost);
 }
 
 .avatar {
@@ -111,8 +26,13 @@
   height: 120px;
   border-radius: 50%;
   overflow: hidden;
-  border: 4px solid var(--blue-opacity-5);
-  box-shadow: 0 0 30px var(--blue-opacity-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary-container);
+  color: var(--on-primary-container);
+  border: 1px solid var(--outline-ghost);
+  box-shadow: var(--shadow-floating);
 }
 
 .avatar img {
@@ -121,20 +41,25 @@
   object-fit: cover;
 }
 
+.avatar svg {
+  width: 48px;
+  height: 48px;
+}
+
 .changeAvatarBtn {
   padding: var(--spacing-sm) var(--spacing-lg);
-  background: var(--border-white-1);
-  border: 1px solid var(--border-white-2);
+  background: var(--primary);
+  border: 1px solid var(--outline-ghost);
   border-radius: var(--border-radius-md);
-  color: var(--text-white-8);
+  color: var(--on-primary);
   font-size: var(--fontSize-sm);
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .changeAvatarBtn:hover {
-  background: var(--blue-opacity-2);
-  border-color: var(--blue-opacity-4);
+  background: var(--on-primary-container);
+  border-color: var(--primary);
 }
 
 .infoSection {
@@ -151,27 +76,30 @@
 
 .infoGroup label {
   font-size: var(--fontSize-sm);
-  color: var(--text-white-6);
+  color: var(--on-surface-variant);
   font-weight: var(--fontWeight-medium);
 }
 
 .input {
   padding: var(--spacing-md);
-  background: var(--slate-800-opacity-5);
-  border: 1px solid var(--border-white-1);
+  background: var(--surface-container);
+  border: 1px solid var(--outline-ghost);
   border-radius: var(--border-radius-md);
-  color: var(--text-white);
+  color: var(--on-surface);
   font-size: var(--fontSize-base);
   transition: all 0.2s ease;
 }
 
 .input:focus {
   outline: none;
-  border-color: var(--blue-opacity-5);
-  box-shadow: 0 0 0 3px var(--blue-opacity-1);
+  border-color: var(--primary);
+  background: var(--surface-container-lowest);
+  box-shadow: var(--shadow-md);
 }
 
 .inputReadonly {
+  background: var(--surface-container-high);
+  color: var(--on-surface-variant);
   opacity: 0.85;
   cursor: not-allowed;
 }
@@ -180,10 +108,10 @@
   width: 100%;
   box-sizing: border-box;
   padding: var(--spacing-md);
-  background: var(--slate-800-opacity-5);
-  border: 1px solid var(--border-white-1);
+  background: var(--surface-container);
+  border: 1px solid var(--outline-ghost);
   border-radius: var(--border-radius-md);
-  color: var(--text-white);
+  color: var(--on-surface);
   font-size: var(--fontSize-base);
   font-family: inherit;
   resize: vertical;
@@ -193,8 +121,9 @@
 
 .textarea:focus {
   outline: none;
-  border-color: var(--blue-opacity-5);
-  box-shadow: 0 0 0 3px var(--blue-opacity-1);
+  border-color: var(--primary);
+  background: var(--surface-container-lowest);
+  box-shadow: var(--shadow-md);
 }
 
 .textarea:disabled {
@@ -202,9 +131,14 @@
   cursor: not-allowed;
 }
 
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--on-surface-muted);
+}
+
 .fieldHint {
   font-size: var(--fontSize-xs);
-  color: var(--text-white-5);
+  color: var(--on-surface-muted);
   margin: 0 0 var(--spacing-xs) 0;
   line-height: 1.4;
 }
@@ -216,47 +150,48 @@
 .noticeBanner {
   padding: var(--spacing-md) var(--spacing-lg);
   border-radius: var(--border-radius-md);
-  border: 1px solid var(--blue-opacity-3);
-  background: var(--blue-opacity-1);
-  color: var(--text-white-8);
+  border: 1px solid var(--outline-ghost);
+  background: var(--surface-container);
+  color: var(--on-surface-variant);
   font-size: var(--fontSize-sm);
 }
 
 .messageError {
   padding: var(--spacing-md) var(--spacing-lg);
   border-radius: var(--border-radius-md);
-  border: 1px solid var(--red-opacity-3);
-  background: var(--red-opacity-1);
-  color: var(--accent-red);
+  border: 1px solid var(--outline-variant);
+  background: var(--surface-container);
+  color: var(--error);
   font-size: var(--fontSize-sm);
 }
 
 .messageSuccess {
   padding: var(--spacing-md) var(--spacing-lg);
   border-radius: var(--border-radius-md);
-  border: 1px solid var(--accent-green-light);
-  background: var(--green-opacity-1);
-  color: var(--accent-green-light);
+  border: 1px solid var(--outline-variant);
+  background: var(--surface-container);
+  color: var(--primary);
   font-size: var(--fontSize-sm);
 }
 
 .shareCard {
-  background: var(--slate-700-opacity-5);
+  background: var(--surface-container-low);
   border-radius: var(--border-radius-lg);
-  border: 1px solid var(--white-opacity-08);
+  border: 1px solid var(--outline-ghost);
   padding: var(--spacing-xl);
+  box-shadow: var(--shadow-floating);
 }
 
 .shareTitle {
   font-size: var(--fontSize-lg);
   font-weight: var(--fontWeight-semibold);
-  color: var(--text-white);
+  color: var(--on-surface);
   margin: 0 0 var(--spacing-sm) 0;
 }
 
 .shareDesc {
   font-size: var(--fontSize-sm);
-  color: var(--text-white-6);
+  color: var(--on-surface-variant);
   margin: 0 0 var(--spacing-lg) 0;
   line-height: 1.5;
 }
@@ -271,7 +206,7 @@
 .qrWrap {
   flex-shrink: 0;
   padding: var(--spacing-md);
-  background: var(--text-white);
+  background: var(--surface-container-lowest);
   border-radius: var(--border-radius-md);
   line-height: 0;
 }
@@ -290,10 +225,10 @@
   width: 100%;
   box-sizing: border-box;
   padding: var(--spacing-sm) var(--spacing-md);
-  background: var(--slate-800-opacity-5);
-  border: 1px solid var(--border-white-1);
+  background: var(--surface-container);
+  border: 1px solid var(--outline-ghost);
   border-radius: var(--border-radius-md);
-  color: var(--text-white-7);
+  color: var(--on-surface-variant);
   font-size: var(--fontSize-sm);
   word-break: break-all;
 }
@@ -302,7 +237,7 @@
 .premiumCard h3 {
   font-size: var(--fontSize-lg);
   font-weight: var(--fontWeight-semibold);
-  color: var(--text-white);
+  color: var(--on-surface);
   margin-bottom: var(--spacing-lg);
 }
 
@@ -315,7 +250,8 @@
 .statItem {
   text-align: center;
   padding: var(--spacing-md);
-  background: var(--slate-800-opacity-5);
+  background: var(--surface-container);
+  border: 1px solid var(--outline-ghost);
   border-radius: var(--border-radius-md);
 }
 
@@ -323,22 +259,19 @@
   display: block;
   font-size: var(--fontSize-2xl);
   font-weight: var(--fontWeight-bold);
-  color: var(--accent-green-light);
+  color: var(--primary);
   margin-bottom: var(--spacing-xs);
 }
 
 .statLabel {
   font-size: var(--fontSize-sm);
-  color: var(--text-white-6);
+  color: var(--on-surface-variant);
 }
 
 .premiumCard {
-  background: linear-gradient(
-    135deg,
-    var(--blue-opacity-2) 0%,
-    var(--purple-opacity-2) 100%
-  );
-  border-color: var(--blue-opacity-3);
+  background: var(--gradient-hero);
+  border-color: var(--outline-ghost);
+  color: var(--on-primary);
   position: relative;
   overflow: hidden;
 }
@@ -348,15 +281,15 @@
   top: var(--spacing-md);
   right: var(--spacing-md);
   padding: var(--spacing-xs) var(--spacing-md);
-  background: var(--gradient-blue-purple-solid);
+  background: var(--primary);
   border-radius: var(--border-radius-full);
   font-size: var(--fontSize-sm);
   font-weight: var(--fontWeight-semibold);
-  color: var(--text-white);
+  color: var(--on-primary);
 }
 
 .premiumCard p {
-  color: var(--text-white-7);
+  color: var(--on-surface-variant);
   margin-bottom: var(--spacing-md);
 }
 
@@ -370,7 +303,7 @@
 }
 
 .premiumFeatures li {
-  color: var(--text-white-8);
+  color: var(--on-surface);
   font-size: var(--fontSize-sm);
 }
 
@@ -382,10 +315,10 @@
 
 .saveBtn {
   padding: var(--spacing-md) var(--spacing-xl);
-  background: var(--gradientPrimary);
+  background: var(--gradient-hero);
   border: none;
   border-radius: var(--border-radius-md);
-  color: var(--text-white);
+  color: var(--on-primary);
   font-size: var(--fontSize-base);
   font-weight: var(--fontWeight-semibold);
   cursor: pointer;
@@ -394,15 +327,15 @@
 
 .saveBtn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 20px var(--blue-opacity-3);
+  box-shadow: var(--shadow-floating);
 }
 
 .logoutBtn {
   padding: var(--spacing-md) var(--spacing-xl);
-  background: var(--red-opacity-1);
-  border: 1px solid var(--red-opacity-3);
+  background: var(--surface-container);
+  border: 1px solid var(--outline-variant);
   border-radius: var(--border-radius-md);
-  color: var(--accent-red);
+  color: var(--error);
   font-size: var(--fontSize-base);
   font-weight: var(--fontWeight-semibold);
   cursor: pointer;
@@ -410,8 +343,8 @@
 }
 
 .logoutBtn:hover {
-  background: var(--red-opacity-2);
-  border-color: var(--red-opacity-5);
+  background: var(--surface-container-high);
+  border-color: var(--error);
 }
 
 @media (max-width: 768px) {
@@ -430,120 +363,4 @@
   .actionsCard {
     flex-direction: column;
   }
-}
-
-/* Light theme · Digital Curator */
-:global(body[theme="light"]) .page {
-  background: var(--surface);
-  color: var(--on-surface);
-}
-:global(body[theme="light"]) .header {
-  background: var(--surface-container-lowest);
-  border: 1px solid var(--outline-ghost);
-  box-shadow: var(--shadow-floating);
-}
-:global(body[theme="light"]) .title {
-  color: var(--on-surface);
-}
-:global(body[theme="light"]) .description {
-  color: var(--on-surface-variant);
-}
-:global(body[theme="light"]) .backButton {
-  background: var(--surface-container);
-  border: 1px solid var(--outline-ghost);
-  color: var(--on-surface-variant);
-}
-:global(body[theme="light"]) .backButton:hover {
-  background: var(--primary-container);
-  border-color: var(--primary);
-  color: var(--on-primary-container);
-}
-:global(body[theme="light"]) .profileCard,
-:global(body[theme="light"]) .statsCard,
-:global(body[theme="light"]) .premiumCard,
-:global(body[theme="light"]) .actionsCard,
-:global(body[theme="light"]) .shareCard {
-  background: var(--surface-container-lowest);
-  border: 1px solid var(--outline-ghost);
-  color: var(--on-surface);
-  box-shadow: var(--shadow-floating);
-}
-:global(body[theme="light"]) .avatar {
-  background: var(--primary-container);
-  color: var(--on-primary-container);
-  border: 1px solid var(--outline-ghost);
-}
-:global(body[theme="light"]) .changeAvatarBtn {
-  background: var(--primary);
-  color: var(--on-primary);
-}
-:global(body[theme="light"]) .changeAvatarBtn:hover {
-  background: var(--on-primary-container);
-}
-:global(body[theme="light"]) .infoGroup label {
-  color: var(--on-surface-variant);
-}
-:global(body[theme="light"]) .input,
-:global(body[theme="light"]) .textarea {
-  background: var(--surface-container);
-  border: 1px solid var(--outline-ghost);
-  color: var(--on-surface);
-}
-:global(body[theme="light"]) .input::placeholder,
-:global(body[theme="light"]) .textarea::placeholder {
-  color: var(--on-surface-muted);
-}
-:global(body[theme="light"]) .input:focus,
-:global(body[theme="light"]) .textarea:focus {
-  border-color: var(--primary);
-  background: var(--surface-container-lowest);
-}
-:global(body[theme="light"]) .inputReadonly {
-  background: var(--surface-container-high);
-  color: var(--on-surface-variant);
-}
-:global(body[theme="light"]) .fieldHint {
-  color: var(--on-surface-muted);
-}
-:global(body[theme="light"]) .noticeBanner {
-  background: var(--surface-container);
-  border: 1px solid var(--outline-ghost);
-  color: var(--on-surface-variant);
-}
-:global(body[theme="light"]) .messageSuccess {
-  background: rgba(0, 108, 81, 0.1);
-  border: 1px solid rgba(0, 108, 81, 0.3);
-  color: var(--primary);
-}
-:global(body[theme="light"]) .messageError {
-  background: rgba(179, 38, 30, 0.1);
-  border: 1px solid rgba(179, 38, 30, 0.3);
-  color: var(--error);
-}
-:global(body[theme="light"]) .shareTitle,
-:global(body[theme="light"]) .statsCard h3,
-:global(body[theme="light"]) .premiumCard h3 {
-  color: var(--on-surface);
-}
-:global(body[theme="light"]) .shareDesc,
-:global(body[theme="light"]) .statLabel,
-:global(body[theme="light"]) .premiumCard p,
-:global(body[theme="light"]) .linkPreview {
-  color: var(--on-surface-variant);
-}
-:global(body[theme="light"]) .statValue {
-  color: var(--on-surface);
-}
-:global(body[theme="light"]) .qrWrap {
-  background: var(--white);
-  padding: 8px;
-  border-radius: var(--border-radius-md);
-}
-:global(body[theme="light"]) .premiumBadge {
-  background: var(--primary);
-  color: var(--on-primary);
-}
-:global(body[theme="light"]) .statItem {
-  background: var(--surface-container);
-  border: 1px solid var(--outline-ghost);
 }

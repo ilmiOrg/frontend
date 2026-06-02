@@ -1,5 +1,6 @@
 import React from "react";
 import { LandingSparklesHeader } from "../../../../components/ui/LandingSparklesHeader";
+import { useTranslation } from "../../../../hooks/useLanguage";
 import styles from "./style.module.css";
 
 const ICONS = {
@@ -23,58 +24,30 @@ const ICONS = {
   ),
 };
 
+const FEATURES = [
+  { iconKey: "target", titleKey: "featureSmartMatchTitle", descKey: "featureSmartMatchDesc" },
+  { iconKey: "wallet", titleKey: "featureScholarshipTitle", descKey: "featureScholarshipDesc" },
+  { iconKey: "chart", titleKey: "featureInsightsTitle", descKey: "featureInsightsDesc" },
+  { iconKey: "globe", titleKey: "featureGlobalTitle", descKey: "featureGlobalDesc" },
+  { iconKey: "phone", titleKey: "featureAnyDeviceTitle", descKey: "featureAnyDeviceDesc" },
+  { iconKey: "users", titleKey: "featureAdvisorTitle", descKey: "featureAdvisorDesc" },
+];
+
 const FeaturesSection = () => {
-  const features = [
-    {
-      iconKey: "target",
-      title: "Smart University Matching",
-      description:
-        "Our AI reviews your profile, goals, and preferences to recommend universities that fit your path.",
-    },
-    {
-      iconKey: "wallet",
-      title: "Scholarship and Funding Guidance",
-      description:
-        "Find scholarships, grants, and aid options to plan your education budget with confidence.",
-    },
-    {
-      iconKey: "chart",
-      title: "Admission Insights",
-      description:
-        "Compare admission trends, program details, and outcomes so you can make informed choices.",
-    },
-    {
-      iconKey: "globe",
-      title: "Global University Access",
-      description:
-        "Explore universities in multiple countries with clear program and admission information.",
-    },
-    {
-      iconKey: "phone",
-      title: "Easy Access on Any Device",
-      description:
-        "Use ilmi smoothly on mobile or desktop to check matches and track your next steps.",
-    },
-    {
-      iconKey: "users",
-      title: "Advisor Support",
-      description:
-        "Get practical help from advisors who understand admissions, applications, and planning.",
-    },
-  ];
+  const { t } = useTranslation();
 
   return (
     <section className={styles.features} id="features">
       <div className={styles.featuresContainer}>
         <div className={styles.headerWrap}>
-          <LandingSparklesHeader title="Main Services" />
+          <LandingSparklesHeader title={t("publicMainServices")} />
         </div>
         <div className={styles.featuresGrid}>
-          {features.map((feature, index) => (
+          {FEATURES.map((feature, index) => (
             <div key={index} className={styles.featureCard}>
               <div className={styles.featureIcon}>{ICONS[feature.iconKey]}</div>
-              <h3 className={styles.featureTitle}>{feature.title}</h3>
-              <p className={styles.featureDescription}>{feature.description}</p>
+              <h3 className={styles.featureTitle}>{t(feature.titleKey)}</h3>
+              <p className={styles.featureDescription}>{t(feature.descKey)}</p>
             </div>
           ))}
         </div>

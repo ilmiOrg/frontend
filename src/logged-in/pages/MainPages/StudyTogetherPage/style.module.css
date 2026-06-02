@@ -1,12 +1,10 @@
 .page {
   padding: var(--spacing-lg);
-  height: 100vh;
-  max-height: 100vh;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
-  background: var(--gradient-slate);
+  background: var(--surface);
+  color: var(--on-surface);
 }
 
 .scrollArea {
@@ -22,9 +20,10 @@
   justify-content: space-between;
   margin-bottom: var(--spacing-xl);
   padding: var(--spacing-lg);
-  background: var(--slate-700-opacity-5);
+  background: var(--surface-container-low);
   border-radius: var(--border-radius-lg);
-  border: 1px solid var(--white-opacity-08);
+  border: 1px solid var(--outline-ghost);
+  box-shadow: var(--shadow-floating);
 }
 
 .headerContent {
@@ -35,18 +34,19 @@
 
 .icon {
   font-size: 32px;
+  color: var(--primary);
 }
 
 .title {
   font-size: var(--fontSize-2xl);
   font-weight: var(--fontWeight-bold);
-  color: var(--text-white);
+  color: var(--on-surface);
   margin: 0;
 }
 
 .description {
   font-size: var(--fontSize-sm);
-  color: var(--text-white-6);
+  color: var(--on-surface-variant);
   margin: 4px 0 0 0;
 }
 
@@ -57,21 +57,22 @@
 }
 
 .infoSection {
-  background: var(--slate-700-opacity-5);
+  background: var(--surface-container-low);
   border-radius: var(--border-radius-lg);
   padding: var(--spacing-2xl);
-  border: 1px solid var(--white-opacity-08);
+  border: 1px solid var(--outline-ghost);
+  box-shadow: var(--shadow-floating);
 }
 
 .sectionTitle {
   font-size: var(--fontSize-xl);
   font-weight: var(--fontWeight-bold);
-  color: var(--text-white);
+  color: var(--on-surface);
   margin-bottom: var(--spacing-md);
 }
 
 .sectionText {
-  color: var(--text-white-6);
+  color: var(--on-surface-variant);
   line-height: 1.6;
   margin-bottom: var(--spacing-xl);
 }
@@ -83,7 +84,7 @@
 .featuresTitle {
   font-size: var(--fontSize-lg);
   font-weight: var(--fontWeight-semibold);
-  color: var(--text-white);
+  color: var(--on-surface);
   margin-bottom: var(--spacing-lg);
 }
 
@@ -95,34 +96,35 @@
 
 .featureCard {
   padding: var(--spacing-lg);
-  background: var(--slate-800-opacity-5);
+  background: var(--surface-container);
   border-radius: var(--border-radius-md);
-  border: 1px solid var(--white-opacity-08);
+  border: 1px solid var(--outline-ghost);
   transition: all var(--transition-base);
 }
 
 .featureCard:hover {
   transform: translateY(-2px);
-  background: var(--slate-800-opacity-8);
-  border-color: var(--blue-opacity-3);
+  background: var(--surface-container-high);
+  border-color: var(--primary);
 }
 
 .featureIcon {
   font-size: 24px;
   display: block;
   margin-bottom: var(--spacing-sm);
+  color: var(--primary);
 }
 
 .featureCard h4 {
   font-size: var(--fontSize-base);
   font-weight: var(--fontWeight-semibold);
-  color: var(--text-white);
+  color: var(--on-surface);
   margin-bottom: var(--spacing-xs);
 }
 
 .featureCard p {
   font-size: var(--fontSize-sm);
-  color: var(--text-white-5);
+  color: var(--on-surface-variant);
   margin: 0;
 }
 
@@ -132,15 +134,16 @@
 }
 
 .actionCard {
-  background: linear-gradient(135deg, var(--ownGreen), var(--ownBlue));
-  color: white;
+  background: var(--gradient-hero);
+  color: var(--on-primary);
   border-radius: var(--border-radius-lg);
   padding: var(--spacing-2xl);
   text-align: center;
+  box-shadow: var(--shadow-floating);
 }
 
 .actionTitle {
-  font-size: var(--largeFontSize);
+  font-size: var(--fontSize-xl);
   font-weight: var(--fontWeight-bold);
   margin-bottom: var(--spacing-md);
 }
@@ -152,11 +155,11 @@
 
 .actionBtn {
   padding: var(--spacing-md) var(--spacing-xl);
-  background: white;
-  color: var(--ownGreen);
+  background: var(--surface-container-lowest);
+  color: var(--on-primary-container);
   border: none;
   border-radius: var(--border-radius-md);
-  font-size: var(--regularFontSize);
+  font-size: var(--fontSize-base);
   font-weight: var(--fontWeight-semibold);
   cursor: pointer;
   transition: all var(--transition-base);
@@ -165,16 +168,16 @@
 
 .actionBtn:hover {
   transform: scale(1.05);
-  box-shadow: 0 5px 15px var(--black-opacity-3);
+  box-shadow: var(--shadow-md);
 }
 
 .primaryBtn {
   padding: var(--spacing-sm) var(--spacing-lg);
-  background: linear-gradient(135deg, var(--ownGreen), var(--ownBlue));
-  color: white;
+  background: var(--gradient-hero);
+  color: var(--on-primary);
   border: none;
   border-radius: var(--border-radius-md);
-  font-size: var(--regularFontSize);
+  font-size: var(--fontSize-base);
   font-weight: var(--fontWeight-semibold);
   cursor: pointer;
   transition: all var(--transition-base);
@@ -182,7 +185,7 @@
 
 .primaryBtn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px var(--green-500-opacity-3);
+  box-shadow: var(--shadow-floating);
 }
 
 @media (max-width: 968px) {

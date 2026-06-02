@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ScrollContainer } from "../../../../components/ui/ScrollContainer";
+import PageTemplate from "../../../shared/PageTemplate";
 import { GraduationCapIcon, DollarIcon, FileEditIcon, CalendarIcon, MessageCircleIcon, StarIcon, SendIcon, CheckCircleIcon } from "../../../shared/Icons";
+import { useTranslation } from "../../../../hooks/useLanguage";
 import styles from "./style.module.css";
 
 const SendInfoPage = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("university");
   const [formData, setFormData] = useState({});
@@ -58,11 +60,11 @@ const SendInfoPage = () => {
   };
 
   const tabs = [
-    { id: "university", label: "University Info", icon: <GraduationCapIcon size={16} /> },
-    { id: "scholarship", label: "Scholarship Info", icon: <DollarIcon size={16} /> },
-    { id: "application", label: "Application Help", icon: <FileEditIcon size={16} /> },
-    { id: "meeting", label: "Book Meeting", icon: <CalendarIcon size={16} /> },
-    { id: "other", label: "Other Request", icon: <MessageCircleIcon size={16} /> },
+    { id: "university", label: t("sendInfoTabUniversity"), icon: <GraduationCapIcon size={16} /> },
+    { id: "scholarship", label: t("sendInfoTabScholarship"), icon: <DollarIcon size={16} /> },
+    { id: "application", label: t("sendInfoTabApplication"), icon: <FileEditIcon size={16} /> },
+    { id: "meeting", label: t("sendInfoTabMeeting"), icon: <CalendarIcon size={16} /> },
+    { id: "other", label: t("sendInfoTabOther"), icon: <MessageCircleIcon size={16} /> },
   ];
 
   const renderForm = () => {
@@ -71,75 +73,75 @@ const SendInfoPage = () => {
         return (
           <>
             <div className={styles.formGroup}>
-              <label>Full Name *</label>
+              <label>{t("sendInfoFieldFullName")} *</label>
               <input
                 type="text"
                 name="fullName"
                 required
                 onChange={handleInputChange}
                 className={styles.input}
-                placeholder="Enter your full name"
+                placeholder={t("sendInfoPhFullName")}
               />
             </div>
             <div className={styles.formGroup}>
-              <label>Email *</label>
+              <label>{t("sendInfoFieldEmail")} *</label>
               <input
                 type="email"
                 name="email"
                 required
                 onChange={handleInputChange}
                 className={styles.input}
-                placeholder="Enter your email"
+                placeholder={t("sendInfoPhEmail")}
               />
             </div>
             <div className={styles.formGroup}>
-              <label>Phone</label>
+              <label>{t("sendInfoFieldPhone")}</label>
               <input
                 type="tel"
                 name="phone"
                 onChange={handleInputChange}
                 className={styles.input}
-                placeholder="Enter your phone number"
+                placeholder={t("sendInfoPhPhone")}
               />
             </div>
             <div className={styles.formGroup}>
-              <label>University of Interest *</label>
+              <label>{t("sendInfoFieldUniversityInterest")} *</label>
               <input
                 type="text"
                 name="university"
                 required
                 onChange={handleInputChange}
                 className={styles.input}
-                placeholder="Which university are you interested in?"
+                placeholder={t("sendInfoPhUniversityInterest")}
               />
             </div>
             <div className={styles.formGroup}>
-              <label>Program/Major</label>
+              <label>{t("sendInfoFieldProgramMajor")}</label>
               <input
                 type="text"
                 name="program"
                 onChange={handleInputChange}
                 className={styles.input}
-                placeholder="What program are you interested in?"
+                placeholder={t("sendInfoPhProgramInterest")}
               />
             </div>
             <div className={styles.formGroup}>
-              <label>Your GPA</label>
+              <label>{t("sendInfoFieldGpa")}</label>
               <input
                 type="text"
                 name="gpa"
                 onChange={handleInputChange}
                 className={styles.input}
-                placeholder="Enter your GPA"
+                placeholder={t("sendInfoPhGpa")}
               />
             </div>
             <div className={styles.formGroup}>
-              <label>Additional Information</label>
+              <label>{t("sendInfoFieldAdditional")}</label>
               <textarea
                 name="message"
                 onChange={handleInputChange}
                 className={styles.textarea}
-                placeholder="Tell us more about your goals..."
+                placeholder={t("sendInfoPhGoals")}
                 rows={4}
               ></textarea>
             </div>
@@ -149,65 +151,65 @@ const SendInfoPage = () => {
         return (
           <>
             <div className={styles.formGroup}>
-              <label>Full Name *</label>
+              <label>{t("sendInfoFieldFullName")} *</label>
               <input
                 type="text"
                 name="fullName"
                 required
                 onChange={handleInputChange}
                 className={styles.input}
-                placeholder="Enter your full name"
+                placeholder={t("sendInfoPhFullName")}
               />
             </div>
             <div className={styles.formGroup}>
-              <label>Email *</label>
+              <label>{t("sendInfoFieldEmail")} *</label>
               <input
                 type="email"
                 name="email"
                 required
                 onChange={handleInputChange}
                 className={styles.input}
-                placeholder="Enter your email"
+                placeholder={t("sendInfoPhEmail")}
               />
             </div>
             <div className={styles.formGroup}>
-              <label>Phone</label>
+              <label>{t("sendInfoFieldPhone")}</label>
               <input
                 type="tel"
                 name="phone"
                 onChange={handleInputChange}
                 className={styles.input}
-                placeholder="Enter your phone number"
+                placeholder={t("sendInfoPhPhone")}
               />
             </div>
             <div className={styles.formGroup}>
-              <label>Scholarship Name *</label>
+              <label>{t("sendInfoFieldScholarshipName")} *</label>
               <input
                 type="text"
                 name="scholarshipName"
                 required
                 onChange={handleInputChange}
                 className={styles.input}
-                placeholder="Which scholarship are you interested in?"
+                placeholder={t("sendInfoPhScholarship")}
               />
             </div>
             <div className={styles.formGroup}>
-              <label>University</label>
+              <label>{t("sendInfoFieldUniversity")}</label>
               <input
                 type="text"
                 name="university"
                 onChange={handleInputChange}
                 className={styles.input}
-                placeholder="Associated university (if any)"
+                placeholder={t("sendInfoPhUniversityOpt")}
               />
             </div>
             <div className={styles.formGroup}>
-              <label>Your Academic Achievements</label>
+              <label>{t("sendInfoFieldAchievements")}</label>
               <textarea
                 name="achievements"
                 onChange={handleInputChange}
                 className={styles.textarea}
-                placeholder="Describe your achievements..."
+                placeholder={t("sendInfoPhAchievements")}
                 rows={4}
               ></textarea>
             </div>
@@ -217,61 +219,61 @@ const SendInfoPage = () => {
         return (
           <>
             <div className={styles.formGroup}>
-              <label>Full Name *</label>
+              <label>{t("sendInfoFieldFullName")} *</label>
               <input
                 type="text"
                 name="fullName"
                 required
                 onChange={handleInputChange}
                 className={styles.input}
-                placeholder="Enter your full name"
+                placeholder={t("sendInfoPhFullName")}
               />
             </div>
             <div className={styles.formGroup}>
-              <label>Email *</label>
+              <label>{t("sendInfoFieldEmail")} *</label>
               <input
                 type="email"
                 name="email"
                 required
                 onChange={handleInputChange}
                 className={styles.input}
-                placeholder="Enter your email"
+                placeholder={t("sendInfoPhEmail")}
               />
             </div>
             <div className={styles.formGroup}>
-              <label>Phone</label>
+              <label>{t("sendInfoFieldPhone")}</label>
               <input
                 type="tel"
                 name="phone"
                 onChange={handleInputChange}
                 className={styles.input}
-                placeholder="Enter your phone number"
+                placeholder={t("sendInfoPhPhone")}
               />
             </div>
             <div className={styles.formGroup}>
-              <label>University *</label>
+              <label>{t("sendInfoFieldUniversity")} *</label>
               <input
                 type="text"
                 name="university"
                 required
                 onChange={handleInputChange}
                 className={styles.input}
-                placeholder="Which university?"
+                placeholder={t("sendInfoPhUniversityRequired")}
               />
             </div>
             <div className={styles.formGroup}>
-              <label>Program *</label>
+              <label>{t("sendInfoFieldProgram")} *</label>
               <input
                 type="text"
                 name="program"
                 required
                 onChange={handleInputChange}
                 className={styles.input}
-                placeholder="Which program?"
+                placeholder={t("sendInfoPhProgramRequired")}
               />
             </div>
             <div className={styles.formGroup}>
-              <label>Application Deadline</label>
+              <label>{t("sendInfoFieldDeadline")}</label>
               <input
                 type="date"
                 name="deadline"
@@ -280,12 +282,12 @@ const SendInfoPage = () => {
               />
             </div>
             <div className={styles.formGroup}>
-              <label>What help do you need?</label>
+              <label>{t("sendInfoFieldHelp")}</label>
               <textarea
                 name="helpNeeded"
                 onChange={handleInputChange}
                 className={styles.textarea}
-                placeholder="Describe what assistance you need..."
+                placeholder={t("sendInfoPhHelp")}
                 rows={4}
               ></textarea>
             </div>
@@ -295,54 +297,54 @@ const SendInfoPage = () => {
         return (
           <>
             <div className={styles.formGroup}>
-              <label>Full Name *</label>
+              <label>{t("sendInfoFieldFullName")} *</label>
               <input
                 type="text"
                 name="fullName"
                 required
                 onChange={handleInputChange}
                 className={styles.input}
-                placeholder="Enter your full name"
+                placeholder={t("sendInfoPhFullName")}
               />
             </div>
             <div className={styles.formGroup}>
-              <label>Email *</label>
+              <label>{t("sendInfoFieldEmail")} *</label>
               <input
                 type="email"
                 name="email"
                 required
                 onChange={handleInputChange}
                 className={styles.input}
-                placeholder="Enter your email"
+                placeholder={t("sendInfoPhEmail")}
               />
             </div>
             <div className={styles.formGroup}>
-              <label>Phone</label>
+              <label>{t("sendInfoFieldPhone")}</label>
               <input
                 type="tel"
                 name="phone"
                 onChange={handleInputChange}
                 className={styles.input}
-                placeholder="Enter your phone number"
+                placeholder={t("sendInfoPhPhone")}
               />
             </div>
             <div className={styles.formGroup}>
-              <label>Meeting Type *</label>
+              <label>{t("sendInfoFieldMeetingType")} *</label>
               <select
                 name="meetingType"
                 required
                 onChange={handleInputChange}
                 className={styles.select}
               >
-                <option value="">Select meeting type</option>
-                <option value="consultation">General Consultation</option>
-                <option value="application-review">Application Review</option>
-                <option value="scholarship-advice">Scholarship Advice</option>
-                <option value="career-guidance">Career Guidance</option>
+                <option value="">{t("sendInfoMeetingSelect")}</option>
+                <option value="consultation">{t("sendInfoMeetingConsult")}</option>
+                <option value="application-review">{t("sendInfoMeetingAppReview")}</option>
+                <option value="scholarship-advice">{t("sendInfoMeetingScholarship")}</option>
+                <option value="career-guidance">{t("sendInfoMeetingCareer")}</option>
               </select>
             </div>
             <div className={styles.formGroup}>
-              <label>Preferred Date *</label>
+              <label>{t("sendInfoFieldPreferredDate")} *</label>
               <input
                 type="date"
                 name="preferredDate"
@@ -352,7 +354,7 @@ const SendInfoPage = () => {
               />
             </div>
             <div className={styles.formGroup}>
-              <label>Preferred Time</label>
+              <label>{t("sendInfoFieldPreferredTime")}</label>
               <input
                 type="time"
                 name="preferredTime"
@@ -361,12 +363,12 @@ const SendInfoPage = () => {
               />
             </div>
             <div className={styles.formGroup}>
-              <label>Additional Notes</label>
+              <label>{t("sendInfoFieldNotes")}</label>
               <textarea
                 name="notes"
                 onChange={handleInputChange}
                 className={styles.textarea}
-                placeholder="Any additional information..."
+                placeholder={t("sendInfoPhNotes")}
                 rows={3}
               ></textarea>
             </div>
@@ -376,56 +378,56 @@ const SendInfoPage = () => {
         return (
           <>
             <div className={styles.formGroup}>
-              <label>Full Name *</label>
+              <label>{t("sendInfoFieldFullName")} *</label>
               <input
                 type="text"
                 name="fullName"
                 required
                 onChange={handleInputChange}
                 className={styles.input}
-                placeholder="Enter your full name"
+                placeholder={t("sendInfoPhFullName")}
               />
             </div>
             <div className={styles.formGroup}>
-              <label>Email *</label>
+              <label>{t("sendInfoFieldEmail")} *</label>
               <input
                 type="email"
                 name="email"
                 required
                 onChange={handleInputChange}
                 className={styles.input}
-                placeholder="Enter your email"
+                placeholder={t("sendInfoPhEmail")}
               />
             </div>
             <div className={styles.formGroup}>
-              <label>Phone</label>
+              <label>{t("sendInfoFieldPhone")}</label>
               <input
                 type="tel"
                 name="phone"
                 onChange={handleInputChange}
                 className={styles.input}
-                placeholder="Enter your phone number"
+                placeholder={t("sendInfoPhPhone")}
               />
             </div>
             <div className={styles.formGroup}>
-              <label>Subject *</label>
+              <label>{t("sendInfoFieldSubject")} *</label>
               <input
                 type="text"
                 name="subject"
                 required
                 onChange={handleInputChange}
                 className={styles.input}
-                placeholder="What is your request about?"
+                placeholder={t("sendInfoPhSubject")}
               />
             </div>
             <div className={styles.formGroup}>
-              <label>Message *</label>
+              <label>{t("sendInfoFieldMessage")} *</label>
               <textarea
                 name="message"
                 required
                 onChange={handleInputChange}
                 className={styles.textarea}
-                placeholder="Tell us how we can help..."
+                placeholder={t("sendInfoPhContact")}
                 rows={5}
               ></textarea>
             </div>
@@ -436,74 +438,48 @@ const SendInfoPage = () => {
 
   if (submitSuccess) {
     return (
-      <div className={styles.page}>
-        <ScrollContainer className={styles.scrollArea} disableHorizontalScroll>
+      <PageTemplate
+        icon={<SendIcon size={22} />}
+        title={t("sendInfoPageTitle")}
+        onBack={handleBack}
+      >
         <div className={styles.successContainer}>
           <div className={styles.successIcon}><CheckCircleIcon size={48} /></div>
-          <h2>Information Sent Successfully!</h2>
+          <h2>{t("sendInfoSuccessTitle")}</h2>
           <p>
-            Thank you for reaching out. Our team will review your information
-            and contact you soon.
+            {t("sendInfoSuccessBody")}
           </p>
           <div className={styles.premiumBanner}>
             <span className={styles.premiumIcon}><StarIcon size={20} /></span>
             <div>
-              <h3>Premium Access Activated!</h3>
-              <p>You now have access to premium features for 7 days.</p>
+              <h3>{t("sendInfoPremiumActivated")}</h3>
+              <p>{t("sendInfoPremiumActivatedBody")}</p>
             </div>
           </div>
           <button
             onClick={() => navigate("/dashboard")}
             className={styles.backToDashboard}
           >
-            Back to Dashboard
+            {t("sendInfoBackToDashboard")}
           </button>
         </div>
-        </ScrollContainer>
-      </div>
+      </PageTemplate>
     );
   }
 
   return (
-    <div className={styles.page}>
-      <div className={styles.header}>
-        <div className={styles.headerLeft}>
-          <button
-            onClick={handleBack}
-            className={styles.backButton}
-            title="Back to Dashboard"
-          >
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M19 12H5M12 19l-7-7 7-7" />
-            </svg>
-          </button>
-          <div className={styles.headerContent}>
-            <span className={styles.icon}><SendIcon size={22} /></span>
-            <div>
-              <h1 className={styles.title}>Send Info & Get Premium</h1>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <ScrollContainer className={styles.scrollArea} disableHorizontalScroll>
+    <PageTemplate
+      icon={<SendIcon size={22} />}
+      title={t("sendInfoPageTitle")}
+      onBack={handleBack}
+    >
       <div className={styles.content}>
         <div className={styles.premiumOffer}>
           <div className={styles.offerIcon}><StarIcon size={24} /></div>
           <div className={styles.offerContent}>
-            <h3>Get 7 Days Premium FREE!</h3>
+            <h3>{t("sendInfoOfferHeadline")}</h3>
             <p>
-              Send us your university or scholarship inquiry and receive 7 days
-              of premium access instantly.
+              {t("sendInfoOfferBody")}
             </p>
           </div>
         </div>
@@ -532,16 +508,15 @@ const SendInfoPage = () => {
               disabled={isSubmitting}
             >
               {isSubmitting ? (
-                <>Sending...</>
+                <>{t("sendInfoSubmitting")}</>
               ) : (
-                <><SendIcon size={16} /> Send Information & Get Premium</>
+                <><SendIcon size={16} /> {t("sendInfoSubmit")}</>
               )}
             </button>
           </div>
         </form>
       </div>
-      </ScrollContainer>
-    </div>
+    </PageTemplate>
   );
 };
 

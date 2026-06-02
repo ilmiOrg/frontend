@@ -46,38 +46,38 @@ const POPULAR_INITIAL = {
 };
 
 const POPULAR_CHIPS = [
-  { key: "affordable", label: "Under €10k / year" },
-  { key: "budget", label: "≤ €5k / year" },
-  { key: "english", label: "English taught" },
-  { key: "europe", label: "Europe" },
-  { key: "business", label: "Business & law" },
-  { key: "medicine", label: "Medicine & sciences" },
-  { key: "arts", label: "Arts & design" },
+  { key: "affordable", labelKey: "searchUniPopularUnder10k" },
+  { key: "budget", labelKey: "searchUniPopularUnder5k" },
+  { key: "english", labelKey: "searchUniPopularEnglish" },
+  { key: "europe", labelKey: "searchUniPopularEurope" },
+  { key: "business", labelKey: "searchUniPopularBusiness" },
+  { key: "medicine", labelKey: "searchUniPopularMedicine" },
+  { key: "arts", labelKey: "searchUniPopularArts" },
 ];
 
 const INSTITUTION_OPTIONS = [
-  { value: ALL, label: "All" },
-  { value: "university", label: "Universities only" },
-  { value: "college", label: "Colleges only" },
+  { value: ALL, labelKey: "searchUniInstAll" },
+  { value: "university", labelKey: "searchUniInstUniversities" },
+  { value: "college", labelKey: "searchUniInstColleges" },
 ];
 
 const DEGREE_OPTIONS = [
-  { value: ALL, label: "All levels" },
-  { value: "associate", label: "Associate" },
-  { value: "diploma", label: "Diploma" },
-  { value: "bachelor", label: "Bachelor" },
-  { value: "master", label: "Master" },
-  { value: "phd", label: "PhD / Doctorate" },
+  { value: ALL, labelKey: "searchUniDegreeAll" },
+  { value: "associate", labelKey: "searchUniDegreeAssociate" },
+  { value: "diploma", labelKey: "searchUniDegreeDiploma" },
+  { value: "bachelor", labelKey: "searchUniDegreeBachelor" },
+  { value: "master", labelKey: "searchUniDegreeMaster" },
+  { value: "phd", labelKey: "searchUniDegreePhd" },
 ];
 
 const LANGUAGE_OPTIONS = [
-  { value: ALL, label: "Any language" },
-  { value: "English", label: "English" },
-  { value: "German", label: "German" },
-  { value: "French", label: "French" },
-  { value: "Spanish", label: "Spanish" },
-  { value: "Dutch", label: "Dutch" },
-  { value: "Catalan", label: "Catalan" },
+  { value: ALL, labelKey: "searchUniLangAny" },
+  { value: "English", labelKey: "searchUniLangEnglish" },
+  { value: "German", labelKey: "searchUniLangGerman" },
+  { value: "French", labelKey: "searchUniLangFrench" },
+  { value: "Spanish", labelKey: "searchUniLangSpanish" },
+  { value: "Dutch", labelKey: "searchUniLangDutch" },
+  { value: "Catalan", labelKey: "searchUniLangCatalan" },
 ];
 
 function matchesBusiness(specs) {
@@ -215,20 +215,20 @@ const SearchUniversitiesPage = () => {
     () =>
       countryOptionsFromUniversities(universities).map((c) => ({
         value: c,
-        label: c === ALL ? "All countries" : c,
+        label: c === ALL ? t("searchUniAllCountries") : c,
       })),
-    [universities]
+    [universities, t]
   );
 
   const specializationSelectOptions = useMemo(
     () => [
-      { value: ALL, label: "All fields" },
+      { value: ALL, label: t("searchUniAllFields") },
       ...fieldOptions.map((f) => ({
         value: f.fieldId,
         label: f.fieldName,
       })),
     ],
-    [fieldOptions]
+    [fieldOptions, t]
   );
 
   const cityOptions = useMemo(
@@ -241,9 +241,24 @@ const SearchUniversitiesPage = () => {
       cityOptions.map((ct) => ({
         value: ct,
         label:
-          ct === ALL_CITIES ? "All cities in this country" : ct,
+          ct === ALL_CITIES ? t("searchUniAllCities") : ct,
       })),
-    [cityOptions]
+    [cityOptions, t]
+  );
+
+  const institutionOptions = useMemo(
+    () => INSTITUTION_OPTIONS.map((o) => ({ value: o.value, label: t(o.labelKey) })),
+    [t]
+  );
+
+  const degreeOptions = useMemo(
+    () => DEGREE_OPTIONS.map((o) => ({ value: o.value, label: t(o.labelKey) })),
+    [t]
+  );
+
+  const languageOptions = useMemo(
+    () => LANGUAGE_OPTIONS.map((o) => ({ value: o.value, label: t(o.labelKey) })),
+    [t]
   );
 
   const togglePopular = useCallback((key) => {
@@ -318,8 +333,8 @@ const SearchUniversitiesPage = () => {
     <PageTemplate
       headerShellClassName={styles.searchHeaderShell}
       icon={<SearchIcon size={22} />}
-      title="Search universities & colleges"
-      actions={<AccentButton onClick={smartMatch}>Smart Match</AccentButton>}
+      title={t("dashSearchUniversities")}
+      actions={<AccentButton onClick={smartMatch}>{t("smartMatch")}</AccentButton>}
     >
       <div className={styles.layout}>
         <section
@@ -329,25 +344,23 @@ const SearchUniversitiesPage = () => {
           <SearchField
             value={nameQuery}
             onChange={setNameQuery}
-            placeholder="Search by university or college name…"
-            label="Search by institution name"
+            placeholder={t("searchUniNamePlaceholder")}
+            label={t("searchUniNameLabel")}
           />
 
           <div className={styles.filtersHead}>
-            <h2 id="filters-heading" className={styles.panelTitle}>
-              Popular filters
-            </h2>
-            <TextLinkButton onClick={resetFilters}>Clear all</TextLinkButton>
+            <h2 id="filters-heading" className={styles.panelTitle}>{t("searchUniPopularHeading")}</h2>
+            <TextLinkButton onClick={resetFilters}>{t("searchUniClearAll")}</TextLinkButton>
           </div>
 
           <div className={styles.chipRow}>
-            {POPULAR_CHIPS.map(({ key, label }) => (
+            {POPULAR_CHIPS.map(({ key, labelKey }) => (
               <FilterChip
                 key={key}
                 pressed={popular[key]}
                 onToggle={() => togglePopular(key)}
               >
-                {label}
+                {t(labelKey)}
               </FilterChip>
             ))}
           </div>
@@ -359,31 +372,31 @@ const SearchUniversitiesPage = () => {
               <SelectField
                 className={styles.institutionField}
                 compact
-                label="Institution type"
+                label={t("searchUniInstTypeLabel")}
                 value={institutionType}
                 onChange={setInstitutionType}
-                options={INSTITUTION_OPTIONS}
+                options={institutionOptions}
               />
               <div className={styles.rangeField}>
-                <span className={styles.rangeLabel}>Tuition per year (€)</span>
+                <span className={styles.rangeLabel}>{t("searchUniTuitionRange")}</span>
                 <div className={styles.rangeRow}>
                   <NumberField
                     value={tuitionMin}
                     onChange={setTuitionMin}
-                    placeholder="Min"
+                    placeholder={t("searchUniMin")}
                   />
                   <span className={styles.rangeSep}>—</span>
                   <NumberField
                     value={tuitionMax}
                     onChange={setTuitionMax}
-                    placeholder="Max"
+                    placeholder={t("searchUniMax")}
                   />
                 </div>
               </div>
             </div>
 
             <SelectField
-              label="Country"
+              label={t("searchUniCountryLabel")}
               value={country}
               onChange={(v) => {
                 setCountry(v);
@@ -394,7 +407,7 @@ const SearchUniversitiesPage = () => {
 
             {country !== ALL && (
               <SelectField
-                label="City / region"
+                label={t("searchUniCityLabel")}
                 value={city}
                 onChange={setCity}
                 options={citySelectOptions}
@@ -402,39 +415,39 @@ const SearchUniversitiesPage = () => {
             )}
 
             <SelectField
-              label="Field of study"
+              label={t("searchUniFieldLabel")}
               value={specialization}
               onChange={setSpecialization}
               options={specializationSelectOptions}
             />
 
             <SelectField
-              label="Degree level"
+              label={t("searchUniDegreeLabel")}
               value={degreeLevel}
               onChange={setDegreeLevel}
-              options={DEGREE_OPTIONS}
+              options={degreeOptions}
             />
 
             <SelectField
-              label="Language of instruction"
+              label={t("searchUniLanguageLabel")}
               value={language}
               onChange={setLanguage}
-              options={LANGUAGE_OPTIONS}
+              options={languageOptions}
             />
           </div>
         </section>
 
         <section className={styles.resultsSection} aria-live="polite">
           <div className={styles.resultsHeader}>
-            <h2 className={styles.resultsTitle}>Matching institutions</h2>
+            <h2 className={styles.resultsTitle}>{t("searchUniMatching")}</h2>
             <span className={styles.resultsCount}>
               {filtered.length}{" "}
-              {filtered.length === 1 ? "result" : "results"}
+              {filtered.length === 1 ? t("searchResultOne") : t("searchResultMany")}
             </span>
           </div>
 
           {loadingUniversities ? (
-            <p className={styles.emptyState}>Loading universities...</p>
+            <p className={styles.emptyState}>{t("searchUniLoadingList")}</p>
           ) : filtered.length === 0 ? (
             <p className={styles.emptyState}>{t("searchNoResults")}</p>
           ) : (

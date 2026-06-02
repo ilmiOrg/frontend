@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../contexts/AuthContext";
+import { useTranslation } from "../../../hooks/useLanguage";
 import { ILMI_LOGO_URL } from "../../../lib/ilmiLogoUrl";
 import { SplineScene } from "../../../components/SplineScene";
 import { Spotlight } from "../../../components/Spotlight";
@@ -14,17 +15,17 @@ import styles from "./style.module.css";
 const SPLINE_SCENE_URL =
   "https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode";
 
-const HERO_COPY = {
-  titleLine2: "Guidance for your study journey",
-  description:
-    "Get clear guidance on universities, scholarships, admissions, and master's programs in one simple platform.",
-  ctaPrimary: "Get started",
-  ctaSecondary: "How it works",
+const HERO_COPY_KEYS = {
+  titleLine2: "heroTitleLine2",
+  description: "heroDescription2",
+  ctaPrimary: "heroCtaPrimary",
+  ctaSecondary: "heroCtaSecondary",
 };
 
 const PublicHomePage = () => {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
+  const { t } = useTranslation();
   const [isDark, setIsDark] = useState(() => {
     // Force true by default to maintain dark mode
     if (typeof window === "undefined") return true;
@@ -70,26 +71,10 @@ const PublicHomePage = () => {
   const [contactSubmitted, setContactSubmitted] = useState(false);
 
   const FAQ_ITEMS = [
-    {
-      question: "Does ilmi cost anything to use?",
-      answer:
-        "Core features—university matching, scholarship discovery, and key insights—are included with no paywall. Optional premium support is paid.",
-    },
-    {
-      question: "How does the matching process work?",
-      answer:
-        "Our AI reviews your goals, profile, and preferences, then shows a ranked list of universities and scholarships that fit your needs.",
-    },
-    {
-      question: "Which countries and universities are included?",
-      answer:
-        "We include universities and scholarship opportunities across many countries. You can filter by country, program, and funding options.",
-    },
-    {
-      question: "How can I support ilmi?",
-      answer:
-        "You can support us through donations listed in the About section. Your support helps us keep core access available for all students.",
-    },
+    { question: t("faqQ1"), answer: t("faqA1") },
+    { question: t("faqQ2"), answer: t("faqA2") },
+    { question: t("faqQ3"), answer: t("faqA3") },
+    { question: t("faqQ4"), answer: t("faqA4") },
   ];
 
   const SOCIAL_ICON_SIZE = 24;
@@ -306,18 +291,18 @@ const PublicHomePage = () => {
                 <div className={styles.heroOverlay} aria-hidden />
                 <Spotlight
                   className={styles.heroSpotlight}
-                  fill="var(--color-contrast)"
+                  fill="var(--on-surface)"
                 />
                 <div className={styles.heroContentWrap}>
                   <div className={styles.heroContent}>
                     <h1 className={styles.heroTitle}>
                       <span className={styles.heroLineGradient}>
-                        {HERO_COPY.titleLine2}
+                        {t(HERO_COPY_KEYS.titleLine2)}
                       </span>
                     </h1>
 
                     <p className={styles.heroDescription}>
-                      {HERO_COPY.description}
+                      {t(HERO_COPY_KEYS.description)}
                     </p>
 
                     <div className={styles.heroActions}>
@@ -325,14 +310,14 @@ const PublicHomePage = () => {
                         onClick={handleGetStarted}
                         className={styles.btnHero}
                       >
-                        {HERO_COPY.ctaPrimary}
+                        {t(HERO_COPY_KEYS.ctaPrimary)}
                       </button>
                       <a
                         href={YOUTUBE_CHANNEL_URL}
                         target="_blank"
                         rel="noopener noreferrer"
                         className={styles.btnSecondary}
-                        aria-label="See how it works on YouTube"
+                        aria-label={t("publicSeeHowItWorks")}
                       >
                         <span className={styles.btnSecondaryIcon}>
                           <ContactSocialIcon
@@ -340,7 +325,7 @@ const PublicHomePage = () => {
                             className={styles.btnSecondaryIconSvg}
                           />
                         </span>
-                        {HERO_COPY.ctaSecondary}
+                        {t(HERO_COPY_KEYS.ctaSecondary)}
                       </a>
                     </div>
                   </div>
@@ -356,26 +341,17 @@ const PublicHomePage = () => {
             {/* About Us */}
             <section className={styles.about} ref={aboutRef}>
               <div className={styles.aboutContainer}>
-                <LandingSparklesHeader title="About Us" />
+                <LandingSparklesHeader title={t("publicAboutUs")} />
                 <div className={styles.aboutShell}>
                   <div className={styles.aboutTopGrid}>
                     <div className={styles.aboutTextBlock}>
-                      <p className={styles.aboutLead}>
-                        ilmi helps students worldwide find the right university
-                        and scholarships through AI-powered matching. Our
-                        mission is to make higher education accessible to
-                        everyone.
-                      </p>
-                      <p className={styles.aboutCopy}>
-                        Core access for university and scholarship discovery
-                        is included, with practical tools students can use
-                        right away.
-                      </p>
+                      <p className={styles.aboutLead}>{t("publicAboutLead")}</p>
+                      <p className={styles.aboutCopy}>{t("publicAboutCopy")}</p>
                     </div>
                     <div className={styles.aboutStatsBlock}>
                       <div className={styles.aboutStatCard}>
                         <p className={styles.aboutStatNumber}>100%</p>
-                        <p className={styles.aboutStatLabel}>Core Access Included</p>
+                        <p className={styles.aboutStatLabel}>{t("aboutCoreAccess")}</p>
                       </div>
                       <div className={styles.aboutStatCard}>
                         <p className={styles.aboutStatNumber}>24/7</p>
@@ -384,7 +360,7 @@ const PublicHomePage = () => {
                         </p>
                       </div>
                       <div className={styles.aboutStatCard}>
-                        <p className={styles.aboutStatNumber}>Global</p>
+                        <p className={styles.aboutStatNumber}>{t("aboutGlobal")}</p>
                         <p className={styles.aboutStatLabel}>
                           Universities Worldwide
                         </p>
@@ -402,7 +378,7 @@ const PublicHomePage = () => {
                         </span>
                       </div>
                       <div className={styles.aboutSupportCard}>
-                        <span className={styles.aboutSupportLabel}>Support QR</span>
+                        <span className={styles.aboutSupportLabel}>{t("publicSupportQr")}</span>
                         <div className={styles.aboutQrDummy}>
                           Add your support QR image here
                         </div>
@@ -416,7 +392,7 @@ const PublicHomePage = () => {
             {/* FAQ */}
             <section className={styles.faqSection} ref={faqRef}>
               <div className={styles.faqContainer}>
-                <LandingSparklesHeader title="Frequently Asked Questions" />
+                <LandingSparklesHeader title={t("publicFaq")} />
                 <ul className={styles.faqList}>
                   {FAQ_ITEMS.map((item, index) => (
                     <li key={index} className={styles.faqItem}>
@@ -454,7 +430,7 @@ const PublicHomePage = () => {
             {/* Contact Us */}
             <section className={styles.contactSection} ref={contactRef}>
               <div className={styles.contactContainer}>
-                <LandingSparklesHeader title="Contact Us" />
+                <LandingSparklesHeader title={t("publicContactUs")} />
                 <div className={styles.contactGrid}>
                   <div className={`${styles.contactBlock} ${styles.contactInfoBlock}`}>
                     <div className={styles.contactItemsGrid}>
@@ -498,10 +474,10 @@ const PublicHomePage = () => {
                     </div>
                   </div>
                   <div className={`${styles.contactBlock} ${styles.contactFormCard}`}>
-                    <h3 className={styles.contactBlockTitle}>Send us a message</h3>
+                    <h3 className={styles.contactBlockTitle}>{t("publicSendMessage")}</h3>
                     {contactSubmitted ? (
                       <div className={styles.contactSuccess}>
-                        <p>Thanks! Your message has been sent.</p>
+                        <p>{t("publicMessageSent")}</p>
                         <button
                           type="button"
                           className={styles.contactSubmitBtn}
@@ -516,19 +492,19 @@ const PublicHomePage = () => {
                         className={styles.contactForm}
                       >
                         <div className={styles.contactFormRow}>
-                          <label className={styles.contactLabel}>Full name</label>
+                          <label className={styles.contactLabel}>{t("publicFullName")}</label>
                           <input
                             type="text"
                             name="name"
                             value={contactForm.name}
                             onChange={handleContactChange}
                             required
-                            placeholder="Enter your full name"
+                            placeholder={t("publicFullNamePh")}
                             className={styles.contactInput}
                           />
                         </div>
                         <div className={styles.contactFormRow}>
-                          <label className={styles.contactLabel}>Email</label>
+                          <label className={styles.contactLabel}>{t("contactLabelEmail")}</label>
                           <input
                             type="email"
                             name="email"
@@ -540,25 +516,25 @@ const PublicHomePage = () => {
                           />
                         </div>
                         <div className={styles.contactFormRow}>
-                          <label className={styles.contactLabel}>Topic</label>
+                          <label className={styles.contactLabel}>{t("contactLabelTopic")}</label>
                           <input
                             type="text"
                             name="subject"
                             value={contactForm.subject}
                             onChange={handleContactChange}
                             required
-                            placeholder="What do you need help with?"
+                            placeholder={t("publicTopicPh")}
                             className={styles.contactInput}
                           />
                         </div>
                         <div className={styles.contactFormRow}>
-                          <label className={styles.contactLabel}>Message</label>
+                          <label className={styles.contactLabel}>{t("publicMessageLabel")}</label>
                           <textarea
                             name="message"
                             value={contactForm.message}
                             onChange={handleContactChange}
                             required
-                            placeholder="Write your message"
+                            placeholder={t("publicMessagePh")}
                             className={styles.contactTextarea}
                             rows={4}
                           />
@@ -590,9 +566,9 @@ const PublicHomePage = () => {
                   </span>
                 </div>
                 <div className={styles.footerLinks}>
-                  <button className={styles.footerLink}>Privacy</button>
-                  <button className={styles.footerLink}>Terms</button>
-                  <button className={styles.footerLink}>Contact</button>
+                  <button className={styles.footerLink}>{t("publicFooterPrivacy")}</button>
+                  <button className={styles.footerLink}>{t("publicFooterTerms")}</button>
+                  <button className={styles.footerLink}>{t("publicFooterContact")}</button>
                 </div>
               </div>
             </footer>

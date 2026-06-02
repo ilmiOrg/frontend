@@ -1,26 +1,17 @@
 .btn {
   font-size: 0.8125rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--primary);
   background: none;
   border: none;
   cursor: pointer;
   text-decoration: underline;
   text-underline-offset: 4px;
-  text-decoration-color: rgba(255, 255, 255, 0.25);
+  text-decoration-color: var(--outline-ghost);
   transition: color 0.2s ease, text-decoration-color 0.2s ease;
 }
 
 .btn:hover {
-  color: rgba(52, 211, 153, 0.95);
-  text-decoration-color: rgba(52, 211, 153, 0.5);
-}
-
-:global(body[theme="light"]) .btn {
-  color: var(--on-surface-muted);
-  text-decoration-color: var(--outline-ghost);
-}
-:global(body[theme="light"]) .btn:hover {
-  color: var(--primary);
-  text-decoration-color: var(--primary);
+  color: var(--on-primary-container);
+  text-decoration-color: var(--on-primary-container);
 }

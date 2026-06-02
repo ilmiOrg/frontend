@@ -49,14 +49,6 @@ const SearchScholarshipsPage = () => {
         </div>
 
         <p className={s.emptyState}>{t("comingSoon")}</p>
-
-        <div className={s.ctaPanel}>
-          <div className={s.ctaBody}>
-            <h3 className={s.ctaTitle}>{t("searchScholarshipsTitle")}</h3>
-            <p className={s.ctaDesc}>{t("searchScholarshipsIntro")}</p>
-          </div>
-          <button className={s.ctaBtn}>{t("startNow")}</button>
-        </div>
       </div>
     </PageTemplate>
   );

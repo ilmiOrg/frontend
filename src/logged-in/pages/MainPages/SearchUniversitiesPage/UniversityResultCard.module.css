@@ -4,20 +4,16 @@
   min-height: 300px;
   padding: 0;
   overflow: hidden;
-  background: linear-gradient(
-    155deg,
-    rgba(255, 255, 255, 0.08) 0%,
-    rgba(255, 255, 255, 0.02) 100%
-  );
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: var(--surface-container-low);
+  border: 1px solid var(--outline-ghost);
   border-radius: 20px;
   transition: border-color 0.25s ease, box-shadow 0.25s ease;
   list-style: none;
 }
 
 .card:hover {
-  border-color: rgba(52, 211, 153, 0.4);
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35);
+  border-color: var(--primary);
+  box-shadow: var(--shadow-floating);
 }
 
 .cardLink {
@@ -36,14 +32,14 @@
   gap: 10px;
   padding: 0 var(--spacing-lg, 1.35rem) var(--spacing-lg, 1.35rem);
   justify-content: flex-end;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid var(--outline-ghost);
   padding-top: var(--spacing-md, 0.75rem);
 }
 
 .hero {
   position: relative;
   min-height: 280px;
-  background: #0b1220;
+  background: var(--surface-container);
 }
 
 .slideshow {
@@ -73,9 +69,9 @@
   flex-direction: column;
   padding: var(--spacing-lg, 1.35rem);
   gap: var(--spacing-md, 1rem);
-  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  border-left: 1px solid var(--outline-ghost);
   min-width: 0;
-  background: rgba(0, 0, 0, 0.18);
+  background: var(--surface-container);
 }
 
 .brandStack {
@@ -94,15 +90,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  border: 1px solid var(--outline-ghost);
   box-sizing: border-box;
   overflow: hidden;
 }
 
 .logoMarkImage {
   padding: 10px 14px;
-  background: #f8fafc;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  background: var(--surface-container-lowest);
+  box-shadow: var(--shadow-md);
 }
 
 .logoImg {
@@ -125,14 +121,10 @@
   font-size: clamp(0.95rem, 2.8vw, 1.35rem);
   font-weight: 800;
   letter-spacing: -0.03em;
-  color: #ecfdf5;
-  background: linear-gradient(
-    145deg,
-    rgba(5, 150, 105, 0.45),
-    rgba(37, 99, 235, 0.4)
-  );
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 8px 28px rgba(5, 150, 105, 0.15);
+  color: var(--on-primary);
+  background: linear-gradient(145deg, var(--primary), var(--primary-container));
+  border: 1px solid var(--outline-variant);
+  box-shadow: var(--shadow-md);
 }
 
 .info {
@@ -148,7 +140,7 @@
 .title {
   font-size: 1.2rem;
   font-weight: 800;
-  color: var(--text-white, #fff);
+  color: var(--on-surface);
   margin: 4px 0 0 0;
   line-height: 1.2;
   letter-spacing: -0.03em;
@@ -156,20 +148,20 @@
 
 .meta {
   font-size: 0.8125rem;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--on-surface-muted);
   margin: 0;
 }
 
 .description {
   font-size: 0.875rem;
   line-height: 1.55;
-  color: rgba(255, 255, 255, 0.78);
+  color: var(--on-surface-variant);
   margin: 6px 0 0 0;
 }
 
 .tags {
   font-size: 0.8125rem;
-  color: rgba(255, 255, 255, 0.52);
+  color: var(--on-surface-muted);
   margin: 6px 0 0 0;
   line-height: 1.45;
 }
@@ -177,13 +169,13 @@
 .tuition {
   font-size: 0.9375rem;
   font-weight: 700;
-  color: var(--ownGreen, #34d399);
+  color: var(--primary);
   margin: 8px 0 0 0;
 }
 
 .langs {
   font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.42);
+  color: var(--on-surface-muted);
   margin: 2px 0 0 0;
 }
 
@@ -207,9 +199,9 @@
 }
 
 .btnPrimary {
-  color: #0f172a;
-  background: linear-gradient(135deg, #34d399, #2dd4bf);
-  border-color: rgba(255, 255, 255, 0.2);
+  color: var(--on-primary);
+  background: var(--primary);
+  border-color: var(--primary);
 }
 
 .btnPrimary:hover {
@@ -217,26 +209,26 @@
 }
 
 .btnGhost {
-  color: rgba(255, 255, 255, 0.9);
-  background: rgba(255, 255, 255, 0.07);
-  border-color: rgba(255, 255, 255, 0.14);
+  color: var(--on-surface);
+  background: var(--surface-container);
+  border-color: var(--outline-ghost);
 }
 
 .btnGhost:hover {
-  background: rgba(255, 255, 255, 0.11);
-  border-color: rgba(255, 255, 255, 0.22);
+  background: var(--surface-container-high);
+  border-color: var(--outline-variant);
 }
 
 .btnOutline {
-  color: rgba(147, 197, 253, 0.95);
+  color: var(--primary);
   background: transparent;
-  border-color: rgba(96, 165, 250, 0.45);
+  border-color: var(--primary);
 }
 
 .btnOutline:hover {
-  background: rgba(59, 130, 246, 0.12);
-  border-color: rgba(96, 165, 250, 0.65);
-  color: #fff;
+  background: var(--primary-container);
+  border-color: var(--primary);
+  color: var(--on-primary-container);
 }
 
 @media (max-width: 900px) {
@@ -252,7 +244,7 @@
 
   .aside {
     border-left: none;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid var(--outline-ghost);
     flex-direction: row;
     flex-wrap: wrap;
     align-items: flex-start;
@@ -287,11 +279,9 @@
 
 :global(body[theme="light"]) .card {
   background: var(--surface-container-lowest);
-  border: 1px solid var(--outline-ghost);
   box-shadow: var(--shadow-floating);
 }
 :global(body[theme="light"]) .card:hover {
-  border-color: var(--primary);
   box-shadow: var(--shadow-hover);
 }
 :global(body[theme="light"]) .hero {
@@ -299,66 +289,9 @@
 }
 :global(body[theme="light"]) .aside {
   background: var(--surface-container-lowest);
-  border-left: 1px solid var(--outline-ghost);
-}
-:global(body[theme="light"]) .cardActions {
-  border-top: 1px solid var(--outline-ghost);
-}
-:global(body[theme="light"]) .title {
-  color: var(--on-surface);
-}
-:global(body[theme="light"]) .meta,
-:global(body[theme="light"]) .tags,
-:global(body[theme="light"]) .langs {
-  color: var(--on-surface-muted);
-}
-:global(body[theme="light"]) .description {
-  color: var(--on-surface-variant);
-}
-:global(body[theme="light"]) .tuition {
-  color: var(--primary);
-}
-:global(body[theme="light"]) .logoMark {
-  border: 1px solid var(--outline-ghost);
-}
-:global(body[theme="light"]) .logoFallback {
-  background: var(--primary);
-  color: var(--on-primary);
-  border-color: var(--primary);
-  box-shadow: 0 8px 28px rgba(0, 108, 81, 0.18);
-}
-:global(body[theme="light"]) .btnPrimary {
-  background: var(--primary);
-  color: var(--on-primary);
-  border-color: var(--primary);
 }
 :global(body[theme="light"]) .btnPrimary:hover {
   background: var(--on-primary-container);
   border-color: var(--on-primary-container);
   filter: none;
-}
-:global(body[theme="light"]) .btnGhost {
-  background: var(--surface-container);
-  color: var(--on-surface);
-  border-color: var(--outline-ghost);
-}
-:global(body[theme="light"]) .btnGhost:hover {
-  background: var(--surface-container-high);
-  border-color: var(--primary);
-}
-:global(body[theme="light"]) .btnOutline {
-  background: transparent;
-  color: var(--primary);
-  border-color: var(--primary);
-}
-:global(body[theme="light"]) .btnOutline:hover {
-  background: var(--primary-container);
-  color: var(--on-primary-container);
-  border-color: var(--primary);
-}
-@media (max-width: 900px) {
-  :global(body[theme="light"]) .aside {
-    border-left: none;
-    border-top: 1px solid var(--outline-ghost);
-  }
 }

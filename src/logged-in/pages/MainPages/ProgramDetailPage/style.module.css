@@ -10,31 +10,15 @@
   box-sizing: border-box;
 }
 
-.backLink {
-  font-size: var(--fontSize-sm, 0.875rem);
-  color: var(--text-white-6, rgba(255, 255, 255, 0.55));
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-}
-
-.backLink:hover {
-  color: var(--text-white, #fff);
-}
-
 .card {
-  background: var(--slate-700-opacity-5, rgba(15, 23, 42, 0.35));
-  border: 1px solid var(--white-opacity-08, rgba(255, 255, 255, 0.08));
+  background: var(--surface-container-low);
+  border: 1px solid var(--outline-ghost);
   border-radius: var(--border-radius-lg);
   padding: var(--spacing-2xl);
   display: flex;
   flex-direction: column;
   gap: var(--spacing-lg);
+  box-shadow: var(--shadow-floating);
 }
 
 .header {
@@ -47,7 +31,7 @@
 .programName {
   font-size: 1.5rem;
   font-weight: var(--fontWeight-semibold);
-  color: var(--text-white, #fff);
+  color: var(--on-surface);
   margin: 0;
 }
 
@@ -56,8 +40,8 @@
   font-weight: var(--fontWeight-semibold);
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--accent-color, #6366f1);
-  background: rgba(99, 102, 241, 0.12);
+  color: var(--on-primary-container);
+  background: var(--primary-container);
   padding: 4px 12px;
   border-radius: 6px;
   white-space: nowrap;
@@ -80,25 +64,25 @@
   font-weight: var(--fontWeight-semibold);
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--text-white-6, rgba(255, 255, 255, 0.55));
+  color: var(--on-surface-muted);
   margin: 0;
 }
 
 .metaValue {
   font-size: var(--fontSize-base, 1rem);
-  color: var(--text-white, #fff);
+  color: var(--on-surface);
   margin: 0;
 }
 
 .tuitionValue {
   font-size: var(--fontSize-base, 1rem);
-  color: var(--accent-color, #6366f1);
+  color: var(--primary);
   font-weight: var(--fontWeight-semibold);
   margin: 0;
 }
 
 .descSection {
-  border-top: 1px solid var(--white-opacity-08, rgba(255, 255, 255, 0.08));
+  border-top: 1px solid var(--outline-ghost);
   padding-top: var(--spacing-lg);
 }
 
@@ -107,13 +91,13 @@
   font-weight: var(--fontWeight-semibold);
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--text-white-7, rgba(255, 255, 255, 0.75));
+  color: var(--on-surface);
   margin: 0 0 var(--spacing-sm) 0;
 }
 
 .descBody {
   font-size: var(--fontSize-sm, 0.875rem);
-  color: var(--text-white-6, rgba(255, 255, 255, 0.65));
+  color: var(--on-surface-variant);
   line-height: 1.6;
   margin: 0;
 }
@@ -139,91 +123,35 @@
 }
 
 .btnPrimary {
-  background: var(--accent-color, #6366f1);
-  color: #fff;
+  background: var(--primary);
+  color: var(--on-primary);
 }
 
 .btnPrimary:hover {
-  filter: brightness(1.15);
+  background: var(--on-primary-container);
 }
 
 .btnOutline {
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  color: var(--text-white-7, rgba(255, 255, 255, 0.75));
+  background: var(--surface-container);
+  border: 1px solid var(--outline-ghost);
+  color: var(--on-surface);
 }
 
 .btnOutline:hover {
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--text-white, #fff);
+  background: var(--surface-container-high);
+  border-color: var(--primary);
 }
 
 .loading {
   text-align: center;
   font-size: var(--fontSize-sm, 0.875rem);
-  color: var(--text-white-6, rgba(255, 255, 255, 0.55));
+  color: var(--on-surface-variant);
   padding: var(--spacing-2xl);
 }
 
 .error {
   text-align: center;
   font-size: var(--fontSize-sm, 0.875rem);
-  color: #f87171;
+  color: var(--error);
   padding: var(--spacing-2xl);
-}
-
-/* Light theme · Digital Curator */
-:global(body[theme="light"]) .backLink {
-  color: var(--primary);
-}
-:global(body[theme="light"]) .card {
-  background: var(--surface-container-lowest);
-  border: 1px solid var(--outline-ghost);
-  box-shadow: var(--shadow-floating);
-}
-:global(body[theme="light"]) .header {
-  border-bottom: 1px solid var(--outline-ghost);
-}
-:global(body[theme="light"]) .programName {
-  color: var(--on-surface);
-}
-:global(body[theme="light"]) .categoryBadge {
-  background: var(--primary-container);
-  color: var(--on-primary-container);
-  border: 1px solid var(--primary);
-}
-:global(body[theme="light"]) .metaLabel {
-  color: var(--on-surface-muted);
-}
-:global(body[theme="light"]) .metaValue {
-  color: var(--on-surface);
-}
-:global(body[theme="light"]) .tuitionValue {
-  color: var(--primary);
-}
-:global(body[theme="light"]) .descTitle {
-  color: var(--on-surface);
-}
-:global(body[theme="light"]) .descBody {
-  color: var(--on-surface-variant);
-}
-:global(body[theme="light"]) .btnPrimary {
-  background: var(--primary);
-  color: var(--on-primary);
-}
-:global(body[theme="light"]) .btnPrimary:hover {
-  background: var(--on-primary-container);
-}
-:global(body[theme="light"]) .btnOutline {
-  background: var(--surface-container);
-  color: var(--on-surface);
-  border: 1px solid var(--outline-ghost);
-}
-:global(body[theme="light"]) .btnOutline:hover {
-  background: var(--surface-container-high);
-  border-color: var(--primary);
-}
-:global(body[theme="light"]) .loading,
-:global(body[theme="light"]) .error {
-  color: var(--on-surface-variant);
 }

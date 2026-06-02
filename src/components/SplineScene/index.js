@@ -20,7 +20,7 @@ export function SplineScene({
 }) {
   const handleLoad = React.useCallback(
     (app) => {
-      if (nudgeRobotRight != null && nudgeRobotRight !== 0) {
+      if (nudgeRobotRight !== null && nudgeRobotRight !== undefined && nudgeRobotRight !== 0) {
         const names = robotObjectNames.length
           ? robotObjectNames
           : ["Robot", "Character", "Agent"];

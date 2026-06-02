@@ -12,14 +12,14 @@
 
 .emptyState {
   font-size: var(--fontSize-sm, 0.875rem);
-  color: var(--text-white-6, rgba(255, 255, 255, 0.6));
+  color: var(--on-surface-variant);
   line-height: 1.6;
   margin: 0;
   padding: var(--spacing-xl);
   text-align: center;
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--surface-container-low);
   border-radius: var(--border-radius-lg);
-  border: 1px dashed rgba(255, 255, 255, 0.14);
+  border: 1px dashed var(--outline-ghost);
 }
 
 .resultList {
@@ -32,8 +32,8 @@
 }
 
 .programCard {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--surface-container-low);
+  border: 1px solid var(--outline-ghost);
   border-radius: var(--border-radius-lg);
   padding: var(--spacing-lg);
   display: flex;
@@ -51,7 +51,7 @@
 .programName {
   font-size: var(--fontSize-base, 1rem);
   font-weight: var(--fontWeight-semibold);
-  color: var(--text-white, #fff);
+  color: var(--on-surface);
   margin: 0;
 }
 
@@ -60,8 +60,8 @@
   font-weight: var(--fontWeight-semibold);
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--accent-color, #6366f1);
-  background: rgba(99, 102, 241, 0.12);
+  color: var(--on-primary-container);
+  background: var(--primary-container);
   padding: 2px 8px;
   border-radius: 4px;
   white-space: nowrap;
@@ -69,7 +69,7 @@
 
 .programMeta {
   font-size: var(--fontSize-sm, 0.875rem);
-  color: var(--text-white-6, rgba(255, 255, 255, 0.55));
+  color: var(--on-surface-variant);
   margin: 0;
 }
 
@@ -84,7 +84,7 @@
 .programTuition {
   font-size: var(--fontSize-sm, 0.875rem);
   font-weight: var(--fontWeight-semibold);
-  color: var(--accent-color, #6366f1);
+  color: var(--primary);
   margin: 0;
 }
 
@@ -108,59 +108,22 @@
 }
 
 .btnOutline {
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  color: var(--text-white-7, rgba(255, 255, 255, 0.75));
+  background: var(--surface-container);
+  border: 1px solid var(--outline-ghost);
+  color: var(--on-surface);
 }
 
 .btnOutline:hover {
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--text-white, #fff);
+  background: var(--surface-container-high);
+  color: var(--on-surface);
 }
 
 .btnDanger {
   background: transparent;
-  border: 1px solid rgba(248, 113, 113, 0.3);
-  color: #f87171;
+  border: 1px solid var(--outline-variant);
+  color: var(--error);
 }
 
 .btnDanger:hover {
-  background: rgba(248, 113, 113, 0.12);
-}
-
-/* Light theme · Digital Curator */
-:global(body[theme="light"]) .emptyState {
-  background: var(--surface-container-low);
-  border: 1px dashed var(--outline-ghost);
-  color: var(--on-surface-variant);
-}
-:global(body[theme="light"]) .programCard {
-  background: var(--surface-container-lowest);
-  border: 1px solid var(--outline-ghost);
-  box-shadow: var(--shadow-floating);
-  color: var(--on-surface);
-}
-:global(body[theme="light"]) .programName {
-  color: var(--on-surface);
-}
-:global(body[theme="light"]) .programCategory,
-:global(body[theme="light"]) .programMeta {
-  color: var(--on-surface-variant);
-}
-:global(body[theme="light"]) .programTuition {
-  color: var(--primary);
-}
-:global(body[theme="light"]) .btnOutline {
-  background: var(--surface-container);
-  color: var(--on-surface);
-  border: 1px solid var(--outline-ghost);
-}
-:global(body[theme="light"]) .btnOutline:hover {
   background: var(--surface-container-high);
-  border-color: var(--primary);
-}
-:global(body[theme="light"]) .btnDanger {
-  background: rgba(179, 38, 30, 0.1);
-  color: var(--error);
-  border: 1px solid rgba(179, 38, 30, 0.3);
 }

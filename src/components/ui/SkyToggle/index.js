@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "../../../hooks/useLanguage";
 import styles from "./style.module.css";
 
 /**
@@ -6,6 +7,7 @@ import styles from "./style.module.css";
  * checked = dark mode, onChange toggles.
  */
 export function SkyToggle({ checked, onChange }) {
+  const { t } = useTranslation();
   return (
     <div className={styles.wrapper}>
       <label className={styles.themeSwitch}>
@@ -14,7 +16,7 @@ export function SkyToggle({ checked, onChange }) {
           className={styles.checkbox}
           checked={checked}
           onChange={onChange}
-          aria-label={checked ? "Switch to light mode" : "Switch to dark mode"}
+          aria-label={checked ? t("skyToggleToLight") : t("skyToggleToDark")}
         />
         <div className={styles.container}>
           <div className={styles.clouds} />

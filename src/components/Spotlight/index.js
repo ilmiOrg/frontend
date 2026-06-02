@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./style.module.css";
 
 export function Spotlight({ className = "", fill }) {
-  const fillColor = fill || "var(--text-white)";
+  const fillColor = fill || "var(--on-surface)";
   return (
     <svg
       className={`${styles.spotlight} ${className}`}

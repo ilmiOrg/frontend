@@ -3,7 +3,7 @@
 .section {
   margin-top: var(--spacing-xl);
   padding-top: var(--spacing-xl);
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid var(--outline-ghost);
 }
 
 .grid {
@@ -16,8 +16,8 @@
 .infoCard,
 .formCard {
   border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--outline-ghost);
+  background: var(--surface-container-low);
   display: flex;
   flex-direction: column;
   min-height: 0;
@@ -48,7 +48,7 @@
   font-weight: var(--fontWeight-semibold);
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--on-surface-muted);
 }
 
 .formTitle {
@@ -57,7 +57,7 @@
   font-weight: var(--fontWeight-bold);
   letter-spacing: -0.02em;
   text-transform: none;
-  color: rgba(255, 255, 255, 0.96);
+  color: var(--on-surface);
 }
 
 .embeddedContactStack {
@@ -146,8 +146,8 @@
   gap: 10px;
   padding: 14px;
   border-radius: var(--border-radius-lg);
-  border: 1px solid rgba(122, 251, 206, 0.18);
-  background: linear-gradient(135deg, rgba(122, 251, 206, 0.08), rgba(0, 108, 81, 0.05));
+  border: 1px solid var(--outline-ghost);
+  background: var(--gradient-mint-glow);
   flex-shrink: 0;
   text-decoration: none;
   color: inherit;
@@ -181,21 +181,21 @@
 }
 
 .qrBannerEmbedded:focus-visible {
-  outline: 2px solid rgba(56, 189, 248, 0.65);
+  outline: 2px solid var(--primary);
   outline-offset: 3px;
 }
 
 .qrBannerEmbedded:hover {
   border-color: var(--primary);
-  background: linear-gradient(135deg, rgba(122, 251, 206, 0.14), rgba(0, 108, 81, 0.08));
+  background: var(--gradient-mint-glow);
   transform: translateY(-1px);
 }
 
 .qrFrameEmbedded {
   padding: 12px;
   border-radius: var(--border-radius-md);
-  background: #fff;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+  background: var(--surface-container-lowest);
+  box-shadow: var(--shadow-md);
 }
 
 .qrCell .qrFrameEmbedded {
@@ -224,7 +224,7 @@
   margin: 0;
   font-size: var(--fontSize-xs);
   line-height: 1.45;
-  color: rgba(255, 255, 255, 0.62);
+  color: var(--on-surface-variant);
   max-width: 22ch;
 }
 
@@ -236,8 +236,8 @@
   gap: 10px;
   padding: 16px;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--outline-ghost);
+  background: var(--surface-container);
 }
 
 .qrBannerCompact {
@@ -253,7 +253,7 @@
 .qrFrame {
   padding: 10px;
   border-radius: 8px;
-  background: #fff;
+  background: var(--surface-container-lowest);
   flex-shrink: 0;
 }
 
@@ -261,10 +261,11 @@
   margin: 0;
   font-size: var(--fontSize-xs);
   line-height: 1.4;
-  color: rgba(255, 255, 255, 0.55);
+  color: var(--on-surface-muted);
   max-width: 220px;
 }
 
+/* Platform brand color (Telegram) */
 .qrChannelLink {
   font-size: var(--fontSize-xs);
   font-weight: var(--fontWeight-semibold);
@@ -296,8 +297,8 @@
   padding: 20px 14px;
   min-height: 96px;
   border-radius: var(--border-radius-lg);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--outline-ghost);
+  background: var(--surface-container);
   text-decoration: none;
   color: inherit;
   transition:
@@ -309,8 +310,8 @@
 }
 
 .tile:hover {
-  border-color: rgba(122, 251, 206, 0.45);
-  background: rgba(122, 251, 206, 0.08);
+  border-color: var(--primary);
+  background: var(--surface-container-high);
   transform: translateY(-2px);
 }
 
@@ -340,7 +341,7 @@
   width: 32px;
   height: 32px;
   border-radius: var(--border-radius-md);
-  background: rgba(122, 251, 206, 0.12);
+  background: var(--surface-container-high);
   color: var(--primary);
   display: flex;
   align-items: center;
@@ -367,13 +368,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--on-surface);
 }
 
 .tileText {
   font-size: 15px;
   font-weight: var(--fontWeight-semibold);
-  color: rgba(255, 255, 255, 0.95);
+  color: var(--on-surface);
   text-align: center;
   word-break: break-word;
 }
@@ -414,7 +415,7 @@
 .label {
   font-size: var(--fontSize-xs);
   font-weight: var(--fontWeight-semibold);
-  color: rgba(255, 255, 255, 0.76);
+  color: var(--on-surface-variant);
   letter-spacing: 0.01em;
 }
 
@@ -424,16 +425,16 @@
   box-sizing: border-box;
   padding: 11px 14px;
   border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.11);
-  background: rgba(0, 0, 0, 0.38);
-  color: rgba(255, 255, 255, 0.93);
+  border: 1px solid var(--outline-ghost);
+  background: var(--surface-container);
+  color: var(--on-surface);
   font-family: inherit;
   font-size: var(--fontSize-sm);
 }
 
 .input::placeholder,
 .textarea::placeholder {
-  color: rgba(255, 255, 255, 0.35);
+  color: var(--on-surface-muted);
 }
 
 .textareaStretch {
@@ -443,14 +444,14 @@
 }
 
 .textareaStretch::placeholder {
-  color: rgba(255, 255, 255, 0.44);
+  color: var(--on-surface-muted);
   line-height: 1.45;
 }
 
 .input:focus,
 .textarea:focus {
   outline: none;
-  border-color: rgba(56, 189, 248, 0.45);
+  border-color: var(--primary);
 }
 
 .textarea {
@@ -471,10 +472,10 @@ textarea.textareaStretch {
   font-family: inherit;
   font-size: var(--fontSize-sm);
   font-weight: var(--fontWeight-bold);
-  color: #0f172a;
+  color: var(--on-primary);
   cursor: pointer;
-  background: #ffffff;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
+  background: var(--primary);
+  box-shadow: var(--shadow-md);
 }
 
 .submitBtnLight:hover {
@@ -484,14 +485,14 @@ textarea.textareaStretch {
 .success {
   padding: var(--spacing-lg);
   border-radius: var(--border-radius-md);
-  background: rgba(52, 211, 153, 0.1);
-  border: 1px solid rgba(52, 211, 153, 0.25);
+  background: var(--primary-container);
+  border: 1px solid var(--primary);
 }
 
 .success p {
   margin: 0 0 var(--spacing-md);
   font-size: var(--fontSize-sm);
-  color: rgba(236, 253, 245, 0.95);
+  color: var(--on-primary-container);
 }
 
 @media (max-width: 960px) {
@@ -566,8 +567,8 @@ textarea.textareaStretch {
 .compactStrip {
   padding: var(--spacing-lg);
   border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--outline-ghost);
+  background: var(--surface-container-low);
 }
 
 .compactHeader {
@@ -578,105 +579,14 @@ textarea.textareaStretch {
   margin: 0 0 6px;
   font-size: var(--fontSize-lg);
   font-weight: var(--fontWeight-bold);
-  color: rgba(255, 255, 255, 0.94);
+  color: var(--on-surface);
 }
 
 .compactSubtitle {
   margin: 0;
   font-size: var(--fontSize-xs);
   line-height: 1.45;
-  color: rgba(255, 255, 255, 0.48);
+  color: var(--on-surface-muted);
   max-width: 62ch;
 }
 
-/* =============================================================================
-   LIGHT THEME · Digital Curator overrides (Contact Hub)
-   --------------------------------------------------------------------------- */
-:global(body[theme="light"]) .infoCard,
-:global(body[theme="light"]) .formCard,
-:global(body[theme="light"]) .compactStrip {
-  background: var(--surface-container-lowest);
-  border: 1px solid var(--outline-ghost);
-  box-shadow: var(--shadow-floating);
-}
-
-:global(body[theme="light"]) .panelEyebrow,
-:global(body[theme="light"]) .compactSubtitle,
-:global(body[theme="light"]) .qrCaption,
-:global(body[theme="light"]) .qrCaptionEmbedded {
-  color: var(--on-surface-muted);
-}
-
-:global(body[theme="light"]) .formTitle,
-:global(body[theme="light"]) .compactTitle {
-  color: var(--on-surface);
-}
-
-:global(body[theme="light"]) .label {
-  color: var(--on-surface-variant);
-}
-
-:global(body[theme="light"]) .input,
-:global(body[theme="light"]) .textarea {
-  background: var(--surface-container);
-  border: 1px solid var(--outline-ghost);
-  color: var(--on-surface);
-}
-:global(body[theme="light"]) .input::placeholder,
-:global(body[theme="light"]) .textarea::placeholder,
-:global(body[theme="light"]) .textareaStretch::placeholder {
-  color: var(--on-surface-muted);
-}
-:global(body[theme="light"]) .input:focus,
-:global(body[theme="light"]) .textarea:focus {
-  border-color: var(--primary);
-  background: var(--surface-container-lowest);
-}
-
-:global(body[theme="light"]) .submitBtnLight {
-  background: var(--primary);
-  color: var(--on-primary);
-  box-shadow: 0 6px 20px rgba(0, 108, 81, 0.22);
-}
-:global(body[theme="light"]) .submitBtnLight:hover {
-  background: var(--on-primary-container);
-  filter: none;
-}
-
-:global(body[theme="light"]) .tile,
-:global(body[theme="light"]) .tileEmbedded {
-  background: var(--surface-container-lowest);
-  border: 1px solid var(--outline-ghost);
-  color: var(--on-surface);
-}
-:global(body[theme="light"]) .tile:hover {
-  background: var(--surface-container-low);
-  border-color: var(--primary);
-}
-:global(body[theme="light"]) .tileIcon,
-:global(body[theme="light"]) .tileText {
-  color: var(--on-surface);
-}
-
-:global(body[theme="light"]) .qrBanner,
-:global(body[theme="light"]) .qrBannerEmbedded,
-:global(body[theme="light"]) .qrBannerCompact {
-  background: var(--surface-container);
-  border: 1px solid var(--outline-ghost);
-  color: var(--on-surface);
-}
-:global(body[theme="light"]) .qrBannerEmbedded:hover {
-  background: var(--surface-container-high);
-  border-color: var(--primary);
-}
-:global(body[theme="light"]) .qrChannelLink {
-  color: var(--primary);
-}
-
-:global(body[theme="light"]) .success {
-  background: rgba(0, 108, 81, 0.08);
-  border: 1px solid rgba(0, 108, 81, 0.22);
-}
-:global(body[theme="light"]) .success p {
-  color: var(--on-primary-container);
-}

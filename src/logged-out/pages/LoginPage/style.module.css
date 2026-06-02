@@ -184,7 +184,7 @@
 
 .loginButton:hover:not(:disabled) {
   background: var(--on-primary-container);
-  box-shadow: 0 8px 24px rgba(0, 108, 81, 0.25);
+  box-shadow: var(--shadow-floating);
 }
 
 .loginButton:disabled {
@@ -195,8 +195,8 @@
 .errorMessage {
   padding: 0.75rem;
   margin-bottom: 1rem;
-  background: rgba(179, 38, 30, 0.1);
-  border: 1px solid rgba(179, 38, 30, 0.3);
+  background: var(--surface-container-high);
+  border: 1px solid var(--error);
   border-radius: var(--border-radius-md);
   color: var(--error);
   font-size: var(--body-sm);
@@ -240,6 +240,10 @@
   font-weight: var(--fontWeight-semibold);
   cursor: pointer;
   text-decoration: none;
+}
+
+.guestRow {
+  margin-top: 0.75rem;
 }
 
 .linkButton:hover {

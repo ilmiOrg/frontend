@@ -9,7 +9,7 @@
 }
 
 .loadingText {
-  color: var(--text-white-6, rgba(255, 255, 255, 0.6));
+  color: var(--on-surface-variant);
   text-align: center;
   padding: var(--spacing-2xl);
 }
@@ -17,13 +17,13 @@
 .emptyState {
   text-align: center;
   padding: var(--spacing-2xl);
-  color: var(--text-white-6, rgba(255, 255, 255, 0.6));
+  color: var(--on-surface-variant);
 }
 
 .backBtn {
   display: inline-block;
   margin-top: var(--spacing-md);
-  color: var(--ownGreen, #34d399);
+  color: var(--primary);
   text-decoration: none;
   font-weight: 600;
 }
@@ -31,8 +31,8 @@
 /* ── University hero card ── */
 
 .uniCard {
-  background: var(--slate-700-opacity-5, rgba(15, 23, 42, 0.35));
-  border: 1px solid var(--white-opacity-08, rgba(255, 255, 255, 0.08));
+  background: var(--surface-container-low);
+  border: 1px solid var(--outline-ghost);
   border-radius: var(--border-radius-lg);
   overflow: hidden;
 }
@@ -54,26 +54,26 @@
 .uniName {
   font-size: var(--fontSize-xl, 1.25rem);
   font-weight: var(--fontWeight-bold, 700);
-  color: var(--text-white, #fff);
+  color: var(--on-surface);
   margin: 0;
 }
 
 .uniMeta {
   font-size: var(--fontSize-sm, 0.875rem);
-  color: var(--text-white-6, rgba(255, 255, 255, 0.55));
+  color: var(--on-surface-variant);
   margin: 0;
 }
 
 .uniTuition {
   font-size: var(--fontSize-sm, 0.875rem);
-  color: var(--ownGreen, #34d399);
+  color: var(--primary);
   font-weight: var(--fontWeight-semibold);
   margin: 0;
 }
 
 .uniDesc {
   font-size: var(--fontSize-sm, 0.875rem);
-  color: var(--text-white-7, rgba(255, 255, 255, 0.75));
+  color: var(--on-surface-variant);
   line-height: 1.6;
   margin: var(--spacing-sm) 0 0;
 }
@@ -89,12 +89,12 @@
 .sectionTitle {
   font-size: var(--fontSize-lg, 1.125rem);
   font-weight: var(--fontWeight-semibold);
-  color: var(--text-white, #fff);
+  color: var(--on-surface);
   margin: 0;
 }
 
 .emptyNote {
-  color: var(--text-white-6, rgba(255, 255, 255, 0.55));
+  color: var(--on-surface-variant);
   font-size: var(--fontSize-sm, 0.875rem);
 }
 
@@ -105,8 +105,8 @@
 }
 
 .fieldCard {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--surface-container-low);
+  border: 1px solid var(--outline-ghost);
   border-radius: var(--border-radius-lg);
   padding: var(--spacing-lg);
   display: flex;
@@ -116,7 +116,7 @@
 }
 
 .fieldCard:hover {
-  border-color: rgba(52, 211, 153, 0.25);
+  border-color: var(--primary);
 }
 
 .fieldCardHeader {
@@ -133,14 +133,14 @@
 .fieldName {
   font-size: var(--fontSize-base, 1rem);
   font-weight: var(--fontWeight-semibold);
-  color: var(--text-white, #fff);
+  color: var(--on-surface);
   margin: 0;
   flex: 1;
 }
 
 .fieldViewLink {
   font-size: 0.8125rem;
-  color: var(--ownGreen, #34d399);
+  color: var(--primary);
   text-decoration: none;
   white-space: nowrap;
   opacity: 0.7;
@@ -156,7 +156,7 @@
   flex-direction: column;
   gap: var(--spacing-sm);
   padding-top: var(--spacing-sm);
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid var(--outline-ghost);
 }
 
 .detailRow {
@@ -167,7 +167,7 @@
 
 .detailLabel {
   font-size: 0.8125rem;
-  color: var(--text-white-6, rgba(255, 255, 255, 0.55));
+  color: var(--on-surface-variant);
   min-width: 90px;
   flex-shrink: 0;
   padding-top: 3px;
@@ -183,23 +183,23 @@
   font-size: 0.75rem;
   padding: 3px 10px;
   border-radius: 12px;
-  background: rgba(99, 102, 241, 0.12);
-  color: rgba(165, 168, 255, 0.9);
-  border: 1px solid rgba(99, 102, 241, 0.2);
+  background: var(--primary-container);
+  color: var(--on-primary-container);
+  border: 1px solid var(--outline-variant);
 }
 
 .chipLang {
   font-size: 0.75rem;
   padding: 3px 10px;
   border-radius: 12px;
-  background: rgba(52, 211, 153, 0.1);
-  color: rgba(52, 211, 153, 0.9);
-  border: 1px solid rgba(52, 211, 153, 0.2);
+  background: var(--primary-container);
+  color: var(--on-primary-container);
+  border: 1px solid var(--outline-variant);
 }
 
 .chipEmpty {
   font-size: 0.8125rem;
-  color: var(--text-white-5, rgba(255, 255, 255, 0.4));
+  color: var(--on-surface-muted);
 }
 
 /* ── Actions ── */
@@ -217,16 +217,16 @@
   border-radius: var(--border-radius-md, 8px);
   font-size: var(--fontSize-sm, 0.875rem);
   font-weight: var(--fontWeight-semibold);
-  color: var(--text-white-7, rgba(255, 255, 255, 0.75));
+  color: var(--on-surface-variant);
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid var(--outline-variant);
   text-decoration: none;
   transition: background 0.15s, color 0.15s;
 }
 
 .viewFullBtn:hover {
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--text-white, #fff);
+  background: var(--surface-container-high);
+  color: var(--on-surface);
 }
 
 @media (max-width: 640px) {

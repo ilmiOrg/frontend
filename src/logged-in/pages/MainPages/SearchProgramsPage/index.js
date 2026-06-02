@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useCallback, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuth } from "../../../../contexts/AuthContext";
 import { useTranslation } from "../../../../hooks/useLanguage";
 import PageTemplate from "../../../shared/PageTemplate";
@@ -17,33 +17,27 @@ import { getCountries } from "../../../../api/countries";
 const ALL = "all";
 
 const DEGREE_OPTIONS = [
-  { value: ALL, label: "All levels" },
-  { value: "bachelor", label: "Bachelor" },
-  { value: "master", label: "Master" },
-  { value: "phd", label: "PhD / Doctorate" },
+  { value: ALL, labelKey: "searchUniDegreeAll" },
+  { value: "bachelor", labelKey: "searchUniDegreeBachelor" },
+  { value: "master", labelKey: "searchUniDegreeMaster" },
+  { value: "phd", labelKey: "searchUniDegreePhd" },
 ];
 
 const LANGUAGE_OPTIONS = [
-  { value: ALL, label: "Any language" },
-  { value: "English", label: "English" },
-  { value: "German", label: "German" },
-  { value: "French", label: "French" },
-  { value: "Spanish", label: "Spanish" },
-  { value: "Dutch", label: "Dutch" },
-  { value: "Italian", label: "Italian" },
-  { value: "Japanese", label: "Japanese" },
-  { value: "Korean", label: "Korean" },
+  { value: ALL, labelKey: "searchUniLangAny" },
+  { value: "English", labelKey: "searchUniLangEnglish" },
+  { value: "German", labelKey: "searchUniLangGerman" },
+  { value: "French", labelKey: "searchUniLangFrench" },
+  { value: "Spanish", labelKey: "searchUniLangSpanish" },
+  { value: "Dutch", labelKey: "searchUniLangDutch" },
+  { value: "Italian", labelKey: "searchUniLangItalian" },
+  { value: "Japanese", labelKey: "searchUniLangJapanese" },
+  { value: "Korean", labelKey: "searchUniLangKorean" },
 ];
-
-function formatTuition(amount, currency) {
-  if (Number(amount) === 0) return "Free / public";
-  return `${currency} ${Number(amount).toLocaleString()} / year`;
-}
 
 const SearchProgramsPage = () => {
   const { user } = useAuth();
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const isGuest = user?.isGuest === true;
 
   const [nameQuery, setNameQuery] = useState("");
@@ -103,18 +97,36 @@ const SearchProgramsPage = () => {
 
   const categoryOptions = useMemo(
     () => [
-      { value: ALL, label: "All categories" },
+      { value: ALL, label: t("programsAllCategories") },
       ...categories.map((c) => ({ value: c.categoryId, label: c.categoryName })),
     ],
-    [categories]
+    [categories, t]
   );
 
   const countryOptions = useMemo(
     () => [
-      { value: ALL, label: "All countries" },
+      { value: ALL, label: t("programsAllCountries") },
       ...countries.map((c) => ({ value: c.countryId, label: c.countryName })),
     ],
-    [countries]
+    [countries, t]
+  );
+
+  const degreeOptions = useMemo(
+    () => DEGREE_OPTIONS.map((o) => ({ value: o.value, label: t(o.labelKey) })),
+    [t]
+  );
+
+  const languageOptions = useMemo(
+    () => LANGUAGE_OPTIONS.map((o) => ({ value: o.value, label: t(o.labelKey) })),
+    [t]
+  );
+
+  const formatTuition = useCallback(
+    (amount, currency) => {
+      if (Number(amount) === 0) return t("programsTuitionFree");
+      return `${currency} ${Number(amount).toLocaleString()} / year`;
+    },
+    [t]
   );
 
   const resetFilters = useCallback(() => {
@@ -162,7 +174,7 @@ const SearchProgramsPage = () => {
   );
 
   return (
-    <PageTemplate icon={<GraduationCapIcon size={22} />} title={t("searchProgramsTitle")} onBack={() => navigate(-1)}>
+    <PageTemplate icon={<GraduationCapIcon size={22} />} title={t("searchProgramsTitle")}>
       <div className={styles.layout}>
         <section className={styles.filtersPanel}>
           <SearchField
@@ -198,14 +210,14 @@ const SearchProgramsPage = () => {
               label={t("searchFieldsDegreeLevel")}
               value={degreeLevel}
               onChange={setDegreeLevel}
-              options={DEGREE_OPTIONS}
+              options={degreeOptions}
             />
 
             <SelectField
               label={t("searchFieldsLanguage")}
               value={language}
               onChange={setLanguage}
-              options={LANGUAGE_OPTIONS}
+              options={languageOptions}
             />
 
             <div className={styles.rangeField}>

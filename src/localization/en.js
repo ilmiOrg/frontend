@@ -855,6 +855,261 @@ const en = {
   studyTogetherFeature4: "Progress Together",
   studyTogetherFeature4Desc: "Track shared goals and motivate each other",
   studyTogetherCta: "Find Study Partners",
+
+  // SendInfo page
+  sendInfoPageTitle: "Send Info & Get Premium",
+  sendInfoOfferHeadline: "Get 7 Days Premium FREE!",
+  sendInfoOfferBody:
+    "Send us your university or scholarship inquiry and receive 7 days of premium access instantly.",
+  sendInfoTabUniversity: "University Info",
+  sendInfoTabScholarship: "Scholarship Info",
+  sendInfoTabApplication: "Application Help",
+  sendInfoTabMeeting: "Book Meeting",
+  sendInfoTabOther: "Other Request",
+  sendInfoFieldFullName: "Full Name",
+  sendInfoFieldEmail: "Email",
+  sendInfoFieldPhone: "Phone",
+  sendInfoFieldUniversity: "University",
+  sendInfoFieldUniversityInterest: "University of Interest",
+  sendInfoFieldProgram: "Program",
+  sendInfoFieldProgramMajor: "Program/Major",
+  sendInfoFieldGpa: "Your GPA",
+  sendInfoFieldAdditional: "Additional Information",
+  sendInfoFieldScholarshipName: "Scholarship Name",
+  sendInfoFieldAchievements: "Your Academic Achievements",
+  sendInfoFieldDeadline: "Application Deadline",
+  sendInfoFieldHelp: "What help do you need?",
+  sendInfoFieldMeetingType: "Meeting Type",
+  sendInfoFieldPreferredDate: "Preferred Date",
+  sendInfoFieldPreferredTime: "Preferred Time",
+  sendInfoFieldNotes: "Additional Notes",
+  sendInfoFieldSubject: "Subject",
+  sendInfoFieldMessage: "Message",
+  sendInfoPhFullName: "Enter your full name",
+  sendInfoPhEmail: "Enter your email",
+  sendInfoPhPhone: "Enter your phone number",
+  sendInfoPhUniversityInterest: "Which university are you interested in?",
+  sendInfoPhProgramInterest: "What program are you interested in?",
+  sendInfoPhGpa: "Enter your GPA",
+  sendInfoPhGoals: "Tell us more about your goals...",
+  sendInfoPhScholarship: "Which scholarship are you interested in?",
+  sendInfoPhUniversityOpt: "Associated university (if any)",
+  sendInfoPhAchievements: "Describe your achievements...",
+  sendInfoPhUniversityRequired: "Which university?",
+  sendInfoPhProgramRequired: "Which program?",
+  sendInfoPhHelp: "Describe what assistance you need...",
+  sendInfoPhSubject: "What is your request about?",
+  sendInfoPhContact: "Tell us how we can help...",
+  sendInfoPhNotes: "Any additional information...",
+  sendInfoMeetingSelect: "Select meeting type",
+  sendInfoMeetingConsult: "General Consultation",
+  sendInfoMeetingAppReview: "Application Review",
+  sendInfoMeetingScholarship: "Scholarship Advice",
+  sendInfoMeetingCareer: "Career Guidance",
+  sendInfoSubmit: "Send Information & Get Premium",
+  sendInfoSubmitting: "Sending...",
+  sendInfoSuccessTitle: "Information Sent Successfully!",
+  sendInfoSuccessBody:
+    "Thank you for reaching out. Our team will review your information and contact you soon.",
+  sendInfoPremiumActivated: "Premium Access Activated!",
+  sendInfoPremiumActivatedBody: "You now have access to premium features for 7 days.",
+  sendInfoBackToDashboard: "Back to Dashboard",
+  sendInfoTitleBack: "Back to Dashboard",
+  required: "required",
+
+  // Search shared
+  smartMatch: "Smart Match",
+
+  // PublicHomePage extras
+  aboutCoreAccess: "Core Access Included",
+  aboutGlobal: "Global",
+  contactLabelEmail: "Email",
+  contactLabelTopic: "Topic",
+
+  // Login page
+  loginSubtitle: "Welcome back! Please sign in to your account.",
+  loginEmailLabel: "Email Address",
+  loginEmailPlaceholder: "Enter your email",
+  loginPasswordLabel: "Password",
+  loginPasswordPlaceholder: "Enter your password",
+  loginSubmit: "Sign In",
+  loginSubmitting: "Signing In...",
+  loginNoAccount: "Don't have an account?",
+  loginSignUpHere: "Sign up here",
+  loginContinueAsGuest: "Continue as guest",
+  loginGuestSuffix: "— bypass login and try the app.",
+  loginFailedMessage: "Login failed. Check your email and password.",
+
+  // Register page
+  registerSubtitle: "Create your account — choose your country to join.",
+  registerFirstName: "First name",
+  registerLastName: "Last name",
+  registerEmail: "Email",
+  registerEmailPlaceholder: "you@example.com",
+  registerPassword: "Password",
+  registerCountry: "Country",
+  registerCountriesLoading: "Loading countries...",
+  registerSelectCountry: "Select your country",
+  registerCountryHint: "Required to create your account.",
+  registerNoCountriesHint:
+    "No countries loaded. Start the backend and ensure the database has countries, or use \"Continue as guest\" below.",
+  registerSubmit: "Create account & join",
+  registerSubmitting: "Creating account...",
+  registerHaveAccount: "Already have an account?",
+  registerLogIn: "Log in",
+  registerGuestSuffix: "— try the app without signing up.",
+  registerSelectCountryError: "Please select a country.",
+  registerFillAllError: "Please fill in all fields.",
+  registerFailedError: "Registration failed.",
+
+  // PublicHome contact + nav extras
+  publicSeeHowItWorks: "See how it works on YouTube",
+  publicAboutUs: "About Us",
+  publicSupportQr: "Support QR",
+  publicFaq: "Frequently Asked Questions",
+  publicContactUs: "Contact Us",
+  publicSendMessage: "Send us a message",
+  publicMessageSent: "Thanks! Your message has been sent.",
+  publicFullName: "Full name",
+  publicFullNamePh: "Enter your full name",
+  publicTopicPh: "What do you need help with?",
+  publicMessageLabel: "Message",
+  publicMessagePh: "Write your message",
+  publicFooterPrivacy: "Privacy",
+  publicFooterTerms: "Terms",
+  publicFooterContact: "Contact",
+  publicStudentSupport: "Student Support",
+  publicUnisWorldwide: "Universities Worldwide",
+  publicSupportNumber: "Support Number",
+  publicQrPlaceholder: "Add your support QR image here",
+  publicAboutLead:
+    "ilmi helps students worldwide find the right university and scholarships through AI-powered matching. Our mission is to make higher education accessible to everyone.",
+  publicAboutCopy:
+    "Core access for university and scholarship discovery is included, with practical tools students can use right away.",
+  publicMainServices: "Main Services",
+
+  // Search Universities extras
+  searchUniNamePlaceholder: "Search by university or college name…",
+  searchUniClearAll: "Clear all",
+  searchUniTuitionRange: "Tuition per year (€)",
+  searchUniMatching: "Matching institutions",
+  searchUniLoadingList: "Loading universities...",
+
+  // University detail
+  uniDetailLoadingTitle: "Loading...",
+  uniDetailLoadingBody: "Loading university details...",
+  uniDetailNotFound: "Institution not found",
+
+  // Search Universities options
+  searchUniPopularUnder10k: "Under €10k / year",
+  searchUniPopularUnder5k: "≤ €5k / year",
+  searchUniPopularEnglish: "English taught",
+  searchUniPopularEurope: "Europe",
+  searchUniPopularBusiness: "Business & law",
+  searchUniPopularMedicine: "Medicine & sciences",
+  searchUniPopularArts: "Arts & design",
+  searchUniInstAll: "All",
+  searchUniInstUniversities: "Universities only",
+  searchUniInstColleges: "Colleges only",
+  searchUniDegreeAll: "All levels",
+  searchUniDegreeAssociate: "Associate",
+  searchUniDegreeDiploma: "Diploma",
+  searchUniDegreeBachelor: "Bachelor",
+  searchUniDegreeMaster: "Master",
+  searchUniDegreePhd: "PhD / Doctorate",
+  searchUniLangAny: "Any language",
+  searchUniLangEnglish: "English",
+  searchUniLangGerman: "German",
+  searchUniLangFrench: "French",
+  searchUniLangSpanish: "Spanish",
+  searchUniLangDutch: "Dutch",
+  searchUniLangCatalan: "Catalan",
+  searchUniAllCountries: "All countries",
+  searchUniAllFields: "All fields",
+  searchUniAllCities: "All cities in this country",
+
+  // Search Universities JSX labels
+  searchResultOne: "result",
+  searchResultMany: "results",
+  searchUniNameLabel: "Search by institution name",
+  searchUniPopularHeading: "Popular filters",
+  searchUniInstTypeLabel: "Institution type",
+  searchUniCountryLabel: "Country",
+  searchUniCityLabel: "City / region",
+  searchUniFieldLabel: "Field of study",
+  searchUniDegreeLabel: "Degree level",
+  searchUniLanguageLabel: "Language of instruction",
+  searchUniMin: "Min",
+  searchUniMax: "Max",
+
+  // Landing features
+  featureSmartMatchTitle: "Smart University Matching",
+  featureSmartMatchDesc:
+    "Our AI reviews your profile, goals, and preferences to recommend universities that fit your path.",
+  featureScholarshipTitle: "Scholarship and Funding Guidance",
+  featureScholarshipDesc:
+    "Find scholarships, grants, and aid options to plan your education budget with confidence.",
+  featureInsightsTitle: "Admission Insights",
+  featureInsightsDesc:
+    "Compare admission trends, program details, and outcomes so you can make informed choices.",
+  featureGlobalTitle: "Global University Access",
+  featureGlobalDesc:
+    "Explore universities in multiple countries with clear program and admission information.",
+  featureAnyDeviceTitle: "Easy Access on Any Device",
+  featureAnyDeviceDesc:
+    "Use ilmi smoothly on mobile or desktop to check matches and track your next steps.",
+  featureAdvisorTitle: "Advisor Support",
+  featureAdvisorDesc:
+    "Get practical help from advisors who understand admissions, applications, and planning.",
+
+  // Programs/Fields options
+  programsAllCategories: "All categories",
+  programsAllCountries: "All countries",
+  programsTuitionFree: "Free / public",
+  searchUniLangItalian: "Italian",
+  searchUniLangJapanese: "Japanese",
+  searchUniLangKorean: "Korean",
+
+  // Dashboard chart
+  chartUnis: "Universities",
+  chartScholarshipsLabel: "Scholarships",
+  monthJan: "Jan",
+  monthFeb: "Feb",
+  monthMar: "Mar",
+  monthApr: "Apr",
+  monthMay: "May",
+  monthJun: "Jun",
+
+  // PublicHome hero
+  heroTitleLine2: "Guidance for your study journey",
+  heroDescription2:
+    "Get clear guidance on universities, scholarships, admissions, and master's programs in one simple platform.",
+  heroCtaPrimary: "Get started",
+  heroCtaSecondary: "How it works",
+
+  // PublicHome FAQ
+  faqQ1: "Does ilmi cost anything to use?",
+  faqA1:
+    "Core features—university matching, scholarship discovery, and key insights—are included with no paywall. Optional premium support is paid.",
+  faqQ2: "How does the matching process work?",
+  faqA2:
+    "Our AI reviews your goals, profile, and preferences, then shows a ranked list of universities and scholarships that fit your needs.",
+  faqQ3: "Which countries and universities are included?",
+  faqA3:
+    "We include universities and scholarship opportunities across many countries. You can filter by country, program, and funding options.",
+  faqQ4: "How can I support ilmi?",
+  faqA4:
+    "You can support us through donations listed in the About section. Your support helps us keep core access available for all students.",
+
+  // UI components
+  searchFieldDefaultPlaceholder: "Search institutions",
+  selectFieldDefaultPlaceholder: "Select option",
+  skyToggleToLight: "Switch to light mode",
+  skyToggleToDark: "Switch to dark mode",
+
+  // Generic errors
+  errFailedLoadFavorites: "Failed to load favorites.",
+  errFailedRemoveFavorite: "Failed to remove favorite.",
 };
 
 export default en;

@@ -22,7 +22,7 @@
   border: 2px solid transparent;
   border-radius: 50%;
   background: transparent;
-  color: var(--color-contrast);
+  color: var(--on-surface);
   font-size: 0.7rem;
   font-weight: 600;
   line-height: 1;
@@ -32,11 +32,11 @@
 }
 
 .langFlagBtn:hover {
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--surface-container-high);
 }
 
 .langFlagBtn[aria-pressed="true"] {
-  border-color: #ffffff;
+  border-color: var(--primary);
   background: transparent;
 }
 
@@ -45,7 +45,7 @@
 }
 
 .langFlagBtn:focus-visible {
-  outline: 2px solid var(--ownBlue);
+  outline: 2px solid var(--primary);
   outline-offset: 1px;
 }
 
@@ -58,18 +58,4 @@
   font-size: 2em;
   line-height: 1;
   display: block;
-}
-
-/* Light theme */
-:global(body[theme="light"]) .langFlagBtn {
-  color: var(--gray-800);
-}
-
-:global(body[theme="light"]) .langFlagBtn:hover {
-  background: var(--gray-200);
-}
-
-:global(body[theme="light"]) .langFlagBtn[aria-pressed="true"] {
-  border-color: #ffffff;
-  background: transparent;
 }

@@ -3,12 +3,9 @@
 
 .scrollContainer {
   --scrollbar-track-bg: transparent;
-  --scrollbar-handle-bg: var(--scrollbar-thumb-fill, rgba(84, 121, 181, 0.5));
-  --scrollbar-border-color: var(--scrollbar-thumb-border, var(--ownBlue));
-  --scrollbar-stripe-color: var(
-    --scrollbar-thumb-stripe,
-    rgba(120, 160, 220, 0.45)
-  );
+  --scrollbar-handle-bg: var(--scrollbar-thumb-fill, var(--primary-container));
+  --scrollbar-border-color: var(--scrollbar-thumb-border, var(--primary));
+  --scrollbar-stripe-color: var(--scrollbar-thumb-stripe, var(--primary));
   --scrollbar-width: 6px;
   height: 100%;
 }
@@ -54,7 +51,7 @@
 }
 
 .scrollContainer :global(.os-scrollbar-handle:hover) {
-  border-color: var(--scrollbar-thumb-hover-border, #0cf) !important;
+  border-color: var(--scrollbar-thumb-hover-border, var(--on-primary-container)) !important;
   opacity: 1 !important;
 }
 

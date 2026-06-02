@@ -29,11 +29,11 @@ function commonsCampusPhoto(fileName, width = 1024) {
 const DREAM_UCA_LOGO_URL = "https://upload.wikimedia.org/wikipedia/commons/5/50/Logo_UCA.svg";
 
 const STATUS_ROWS = [
-  { key: "dashStatusPlan", count: 5, color: "rgba(59, 130, 246, 0.9)" },
-  { key: "dashStatusApplied", count: 4, color: "rgba(245, 158, 11, 0.9)" },
-  { key: "dashStatusAccepted", count: 3, color: "rgba(16, 185, 129, 0.9)" },
-  { key: "dashStatusWaitlist", count: 2, color: "rgba(139, 92, 246, 0.9)" },
-  { key: "dashStatusRejected", count: 1, color: "rgba(239, 68, 68, 0.9)" },
+  { key: "dashStatusPlan", count: 5, color: "rgba(59, 130, 246, 0.9)", dotClass: "statusDotPlan" },
+  { key: "dashStatusApplied", count: 4, color: "rgba(245, 158, 11, 0.9)", dotClass: "statusDotApplied" },
+  { key: "dashStatusAccepted", count: 3, color: "rgba(16, 185, 129, 0.9)", dotClass: "statusDotAccepted" },
+  { key: "dashStatusWaitlist", count: 2, color: "rgba(139, 92, 246, 0.9)", dotClass: "statusDotWaitlist" },
+  { key: "dashStatusRejected", count: 1, color: "rgba(239, 68, 68, 0.9)", dotClass: "statusDotRejected" },
 ];
 
 const STATUS_TOTAL_COUNT = STATUS_ROWS.reduce((sum, row) => sum + row.count, 0);
@@ -320,10 +320,10 @@ const DashboardPage = () => {
         viewsChart = new Chart(ctx, {
           type: "line",
           data: {
-            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+            labels: [t("monthJan"), t("monthFeb"), t("monthMar"), t("monthApr"), t("monthMay"), t("monthJun")],
             datasets: [
               {
-                label: "Universities",
+                label: t("chartUnis"),
                 data: [3, 5, 8, 10, 12, 15],
                 borderColor: "#C026D3",
                 backgroundColor: "rgba(192, 38, 211, 0.12)",
@@ -336,7 +336,7 @@ const DashboardPage = () => {
                 pointHoverRadius: 6,
               },
               {
-                label: "Scholarships",
+                label: t("chartScholarshipsLabel"),
                 data: [2, 3, 5, 6, 7, 8],
                 borderColor: "#22C55E",
                 backgroundColor: "rgba(34, 197, 94, 0.12)",
@@ -457,7 +457,7 @@ const DashboardPage = () => {
                     <span className={styles.dreamReadinessValue}>92%</span>
                   </div>
                   <div className={styles.dreamReadinessTrack} role="presentation">
-                    <div className={styles.dreamReadinessFill} style={{ width: "92%" }} />
+                    <div className={`${styles.dreamReadinessFill} ${styles.deadlineFillW92}`} />
                   </div>
                 </div>
                 <div className={styles.dreamActions}>
@@ -485,7 +485,7 @@ const DashboardPage = () => {
                       <div className={styles.deadlineDate}>{t("dashOct6")}</div>
                     </div>
                     <div className={styles.deadlineBar}>
-                      <div className={styles.deadlineFill} style={{ width: "90%", background: "rgba(239,68,68,0.9)" }} />
+                      <div className={`${styles.deadlineFill} ${styles.deadlineFillUrgent} ${styles.deadlineFillW90}`} />
                     </div>
                     <div className={styles.deadlineTime}>{t("dashTime45m")}</div>
                   </div>
@@ -498,7 +498,7 @@ const DashboardPage = () => {
                       <div className={styles.deadlineDate}>{t("dashOct6")}</div>
                     </div>
                     <div className={styles.deadlineBar}>
-                      <div className={styles.deadlineFill} style={{ width: "75%", background: "rgba(245,158,11,0.9)" }} />
+                      <div className={`${styles.deadlineFill} ${styles.deadlineFillWarning} ${styles.deadlineFillW75}`} />
                     </div>
                     <div className={styles.deadlineTime}>{t("dashTime2h15m")}</div>
                   </div>
@@ -511,7 +511,7 @@ const DashboardPage = () => {
                       <div className={styles.deadlineDate}>{t("dashOct8")}</div>
                     </div>
                     <div className={styles.deadlineBar}>
-                      <div className={styles.deadlineFill} style={{ width: "50%", background: "rgba(16,185,129,0.9)" }} />
+                      <div className={`${styles.deadlineFill} ${styles.deadlineFillNormal} ${styles.deadlineFillW50}`} />
                     </div>
                     <div className={styles.deadlineTime}>{t("dashTime2d3h")}</div>
                   </div>
@@ -524,7 +524,7 @@ const DashboardPage = () => {
                       <div className={styles.deadlineDate}>{t("dashDeadlineFarDate")}</div>
                     </div>
                     <div className={styles.deadlineBar}>
-                      <div className={styles.deadlineFill} style={{ width: "14%", background: "rgba(99, 102, 241, 0.85)" }} />
+                      <div className={`${styles.deadlineFill} ${styles.deadlineFillCool} ${styles.deadlineFillW14}`} />
                     </div>
                     <div className={styles.deadlineTime}>{t("dashTimeAbout9mo")}</div>
                   </div>
@@ -563,7 +563,7 @@ const DashboardPage = () => {
                         }`}
                       >
                         <div className={styles.statusRowMain}>
-                          <div className={styles.statusDot} style={{ background: row.color }} />
+                          <div className={`${styles.statusDot} ${styles[row.dotClass]}`} />
                           <span className={styles.statusCount}>{row.count}</span>
                           <span className={styles.statusLabel}>{t(row.key)}</span>
                         </div>

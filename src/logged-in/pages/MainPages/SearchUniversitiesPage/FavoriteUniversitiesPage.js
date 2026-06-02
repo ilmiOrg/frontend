@@ -21,12 +21,12 @@ const FavoriteUniversitiesPage = () => {
         setFavorites(items.map(mapUniversityFromApi));
       })
       .catch((err) => {
-        setError(err.message || "Failed to load favorites.");
+        setError(err.message || t("errFailedLoadFavorites"));
       })
       .finally(() => {
         setLoading(false);
       });
-  }, []);
+  }, [t]);
 
   const favoriteIds = useMemo(
     () => new Set(favorites.map((u) => u.universityId)),
@@ -38,13 +38,12 @@ const FavoriteUniversitiesPage = () => {
       await removeFavorite(universityId);
       setFavorites((prev) => prev.filter((u) => u.universityId !== universityId));
     } catch (err) {
-      setError(err.message || "Failed to remove favorite.");
+      setError(err.message || t("errFailedRemoveFavorite"));
     }
   };
 
   return (
     <PageTemplate
-      onBack={() => navigate(-1)}
       icon={<StarIcon size={22} />}
       title={t("favoriteUniversitiesTitle")}
       actions={

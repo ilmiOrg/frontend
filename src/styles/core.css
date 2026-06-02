@@ -576,6 +576,20 @@ pre code {
   z-index: 100;
 }
 
+/* Full-page loader (auth bootstrap) */
+.full-page-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: var(--surface);
+  color: var(--on-surface);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
 /* ========================================
    DIGITAL CURATOR HELPERS
    ======================================== */

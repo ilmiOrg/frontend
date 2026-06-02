@@ -79,10 +79,6 @@ const ProgramDetailPage = () => {
   return (
     <PageTemplate icon={<GraduationCapIcon size={22} />} title={program.programName} onBack={() => navigate(-1)}>
       <div className={styles.layout}>
-        <button type="button" className={styles.backLink} onClick={() => navigate(-1)}>
-          ← {t("programDetailBack")}
-        </button>
-
         <div className={styles.card}>
           <div className={styles.header}>
             <h1 className={styles.programName}>{program.programName}</h1>

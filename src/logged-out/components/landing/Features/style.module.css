@@ -1,8 +1,7 @@
-/* Features Section Styles */
 .features {
   padding: var(--spacing-5xl) var(--spacing-lg);
-  background: var(--black);
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  background: var(--surface);
+  border-top: 1px solid var(--outline-ghost);
 }
 
 .featuresContainer {
@@ -21,31 +20,31 @@
 }
 
 .featureCard {
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--surface-container-low);
   padding: var(--spacing-3xl) var(--spacing-lg);
   border-radius: var(--border-radius-xl);
   text-align: center;
   transition: all var(--transition-base);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--outline-ghost);
+  box-shadow: var(--shadow-md);
 }
 
 .featureCard:hover {
   transform: translateY(-10px);
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
-  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: var(--shadow-floating);
+  border-color: var(--outline-variant);
 }
 
 .featureIcon {
   width: 80px;
   height: 80px;
-  background: var(--gradientPrimary);
+  background: var(--gradient-hero);
   border-radius: var(--border-radius-full);
   margin: 0 auto var(--spacing-lg);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: var(--on-primary);
   font-size: var(--fontSize-2xl);
 }
 
@@ -58,39 +57,14 @@
   font-size: var(--fontSize-2xl);
   font-weight: var(--fontWeight-semibold);
   margin-bottom: var(--spacing-md);
-  color: var(--text-white);
+  color: var(--on-surface);
 }
 
 .featureDescription {
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--on-surface-variant);
   line-height: var(--lineHeight-relaxed);
 }
 
-:global(body[theme="light"]) .features {
-  background: var(--white-fafafa);
-  border-top-color: var(--gray-200);
-}
-
-:global(body[theme="light"]) .featureCard {
-  background: var(--white);
-  border-color: var(--gray-200);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
-}
-
-:global(body[theme="light"]) .featureCard:hover {
-  border-color: var(--gray-300);
-  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.08);
-}
-
-:global(body[theme="light"]) .featureTitle {
-  color: var(--gray-900);
-}
-
-:global(body[theme="light"]) .featureDescription {
-  color: var(--gray-600);
-}
-
-/* Responsive */
 @media (max-width: 768px) {
   .features {
     padding: var(--spacing-4xl) var(--spacing-md);

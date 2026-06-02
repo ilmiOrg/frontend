@@ -10,9 +10,9 @@
 .hero {
   border-radius: 16px;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--outline-ghost);
   margin-bottom: var(--spacing-xl, 1.5rem);
-  background: rgba(0, 0, 0, 0.35);
+  background: var(--surface-container-low);
 }
 
 .heroImg {
@@ -40,9 +40,9 @@
 .detailLogoImage {
   max-width: 280px;
   padding: 12px 16px;
-  background: #f8fafc;
+  background: var(--surface-container-lowest);
   border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--outline-ghost);
 }
 
 .detailLogoImg {
@@ -63,40 +63,36 @@
   padding: 0 14px;
   font-size: 1.25rem;
   font-weight: 800;
-  color: #ecfdf5;
-  background: linear-gradient(
-    145deg,
-    rgba(5, 150, 105, 0.45),
-    rgba(37, 99, 235, 0.4)
-  );
+  color: var(--on-primary);
+  background: var(--gradient-hero);
   border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid var(--outline-ghost);
 }
 
 .locationLine {
   font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.55);
+  color: var(--on-surface-variant);
   margin: 0;
 }
 
 .tuition {
   font-size: 1.125rem;
   font-weight: 700;
-  color: var(--ownGreen, #34d399);
+  color: var(--primary);
   margin: 0;
 }
 
 .langs,
 .fields {
   font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.62);
+  color: var(--on-surface-variant);
   margin: 0;
 }
 
 .longText {
   font-size: 1rem;
   line-height: 1.65;
-  color: rgba(255, 255, 255, 0.85);
+  color: var(--on-surface);
   margin: var(--spacing-sm, 0.5rem) 0 0 0;
 }
 
@@ -121,9 +117,9 @@
 }
 
 .btnPrimary {
-  color: #0f172a;
-  background: linear-gradient(135deg, #34d399, #2dd4bf);
-  border-color: rgba(255, 255, 255, 0.2);
+  color: var(--on-primary);
+  background: var(--gradient-hero);
+  border-color: var(--outline-ghost);
 }
 
 .btnPrimary:hover {
@@ -131,13 +127,13 @@
 }
 
 .btnGhost {
-  color: rgba(255, 255, 255, 0.9);
-  background: rgba(255, 255, 255, 0.07);
-  border-color: rgba(255, 255, 255, 0.14);
+  color: var(--on-surface);
+  background: var(--surface-container);
+  border-color: var(--outline-ghost);
 }
 
 .btnGhost:hover {
-  background: rgba(255, 255, 255, 0.11);
+  background: var(--surface-container-high);
 }
 
 .notFound {
@@ -145,29 +141,29 @@
   margin: 0 auto;
   padding: var(--spacing-xl, 1.5rem);
   text-align: center;
-  color: rgba(255, 255, 255, 0.65);
+  color: var(--on-surface-variant);
 }
 
 .backLink {
   padding: 10px 18px;
   font-size: 0.875rem;
   font-weight: 600;
-  color: rgba(147, 197, 253, 0.95);
+  color: var(--primary);
   text-decoration: none;
-  border: 1px solid rgba(96, 165, 250, 0.45);
+  border: 1px solid var(--outline-variant);
   border-radius: 12px;
 }
 
 .backLink:hover {
-  background: rgba(59, 130, 246, 0.12);
-  color: #fff;
+  background: var(--primary-container);
+  color: var(--on-primary-container);
 }
 
 .backLinkLarge {
   display: inline-block;
   margin-top: var(--spacing-lg, 1.25rem);
   font-weight: 600;
-  color: var(--ownGreen, #34d399);
+  color: var(--primary);
   text-decoration: underline;
   text-underline-offset: 4px;
 }
@@ -185,30 +181,30 @@
   padding: 6px 14px;
   font-size: 0.8125rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.85);
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--on-surface);
+  background: var(--surface-container);
+  border: 1px solid var(--outline-ghost);
   border-radius: 20px;
   text-decoration: none;
   transition: background 0.2s, border-color 0.2s;
 }
 
 .fieldChip:hover {
-  background: rgba(52, 211, 153, 0.12);
-  border-color: rgba(52, 211, 153, 0.4);
-  color: #fff;
+  background: var(--primary-container);
+  border-color: var(--primary);
+  color: var(--on-primary-container);
 }
 
 .programsSection {
   margin-top: var(--spacing-xl, 1.5rem);
   padding-top: var(--spacing-lg, 1.25rem);
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid var(--outline-ghost);
 }
 
 .sectionTitle {
   font-size: 1.125rem;
   font-weight: 700;
-  color: var(--text-white, #fff);
+  color: var(--on-surface);
   margin: 0 0 var(--spacing-md, 1rem) 0;
 }
 
@@ -223,8 +219,8 @@
   flex-direction: column;
   gap: 6px;
   padding: var(--spacing-lg, 1.25rem);
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--surface-container-low);
+  border: 1px solid var(--outline-ghost);
   border-radius: 14px;
   text-decoration: none;
   color: inherit;
@@ -232,8 +228,8 @@
 }
 
 .programCard:hover {
-  border-color: rgba(52, 211, 153, 0.35);
-  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--primary);
+  background: var(--surface-container-high);
 }
 
 .programCategory {
@@ -241,114 +237,32 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: rgba(147, 197, 253, 0.8);
+  color: var(--on-surface-muted);
 }
 
 .programName {
   font-size: 1rem;
   font-weight: 700;
-  color: var(--text-white, #fff);
+  color: var(--on-surface);
   margin: 0;
   line-height: 1.3;
 }
 
 .programMeta {
   font-size: 0.8125rem;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--on-surface-variant);
   margin: 0;
 }
 
 .programTuition {
   font-size: 0.875rem;
   font-weight: 700;
-  color: var(--ownGreen, #34d399);
+  color: var(--primary);
   margin: 4px 0 0 0;
 }
 
 .loadingNote {
   font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--on-surface-variant);
   margin: var(--spacing-lg, 1.25rem) 0;
-}
-
-/* Light theme · Digital Curator */
-:global(body[theme="light"]) .hero {
-  background: var(--surface-container-low);
-  border: 1px solid var(--outline-ghost);
-}
-:global(body[theme="light"]) .detailLogoImage {
-  border: 1px solid var(--outline-ghost);
-}
-:global(body[theme="light"]) .detailLogoFallback {
-  background: var(--primary);
-  color: var(--on-primary);
-  border: 1px solid var(--primary);
-}
-:global(body[theme="light"]) .locationLine,
-:global(body[theme="light"]) .langs,
-:global(body[theme="light"]) .fields {
-  color: var(--on-surface-variant);
-}
-:global(body[theme="light"]) .tuition {
-  color: var(--primary);
-}
-:global(body[theme="light"]) .longText {
-  color: var(--on-surface-variant);
-}
-:global(body[theme="light"]) .btnPrimary {
-  background: var(--primary);
-  color: var(--on-primary);
-}
-:global(body[theme="light"]) .btnPrimary:hover {
-  background: var(--on-primary-container);
-}
-:global(body[theme="light"]) .btnGhost {
-  background: var(--surface-container);
-  color: var(--on-surface);
-  border: 1px solid var(--outline-ghost);
-}
-:global(body[theme="light"]) .btnGhost:hover {
-  background: var(--surface-container-high);
-  border-color: var(--primary);
-}
-:global(body[theme="light"]) .backLink {
-  color: var(--primary);
-}
-:global(body[theme="light"]) .fieldChip {
-  background: var(--surface-container);
-  color: var(--on-surface-variant);
-  border: 1px solid var(--outline-ghost);
-}
-:global(body[theme="light"]) .fieldChip:hover {
-  background: var(--primary-container);
-  color: var(--on-primary-container);
-  border-color: var(--primary);
-}
-:global(body[theme="light"]) .sectionTitle {
-  color: var(--on-surface);
-}
-:global(body[theme="light"]) .programCard {
-  background: var(--surface-container-lowest);
-  border: 1px solid var(--outline-ghost);
-  box-shadow: var(--shadow-floating);
-}
-:global(body[theme="light"]) .programCard:hover {
-  border-color: var(--primary);
-  box-shadow: var(--shadow-hover);
-}
-:global(body[theme="light"]) .programCategory {
-  color: var(--on-surface-muted);
-}
-:global(body[theme="light"]) .programName {
-  color: var(--on-surface);
-}
-:global(body[theme="light"]) .programMeta {
-  color: var(--on-surface-variant);
-}
-:global(body[theme="light"]) .programTuition {
-  color: var(--primary);
-}
-:global(body[theme="light"]) .loadingNote,
-:global(body[theme="light"]) .notFound {
-  color: var(--on-surface-variant);
 }

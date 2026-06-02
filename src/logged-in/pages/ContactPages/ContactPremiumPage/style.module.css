@@ -2,14 +2,10 @@
   margin-bottom: var(--spacing-xl);
   padding: var(--spacing-xl);
   border-radius: var(--border-radius-xl);
-  border: 1px solid rgba(251, 191, 36, 0.2);
-  background: linear-gradient(
-    165deg,
-    rgba(120, 53, 15, 0.2),
-    rgba(15, 23, 42, 0.9),
-    rgba(30, 27, 75, 0.32)
-  );
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+  border: 1px solid var(--outline-ghost);
+  background: var(--primary-container);
+  color: var(--on-primary-container);
+  box-shadow: var(--shadow-floating);
 }
 
 .heroKicker {
@@ -18,14 +14,15 @@
   font-weight: var(--fontWeight-bold);
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(251, 191, 36, 0.88);
+  color: var(--on-primary-container);
+  opacity: 0.85;
 }
 
 .heroIntro {
   margin: 0 0 var(--spacing-lg);
   font-size: var(--fontSize-base);
   line-height: 1.65;
-  color: rgba(255, 255, 255, 0.68);
+  color: var(--on-primary-container);
   max-width: 56ch;
 }
 
@@ -43,35 +40,13 @@
   border-radius: var(--border-radius-md);
   font-size: var(--fontSize-sm);
   font-weight: var(--fontWeight-semibold);
-  color: #0f172a;
-  background: linear-gradient(90deg, rgba(251, 191, 36, 0.95), rgba(52, 211, 153, 0.92));
+  color: var(--on-primary);
+  background: var(--primary);
   text-decoration: none;
-  box-shadow: 0 8px 22px rgba(251, 191, 36, 0.15);
+  transition: background 0.2s, transform 0.15s;
 }
 
 .heroBookBtn:hover {
-  filter: brightness(1.05);
-}
-
-/* Light theme · Digital Curator */
-:global(body[theme="light"]) .hero {
-  background: linear-gradient(135deg, rgba(255, 226, 137, 0.18), rgba(122, 251, 206, 0.18));
-  border: 1px solid rgba(0, 108, 81, 0.2);
-  box-shadow: var(--shadow-floating);
-  color: var(--on-surface);
-}
-:global(body[theme="light"]) .heroKicker {
-  color: var(--warning);
-}
-:global(body[theme="light"]) .heroIntro {
-  color: var(--on-surface-variant);
-}
-:global(body[theme="light"]) .heroBookBtn {
-  background: var(--primary);
-  color: var(--on-primary);
-  box-shadow: 0 8px 22px rgba(0, 108, 81, 0.2);
-}
-:global(body[theme="light"]) .heroBookBtn:hover {
   background: var(--on-primary-container);
-  filter: none;
+  transform: translateY(-1px);
 }

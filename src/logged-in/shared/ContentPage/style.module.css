@@ -17,8 +17,8 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-md);
-  background: var(--slate-700-opacity-5, rgba(15, 23, 42, 0.35));
-  border: 1px solid var(--white-opacity-08, rgba(255, 255, 255, 0.08));
+  background: var(--surface-container-low);
+  border: 1px solid var(--outline-ghost);
   border-radius: var(--border-radius-lg);
   padding: var(--spacing-xl);
   box-sizing: border-box;
@@ -26,7 +26,7 @@
 
 .introText {
   font-size: var(--fontSize-base, 0.9375rem);
-  color: var(--text-white-6, rgba(255, 255, 255, 0.6));
+  color: var(--on-surface-variant);
   line-height: 1.65;
   margin: 0;
   max-width: 680px;
@@ -44,16 +44,16 @@
   display: flex;
   align-items: flex-start;
   gap: var(--spacing-md);
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: var(--surface-container);
+  border: 1px solid var(--outline-ghost);
   border-radius: var(--border-radius-md);
   padding: var(--spacing-lg);
   transition: background 0.2s, border-color 0.2s;
 }
 
 .featureCard:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.1);
+  background: var(--surface-container-high);
+  border-color: var(--primary);
 }
 
 .featureIconWrap {
@@ -64,33 +64,33 @@
   align-items: center;
   justify-content: center;
   border-radius: var(--border-radius-sm);
-  background: rgba(96, 165, 250, 0.1);
-  color: rgba(96, 165, 250, 0.85);
+  background: var(--primary-container);
+  color: var(--on-primary-container);
 }
 
 .featureIconWrap.green {
-  background: rgba(52, 211, 153, 0.1);
-  color: rgba(52, 211, 153, 0.85);
+  background: var(--primary-container);
+  color: var(--on-primary-container);
 }
 
 .featureIconWrap.purple {
-  background: rgba(139, 92, 246, 0.1);
-  color: rgba(139, 92, 246, 0.85);
+  background: var(--surface-container-high);
+  color: var(--secondary);
 }
 
 .featureIconWrap.amber {
-  background: rgba(251, 191, 36, 0.1);
-  color: rgba(251, 191, 36, 0.85);
+  background: var(--surface-container-high);
+  color: var(--warning);
 }
 
 .featureIconWrap.rose {
-  background: rgba(244, 63, 94, 0.1);
-  color: rgba(244, 63, 94, 0.85);
+  background: var(--surface-container-high);
+  color: var(--error);
 }
 
 .featureIconWrap.cyan {
-  background: rgba(34, 211, 238, 0.1);
-  color: rgba(34, 211, 238, 0.85);
+  background: var(--primary-container);
+  color: var(--on-primary-container);
 }
 
 .featureBody {
@@ -102,13 +102,13 @@
 .featureTitle {
   font-size: var(--fontSize-sm, 0.875rem);
   font-weight: var(--fontWeight-semibold);
-  color: var(--text-white, #fff);
+  color: var(--on-surface);
   margin: 0;
 }
 
 .featureDesc {
   font-size: 0.8125rem;
-  color: var(--text-white-6, rgba(255, 255, 255, 0.55));
+  color: var(--on-surface-variant);
   line-height: 1.5;
   margin: 0;
 }
@@ -119,14 +119,14 @@
   font-weight: var(--fontWeight-semibold);
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--text-white-7, rgba(255, 255, 255, 0.75));
+  color: var(--on-surface-muted);
   margin: 0;
 }
 
 .divider {
   height: 0;
   border: none;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid var(--outline-ghost);
   margin: 0;
 }
 
@@ -141,15 +141,15 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-md);
-  background: var(--slate-700-opacity-5, rgba(15, 23, 42, 0.35));
-  border: 1px solid var(--white-opacity-08, rgba(255, 255, 255, 0.08));
+  background: var(--surface-container-low);
+  border: 1px solid var(--outline-ghost);
   border-radius: var(--border-radius-lg);
   padding: var(--spacing-xl);
   transition: border-color 0.2s, transform 0.15s;
 }
 
 .contentCard:hover {
-  border-color: rgba(255, 255, 255, 0.14);
+  border-color: var(--primary);
   transform: translateY(-1px);
 }
 
@@ -167,35 +167,35 @@
   align-items: center;
   justify-content: center;
   border-radius: var(--border-radius-md);
-  background: rgba(96, 165, 250, 0.1);
-  color: rgba(96, 165, 250, 0.85);
+  background: var(--primary-container);
+  color: var(--on-primary-container);
 }
 
 .cardIcon.green {
-  background: rgba(52, 211, 153, 0.1);
-  color: rgba(52, 211, 153, 0.85);
+  background: var(--primary-container);
+  color: var(--on-primary-container);
 }
 
 .cardIcon.purple {
-  background: rgba(139, 92, 246, 0.1);
-  color: rgba(139, 92, 246, 0.85);
+  background: var(--surface-container-high);
+  color: var(--secondary);
 }
 
 .cardIcon.amber {
-  background: rgba(251, 191, 36, 0.1);
-  color: rgba(251, 191, 36, 0.85);
+  background: var(--surface-container-high);
+  color: var(--warning);
 }
 
 .cardTitle {
   font-size: var(--fontSize-base, 0.9375rem);
   font-weight: var(--fontWeight-semibold);
-  color: var(--text-white, #fff);
+  color: var(--on-surface);
   margin: 0;
 }
 
 .cardDesc {
   font-size: 0.8125rem;
-  color: var(--text-white-6, rgba(255, 255, 255, 0.55));
+  color: var(--on-surface-variant);
   line-height: 1.6;
   margin: 0;
 }
@@ -212,21 +212,21 @@
   font-weight: 600;
   padding: 3px 10px;
   border-radius: 100px;
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--text-white-7, rgba(255, 255, 255, 0.7));
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: var(--surface-container-high);
+  color: var(--on-surface-variant);
+  border: 1px solid var(--outline-ghost);
 }
 
 .metaBadge.highlight {
-  background: rgba(96, 165, 250, 0.12);
-  color: rgba(96, 165, 250, 0.9);
-  border-color: rgba(96, 165, 250, 0.15);
+  background: var(--primary-container);
+  color: var(--on-primary-container);
+  border-color: var(--primary);
 }
 
 .metaBadge.success {
-  background: rgba(52, 211, 153, 0.12);
-  color: rgba(52, 211, 153, 0.9);
-  border-color: rgba(52, 211, 153, 0.15);
+  background: var(--primary-container);
+  color: var(--on-primary-container);
+  border-color: var(--primary);
 }
 
 /* Stat Cards */
@@ -242,8 +242,8 @@
   align-items: center;
   gap: 4px;
   padding: var(--spacing-lg);
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: var(--surface-container);
+  border: 1px solid var(--outline-ghost);
   border-radius: var(--border-radius-md);
   text-align: center;
 }
@@ -251,12 +251,12 @@
 .statNumber {
   font-size: var(--fontSize-2xl, 1.5rem);
   font-weight: var(--fontWeight-bold);
-  color: var(--text-white, #fff);
+  color: var(--on-surface);
 }
 
 .statLabel {
   font-size: 0.75rem;
-  color: var(--text-white-6, rgba(255, 255, 255, 0.55));
+  color: var(--on-surface-variant);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -278,18 +278,18 @@
 .progressName {
   font-size: var(--fontSize-sm, 0.875rem);
   font-weight: 500;
-  color: var(--text-white, #fff);
+  color: var(--on-surface);
 }
 
 .progressPct {
   font-size: 0.8125rem;
   font-weight: 600;
-  color: rgba(96, 165, 250, 0.9);
+  color: var(--primary);
 }
 
 .progressTrack {
   height: 6px;
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--surface-container-high);
   border-radius: 999px;
   overflow: hidden;
 }
@@ -297,7 +297,7 @@
 .progressFill {
   height: 100%;
   border-radius: 999px;
-  background: linear-gradient(90deg, rgba(96, 165, 250, 0.8), rgba(52, 211, 153, 0.8));
+  background: var(--gradient-hero);
   transition: width 0.4s ease;
 }
 
@@ -306,8 +306,8 @@
   display: flex;
   align-items: center;
   gap: var(--spacing-xl);
-  background: rgba(96, 165, 250, 0.06);
-  border: 1px solid rgba(96, 165, 250, 0.12);
+  background: var(--primary-container);
+  border: 1px solid var(--primary);
   border-radius: var(--border-radius-lg);
   padding: var(--spacing-xl);
 }
@@ -319,15 +319,16 @@
 .ctaTitle {
   font-size: var(--fontSize-base, 0.9375rem);
   font-weight: var(--fontWeight-semibold);
-  color: var(--text-white, #fff);
+  color: var(--on-primary-container);
   margin: 0 0 4px;
 }
 
 .ctaDesc {
   font-size: 0.8125rem;
-  color: var(--text-white-6, rgba(255, 255, 255, 0.55));
+  color: var(--on-primary-container);
   margin: 0;
   line-height: 1.5;
+  opacity: 0.85;
 }
 
 .ctaBtn {
@@ -338,16 +339,17 @@
   padding: 10px 20px;
   font-size: var(--fontSize-sm, 0.875rem);
   font-weight: 600;
-  color: #fff;
-  background: linear-gradient(135deg, #3B82F6, #2563EB);
+  color: var(--on-primary);
+  background: var(--primary);
   border: none;
   border-radius: var(--border-radius-md);
   cursor: pointer;
-  transition: opacity 0.2s;
+  transition: background 0.2s, transform 0.15s;
 }
 
 .ctaBtn:hover {
-  opacity: 0.9;
+  background: var(--on-primary-container);
+  transform: translateY(-1px);
 }
 
 /* Primary Button (for PageTemplate actions) */
@@ -359,30 +361,30 @@
   font-size: var(--fontSize-sm, 0.875rem);
   font-weight: 600;
   letter-spacing: 0.02em;
-  color: var(--text-white, #fff);
-  background: linear-gradient(135deg, #10B981, #059669);
+  color: var(--on-primary);
+  background: var(--primary);
   border: none;
   border-radius: 999px;
   cursor: pointer;
-  transition: opacity 0.2s, transform 0.15s;
+  transition: background 0.2s, transform 0.15s;
 }
 
 .primaryBtn:hover {
-  opacity: 0.92;
+  background: var(--on-primary-container);
   transform: translateY(-1px);
 }
 
 /* Empty State */
 .emptyState {
   font-size: var(--fontSize-sm, 0.875rem);
-  color: var(--text-white-6, rgba(255, 255, 255, 0.6));
+  color: var(--on-surface-variant);
   line-height: 1.6;
   margin: 0;
   padding: var(--spacing-xl);
   text-align: center;
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--surface-container-low);
   border-radius: var(--border-radius-lg);
-  border: 1px dashed rgba(255, 255, 255, 0.14);
+  border: 1px dashed var(--outline-ghost);
 }
 
 /* List items */
@@ -391,14 +393,14 @@
   align-items: center;
   gap: var(--spacing-md);
   padding: var(--spacing-md) var(--spacing-lg);
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: var(--surface-container);
+  border: 1px solid var(--outline-ghost);
   border-radius: var(--border-radius-md);
   transition: background 0.2s;
 }
 
 .listItem:hover {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--surface-container-high);
 }
 
 .listIcon {
@@ -409,8 +411,8 @@
   align-items: center;
   justify-content: center;
   border-radius: var(--border-radius-sm);
-  background: rgba(96, 165, 250, 0.1);
-  color: rgba(96, 165, 250, 0.85);
+  background: var(--primary-container);
+  color: var(--on-primary-container);
 }
 
 .listContent {
@@ -421,13 +423,13 @@
 .listTitle {
   font-size: var(--fontSize-sm, 0.875rem);
   font-weight: 500;
-  color: var(--text-white, #fff);
+  color: var(--on-surface);
   margin: 0;
 }
 
 .listSubtext {
   font-size: 0.8125rem;
-  color: var(--text-white-6, rgba(255, 255, 255, 0.5));
+  color: var(--on-surface-variant);
   margin: 0;
 }
 
@@ -450,26 +452,27 @@
   flex-direction: column;
   gap: var(--spacing-md);
   padding: var(--spacing-xl);
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--surface-container);
+  border: 1px solid var(--outline-ghost);
   border-radius: var(--border-radius-lg);
   text-align: center;
   transition: border-color 0.2s;
 }
 
 .priceCard:hover {
-  border-color: rgba(96, 165, 250, 0.2);
+  border-color: var(--primary);
 }
 
 .priceCard.featured {
-  border-color: rgba(96, 165, 250, 0.25);
-  background: rgba(96, 165, 250, 0.04);
+  border-color: var(--primary);
+  background: var(--primary-container);
+  color: var(--on-primary-container);
 }
 
 .priceName {
   font-size: var(--fontSize-sm, 0.875rem);
   font-weight: 600;
-  color: var(--text-white-7, rgba(255, 255, 255, 0.75));
+  color: var(--on-surface-variant);
   text-transform: uppercase;
   letter-spacing: 0.06em;
   margin: 0;
@@ -478,7 +481,7 @@
 .priceAmount {
   font-size: var(--fontSize-2xl, 1.5rem);
   font-weight: var(--fontWeight-bold);
-  color: var(--text-white, #fff);
+  color: var(--on-surface);
 }
 
 .priceFeatures {
@@ -492,7 +495,7 @@
 
 .priceFeatures li {
   font-size: 0.8125rem;
-  color: var(--text-white-6, rgba(255, 255, 255, 0.6));
+  color: var(--on-surface-variant);
   padding-left: 16px;
   position: relative;
 }
@@ -501,7 +504,7 @@
   content: "✓";
   position: absolute;
   left: 0;
-  color: rgba(52, 211, 153, 0.8);
+  color: var(--primary);
   font-size: 0.75rem;
 }
 
@@ -512,17 +515,18 @@
   padding: 10px 20px;
   font-size: var(--fontSize-sm, 0.875rem);
   font-weight: 600;
-  color: #fff;
-  background: linear-gradient(135deg, #3B82F6, #2563EB);
+  color: var(--on-primary);
+  background: var(--primary);
   border: none;
   border-radius: var(--border-radius-md);
   cursor: pointer;
-  transition: opacity 0.2s;
+  transition: background 0.2s, transform 0.15s;
   margin-top: auto;
 }
 
 .priceBtn:hover {
-  opacity: 0.9;
+  background: var(--on-primary-container);
+  transform: translateY(-1px);
 }
 
 /* Person / Profile Cards */
@@ -536,14 +540,14 @@
   display: flex;
   gap: var(--spacing-md);
   padding: var(--spacing-lg);
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: var(--surface-container);
+  border: 1px solid var(--outline-ghost);
   border-radius: var(--border-radius-md);
   transition: background 0.2s;
 }
 
 .personCard:hover {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--surface-container-high);
 }
 
 .personAvatar {
@@ -551,25 +555,25 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: linear-gradient(135deg, rgba(96, 165, 250, 0.3), rgba(139, 92, 246, 0.3));
+  background: var(--gradient-hero);
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  color: #fff;
+  color: var(--on-primary);
   font-size: var(--fontSize-sm, 0.875rem);
 }
 
 .personName {
   font-size: var(--fontSize-sm, 0.875rem);
   font-weight: 600;
-  color: var(--text-white, #fff);
+  color: var(--on-surface);
   margin: 0;
 }
 
 .personRole {
   font-size: 0.8125rem;
-  color: var(--text-white-6, rgba(255, 255, 255, 0.55));
+  color: var(--on-surface-variant);
   margin: 2px 0 0;
 }
 
@@ -612,159 +616,3 @@
   }
 }
 
-/* =============================================================================
-   LIGHT THEME · Digital Curator overrides (ContentPage shared)
-   --------------------------------------------------------------------------- */
-:global(body[theme="light"]) .introPanel {
-  background: var(--surface-container-lowest);
-  border: 1px solid var(--outline-ghost);
-  box-shadow: var(--shadow-floating);
-}
-:global(body[theme="light"]) .introText {
-  color: var(--on-surface-variant);
-}
-:global(body[theme="light"]) .featureCard,
-:global(body[theme="light"]) .contentCard,
-:global(body[theme="light"]) .statCard,
-:global(body[theme="light"]) .listItem,
-:global(body[theme="light"]) .priceCard,
-:global(body[theme="light"]) .personCard {
-  background: var(--surface-container-lowest);
-  border: 1px solid var(--outline-ghost);
-  color: var(--on-surface);
-}
-:global(body[theme="light"]) .featureCard:hover,
-:global(body[theme="light"]) .listItem:hover,
-:global(body[theme="light"]) .personCard:hover {
-  background: var(--surface-container-low);
-  border-color: var(--primary);
-}
-:global(body[theme="light"]) .contentCard:hover,
-:global(body[theme="light"]) .priceCard:hover {
-  border-color: var(--primary);
-}
-:global(body[theme="light"]) .priceCard.featured {
-  background: var(--primary-container);
-  border-color: var(--primary);
-  color: var(--on-primary-container);
-}
-
-:global(body[theme="light"]) .featureTitle,
-:global(body[theme="light"]) .cardTitle,
-:global(body[theme="light"]) .statNumber,
-:global(body[theme="light"]) .progressName,
-:global(body[theme="light"]) .ctaTitle,
-:global(body[theme="light"]) .priceAmount,
-:global(body[theme="light"]) .personName,
-:global(body[theme="light"]) .listTitle {
-  color: var(--on-surface);
-}
-
-:global(body[theme="light"]) .featureDesc,
-:global(body[theme="light"]) .cardDesc,
-:global(body[theme="light"]) .ctaDesc,
-:global(body[theme="light"]) .statLabel,
-:global(body[theme="light"]) .personRole,
-:global(body[theme="light"]) .listSubtext,
-:global(body[theme="light"]) .priceName,
-:global(body[theme="light"]) .priceFeatures li,
-:global(body[theme="light"]) .emptyState,
-:global(body[theme="light"]) .sectionLabel {
-  color: var(--on-surface-variant);
-}
-
-:global(body[theme="light"]) .divider {
-  border-top-color: var(--outline-ghost);
-}
-
-:global(body[theme="light"]) .featureIconWrap,
-:global(body[theme="light"]) .cardIcon,
-:global(body[theme="light"]) .listIcon {
-  background: var(--primary-container);
-  color: var(--on-primary-container);
-}
-:global(body[theme="light"]) .featureIconWrap.green,
-:global(body[theme="light"]) .cardIcon.green {
-  background: rgba(0, 108, 81, 0.12);
-  color: var(--primary);
-}
-:global(body[theme="light"]) .featureIconWrap.purple,
-:global(body[theme="light"]) .cardIcon.purple {
-  background: rgba(77, 94, 131, 0.12);
-  color: var(--secondary);
-}
-:global(body[theme="light"]) .featureIconWrap.amber,
-:global(body[theme="light"]) .cardIcon.amber {
-  background: rgba(183, 132, 0, 0.12);
-  color: var(--warning);
-}
-:global(body[theme="light"]) .featureIconWrap.rose {
-  background: rgba(179, 38, 30, 0.12);
-  color: var(--error);
-}
-:global(body[theme="light"]) .featureIconWrap.cyan {
-  background: rgba(0, 108, 81, 0.12);
-  color: var(--primary);
-}
-
-:global(body[theme="light"]) .metaBadge {
-  background: var(--surface-container);
-  color: var(--on-surface-variant);
-  border-color: var(--outline-ghost);
-}
-:global(body[theme="light"]) .metaBadge.highlight {
-  background: var(--primary-container);
-  color: var(--on-primary-container);
-  border-color: var(--primary);
-}
-:global(body[theme="light"]) .metaBadge.success {
-  background: rgba(0, 108, 81, 0.12);
-  color: var(--primary);
-  border-color: var(--primary);
-}
-
-:global(body[theme="light"]) .progressPct {
-  color: var(--primary);
-}
-:global(body[theme="light"]) .progressTrack {
-  background: var(--surface-container);
-}
-:global(body[theme="light"]) .progressFill {
-  background: var(--gradient-hero);
-}
-
-:global(body[theme="light"]) .ctaPanel {
-  background: var(--primary-container);
-  border-color: var(--primary);
-  color: var(--on-primary-container);
-}
-:global(body[theme="light"]) .ctaPanel .ctaTitle,
-:global(body[theme="light"]) .ctaPanel .ctaDesc {
-  color: var(--on-primary-container);
-}
-
-:global(body[theme="light"]) .ctaBtn,
-:global(body[theme="light"]) .priceBtn,
-:global(body[theme="light"]) .primaryBtn {
-  background: var(--primary);
-  color: var(--on-primary);
-}
-:global(body[theme="light"]) .ctaBtn:hover,
-:global(body[theme="light"]) .priceBtn:hover,
-:global(body[theme="light"]) .primaryBtn:hover {
-  background: var(--on-primary-container);
-}
-
-:global(body[theme="light"]) .emptyState {
-  background: var(--surface-container-low);
-  border: 1px dashed var(--outline-ghost);
-}
-
-:global(body[theme="light"]) .personAvatar {
-  background: var(--primary-container);
-  color: var(--on-primary-container);
-}
-
-:global(body[theme="light"]) .priceFeatures li::before {
-  color: var(--primary);
-}

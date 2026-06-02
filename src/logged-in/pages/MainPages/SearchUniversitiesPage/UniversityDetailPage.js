@@ -104,9 +104,9 @@ export default function UniversityDetailPage() {
 
   if (loadingUniversity) {
     return (
-      <PageTemplate onBack={() => navigate(-1)} icon={<SearchIcon size={22} />} title="Loading...">
+      <PageTemplate onBack={() => navigate(-1)} icon={<SearchIcon size={22} />} title={t("uniDetailLoadingTitle")}>
         <div className={styles.notFound}>
-          <p>Loading university details...</p>
+          <p>{t("uniDetailLoadingBody")}</p>
         </div>
       </PageTemplate>
     );
@@ -117,7 +117,7 @@ export default function UniversityDetailPage() {
       <PageTemplate
         onBack={() => navigate(-1)}
         icon={<SearchIcon size={22} />}
-        title="Institution not found"
+        title={t("uniDetailNotFound")}
         actions={
           <Link className={styles.backLink} to="/dashboard/search/universities">
             Back to search

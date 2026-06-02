@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../contexts/AuthContext";
+import { useTranslation } from "../../../hooks/useLanguage";
 import styles from "./style.module.css";
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -19,7 +21,7 @@ const LoginPage = () => {
       await login(email, password);
       navigate("/dashboard");
     } catch (err) {
-      setError(err.message || "Login failed. Check your email and password.");
+      setError(err.message || t("loginFailedMessage"));
     } finally {
       setIsLoading(false);
     }
@@ -35,9 +37,7 @@ const LoginPage = () => {
         <div className={styles["login-card"] || styles.loginCard}>
           <div className={styles["login-header"] || styles.loginHeader}>
             <h1 className={styles.logo}>ilmi</h1>
-            <p className={styles.subtitle}>
-              Welcome back! Please sign in to your account.
-            </p>
+            <p className={styles.subtitle}>{t("loginSubtitle")}</p>
           </div>
 
           {error && (
@@ -52,7 +52,7 @@ const LoginPage = () => {
           >
             <div className={styles.formGroup}>
               <label htmlFor="email" className={styles.formLabel}>
-                Email Address
+                {t("loginEmailLabel")}
               </label>
               <input
                 type="email"
@@ -60,14 +60,14 @@ const LoginPage = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className={styles.formInput}
-                placeholder="Enter your email"
+                placeholder={t("loginEmailPlaceholder")}
                 required
               />
             </div>
 
             <div className={styles.formGroup}>
               <label htmlFor="password" className={styles.formLabel}>
-                Password
+                {t("loginPasswordLabel")}
               </label>
               <input
                 type="password"
@@ -75,7 +75,7 @@ const LoginPage = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className={styles.formInput}
-                placeholder="Enter your password"
+                placeholder={t("loginPasswordPlaceholder")}
                 required
               />
             </div>
@@ -85,13 +85,13 @@ const LoginPage = () => {
               className={styles.loginButton}
               disabled={isLoading}
             >
-              {isLoading ? "Signing In..." : "Sign In"}
+              {isLoading ? t("loginSubmitting") : t("loginSubmit")}
             </button>
           </form>
 
           <div className={styles["login-footer"] || styles.loginFooter}>
             <p>
-              Don&apos;t have an account?{" "}
+              {t("loginNoAccount")}{" "}
               <a
                 href="/register"
                 onClick={(e) => {
@@ -100,10 +100,10 @@ const LoginPage = () => {
                 }}
                 className={styles.link}
               >
-                Sign up here
+                {t("loginSignUpHere")}
               </a>
             </p>
-            <p style={{ marginTop: "0.75rem" }}>
+            <p className={styles.guestRow}>
               <button
                 type="button"
                 onClick={() => {
@@ -112,9 +112,9 @@ const LoginPage = () => {
                 }}
                 className={styles.linkButton}
               >
-                Continue as guest
+                {t("loginContinueAsGuest")}
               </button>{" "}
-              — bypass login and try the app.
+              {t("loginGuestSuffix")}
             </p>
           </div>
         </div>
