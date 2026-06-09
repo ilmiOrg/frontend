@@ -1,4 +1,21 @@
-import { apiUrl, jsonHeaders, API_BASE_URL } from "./config";
+import { apiUrl, jsonHeaders, API_BASE_URL, getToken } from "./config";
+
+/**
+ * Revoke the current token server-side (real logout). Fire-and-forget: failures are
+ * swallowed so client-side sign-out always proceeds.
+ */
+export async function logout() {
+  const token = getToken();
+  if (!token) return;
+  try {
+    await fetch(apiUrl("/api/v1/auth/logout"), {
+      method: "POST",
+      headers: jsonHeaders(token),
+    });
+  } catch (_) {
+    // ignore — local sign-out happens regardless
+  }
+}
 
 /**
  * Login with email and password.

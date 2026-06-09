@@ -15,6 +15,69 @@
   overflow: hidden;
 }
 
+/* Hamburger + overlay are desktop-hidden; the sidebar is a drawer on mobile. */
+.hamburger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: var(--surface-container);
+  border: 1px solid var(--outline-ghost);
+  border-radius: var(--border-radius-md);
+  color: var(--on-surface);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.sidebarOverlay {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .shell {
+    grid-template-columns: 1fr;
+  }
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 280px;
+    max-width: 85vw;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  }
+  .sidebar.sidebarOpen {
+    transform: translateX(0);
+  }
+  .sidebarOverlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    background: rgba(0, 0, 0, 0.5);
+  }
+  .hamburger {
+    display: inline-flex;
+  }
+  /* Condense the top bar so controls don't overlap the hamburger on phones. */
+  .langSwitcher {
+    display: none;
+  }
+  .topProfileText {
+    display: none;
+  }
+  .welcomeBarTitle {
+    font-size: 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 45vw;
+  }
+}
+
 /* ===== Sidebar (always visible) ===== */
 .sidebar {
   background: var(--surface-container-low);
@@ -377,8 +440,9 @@
   }
 }
 
-@media (max-width: 720px) {
+@media (max-width: 768px) {
+  /* Sidebar becomes an overlay drawer (see top of file); content is full-width. */
   .shell {
-    grid-template-columns: 220px 1fr;
+    grid-template-columns: 1fr;
   }
 }

@@ -1,9 +1,12 @@
 // Kazakh (Қазақша)
-// Missing keys fall back to English via spread.
+// Missing keys fall back to Russian (the audience's lingua franca), then English for
+// any key Russian also lacks. Native Kazakh keys below override both.
 import en from "./en";
+import ru from "./ru";
 
 const kk = {
   ...en,
+  ...ru,
 
   // Navigation / common
   home: "Басты бет",

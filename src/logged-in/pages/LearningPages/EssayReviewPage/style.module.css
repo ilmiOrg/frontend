@@ -1,0 +1,67 @@
+.typeRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.typeLabel {
+  font-size: var(--body-sm);
+  font-weight: 600;
+  color: var(--on-surface-variant);
+}
+
+.typeSelect {
+  padding: 8px 12px;
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--outline-ghost);
+  background: var(--surface-container);
+  color: var(--on-surface);
+  font-size: var(--body-sm);
+}
+
+.textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--on-surface);
+  background: var(--surface-container);
+  border: 1px solid var(--outline-ghost);
+  border-radius: var(--border-radius-md);
+  resize: vertical;
+  font-family: inherit;
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.actionRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.count {
+  font-size: 0.75rem;
+  color: var(--on-surface-muted);
+}
+
+.error {
+  margin: 10px 0 0;
+  color: var(--error);
+  font-size: 0.85rem;
+}
+
+.feedback {
+  margin: 8px 0 0;
+  white-space: pre-wrap;
+  line-height: 1.6;
+  font-size: 0.9rem;
+  color: var(--on-surface-variant);
+}

@@ -1,12 +1,4 @@
-import { apiUrl, jsonHeaders } from "./config";
-
-const AUTH_TOKEN_KEY = "token";
-
-function getToken() {
-  return typeof localStorage !== "undefined"
-    ? localStorage.getItem(AUTH_TOKEN_KEY)
-    : null;
-}
+import { request, getToken } from "./config";
 
 /**
  * Backend exposes program categories only as the `Field` enum on each Program
@@ -37,80 +29,40 @@ export async function getProgramCategories() {
 }
 
 export async function searchPrograms(params = {}) {
-  const url = new URL(apiUrl("/api/v1/programs"));
-  Object.entries(params).forEach(([key, val]) => {
-    if (val !== null && val !== undefined && val !== "") {
-      url.searchParams.append(key, val);
-    }
+  return request("/api/v1/programs", {
+    query: params,
+    errorMessage: "Failed to fetch programs",
   });
-  const res = await fetch(url.toString(), {
-    method: "GET",
-    headers: jsonHeaders(),
-  });
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error(text || "Failed to fetch programs");
-  }
-  return res.json();
 }
 
 export async function getProgramById(id) {
-  const res = await fetch(apiUrl(`/api/v1/programs/${id}`), {
-    method: "GET",
-    headers: jsonHeaders(),
+  return request(`/api/v1/programs/${id}`, {
+    errorMessage: "Program not found",
   });
-  if (!res.ok) {
-    if (res.status === 404) throw new Error("Program not found");
-    const text = await res.text();
-    throw new Error(text || "Failed to fetch program");
-  }
-  return res.json();
 }
 
 export async function getFavoritePrograms() {
-  const token = getToken();
-  if (!token) return [];
-  const res = await fetch(apiUrl("/api/v1/students/favorite-programs"), {
-    method: "GET",
-    headers: jsonHeaders(token),
+  if (!getToken()) return [];
+  return request("/api/v1/students/favorite-programs", {
+    auth: true,
+    errorMessage: "Failed to fetch favorite programs",
   });
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error(text || "Failed to fetch favorite programs");
-  }
-  return res.json();
 }
 
 export async function addFavoriteProgram(programId) {
-  const token = getToken();
-  if (!token) throw new Error("Not authenticated");
-  const res = await fetch(
-    apiUrl(`/api/v1/students/favorite-programs/${programId}`),
-    {
-      method: "POST",
-      headers: jsonHeaders(token),
-    }
-  );
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error(text || "Failed to add favorite program");
-  }
-  return res.json();
+  if (!getToken()) throw new Error("Not authenticated");
+  return request(`/api/v1/students/favorite-programs/${programId}`, {
+    method: "POST",
+    auth: true,
+    errorMessage: "Failed to add favorite program",
+  });
 }
 
 export async function removeFavoriteProgram(programId) {
-  const token = getToken();
-  if (!token) throw new Error("Not authenticated");
-  const res = await fetch(
-    apiUrl(`/api/v1/students/favorite-programs/${programId}`),
-    {
-      method: "DELETE",
-      headers: jsonHeaders(token),
-    }
-  );
-  if (res.status === 204) return;
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error(text || "Failed to remove favorite program");
-  }
+  if (!getToken()) throw new Error("Not authenticated");
+  return request(`/api/v1/students/favorite-programs/${programId}`, {
+    method: "DELETE",
+    auth: true,
+    errorMessage: "Failed to remove favorite program",
+  });
 }

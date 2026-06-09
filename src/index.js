@@ -1,9 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
+import { initErrorMonitoring } from "./lib/errorMonitor";
 import "./styles/variables.css";
 import "./styles/core.css";
 import "./styles/animations.css";
+
+initErrorMonitoring(); // no-op unless REACT_APP_SENTRY_DSN is set at build time
 
 // Apply theme before first paint. Default is dark.
 const savedTheme =

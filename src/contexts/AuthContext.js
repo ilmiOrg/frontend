@@ -5,7 +5,7 @@ import React, {
   useEffect,
   useCallback,
 } from "react";
-import { login as apiLogin, register as apiRegister } from "../api/auth";
+import { login as apiLogin, register as apiRegister, logout as apiLogout } from "../api/auth";
 
 const AUTH_TOKEN_KEY = "token";
 const AUTH_EMAIL_KEY = "userEmail";
@@ -16,7 +16,18 @@ export const GUEST_USER = {
   email: "guest@ilmi.demo",
   name: "Guest",
   isGuest: true,
+  role: "STUDENT",
 };
+
+/** Read the `role` claim from a JWT without verifying it (UI gating only). */
+function decodeRole(token) {
+  try {
+    const part = token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/");
+    return JSON.parse(atob(part)).role || "STUDENT";
+  } catch (_) {
+    return "STUDENT";
+  }
+}
 
 const AuthContext = createContext();
 
@@ -34,7 +45,7 @@ export const AuthProvider = ({ children }) => {
       setUser({ ...GUEST_USER });
     } else if (token && email) {
       setIsAuthenticated(true);
-      setUser({ email, name: email.split("@")[0], isGuest: false });
+      setUser({ email, name: email.split("@")[0], isGuest: false, role: decodeRole(token) });
     }
     setIsLoading(false);
   }, []);
@@ -49,6 +60,7 @@ export const AuthProvider = ({ children }) => {
       email: data.email,
       name: data.email?.split("@")[0],
       isGuest: false,
+      role: decodeRole(data.token),
     });
     return { success: true };
   }, []);
@@ -64,6 +76,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const logout = useCallback(() => {
+    apiLogout(); // fire-and-forget: revoke the token server-side
     localStorage.removeItem(AUTH_TOKEN_KEY);
     localStorage.removeItem(AUTH_EMAIL_KEY);
     localStorage.removeItem(AUTH_GUEST_KEY);
@@ -81,6 +94,7 @@ export const AuthProvider = ({ children }) => {
       email: data.email,
       name: data.email?.split("@")[0],
       isGuest: false,
+      role: decodeRole(data.token),
     });
     return { success: true };
   }, []);
@@ -95,6 +109,7 @@ export const AuthProvider = ({ children }) => {
         logout,
         register,
         user,
+        isAdmin: user?.role === "ADMIN",
       }}
     >
       {children}

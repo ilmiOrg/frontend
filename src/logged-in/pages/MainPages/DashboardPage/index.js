@@ -4,39 +4,53 @@ import { useTranslation } from "../../../../hooks/useLanguage";
 import Chart from "chart.js/auto";
 import {
   SearchIcon,
-  GraduationCapIcon,
-  DollarIcon,
-  PenToolIcon,
   CalendarIcon,
-  ChevronRightIcon,
 } from "../../../shared/Icons";
 import styles from "./style.module.css";
 import { getUniversities } from "../../../../api/universities";
 import { getUniversityFields } from "../../../../api/fields";
+import { getApplications } from "../../../../api/applications";
+import { getMatches } from "../../../../api/matches";
+import { getScholarshipMatches } from "../../../../api/scholarships";
 import { mapUniversityFromApi } from "../SearchUniversitiesPage/searchUniversitiesData";
 import { filterUniversitiesTeaser, countUniversitiesForFieldTeaser } from "./teaserUniversityFilter";
 import IlmiContactHub from "../../../../components/IlmiContactHub";
+import OnboardingBanner from "../../../../components/OnboardingBanner";
 
-/**
- * Wikimedia Commons campus / architecture photo (Special:FilePath redirects to CDN).
- * File names must match Commons exactly (see file pages on commons.wikimedia.org).
- */
-function commonsCampusPhoto(fileName, width = 1024) {
-  return `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(fileName)}?width=${width}`;
-}
 
 /** Official-style UCA wordmark (Wikimedia Commons, public domain / simple shapes). */
 const DREAM_UCA_LOGO_URL = "https://upload.wikimedia.org/wikipedia/commons/5/50/Logo_UCA.svg";
 
+const prettyStatus = (v) =>
+  String(v || "")
+    .toLowerCase()
+    .replace(/_/g, " ")
+    .replace(/\b\w/g, (c) => c.toUpperCase());
+
+/** Countdown text + urgency tone for a deadline N days out. */
+const deadlineMeta = (days) => {
+  if (days < 0) return { text: `${Math.abs(days)}d ago`, tone: "deadlineUrgent" };
+  if (days === 0) return { text: "Today", tone: "deadlineUrgent" };
+  if (days <= 14) return { text: `${days}d left`, tone: "deadlineUrgent" };
+  if (days <= 45) return { text: `${days}d left`, tone: "deadlineWarning" };
+  return { text: `${days}d left`, tone: "deadlineNormal" };
+};
+
+// Display buckets for the application-status donut. Counts come from the student's
+// real applications (computed at runtime) — each bucket maps one or more statuses.
 const STATUS_ROWS = [
-  { key: "dashStatusPlan", count: 5, color: "rgba(59, 130, 246, 0.9)", dotClass: "statusDotPlan" },
-  { key: "dashStatusApplied", count: 4, color: "rgba(245, 158, 11, 0.9)", dotClass: "statusDotApplied" },
-  { key: "dashStatusAccepted", count: 3, color: "rgba(16, 185, 129, 0.9)", dotClass: "statusDotAccepted" },
-  { key: "dashStatusWaitlist", count: 2, color: "rgba(139, 92, 246, 0.9)", dotClass: "statusDotWaitlist" },
-  { key: "dashStatusRejected", count: 1, color: "rgba(239, 68, 68, 0.9)", dotClass: "statusDotRejected" },
+  { key: "dashStatusPlan", color: "rgba(59, 130, 246, 0.9)", dotClass: "statusDotPlan", statuses: ["PLANNING", "IN_PROGRESS"] },
+  { key: "dashStatusApplied", color: "rgba(245, 158, 11, 0.9)", dotClass: "statusDotApplied", statuses: ["SUBMITTED"] },
+  { key: "dashStatusAccepted", color: "rgba(16, 185, 129, 0.9)", dotClass: "statusDotAccepted", statuses: ["ADMITTED", "ENROLLED"] },
+  { key: "dashStatusWaitlist", color: "rgba(139, 92, 246, 0.9)", dotClass: "statusDotWaitlist", statuses: ["WAITLISTED"] },
+  { key: "dashStatusRejected", color: "rgba(239, 68, 68, 0.9)", dotClass: "statusDotRejected", statuses: ["REJECTED", "WITHDRAWN"] },
 ];
 
-const STATUS_TOTAL_COUNT = STATUS_ROWS.reduce((sum, row) => sum + row.count, 0);
+function computeStatusCounts(applications) {
+  return STATUS_ROWS.map((row) =>
+    (applications || []).filter((a) => row.statuses.includes(a.status)).length
+  );
+}
 
 /** Dashboard search teasers: illustrative counts when API/filter result is 0 */
 const TEASER_FALLBACK_COUNT_UNIVERSITIES = 187;
@@ -81,92 +95,8 @@ const FIELD_TEASER_SLUG_CHIPS = [
 ];
 
 /** AI dashboard: university tiles (demo data, i18n keys) */
-const AI_UNI_MATCH_ROWS = [
-  {
-    id: "mit",
-    nameKey: "dashUni1Name",
-    locKey: "dashUni1Loc",
-    rankKey: "dashUni1Rank",
-    match: 95,
-    initials: "MI",
-    commonsFile: "Great_Dome,_MIT_-_IMG_8390.JPG",
-  },
-  {
-    id: "stanford",
-    nameKey: "dashUni2Name",
-    locKey: "dashUni2Loc",
-    rankKey: "dashUni2Rank",
-    match: 92,
-    initials: "ST",
-    commonsFile: "Stanford_University_Main_Quad_(cropped).jpg",
-  },
-  {
-    id: "uca",
-    nameKey: "dashUcaName",
-    locKey: "dashUcaLocation",
-    rankKey: null,
-    match: 89,
-    initials: "UC",
-    commonsFile: "University_of_Central_Asia_Naryn_Campus_aerial_shot.jpg",
-  },
-];
 
-const AI_SCHOL_MATCH_ROWS = [
-  {
-    id: "merit",
-    titleKey: "dashScholPreviewMeritTitle",
-    metaKey: "dashScholPreviewMeritMeta",
-    match: 91,
-    commonsFile: "Radcliffe_Camera,_Oxford,_UK.jpg",
-  },
-  {
-    id: "need",
-    titleKey: "dashScholPreviewNeedTitle",
-    metaKey: "dashScholPreviewNeedMeta",
-    match: 87,
-    commonsFile: "Long_Room_Interior,_Trinity_College_Dublin,_Ireland_-_Diliff.jpg",
-  },
-  {
-    id: "intl",
-    titleKey: "dashAiScholCardIntlTitle",
-    metaKey: "dashAiScholCardIntlMeta",
-    match: 84,
-    commonsFile: "Low_Memorial_Library_Columbia_University_NYC.jpg",
-  },
-];
 
-const AI_SIMILAR_STUDENT_ROWS = [
-  {
-    id: "s1",
-    initials: "AK",
-    nameKey: "dashFriendSampleName",
-    descKey: "dashFriendSampleDesc",
-    match: 94,
-    similarityKeys: ["dashSimilarTagField", "dashSimilarOverlapGpa", "dashSimilarOverlapShortlist", "dashSimilarOverlapIntake"],
-  },
-  {
-    id: "s2",
-    initials: "EK",
-    nameKey: "dashSimilarStudent2Name",
-    descKey: "dashSimilarStudent2Desc",
-    match: 88,
-    similarityKeys: ["dashSimilarTagRegion", "dashSimilarOverlapScholarFirst", "dashSimilarOverlapEuTargets", "dashSimilarOverlapAidFocus"],
-  },
-  {
-    id: "s3",
-    initials: "TB",
-    nameKey: "dashSimilarStudent3Name",
-    descKey: "dashSimilarStudent3Desc",
-    match: 85,
-    similarityKeys: ["dashSimilarTagScores", "dashSimilarOverlapEuropeList", "dashSimilarOverlapIelts", "dashSimilarOverlapStemExtra"],
-  },
-];
-
-const CONNECTION_FRIEND_ROWS = [
-  { id: "cf1", initials: "AK", nameKey: "dashFriendSampleName", descKey: "dashFriendSampleDesc", online: true },
-  { id: "cf2", initials: "ED", nameKey: "dashFriend2SampleName", descKey: "dashFriend2SampleDesc", online: true },
-  { id: "cf3", initials: "SK", nameKey: "dashFriend3SampleName", descKey: "dashFriend3SampleDesc", online: false },
-];
 
 const DashboardPage = () => {
   const navigate = useNavigate();
@@ -187,6 +117,74 @@ const DashboardPage = () => {
   const [fieldsCatalog, setFieldsCatalog] = useState([]);
   const [teaserDataLoading, setTeaserDataLoading] = useState(true);
   const [dreamLogoFailed, setDreamLogoFailed] = useState(false);
+
+  // Real upcoming deadlines + application-status counts from the student's tracked apps.
+  const [deadlines, setDeadlines] = useState([]);
+  const [statusCounts, setStatusCounts] = useState(() => STATUS_ROWS.map(() => 0));
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const apps = await getApplications();
+        if (cancelled) return;
+        const upcoming = (apps || [])
+          .filter((a) => a.deadline)
+          .map((a) => {
+            const days = Math.round(
+              (new Date(`${a.deadline}T00:00:00`) - new Date().setHours(0, 0, 0, 0)) / 86400000
+            );
+            const u = a.university || {};
+            return {
+              id: a.applicationId,
+              title: `${u.name || "Program"} · ${prettyStatus(a.status)}`,
+              date: a.deadline,
+              days,
+            };
+          })
+          .sort((x, y) => x.days - y.days)
+          .slice(0, 5);
+        setDeadlines(upcoming);
+        setStatusCounts(computeStatusCounts(apps));
+      } catch (_) {
+        if (!cancelled) {
+          setDeadlines([]);
+          setStatusCounts(STATUS_ROWS.map(() => 0));
+        }
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+  const statusTotal = statusCounts.reduce((sum, n) => sum + n, 0);
+
+  // Real top matches preview (replaces the old hardcoded showcase rows).
+  const [topMatches, setTopMatches] = useState([]);
+  const [topScholarships, setTopScholarships] = useState([]);
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const [matches, schols] = await Promise.all([
+          getMatches().catch(() => []),
+          getScholarshipMatches().catch(() => []),
+        ]);
+        if (cancelled) return;
+        setTopMatches((Array.isArray(matches) ? matches : []).slice(0, 4));
+        setTopScholarships((Array.isArray(schols) ? schols : []).slice(0, 4));
+      } catch (_) {
+        if (!cancelled) {
+          setTopMatches([]);
+          setTopScholarships([]);
+        }
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+  const prettyField = (v) =>
+    String(v || "").toLowerCase().replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 
   useEffect(() => {
     let cancelled = false;
@@ -375,7 +373,7 @@ const DashboardPage = () => {
             labels: STATUS_ROWS.map((s) => t(s.key)),
             datasets: [
               {
-                data: STATUS_ROWS.map((s) => s.count),
+                data: statusCounts,
                 backgroundColor: STATUS_ROWS.map((s) => s.color),
                 borderWidth: 2,
                 borderColor: "rgba(10, 14, 22, 0.95)",
@@ -398,10 +396,11 @@ const DashboardPage = () => {
       viewsChart?.destroy();
       statusChart?.destroy();
     };
-  }, [t]);
+  }, [t, statusCounts]);
 
   return (
     <div className={styles.dashboardInner}>
+            <OnboardingBanner />
             <div className={styles.dashGrid}>
               <div className={styles.dreamCard}>
                 <div className={styles.dreamHero}>
@@ -473,62 +472,37 @@ const DashboardPage = () => {
               <div className={styles.deadlinesCard}>
                 <div className={styles.cardHeader}>
                   <h3 className={styles.cardTitle}>{t("dashUpcomingDeadlines")}</h3>
-                  <button type="button" className={styles.cardAction}>{t("dashShowAll")}</button>
+                  <button
+                    type="button"
+                    className={styles.cardAction}
+                    onClick={() => navigate("/dashboard/applications")}
+                  >
+                    {t("dashShowAll")}
+                  </button>
                 </div>
-                <div className={styles.deadlineList}>
-                  <div className={styles.deadlineRow}>
-                    <div className={`${styles.deadlineIcon} ${styles.deadlineUrgent}`}>
-                      <GraduationCapIcon size={14} />
-                    </div>
-                    <div className={styles.deadlineInfo}>
-                      <div className={styles.deadlineTitle}>{t("dashUcaApplication")}</div>
-                      <div className={styles.deadlineDate}>{t("dashOct6")}</div>
-                    </div>
-                    <div className={styles.deadlineBar}>
-                      <div className={`${styles.deadlineFill} ${styles.deadlineFillUrgent} ${styles.deadlineFillW90}`} />
-                    </div>
-                    <div className={styles.deadlineTime}>{t("dashTime45m")}</div>
+                {deadlines.length === 0 ? (
+                  <p style={{ color: "var(--on-surface-muted)", fontSize: "0.85rem", margin: "8px 0 0" }}>
+                    No deadlines yet. Track an application to see its deadline here.
+                  </p>
+                ) : (
+                  <div className={styles.deadlineList}>
+                    {deadlines.map((d) => {
+                      const meta = deadlineMeta(d.days);
+                      return (
+                        <div className={styles.deadlineRow} key={d.id}>
+                          <div className={`${styles.deadlineIcon} ${styles[meta.tone]}`}>
+                            <CalendarIcon size={14} />
+                          </div>
+                          <div className={styles.deadlineInfo}>
+                            <div className={styles.deadlineTitle}>{d.title}</div>
+                            <div className={styles.deadlineDate}>{d.date}</div>
+                          </div>
+                          <div className={styles.deadlineTime}>{meta.text}</div>
+                        </div>
+                      );
+                    })}
                   </div>
-                  <div className={styles.deadlineRow}>
-                    <div className={`${styles.deadlineIcon} ${styles.deadlineWarning}`}>
-                      <DollarIcon size={14} />
-                    </div>
-                    <div className={styles.deadlineInfo}>
-                      <div className={styles.deadlineTitle}>{t("dashAucaScholarship")}</div>
-                      <div className={styles.deadlineDate}>{t("dashOct6")}</div>
-                    </div>
-                    <div className={styles.deadlineBar}>
-                      <div className={`${styles.deadlineFill} ${styles.deadlineFillWarning} ${styles.deadlineFillW75}`} />
-                    </div>
-                    <div className={styles.deadlineTime}>{t("dashTime2h15m")}</div>
-                  </div>
-                  <div className={styles.deadlineRow}>
-                    <div className={`${styles.deadlineIcon} ${styles.deadlineNormal}`}>
-                      <PenToolIcon size={14} />
-                    </div>
-                    <div className={styles.deadlineInfo}>
-                      <div className={styles.deadlineTitle}>{t("dashMitApplication")}</div>
-                      <div className={styles.deadlineDate}>{t("dashOct8")}</div>
-                    </div>
-                    <div className={styles.deadlineBar}>
-                      <div className={`${styles.deadlineFill} ${styles.deadlineFillNormal} ${styles.deadlineFillW50}`} />
-                    </div>
-                    <div className={styles.deadlineTime}>{t("dashTime2d3h")}</div>
-                  </div>
-                  <div className={styles.deadlineRow}>
-                    <div className={`${styles.deadlineIcon} ${styles.deadlineNormal}`}>
-                      <CalendarIcon size={14} />
-                    </div>
-                    <div className={styles.deadlineInfo}>
-                      <div className={styles.deadlineTitle}>{t("dashDeadlineFarTitle")}</div>
-                      <div className={styles.deadlineDate}>{t("dashDeadlineFarDate")}</div>
-                    </div>
-                    <div className={styles.deadlineBar}>
-                      <div className={`${styles.deadlineFill} ${styles.deadlineFillCool} ${styles.deadlineFillW14}`} />
-                    </div>
-                    <div className={styles.deadlineTime}>{t("dashTimeAbout9mo")}</div>
-                  </div>
-                </div>
+                )}
               </div>
 
               <div className={styles.chartCard}>
@@ -550,7 +524,7 @@ const DashboardPage = () => {
                   <div className={styles.statusChart}>
                     <canvas ref={statusChartRef} />
                     <div className={styles.statusChartCenter} aria-hidden="true">
-                      <span className={styles.statusChartCenterValue}>{STATUS_TOTAL_COUNT}</span>
+                      <span className={styles.statusChartCenterValue}>{statusTotal}</span>
                       <span className={styles.statusChartCenterLabel}>{t("dashStatusDonutLabel")}</span>
                     </div>
                   </div>
@@ -564,11 +538,11 @@ const DashboardPage = () => {
                       >
                         <div className={styles.statusRowMain}>
                           <div className={`${styles.statusDot} ${styles[row.dotClass]}`} />
-                          <span className={styles.statusCount}>{row.count}</span>
+                          <span className={styles.statusCount}>{statusCounts[idx]}</span>
                           <span className={styles.statusLabel}>{t(row.key)}</span>
                         </div>
                         <span className={styles.statusRowShare}>
-                          {Math.round((row.count / STATUS_TOTAL_COUNT) * 100)}%
+                          {statusTotal > 0 ? Math.round((statusCounts[idx] / statusTotal) * 100) : 0}%
                         </span>
                       </div>
                     ))}
@@ -758,203 +732,88 @@ const DashboardPage = () => {
             <section className={styles.section}>
               <div className={styles.sectionHeader}>
                 <h2 className={styles.sectionTitle}>{t("dashAiDashboardUniTitle")}</h2>
-              </div>
-              <div className={`${styles.aiShowcaseRow} ${styles.aiShowcaseRowUni}`}>
-                <div className={styles.aiShowcaseCardsTrack}>
-                  {AI_UNI_MATCH_ROWS.map((row) => (
-                    <button
-                      key={row.id}
-                      type="button"
-                      className={styles.aiShowcaseUniCard}
-                      onClick={() => navigate("/dashboard/ai/match-universities")}
-                      aria-label={`${t(row.nameKey)} · ${row.match}% ${t("dashMatch")}`}
-                    >
-                      <div className={styles.aiShowcaseUniMedia}>
-                        <img
-                          src={commonsCampusPhoto(row.commonsFile, 960)}
-                          alt=""
-                          className={styles.aiShowcaseUniImg}
-                          loading="lazy"
-                          width={960}
-                          height={600}
-                        />
-                        <div className={styles.aiShowcaseUniMediaScrim} aria-hidden />
-                        <span className={styles.aiShowcaseUniBadge}>{row.match}%</span>
-                        <span className={styles.aiShowcaseUniInitials} aria-hidden>
-                          {row.initials}
-                        </span>
-                      </div>
-                      <div className={styles.aiShowcaseUniBody}>
-                        <p className={styles.aiShowcaseUniName}>{t(row.nameKey)}</p>
-                        <p className={styles.aiShowcaseUniLoc}>{t(row.locKey)}</p>
-                        {row.rankKey ? (
-                          <p className={styles.aiShowcaseUniRank}>
-                            {t("dashRank")} · {t(row.rankKey)}
-                          </p>
-                        ) : null}
-                      </div>
-                    </button>
-                  ))}
-                </div>
                 <button
                   type="button"
-                  className={`${styles.aiShowcaseWholeListBtn} ${styles.aiShowcaseWholeListBtnUni} ${styles.aiShowcaseWholeListBtnSlim}`}
+                  className={styles.cardAction}
                   onClick={() => navigate("/dashboard/ai/match-universities")}
-                  aria-label={`${t("dashCtaSeeAllUniversityMatches")} · ${t("dashMatchUniversities")}`}
                 >
-                  <span className={styles.aiShowcaseWholeListBtnText}>{t("dashCtaSeeAllUniversityMatches")}</span>
-                  <span className={styles.aiShowcaseWholeListBtnIcon} aria-hidden>
-                    <ChevronRightIcon size={18} />
-                  </span>
+                  {t("dashCtaSeeAllUniversityMatches")}
                 </button>
               </div>
+              {topMatches.length === 0 ? (
+                <p style={{ color: "var(--on-surface-muted)", fontSize: "0.85rem", margin: 0 }}>
+                  Add your grades on the matching page to see your real top university matches here.
+                </p>
+              ) : (
+                <div className={styles.realMatchGrid}>
+                  {topMatches.map((match) => {
+                    const u = match.university || {};
+                    const score = match.fitScore != null ? match.fitScore : match.matchScore;
+                    return (
+                      <button
+                        key={match.programId}
+                        type="button"
+                        className={styles.realMatchCard}
+                        onClick={() => navigate("/dashboard/ai/match-universities")}
+                      >
+                        <div className={styles.realMatchTop}>
+                          <span className={styles.realMatchScore}>{score}%</span>
+                          <span className={match.eligible ? styles.realMatchElig : styles.realMatchInelig}>
+                            {match.eligible ? "Eligible" : "Not yet"}
+                          </span>
+                        </div>
+                        <p className={styles.realMatchName}>{u.name}</p>
+                        <p className={styles.realMatchMeta}>
+                          {prettyField(match.fieldType)} · {prettyField(match.degree)}
+                          {u.country ? ` · ${u.country}` : ""}
+                        </p>
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
             </section>
 
             <section className={styles.section}>
               <div className={styles.sectionHeader}>
                 <h2 className={styles.sectionTitle}>{t("dashAiDashboardScholTitle")}</h2>
+                <button
+                  type="button"
+                  className={styles.cardAction}
+                  onClick={() => navigate("/dashboard/ai/match-scholarships")}
+                >
+                  {t("dashCtaSeeAllScholarshipMatches")}
+                </button>
               </div>
-              <div className={`${styles.aiShowcaseRow} ${styles.aiShowcaseRowSchol}`}>
-                <div className={styles.aiShowcaseCardsTrack}>
-                  {AI_SCHOL_MATCH_ROWS.map((row) => (
+              {topScholarships.length === 0 ? (
+                <p style={{ color: "var(--on-surface-muted)", fontSize: "0.85rem", margin: 0 }}>
+                  Once scholarships are available for your profile, your best matches show here.
+                </p>
+              ) : (
+                <div className={styles.realMatchGrid}>
+                  {topScholarships.map((sc) => (
                     <button
-                      key={row.id}
+                      key={sc.scholarshipId}
                       type="button"
-                      className={styles.aiShowcaseScholCard}
+                      className={styles.realMatchCard}
                       onClick={() => navigate("/dashboard/ai/match-scholarships")}
-                      aria-label={`${t(row.titleKey)} · ${row.match}% ${t("dashMatch")}`}
                     >
-                      <div className={styles.aiShowcaseScholMedia}>
-                        <img
-                          src={commonsCampusPhoto(row.commonsFile, 960)}
-                          alt=""
-                          className={styles.aiShowcaseScholImg}
-                          loading="lazy"
-                          width={960}
-                          height={600}
-                        />
-                        <div className={styles.aiShowcaseScholMediaScrim} aria-hidden />
-                        <span className={styles.aiShowcaseScholBadge}>{row.match}%</span>
+                      <div className={styles.realMatchTop}>
+                        <span className={sc.eligible ? styles.realMatchElig : styles.realMatchInelig}>
+                          {sc.eligible ? "Eligible" : "Not eligible"}
+                        </span>
                       </div>
-                      <div className={styles.aiShowcaseScholBody}>
-                        <p className={styles.aiShowcaseScholLabel}>{t("dashMatch")}</p>
-                        <p className={styles.aiShowcaseScholTitle}>{t(row.titleKey)}</p>
-                        <p className={styles.aiShowcaseScholMeta}>{t(row.metaKey)}</p>
-                      </div>
+                      <p className={styles.realMatchName}>{sc.name}</p>
+                      <p className={styles.realMatchMeta}>
+                        {sc.universityName}
+                        {sc.countryName ? ` · ${sc.countryName}` : ""}
+                      </p>
                     </button>
                   ))}
                 </div>
-                <button
-                  type="button"
-                  className={`${styles.aiShowcaseWholeListBtn} ${styles.aiShowcaseWholeListBtnSchol} ${styles.aiShowcaseWholeListBtnSlim}`}
-                  onClick={() => navigate("/dashboard/ai/match-scholarships")}
-                  aria-label={`${t("dashCtaSeeAllScholarshipMatches")} · ${t("dashMatchScholarships")}`}
-                >
-                  <span className={styles.aiShowcaseWholeListBtnText}>{t("dashCtaSeeAllScholarshipMatches")}</span>
-                  <span className={styles.aiShowcaseWholeListBtnIcon} aria-hidden>
-                    <ChevronRightIcon size={18} />
-                  </span>
-                </button>
-              </div>
+              )}
             </section>
 
-            <section className={styles.section}>
-              <div className={styles.sectionHeader}>
-                <h2 id="dashboard-heading-friends-hub" className={styles.sectionTitle}>
-                  {t("dashFriendsCombinedSectionTitle")}
-                </h2>
-              </div>
-              <div className={styles.friendsHubPanel}>
-                <div className={styles.friendsHubSplit}>
-                  <div className={styles.friendsHubLeft}>
-                  <h3 className={styles.friendsHubColumnTitle}>{t("dashFriendsSimilarColumnTitle")}</h3>
-                  <ul className={styles.friendsHubSimilarList} aria-label={t("dashFriendsSimilarColumnTitle")}>
-                    {AI_SIMILAR_STUDENT_ROWS.slice(0, 2).map((row) => (
-                      <li key={row.id} className={styles.friendsHubSimilarItem}>
-                        <div className={styles.friendsHubPeerCard}>
-                          <button
-                            type="button"
-                            className={`${styles.aiPeerCard} ${styles.friendsHubPeerMain}`}
-                            onClick={() => navigate("/dashboard/ai/similar-students")}
-                            aria-label={`${t(row.nameKey)} · ${row.match}%`}
-                          >
-                            <span className={styles.aiPeerAvatar} aria-hidden>
-                              {row.initials}
-                            </span>
-                            <span className={styles.aiPeerBody}>
-                              <span className={styles.aiPeerHeadRow}>
-                                <span className={styles.aiPeerName}>{t(row.nameKey)}</span>
-                                <span className={styles.aiPeerMatch}>{row.match}%</span>
-                              </span>
-                              <span className={styles.aiPeerDesc}>{t(row.descKey)}</span>
-                              <span className={styles.aiPeerChipRow} role="list" aria-label={t("dashSimilaritiesLabel")}>
-                                {row.similarityKeys.slice(0, 3).map((key) => (
-                                  <span key={key} className={styles.aiPeerSimilarityChip} role="listitem">
-                                    {t(key)}
-                                  </span>
-                                ))}
-                              </span>
-                            </span>
-                          </button>
-                          <button
-                            type="button"
-                            className={`${styles.aiPeerAddFriendBtn} ${styles.friendsHubPeerAdd}`}
-                            onClick={() => navigate("/dashboard/community/friends")}
-                            aria-label={`${t("dashSimilarStudentsAddFriend")}: ${t(row.nameKey)}`}
-                          >
-                            {t("dashSimilarStudentsAddFriend")}
-                          </button>
-                        </div>
-                      </li>
-                    ))}
-                    <li className={`${styles.friendsHubSimilarItem} ${styles.friendsHubSimilarSeeMoreItem}`}>
-                      <button
-                        type="button"
-                        className={`${styles.friendsHubSeeMoreBtn} ${styles.friendsHubSeeMoreInRow}`}
-                        onClick={() => navigate("/dashboard/ai/similar-students")}
-                      >
-                        <span className={styles.friendsHubSeeMoreInRowLabel}>{t("dashFriendsSimilarSeeMore")}</span>
-                        <ChevronRightIcon size={18} aria-hidden />
-                      </button>
-                    </li>
-                  </ul>
-                  </div>
-                  <aside className={styles.friendsHubRight} aria-label={t("dashFriendsOnlineColumnTitle")}>
-                    <h3 className={styles.friendsHubRightTitle}>{t("dashFriendsOnlineColumnTitle")}</h3>
-                    <div className={styles.friendsHubOnlinePanel}>
-                      <p className={styles.friendsHubSubTitle}>{t("dashFriendsOnlineNow")}</p>
-                      <ul className={styles.friendsHubOnlineList}>
-                        {CONNECTION_FRIEND_ROWS.filter((r) => r.online).length === 0 ? (
-                          <li className={styles.friendsHubOnlineEmpty}>{t("dashFriendsOnlineEmpty")}</li>
-                        ) : (
-                          CONNECTION_FRIEND_ROWS.filter((r) => r.online).map((row) => (
-                            <li key={row.id} className={styles.friendsHubOnlineItem}>
-                              <span className={styles.friendsHubOnlineDot} aria-hidden />
-                              <span className={styles.friendsHubOnlineName}>{t(row.nameKey)}</span>
-                            </li>
-                          ))
-                        )}
-                      </ul>
-                    </div>
-                    <div className={styles.friendsHubActionsCard}>
-                      <button
-                        type="button"
-                        className={styles.friendsHubActionsRow}
-                        onClick={() => navigate("/dashboard/community/friends")}
-                      >
-                        <span className={styles.friendsHubActionsRowLabel}>
-                          {t("dashFriendsSeeCountCta").replace(
-                            "{{count}}",
-                            String(CONNECTION_FRIEND_ROWS.length),
-                          )}
-                        </span>
-                        <ChevronRightIcon size={16} aria-hidden className={styles.friendsHubActionsChevron} />
-                      </button>
-                    </div>
-                  </aside>
-                </div>
-              </div>
-            </section>
 
             <IlmiContactHub variant="embedded" t={t} />
     </div>

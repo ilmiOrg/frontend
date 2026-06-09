@@ -1,45 +1,47 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
 } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
-import PublicHomePage from "./logged-out/pages/PublicHomePage";
-import LoginPage from "./logged-out/pages/LoginPage";
-import RegisterPage from "./logged-out/pages/RegisterPage";
-import DashboardLayout from "./logged-in/shared/DashboardLayout";
-import DashboardPage from "./logged-in/pages/MainPages/DashboardPage";
-
-// Main Pages
-import DreamUniversityPage from "./logged-in/pages/MainPages/DreamUniversityPage";
-import SearchUniversitiesPage from "./logged-in/pages/MainPages/SearchUniversitiesPage";
-import UniversityDetailPage from "./logged-in/pages/MainPages/SearchUniversitiesPage/UniversityDetailPage";
-import FavoriteUniversitiesPage from "./logged-in/pages/MainPages/SearchUniversitiesPage/FavoriteUniversitiesPage";
-import SearchFieldsPage from "./logged-in/pages/MainPages/SearchFieldsPage";
-import FieldSlugRouter from "./logged-in/pages/MainPages/FieldDetailPage/FieldSlugRouter";
-import SearchProgramsPage from "./logged-in/pages/MainPages/SearchProgramsPage";
-import ProgramDetailPage from "./logged-in/pages/MainPages/ProgramDetailPage";
-import FavoriteProgramsPage from "./logged-in/pages/MainPages/FavoriteProgramsPage";
-import SearchScholarshipsPage from "./logged-in/pages/MainPages/SearchScholarshipsPage";
-
-import ProfilePage from "./logged-in/pages/MainPages/ProfilePage";
-import SendInfoPage from "./logged-in/pages/MainPages/SendInfoPage";
-
-// AI Matching Pages
-import MatchUniversitiesPage from "./logged-in/pages/AIMatchingPages/MatchUniversitiesPage";
-import MatchScholarshipsPage from "./logged-in/pages/AIMatchingPages/MatchScholarshipsPage";
-import SimilarStudentsPage from "./logged-in/pages/AIMatchingPages/SimilarStudentsPage";
-import ConnectFriendsPage from "./logged-in/pages/CommunityPages/ConnectFriendsPage";
-import AlumniMentorsPage from "./logged-in/pages/CommunityPages/AlumniMentorsPage";
-
-// Contact Pages
-import ContactPremiumPage from "./logged-in/pages/ContactPages/ContactPremiumPage";
+import ErrorBoundary from "./components/ErrorBoundary";
+import NotFoundPage from "./logged-in/shared/NotFoundPage";
 
 import "./styles/variables.css";
 import "./styles/core.css";
 import "./styles/animations.css";
+
+// Route components are code-split: each loads on first navigation rather than in the
+// initial bundle (matters for the mobile-first audience on slow networks).
+const PublicHomePage = lazy(() => import("./logged-out/pages/PublicHomePage"));
+const LoginPage = lazy(() => import("./logged-out/pages/LoginPage"));
+const RegisterPage = lazy(() => import("./logged-out/pages/RegisterPage"));
+const DashboardLayout = lazy(() => import("./logged-in/shared/DashboardLayout"));
+const DashboardPage = lazy(() => import("./logged-in/pages/MainPages/DashboardPage"));
+
+const SearchUniversitiesPage = lazy(() => import("./logged-in/pages/MainPages/SearchUniversitiesPage"));
+const UniversityDetailPage = lazy(() => import("./logged-in/pages/MainPages/SearchUniversitiesPage/UniversityDetailPage"));
+const FavoriteUniversitiesPage = lazy(() => import("./logged-in/pages/MainPages/SearchUniversitiesPage/FavoriteUniversitiesPage"));
+const SearchFieldsPage = lazy(() => import("./logged-in/pages/MainPages/SearchFieldsPage"));
+const FieldSlugRouter = lazy(() => import("./logged-in/pages/MainPages/FieldDetailPage/FieldSlugRouter"));
+const SearchProgramsPage = lazy(() => import("./logged-in/pages/MainPages/SearchProgramsPage"));
+const ProgramDetailPage = lazy(() => import("./logged-in/pages/MainPages/ProgramDetailPage"));
+const FavoriteProgramsPage = lazy(() => import("./logged-in/pages/MainPages/FavoriteProgramsPage"));
+const SearchScholarshipsPage = lazy(() => import("./logged-in/pages/MainPages/SearchScholarshipsPage"));
+const JobsPage = lazy(() => import("./logged-in/pages/MainPages/JobsPage"));
+const CoursesPage = lazy(() => import("./logged-in/pages/MainPages/CoursesPage"));
+const ProfilePage = lazy(() => import("./logged-in/pages/MainPages/ProfilePage"));
+const MyAcademicsPage = lazy(() => import("./logged-in/pages/MainPages/MyAcademicsPage"));
+const SendInfoPage = lazy(() => import("./logged-in/pages/MainPages/SendInfoPage"));
+const MyApplicationsPage = lazy(() => import("./logged-in/pages/ApplicationPages/MyApplicationsPage"));
+const EssayReviewPage = lazy(() => import("./logged-in/pages/LearningPages/EssayReviewPage"));
+
+const MatchUniversitiesPage = lazy(() => import("./logged-in/pages/AIMatchingPages/MatchUniversitiesPage"));
+const MatchScholarshipsPage = lazy(() => import("./logged-in/pages/AIMatchingPages/MatchScholarshipsPage"));
+const AdminReviewPage = lazy(() => import("./logged-in/pages/AdminPages/AdminReviewPage"));
 
 const FullPageLoader = () => (
   <div className="full-page-loader">Loading…</div>
@@ -57,10 +59,20 @@ const PublicRoute = ({ children }) => {
   return isAuthenticated ? <Navigate to="/dashboard" replace /> : children;
 };
 
+const AdminRoute = ({ children }) => {
+  const { isAuthenticated, isLoading, isAdmin } = useAuth();
+  if (isLoading) return <FullPageLoader />;
+  if (!isAuthenticated) return <Navigate to="/" replace />;
+  return isAdmin ? children : <Navigate to="/dashboard" replace />;
+};
+
 function App() {
   return (
     <AuthProvider>
+      <ErrorBoundary>
+      <Toaster position="top-center" toastOptions={{ duration: 4000 }} />
       <Router>
+        <Suspense fallback={<FullPageLoader />}>
         <Routes>
           {/* Public Routes */}
           <Route
@@ -98,7 +110,6 @@ function App() {
             }
           >
             <Route index element={<DashboardPage />} />
-            <Route path="dream-university" element={<DreamUniversityPage />} />
             <Route
               path="search/universities/favorites"
               element={<FavoriteUniversitiesPage />}
@@ -126,6 +137,11 @@ function App() {
               path="search/scholarships"
               element={<SearchScholarshipsPage />}
             />
+            <Route path="opportunities/jobs" element={<JobsPage />} />
+            <Route path="opportunities/courses" element={<CoursesPage />} />
+            <Route path="applications" element={<MyApplicationsPage />} />
+            <Route path="academics" element={<MyAcademicsPage />} />
+            <Route path="learning/essay-review" element={<EssayReviewPage />} />
             <Route path="profile" element={<ProfilePage />} />
             <Route path="send-info" element={<SendInfoPage />} />
             <Route
@@ -137,24 +153,23 @@ function App() {
               element={<MatchScholarshipsPage />}
             />
             <Route
-              path="ai/similar-students"
-              element={<SimilarStudentsPage />}
+              path="admin"
+              element={
+                <AdminRoute>
+                  <AdminReviewPage />
+                </AdminRoute>
+              }
             />
-            <Route
-              path="community/friends"
-              element={<ConnectFriendsPage />}
-            />
-            <Route
-              path="community/mentors"
-              element={<AlumniMentorsPage />}
-            />
-            <Route path="contact-premium" element={<ContactPremiumPage />} />
+            {/* Unknown /dashboard/* path: real 404 inside the layout */}
+            <Route path="*" element={<NotFoundPage />} />
           </Route>
 
-          {/* Catch-all */}
-          <Route path="*" element={<Navigate to="/" />} />
+          {/* Catch-all: a real 404 instead of a silent redirect */}
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
+        </Suspense>
       </Router>
+      </ErrorBoundary>
     </AuthProvider>
   );
 }

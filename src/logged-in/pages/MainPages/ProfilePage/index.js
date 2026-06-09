@@ -4,11 +4,13 @@ import QRCode from "react-qr-code";
 import { useAuth } from "../../../../contexts/AuthContext";
 import { useTranslation } from "../../../../hooks/useLanguage";
 import PageTemplate from "../../../shared/PageTemplate";
-import { UserIcon, StarIcon, LogOutIcon, CheckIcon } from "../../../shared/Icons";
+import { UserIcon, LogOutIcon } from "../../../shared/Icons";
 import {
   getStudentProfile,
   updateStudentProfile,
 } from "../../../../api/studentProfile";
+import InterestsSection from "./InterestsSection";
+import FundingSection from "./FundingSection";
 import s from "../../../shared/ContentPage/style.module.css";
 import styles from "./style.module.css";
 
@@ -23,7 +25,7 @@ const ProfilePage = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [location, setLocation] = useState("");
-  const [certificationsText, setCertificationsText] = useState("");
+  const [maxBudget, setMaxBudget] = useState("");
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [loadError, setLoadError] = useState(null);
@@ -50,14 +52,15 @@ const ProfilePage = () => {
       setEmail(data.email || "");
       setPhone(data.phone || "");
       setLocation(data.location || "");
-      const certs = Array.isArray(data.certifications) ? data.certifications : [];
-      setCertificationsText(certs.join("\n"));
+      setMaxBudget(data.maxBudget != null ? String(data.maxBudget) : "");
     } catch (err) {
       setLoadError(err.message || t("profileLoadError"));
     } finally {
       setLoading(false);
     }
-  }, [isGuest, t]);
+    // `t` intentionally omitted: useLanguage returns a fresh `t` each render, so
+    // depending on it would recreate loadProfile every render and loop the fetch.
+  }, [isGuest]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     loadProfile();
@@ -76,16 +79,12 @@ const ProfilePage = () => {
     setSaveError(null);
     setSaveSuccess(false);
     try {
-      const certifications = certificationsText
-        .split("\n")
-        .map((line) => line.trim())
-        .filter((line) => line.length > 0);
       await updateStudentProfile({
         firstName,
         lastName,
         phone,
         location,
-        certifications,
+        maxBudget: maxBudget === "" ? null : Number(maxBudget),
       });
       setSaveSuccess(true);
       window.setTimeout(() => setSaveSuccess(false), 4000);
@@ -208,20 +207,30 @@ const ProfilePage = () => {
                 autoComplete="address-level2"
               />
             </div>
-            <div className={`${styles.infoGroup} ${styles.infoGroupWide}`}>
-              <label htmlFor="profile-certs">{t("profileCertifications")}</label>
-              <p className={styles.fieldHint}>{t("profileCertificationsHint")}</p>
-              <textarea
-                id="profile-certs"
-                value={certificationsText}
-                onChange={(e) => setCertificationsText(e.target.value)}
-                className={styles.textarea}
-                rows={5}
+            <div className={styles.infoGroup}>
+              <label htmlFor="profile-budget">Max budget / year (USD)</label>
+              <input
+                id="profile-budget"
+                type="number"
+                min="0"
+                value={maxBudget}
+                onChange={(e) => setMaxBudget(e.target.value)}
+                className={styles.input}
                 disabled={loading || isGuest}
+                placeholder="e.g. 15000"
               />
             </div>
           </div>
         </div>
+
+        {!isGuest ? (
+          <FundingSection
+            disabled={loading || isGuest}
+            onTotalChange={(total) => setMaxBudget(total != null ? String(total) : "")}
+          />
+        ) : null}
+
+        {!isGuest ? <InterestsSection disabled={loading || isGuest} /> : null}
 
         <div className={styles.shareCard}>
           <h3 className={styles.shareTitle}>{t("profileShareTitle")}</h3>
@@ -249,49 +258,6 @@ const ProfilePage = () => {
               </button>
             </div>
           </div>
-        </div>
-
-        <div className={s.statsRow}>
-          <div className={s.statCard}>
-            <span className={s.statNumber}>0</span>
-            <span className={s.statLabel}>{t("profileApplications")}</span>
-          </div>
-          <div className={s.statCard}>
-            <span className={s.statNumber}>0</span>
-            <span className={s.statLabel}>{t("profileScholarships")}</span>
-          </div>
-          <div className={s.statCard}>
-            <span className={s.statNumber}>0</span>
-            <span className={s.statLabel}>{t("profileViews")}</span>
-          </div>
-        </div>
-
-        <div className={s.introPanel}>
-          <div className={s.featureGrid}>
-            <div className={s.featureCard}>
-              <div className={`${s.featureIconWrap} ${s.amber}`}>
-                <StarIcon size={18} />
-              </div>
-              <div className={s.featureBody}>
-                <h4 className={s.featureTitle}>{t("profilePremium")}</h4>
-                <p className={s.featureDesc}>{t("profilePremiumDesc")}</p>
-              </div>
-            </div>
-          </div>
-          <ul className={styles.premiumFeatures}>
-            <li>
-              <CheckIcon size={14} /> {t("profilePremiumMatch")}
-            </li>
-            <li>
-              <CheckIcon size={14} /> {t("profilePremiumSupport")}
-            </li>
-            <li>
-              <CheckIcon size={14} /> {t("profilePremiumAlerts")}
-            </li>
-            <li>
-              <CheckIcon size={14} /> {t("profilePremiumMentor")}
-            </li>
-          </ul>
         </div>
 
         <div className={styles.actionsCard}>

@@ -1,149 +1,70 @@
-.contentContainer {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: var(--spacing-2xl);
+.toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 4px;
 }
 
-.infoSection {
-  background: white;
-  border-radius: var(--border-radius-lg);
-  padding: var(--spacing-2xl);
-  box-shadow: var(--shadow-md);
-  border: 1px solid var(--borderColor);
-}
-
-.sectionTitle {
-  font-size: var(--titleFontSize);
-  font-weight: var(--fontWeight-bold);
-  color: var(--on-surface);
-  margin-bottom: var(--spacing-md);
-}
-
-.sectionText {
+.filterToggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--body-sm);
   color: var(--on-surface-variant);
-  line-height: var(--lineHeight);
-  margin-bottom: var(--spacing-xl);
+  cursor: pointer;
 }
 
-.features {
-  margin-top: var(--spacing-2xl);
-}
-
-.featuresTitle {
-  font-size: var(--largeFontSize);
-  font-weight: var(--fontWeight-semibold);
-  color: var(--on-surface);
-  margin-bottom: var(--spacing-lg);
-}
-
-.featureGrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+.list {
+  display: flex;
+  flex-direction: column;
   gap: var(--spacing-lg);
 }
 
-.featureCard {
-  padding: var(--spacing-lg);
-  background: var(--gradient-mint-glow);
-  border-radius: var(--border-radius-md);
-  border: 1px solid var(--outline-ghost);
-  transition: all var(--transition-base);
+.titleWrap {
+  flex: 1;
+  min-width: 0;
 }
 
-.featureCard:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-sm);
-  border-color: var(--primary);
+.eligPill {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  white-space: nowrap;
+  height: fit-content;
 }
 
-.featureIcon {
-  font-size: var(--largeFontSize);
-  display: block;
-  margin-bottom: var(--spacing-sm);
+.eligYes {
+  color: var(--success, #2e7d32);
+  background: color-mix(in srgb, var(--success, #2e7d32) 16%, transparent);
 }
 
-.featureCard h4 {
-  font-size: var(--mediumFontSize);
-  font-weight: var(--fontWeight-semibold);
-  color: var(--on-surface);
-  margin-bottom: var(--spacing-xs);
+.eligNo {
+  color: var(--on-surface-muted);
+  background: var(--surface-container);
 }
 
-.featureCard p {
-  font-size: var(--smallFontSize);
+.reasons {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.reasons li {
+  font-size: 0.8125rem;
   color: var(--on-surface-variant);
-  margin: 0;
+  line-height: 1.45;
+  padding-left: 16px;
+  position: relative;
 }
 
-.actionSection {
-  position: sticky;
-  top: var(--spacing-xl);
-}
-
-.actionCard {
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  color: white;
-  border-radius: var(--border-radius-lg);
-  padding: var(--spacing-2xl);
-  text-align: center;
-}
-
-.actionTitle {
-  font-size: var(--largeFontSize);
-  font-weight: var(--fontWeight-bold);
-  margin-bottom: var(--spacing-md);
-}
-
-.actionText {
-  margin-bottom: var(--spacing-xl);
-  opacity: 0.95;
-}
-
-.actionBtn {
-  padding: var(--spacing-md) var(--spacing-xl);
-  background: white;
+.reasons li::before {
+  content: "•";
+  position: absolute;
+  left: 2px;
   color: var(--primary);
-  border: none;
-  border-radius: var(--border-radius-md);
-  font-size: var(--regularFontSize);
-  font-weight: var(--fontWeight-semibold);
-  cursor: pointer;
-  transition: all var(--transition-base);
-  width: 100%;
-}
-
-.actionBtn:hover {
-  transform: scale(1.05);
-  box-shadow: var(--shadow-md);
-}
-
-.primaryBtn {
-  padding: var(--spacing-sm) var(--spacing-lg);
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  color: white;
-  border: none;
-  border-radius: var(--border-radius-md);
-  font-size: var(--regularFontSize);
-  font-weight: var(--fontWeight-semibold);
-  cursor: pointer;
-  transition: all var(--transition-base);
-}
-
-.primaryBtn:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-floating);
-}
-
-@media (max-width: 968px) {
-  .contentContainer {
-    grid-template-columns: 1fr;
-  }
-
-  .featureGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .actionSection {
-    position: static;
-  }
 }

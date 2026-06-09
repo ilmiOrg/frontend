@@ -1,13 +1,4 @@
-import { apiUrl, jsonHeaders } from "./config";
-
-/**
- * Get auth token from storage (for use in api client).
- */
-function getToken() {
-  return typeof localStorage !== "undefined"
-    ? localStorage.getItem("token")
-    : null;
-}
+import { request } from "./config";
 
 /**
  * Fetch all universities, optionally filtered by country.
@@ -15,24 +6,10 @@ function getToken() {
  * @returns {Promise<Array>}
  */
 export async function getUniversities(options = {}) {
-  const url = new URL(apiUrl("/api/v1/universities"));
-  Object.entries(options).forEach(([key, val]) => {
-    if (val === null || val === undefined || val === "") return;
-    if (Array.isArray(val)) {
-      val.forEach((v) => url.searchParams.append(key, v));
-    } else {
-      url.searchParams.append(key, val);
-    }
+  return request("/api/v1/universities", {
+    query: options,
+    errorMessage: "Failed to fetch universities",
   });
-  const res = await fetch(url.toString(), {
-    method: "GET",
-    headers: jsonHeaders(),
-  });
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error(text || "Failed to fetch universities");
-  }
-  return res.json();
 }
 
 /**
@@ -41,16 +18,9 @@ export async function getUniversities(options = {}) {
  * @returns {Promise<object>}
  */
 export async function getUniversityById(id) {
-  const res = await fetch(apiUrl(`/api/v1/universities/${id}`), {
-    method: "GET",
-    headers: jsonHeaders(),
+  return request(`/api/v1/universities/${id}`, {
+    errorMessage: "University not found",
   });
-  if (!res.ok) {
-    if (res.status === 404) throw new Error("University not found");
-    const text = await res.text();
-    throw new Error(text || "Failed to fetch university");
-  }
-  return res.json();
 }
 
 /**
@@ -59,22 +29,10 @@ export async function getUniversityById(id) {
  * @returns {Promise<object>}
  */
 export async function createUniversity(payload) {
-  const token = getToken();
-  const res = await fetch(apiUrl("/api/v1/universities"), {
+  return request("/api/v1/universities", {
     method: "POST",
-    headers: jsonHeaders(token),
-    body: JSON.stringify(payload),
+    auth: true,
+    body: payload,
+    errorMessage: "Failed to create university",
   });
-  if (!res.ok) {
-    const text = await res.text();
-    let message = "Failed to create university";
-    try {
-      const data = JSON.parse(text);
-      if (data.message) message = data.message;
-    } catch (_) {
-      if (text) message = text;
-    }
-    throw new Error(message);
-  }
-  return res.json();
 }

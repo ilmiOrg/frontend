@@ -1,149 +1,261 @@
-.contentContainer {
+/* Academic-info form + match results. Pairs with the shared ContentPage styles. */
+
+.formGrid {
   display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: var(--spacing-2xl);
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--spacing-md);
 }
 
-.infoSection {
-  background: white;
-  border-radius: var(--border-radius-lg);
-  padding: var(--spacing-2xl);
-  box-shadow: var(--shadow-md);
-  border: 1px solid var(--borderColor);
-}
-
-.sectionTitle {
-  font-size: var(--titleFontSize);
-  font-weight: var(--fontWeight-bold);
-  color: var(--on-surface);
-  margin-bottom: var(--spacing-md);
-}
-
-.sectionText {
-  color: var(--on-surface-variant);
-  line-height: var(--lineHeight);
-  margin-bottom: var(--spacing-xl);
-}
-
-.features {
-  margin-top: var(--spacing-2xl);
-}
-
-.featuresTitle {
-  font-size: var(--largeFontSize);
+.subjectsLabel {
+  font-size: var(--fontSize-sm, 0.875rem);
   font-weight: var(--fontWeight-semibold);
   color: var(--on-surface);
-  margin-bottom: var(--spacing-lg);
+  margin: var(--spacing-sm) 0 0;
 }
 
-.featureGrid {
+.subjectRow {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--spacing-lg);
+  grid-template-columns: 1fr 120px 36px;
+  gap: var(--spacing-sm);
+  align-items: end;
 }
 
-.featureCard {
-  padding: var(--spacing-lg);
-  background: var(--gradient-mint-glow);
-  border-radius: var(--border-radius-md);
+.subjectName {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 9px 12px;
+  font-size: var(--fontSize-sm, 0.875rem);
+  color: var(--on-surface);
+  background: var(--surface-container);
   border: 1px solid var(--outline-ghost);
-  transition: all var(--transition-base);
+  border-radius: var(--border-radius-md);
 }
 
-.featureCard:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-sm);
+.subjectName:focus {
+  outline: none;
   border-color: var(--primary);
 }
 
-.featureIcon {
-  font-size: var(--largeFontSize);
-  display: block;
-  margin-bottom: var(--spacing-sm);
-}
-
-.featureCard h4 {
-  font-size: var(--mediumFontSize);
-  font-weight: var(--fontWeight-semibold);
-  color: var(--on-surface);
-  margin-bottom: var(--spacing-xs);
-}
-
-.featureCard p {
-  font-size: var(--smallFontSize);
+.iconBtn {
+  height: 38px;
+  border: 1px solid var(--outline-ghost);
+  background: var(--surface-container);
   color: var(--on-surface-variant);
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.iconBtn:hover {
+  border-color: var(--error);
+  color: var(--error);
+}
+
+.linkBtn {
+  align-self: flex-start;
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--primary);
+  font-size: var(--fontSize-sm, 0.875rem);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.saveRow {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+  margin-top: var(--spacing-sm);
+}
+
+.error {
+  font-size: 0.8125rem;
+  color: var(--error);
   margin: 0;
 }
 
-.actionSection {
-  position: sticky;
-  top: var(--spacing-xl);
+.matchList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
 }
 
-.actionCard {
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  color: white;
-  border-radius: var(--border-radius-lg);
-  padding: var(--spacing-2xl);
-  text-align: center;
+.cardTitleWrap {
+  flex: 1;
+  min-width: 0;
 }
 
-.actionTitle {
-  font-size: var(--largeFontSize);
-  font-weight: var(--fontWeight-bold);
-  margin-bottom: var(--spacing-md);
+/* Chance-me: admission-probability pill + one-line guidance. */
+.chanceRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 6px 0 10px;
 }
 
-.actionText {
-  margin-bottom: var(--spacing-xl);
-  opacity: 0.95;
+.chancePill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  border: 1px solid transparent;
+  white-space: nowrap;
 }
 
-.actionBtn {
-  padding: var(--spacing-md) var(--spacing-xl);
-  background: white;
+.tierSafety {
+  color: var(--success, #2e7d32);
+  background: color-mix(in srgb, var(--success, #2e7d32) 16%, transparent);
+}
+
+.tierTarget {
   color: var(--primary);
-  border: none;
+  background: var(--primary-container);
+}
+
+.tierReach {
+  color: var(--warning, #b26a00);
+  background: color-mix(in srgb, var(--warning, #b26a00) 16%, transparent);
+}
+
+.tierFarReach {
+  color: var(--error, #c62828);
+  background: color-mix(in srgb, var(--error, #c62828) 14%, transparent);
+}
+
+.chanceNote {
+  font-size: 0.8125rem;
+  color: var(--on-surface-variant);
+  line-height: 1.4;
+}
+
+/* Holistic "fit" chips: budget / interests / scholarships (soft criteria). */
+.fitTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 4px 0 10px;
+}
+
+.fitTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid var(--outline-ghost);
+  cursor: default;
+}
+
+.fitTagMet {
+  color: var(--primary);
+  background: var(--primary-container);
+  border-color: transparent;
+}
+
+.fitTagMiss {
+  color: var(--on-surface-muted);
+  background: var(--surface-container);
+}
+
+.allMet {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin: 0;
+}
+
+/* Apply-through: track button on each match card. */
+.trackRow {
+  margin-top: 12px;
+  display: flex;
+}
+
+.trackBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
   border-radius: var(--border-radius-md);
-  font-size: var(--regularFontSize);
-  font-weight: var(--fontWeight-semibold);
+  border: 1px solid var(--primary);
+  background: transparent;
+  color: var(--primary);
+  font-size: 0.8125rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: all var(--transition-base);
-  width: 100%;
+  transition: background var(--transition-fast), color var(--transition-fast);
 }
 
-.actionBtn:hover {
-  transform: scale(1.05);
-  box-shadow: var(--shadow-md);
+.trackBtn:hover:not(:disabled) {
+  background: var(--primary);
+  color: var(--on-primary);
 }
 
-.primaryBtn {
-  padding: var(--spacing-sm) var(--spacing-lg);
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  color: white;
-  border: none;
+.trackBtn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.trackedBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
   border-radius: var(--border-radius-md);
-  font-size: var(--regularFontSize);
-  font-weight: var(--fontWeight-semibold);
-  cursor: pointer;
-  transition: all var(--transition-base);
+  background: var(--primary-container);
+  color: var(--primary);
+  font-size: 0.8125rem;
+  font-weight: 700;
 }
 
-.primaryBtn:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-floating);
+.missingLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--on-surface-muted);
+  margin: 0 0 4px;
 }
 
-@media (max-width: 968px) {
-  .contentContainer {
-    grid-template-columns: 1fr;
-  }
+.missingList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
 
-  .featureGrid {
-    grid-template-columns: 1fr;
-  }
+.missingList li {
+  font-size: 0.8125rem;
+  color: var(--on-surface-variant);
+  line-height: 1.5;
+  padding-left: 18px;
+  position: relative;
+}
 
-  .actionSection {
-    position: static;
+.missingList li::before {
+  content: "•";
+  position: absolute;
+  left: 4px;
+  color: var(--warning);
+}
+
+.missingList li strong {
+  color: var(--on-surface);
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .subjectRow {
+    grid-template-columns: 1fr 90px 36px;
   }
 }

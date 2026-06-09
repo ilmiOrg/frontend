@@ -1,9 +1,12 @@
 // Tajik (Тоҷикӣ)
-// Missing keys fall back to English via spread.
+// Missing keys fall back to Russian (the audience's lingua franca), then English for
+// any key Russian also lacks. Native Tajik keys below override both.
 import en from "./en";
+import ru from "./ru";
 
 const tg = {
   ...en,
+  ...ru,
 
   // Navigation / common
   home: "Саҳифаи асосӣ",
