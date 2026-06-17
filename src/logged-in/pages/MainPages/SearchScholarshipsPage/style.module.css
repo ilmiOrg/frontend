@@ -191,3 +191,9 @@
 :global(body[theme="light"]) .primaryBtn:hover {
   background: var(--on-primary-container);
 }
+
+.filterRow {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}

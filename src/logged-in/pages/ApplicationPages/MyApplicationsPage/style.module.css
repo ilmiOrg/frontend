@@ -177,6 +177,7 @@
   background: var(--primary);
   border-radius: 999px;
   transition: width 200ms ease;
+  width: var(--fill, 0%);
 }
 
 .taskList {

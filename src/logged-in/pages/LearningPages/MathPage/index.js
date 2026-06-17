@@ -55,7 +55,7 @@ const MathPage = () => {
               <span className={s.progressPct}>{item.pct}%</span>
             </div>
             <div className={s.progressTrack}>
-              <div className={s.progressFill} style={{ width: `${item.pct}%` }} />
+              <div className={s.progressFill} style={{ "--fill": `${item.pct}%` }} />
             </div>
           </div>
         ))}

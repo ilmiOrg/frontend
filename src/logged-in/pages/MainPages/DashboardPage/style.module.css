@@ -3555,3 +3555,12 @@
 :global(body[theme="light"]) .premiumConnCard {
   background: var(--surface-container-lowest);
 }
+
+.mutedNote {
+  color: var(--on-surface-muted);
+  font-size: 0.85rem;
+  margin: 0;
+}
+.mutedNoteTop {
+  margin-top: 8px;
+}

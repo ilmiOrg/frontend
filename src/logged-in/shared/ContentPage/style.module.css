@@ -299,6 +299,8 @@
   border-radius: 999px;
   background: var(--gradient-hero);
   transition: width 0.4s ease;
+  /* Runtime fill percentage is injected via the --fill custom property. */
+  width: var(--fill, 0%);
 }
 
 /* CTA / Action Area */

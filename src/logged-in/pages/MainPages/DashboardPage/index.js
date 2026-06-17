@@ -481,7 +481,7 @@ const DashboardPage = () => {
                   </button>
                 </div>
                 {deadlines.length === 0 ? (
-                  <p style={{ color: "var(--on-surface-muted)", fontSize: "0.85rem", margin: "8px 0 0" }}>
+                  <p className={`${styles.mutedNote} ${styles.mutedNoteTop}`}>
                     No deadlines yet. Track an application to see its deadline here.
                   </p>
                 ) : (
@@ -741,7 +741,7 @@ const DashboardPage = () => {
                 </button>
               </div>
               {topMatches.length === 0 ? (
-                <p style={{ color: "var(--on-surface-muted)", fontSize: "0.85rem", margin: 0 }}>
+                <p className={styles.mutedNote}>
                   Add your grades on the matching page to see your real top university matches here.
                 </p>
               ) : (
@@ -786,7 +786,7 @@ const DashboardPage = () => {
                 </button>
               </div>
               {topScholarships.length === 0 ? (
-                <p style={{ color: "var(--on-surface-muted)", fontSize: "0.85rem", margin: 0 }}>
+                <p className={styles.mutedNote}>
                   Once scholarships are available for your profile, your best matches show here.
                 </p>
               ) : (

@@ -1,0 +1,25 @@
+.controlsRow {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+
+.uploadLabel {
+  cursor: pointer;
+}
+
+.introNote {
+  margin-top: var(--spacing-sm);
+}
+
+.cardActions {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.rejectBtn {
+  cursor: pointer;
+  border-color: var(--error);
+  color: var(--error);
+}

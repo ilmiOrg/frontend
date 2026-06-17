@@ -366,7 +366,7 @@ const MatchUniversitiesPage = () => {
                     <div className={s.progressTrack}>
                       <div
                         className={s.progressFill}
-                        style={{ width: `${fit}%` }}
+                        style={{ "--fill": `${fit}%` }}
                       />
                     </div>
 

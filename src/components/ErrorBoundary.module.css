@@ -1,0 +1,34 @@
+.fallback {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+  text-align: center;
+  font-family: var(--font-body, system-ui, sans-serif);
+  background: var(--surface, #0e0e12);
+  color: var(--on-surface, #e8e8ea);
+}
+
+.title {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.message {
+  margin: 0;
+  color: var(--on-surface-muted, #9a9aa2);
+  max-width: 420px;
+}
+
+.reloadButton {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  background: var(--primary, #6c5ce7);
+  color: var(--on-primary, #fff);
+  font-weight: var(--fontWeight-semibold);
+  cursor: pointer;
+}

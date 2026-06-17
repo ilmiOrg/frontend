@@ -9,6 +9,7 @@ import {
   removeInterestedField,
 } from "../../../../api/interests";
 import s from "../../../shared/ContentPage/style.module.css";
+import styles from "./InterestsSection.module.css";
 
 const DEGREE_OPTIONS = [
   { value: "HIGH_SCHOOL_DIPLOMA", label: "High school diploma" },
@@ -74,39 +75,39 @@ const InterestsSection = ({ disabled }) => {
         Tell us the degree levels and fields you're interested in. We'll use these to tailor your matches.
       </p>
 
-      <div style={{ display: "flex", gap: 12, alignItems: "flex-end", flexWrap: "wrap" }}>
+      <div className={styles.pickerRow}>
         <SelectField label="Interested degree" value={degreePick} onChange={setDegreePick} options={DEGREE_OPTIONS} />
         <AccentButton onClick={disabled || busy || hasDegree ? undefined : () => run(() => addInterestedDegree(degreePick))}>
           {hasDegree ? "Added" : "Add degree"}
         </AccentButton>
       </div>
-      <div className={s.cardMeta} style={{ marginTop: 8 }}>
+      <div className={`${s.cardMeta} ${styles.badgeList}`}>
         {degrees.length === 0 ? <span className={s.metaBadge}>No degrees yet</span> : degrees.map((d) => (
           <span key={d.id} className={`${s.metaBadge} ${s.highlight}`}>
             {pretty(d.degree)}{" "}
             <button type="button" aria-label="remove" onClick={() => run(() => removeInterestedDegree(d.id))}
-              style={{ border: "none", background: "none", cursor: "pointer", color: "inherit" }}>×</button>
+              className={styles.removeButton}>×</button>
           </span>
         ))}
       </div>
 
-      <div style={{ display: "flex", gap: 12, alignItems: "flex-end", flexWrap: "wrap", marginTop: 16 }}>
+      <div className={`${styles.pickerRow} ${styles.pickerRowSpaced}`}>
         <SelectField label="Interested field" value={fieldPick} onChange={setFieldPick} options={FIELD_OPTIONS} />
         <AccentButton onClick={disabled || busy || hasField ? undefined : () => run(() => addInterestedField(fieldPick))}>
           {hasField ? "Added" : "Add field"}
         </AccentButton>
       </div>
-      <div className={s.cardMeta} style={{ marginTop: 8 }}>
+      <div className={`${s.cardMeta} ${styles.badgeList}`}>
         {fields.length === 0 ? <span className={s.metaBadge}>No fields yet</span> : fields.map((f) => (
           <span key={f.id} className={`${s.metaBadge} ${s.highlight}`}>
             {pretty(f.field)}{" "}
             <button type="button" aria-label="remove" onClick={() => run(() => removeInterestedField(f.id))}
-              style={{ border: "none", background: "none", cursor: "pointer", color: "inherit" }}>×</button>
+              className={styles.removeButton}>×</button>
           </span>
         ))}
       </div>
 
-      {error && <p style={{ color: "var(--error)", fontSize: "0.8125rem", marginTop: 8 }}>{error}</p>}
+      {error && <p className={styles.errorText}>{error}</p>}
     </div>
   );
 };

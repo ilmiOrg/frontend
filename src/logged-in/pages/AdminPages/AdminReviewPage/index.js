@@ -4,6 +4,7 @@ import { TargetIcon, CheckIcon } from "../../../shared/Icons";
 import { SelectField } from "../../../../ui-components";
 import { getStagedRecords, approveStaged, rejectStaged, ingestCsv } from "../../../../api/admin";
 import s from "../../../shared/ContentPage/style.module.css";
+import styles from "./style.module.css";
 
 const TYPE_OPTIONS = ["UNIVERSITY", "PROGRAM", "SCHOLARSHIP", "JOB", "COURSE"].map((v) => ({
   value: v,
@@ -88,10 +89,10 @@ const AdminReviewPage = () => {
     >
       <div className={s.layout}>
         <div className={s.introPanel}>
-          <div style={{ display: "flex", gap: 12, flexWrap: "wrap", alignItems: "flex-end" }}>
+          <div className={styles.controlsRow}>
             <SelectField label="Type" value={type} onChange={setType} options={TYPE_OPTIONS} />
             <SelectField label="Status" value={status} onChange={setStatus} options={STATUS_OPTIONS} />
-            <label className={s.primaryBtn} style={{ cursor: "pointer" }}>
+            <label className={`${s.primaryBtn} ${styles.uploadLabel}`}>
               {uploading ? "Uploading…" : `Bulk-upload ${title(type)} CSV`}
               <input
                 type="file"
@@ -102,7 +103,7 @@ const AdminReviewPage = () => {
               />
             </label>
           </div>
-          <p className={s.introText} style={{ marginTop: 8 }}>
+          <p className={`${s.introText} ${styles.introNote}`}>
             CSV header row = field names (e.g. <code>externalRef,universityName,name,awardType,awardValue,degreeLevel,fieldType,studentTypeEligibility,minGpa,currency,description</code>).
             Rows land as PENDING for review below.
           </p>
@@ -134,7 +135,7 @@ const AdminReviewPage = () => {
                     <span className={s.metaBadge}>{title(r.status)}</span>
                   </div>
                   {r.status === "PENDING" ? (
-                    <div style={{ display: "flex", gap: 8 }}>
+                    <div className={styles.cardActions}>
                       <button
                         type="button"
                         className={s.primaryBtn}
@@ -145,8 +146,7 @@ const AdminReviewPage = () => {
                       </button>
                       <button
                         type="button"
-                        className={s.metaBadge}
-                        style={{ cursor: "pointer", borderColor: "var(--error)", color: "var(--error)" }}
+                        className={`${s.metaBadge} ${styles.rejectBtn}`}
                         disabled={busyId === r.id}
                         onClick={() => act(r.id, rejectStaged)}
                       >

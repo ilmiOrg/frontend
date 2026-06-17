@@ -77,7 +77,7 @@ const ChecklistSection = ({ applicationId }) => {
           {done}/{tasks.length} done
         </span>
         <div className={m.checklistBar}>
-          <div className={m.checklistFill} style={{ width: `${pct}%` }} />
+          <div className={m.checklistFill} style={{ "--fill": `${pct}%` }} />
         </div>
       </div>
       {error ? <p className={m.error}>{error}</p> : null}

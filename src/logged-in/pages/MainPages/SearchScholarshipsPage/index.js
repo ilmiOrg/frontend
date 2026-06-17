@@ -4,6 +4,7 @@ import { AwardIcon } from "../../../shared/Icons";
 import { SelectField } from "../../../../ui-components";
 import { getScholarships } from "../../../../api/scholarships";
 import s from "../../../shared/ContentPage/style.module.css";
+import local from "./style.module.css";
 
 const FIELD_OPTIONS = [
   { value: "", label: "All fields" },
@@ -63,7 +64,7 @@ const SearchScholarshipsPage = () => {
     >
       <div className={s.layout}>
         <div className={s.introPanel}>
-          <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+          <div className={local.filterRow}>
             <SelectField label="Field" value={field} onChange={setField} options={FIELD_OPTIONS} />
             <SelectField label="Level" value={degree} onChange={setDegree} options={DEGREE_OPTIONS} />
           </div>

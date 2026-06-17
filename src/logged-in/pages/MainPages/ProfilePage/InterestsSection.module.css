@@ -1,0 +1,31 @@
+/* Inline-style extractions for InterestsSection.
+   Visual appearance is preserved exactly; design tokens are reused where a
+   literal matched (see src/styles/variables.css). */
+
+.pickerRow {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.pickerRowSpaced {
+  margin-top: var(--spacing-md); /* 16px */
+}
+
+.badgeList {
+  margin-top: var(--spacing-sm); /* 8px */
+}
+
+.removeButton {
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: inherit;
+}
+
+.errorText {
+  color: var(--error);
+  font-size: 0.8125rem;
+  margin-top: var(--spacing-sm); /* 8px */
+}

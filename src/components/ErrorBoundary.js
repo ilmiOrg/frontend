@@ -1,5 +1,6 @@
 import React from "react";
 import { captureError } from "../lib/errorMonitor";
+import styles from "./ErrorBoundary.module.css";
 
 /**
  * App-level error boundary. A render error anywhere below it shows a recoverable
@@ -32,38 +33,15 @@ class ErrorBoundary extends React.Component {
       return this.props.children;
     }
     return (
-      <div
-        role="alert"
-        style={{
-          minHeight: "100vh",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: 16,
-          padding: 24,
-          textAlign: "center",
-          fontFamily: "var(--font-body, system-ui, sans-serif)",
-          background: "var(--surface, #0e0e12)",
-          color: "var(--on-surface, #e8e8ea)",
-        }}
-      >
-        <h1 style={{ margin: 0, fontSize: "1.5rem" }}>Something went wrong</h1>
-        <p style={{ margin: 0, color: "var(--on-surface-muted, #9a9aa2)", maxWidth: 420 }}>
+      <div role="alert" className={styles.fallback}>
+        <h1 className={styles.title}>Something went wrong</h1>
+        <p className={styles.message}>
           An unexpected error interrupted the page. Reloading usually fixes it.
         </p>
         <button
           type="button"
           onClick={this.handleReload}
-          style={{
-            padding: "10px 20px",
-            borderRadius: 8,
-            border: "none",
-            background: "var(--primary, #6c5ce7)",
-            color: "var(--on-primary, #fff)",
-            fontWeight: 600,
-            cursor: "pointer",
-          }}
+          className={styles.reloadButton}
         >
           Reload ilmi
         </button>
