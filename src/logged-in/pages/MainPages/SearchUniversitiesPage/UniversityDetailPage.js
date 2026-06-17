@@ -218,7 +218,7 @@ export default function UniversityDetailPage() {
             <button
               type="button"
               className={`${styles.btn} ${styles.btnPrimary}`}
-              onClick={() => navigate("/dashboard/applications/timeline")}
+              onClick={() => navigate("/dashboard/applications")}
             >
               {t("uniDetailApply")}
             </button>

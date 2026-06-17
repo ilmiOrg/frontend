@@ -10,6 +10,9 @@ function formatTuition(n) {
 }
 
 function badgeLetters(name) {
+  // Guard against a missing/non-string name so one bad row can't crash the whole search list.
+  const safe = (name || "").trim();
+  if (!safe) return "UNI";
   const skip = new Set([
     "of",
     "the",
@@ -18,11 +21,11 @@ function badgeLetters(name) {
     "college",
     "international",
   ]);
-  const parts = name.split(/\s+/).filter((w) => !skip.has(w.toLowerCase()));
+  const parts = safe.split(/\s+/).filter((w) => !skip.has(w.toLowerCase()));
   if (parts.length >= 2 && parts[0][0] && parts[1][0]) {
     return (parts[0][0] + parts[1][0]).toUpperCase();
   }
-  const compact = name.replace(/[^A-Za-z]/g, "");
+  const compact = safe.replace(/[^A-Za-z]/g, "");
   return compact.slice(0, 3).toUpperCase() || "UNI";
 }
 
@@ -120,7 +123,7 @@ export default function UniversityResultCard({
         <button
           type="button"
           className={`${styles.btn} ${styles.btnPrimary}`}
-          onClick={() => navigate("/dashboard/applications/timeline")}
+          onClick={() => navigate("/dashboard/applications")}
         >
           Apply
         </button>
