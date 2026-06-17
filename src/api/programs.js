@@ -30,6 +30,7 @@ export async function getProgramCategories() {
 
 export async function searchPrograms(params = {}) {
   return request("/api/v1/programs", {
+    auth: true,
     query: params,
     errorMessage: "Failed to fetch programs",
   });
@@ -37,6 +38,7 @@ export async function searchPrograms(params = {}) {
 
 export async function getProgramById(id) {
   return request(`/api/v1/programs/${id}`, {
+    auth: true,
     errorMessage: "Program not found",
   });
 }

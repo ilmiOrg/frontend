@@ -123,6 +123,7 @@ const SearchProgramsPage = () => {
 
   const formatTuition = useCallback(
     (amount, currency) => {
+      if (amount === null || amount === undefined || amount === "") return "";
       if (Number(amount) === 0) return t("programsTuitionFree");
       return `${currency} ${Number(amount).toLocaleString()} / year`;
     },
@@ -271,9 +272,15 @@ const SearchProgramsPage = () => {
                         </span>
                       </div>
                       <p className={styles.programMeta}>
-                        {p.universityName} · {p.city}, {p.countryName} ·{" "}
-                        {p.degreeLevel} · {p.language}
-                        {p.durationYears ? ` · ${p.durationYears} yr` : ""}
+                        {[
+                          p.universityName,
+                          [p.city, p.countryName].filter(Boolean).join(", "),
+                          p.degreeLevel,
+                          p.language,
+                          p.durationYears ? `${p.durationYears} yr` : null,
+                        ]
+                          .filter(Boolean)
+                          .join(" · ")}
                       </p>
                       <p className={styles.programDescription}>
                         {p.description}
