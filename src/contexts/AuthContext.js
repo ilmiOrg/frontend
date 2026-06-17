@@ -9,6 +9,7 @@ import { login as apiLogin, register as apiRegister, logout as apiLogout } from 
 
 const AUTH_TOKEN_KEY = "token";
 const AUTH_EMAIL_KEY = "userEmail";
+const AUTH_NAME_KEY = "userName";
 const AUTH_GUEST_KEY = "authGuest";
 
 /** Guest user shown in UI when using "Continue as guest" (no backend login). */
@@ -44,8 +45,9 @@ export const AuthProvider = ({ children }) => {
       setIsAuthenticated(true);
       setUser({ ...GUEST_USER });
     } else if (token && email) {
+      const name = localStorage.getItem(AUTH_NAME_KEY) || email.split("@")[0];
       setIsAuthenticated(true);
-      setUser({ email, name: email.split("@")[0], isGuest: false, role: decodeRole(token) });
+      setUser({ email, name, isGuest: false, role: decodeRole(token) });
     }
     setIsLoading(false);
   }, []);
@@ -55,10 +57,13 @@ export const AuthProvider = ({ children }) => {
     const data = await apiLogin(email, password);
     localStorage.setItem(AUTH_TOKEN_KEY, data.token);
     localStorage.setItem(AUTH_EMAIL_KEY, data.email);
+    const name = data.name?.trim() || data.email?.split("@")[0];
+    if (data.name?.trim()) localStorage.setItem(AUTH_NAME_KEY, data.name.trim());
+    else localStorage.removeItem(AUTH_NAME_KEY);
     setIsAuthenticated(true);
     setUser({
       email: data.email,
-      name: data.email?.split("@")[0],
+      name,
       isGuest: false,
       role: decodeRole(data.token),
     });
@@ -79,6 +84,7 @@ export const AuthProvider = ({ children }) => {
     apiLogout(); // fire-and-forget: revoke the token server-side
     localStorage.removeItem(AUTH_TOKEN_KEY);
     localStorage.removeItem(AUTH_EMAIL_KEY);
+    localStorage.removeItem(AUTH_NAME_KEY);
     localStorage.removeItem(AUTH_GUEST_KEY);
     setIsAuthenticated(false);
     setUser(null);
@@ -89,10 +95,17 @@ export const AuthProvider = ({ children }) => {
     const data = await apiRegister(userData);
     localStorage.setItem(AUTH_TOKEN_KEY, data.token);
     localStorage.setItem(AUTH_EMAIL_KEY, data.email);
+    const fullName = [userData.firstName, userData.lastName]
+      .filter(Boolean)
+      .join(" ")
+      .trim();
+    const name = fullName || data.email?.split("@")[0];
+    if (fullName) localStorage.setItem(AUTH_NAME_KEY, fullName);
+    else localStorage.removeItem(AUTH_NAME_KEY);
     setIsAuthenticated(true);
     setUser({
       email: data.email,
-      name: data.email?.split("@")[0],
+      name,
       isGuest: false,
       role: decodeRole(data.token),
     });
