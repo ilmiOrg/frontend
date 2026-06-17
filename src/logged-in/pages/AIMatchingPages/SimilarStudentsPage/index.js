@@ -18,7 +18,6 @@ const SimilarStudentsPage = () => {
     <PageTemplate
       icon={<UsersIcon size={22} />}
       title={t("similarStudentsTitle")}
-      actions={<button className={s.primaryBtn}>{t("getStarted")}</button>}
     >
       <div className={s.layout}>
         <div className={s.introPanel}>
