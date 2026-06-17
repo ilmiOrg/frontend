@@ -1245,6 +1245,93 @@ const ru = {
     "Добавьте оценки и один экзамен, чтобы открыть совпадения университетов, шансы на поступление и подбор стипендий — около минуты.",
   onboardingCta: "Подобрать →",
   onboardingDismiss: "Закрыть",
+
+  // Reused page titles (missing in ru before)
+  dashJobs: "Работа и стажировки",
+  dashCourses: "Курсы",
+
+  // Jobs page
+  jobsTitle: "Работа и стажировки",
+  jobsDesc: "Возможности для студентов — фильтруйте по направлению.",
+  jobsFieldLabel: "Направление",
+  jobsAllFields: "Все направления",
+  jobsLoading: "Загрузка вакансий…",
+  jobsEmpty: "Пока нет вакансий по этому фильтру.",
+  jobsCount: "{count} возможностей",
+  jobsApply: "Откликнуться",
+
+  // Search scholarships page
+  searchScholarshipsPageTitle: "Стипендии",
+  searchScholarshipsPageDesc: "Просматривайте стипендии — фильтруйте по направлению и уровню.",
+  searchScholarshipsFieldLabel: "Направление",
+  searchScholarshipsAllFields: "Все направления",
+  searchScholarshipsLevelLabel: "Уровень",
+  searchScholarshipsAllLevels: "Все уровни",
+  searchScholarshipsLevelBachelor: "Бакалавриат",
+  searchScholarshipsLevelMaster: "Магистратура",
+  searchScholarshipsLevelDoctorate: "Докторантура",
+  searchScholarshipsLoading: "Загрузка стипендий…",
+  searchScholarshipsEmpty: "Пока нет стипендий по вашим фильтрам — попробуйте расширить направление или уровень.",
+  searchScholarshipsCount: "{count} стипендий",
+  searchScholarshipsAwardFullTuition: "Полное покрытие обучения",
+  searchScholarshipsAwardPercentOff: "Скидка {value}% на обучение",
+  searchScholarshipsAwardDefault: "Награда",
+
+  // Match scholarships page
+  matchScholTitle: "Подбор стипендий",
+  matchScholDesc: "Активные стипендии, ранжированные по вашему профилю — гражданство, средний балл и интересы.",
+  matchScholGuestDesc: "Узнайте, на какие стипендии вы вероятно подходите, в порядке соответствия.",
+  matchScholGuestCtaTitle: "Создайте бесплатный аккаунт, чтобы получить подбор",
+  matchScholGuestCtaDesc: "Подбор использует вашу страну, оценки и интересы — гости могут просматривать, но для подбора стипендий нужен сохранённый профиль.",
+  matchScholGuestCtaBtn: "Зарегистрироваться",
+  matchScholEligibleOnly: "Только подходящие",
+  matchScholLoading: "Подбираем стипендии для вас…",
+  matchScholEmptyPrefix: "Пока нет доступных стипендий. Загляните позже, когда каталог пополнится, или укажите ваши ",
+  matchScholEmptyLink: "интересы и бюджет",
+  matchScholErrorDefault: "Не удалось загрузить подбор стипендий",
+  matchScholCount: "{eligible} подходящих из {total}",
+  matchScholEligible: "Подходит",
+  matchScholNotEligible: "Не подходит",
+  matchScholYourInterest: "★ Ваш интерес",
+  matchScholDue: "Срок {date}",
+  matchScholAwardFullTuition: "Полное покрытие обучения",
+  matchScholAwardFullCost: "Полное покрытие расходов на обучение",
+  matchScholAwardPercentOff: "Скидка {value}% на обучение",
+  matchScholAwardTuitionDiscount: "Скидка на обучение",
+  matchScholAwardFixed: "Фиксированная награда",
+  matchScholAwardVariable: "Переменная награда",
+
+  // Essay review page
+  essayTitle: "Проверка эссе",
+  essayDesc: "Вставьте ваше вступительное эссе и получите отзыв ИИ, настроенный для абитуриентов из Центральной Азии, изучающих английский как иностранный.",
+  essayNotAvailableTitle: "Пока недоступно",
+  essayNotAvailableText: "Проверка эссе с помощью ИИ пока не включена в этой среде. Загляните позже — когда функция заработает, вы сможете вставить эссе здесь и получить структурированный отзыв.",
+  essayTypeLabel: "Тип эссе",
+  essayTypePersonalStatement: "Личное заявление",
+  essayTypeMotivationLetter: "Мотивационное письмо для стипендии",
+  essayTypeStatementOfPurpose: "Заявление о целях",
+  essayTypeCommonApp: "Эссе Common App",
+  essayTypeOther: "Другое",
+  essayPlaceholder: "Вставьте ваше эссе здесь…",
+  essayReviewing: "Проверяем…",
+  essayGetFeedback: "Получить отзыв",
+  essayFeedbackTitle: "Отзыв ИИ",
+
+  // Courses page
+  coursesDesc: "Партнёрские подготовительные курсы (английский, математика и другое).",
+  coursesSubjectLabel: "Предмет",
+  coursesAllSubjects: "Все предметы",
+  coursesLoading: "Загрузка курсов…",
+  coursesEmpty: "Пока нет курсов.",
+  coursesCount: "{count} курсов",
+  coursesView: "Открыть",
+
+  // Dashboard layout
+  dashToggleMenu: "Переключить меню",
+  dashDeadlinesDueSoon: "Скоро истекают сроки подачи заявок: {count}",
+
+  // Public footer
+  publicFooterRights: "© {year} ilmi. Все права защищены",
 };
 
 export default ru;

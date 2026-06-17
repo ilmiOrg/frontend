@@ -3,37 +3,39 @@ import PageTemplate from "../../../shared/PageTemplate";
 import { AwardIcon } from "../../../shared/Icons";
 import { SelectField } from "../../../../ui-components";
 import { getScholarships } from "../../../../api/scholarships";
+import { useTranslation } from "../../../../hooks/useLanguage";
 import s from "../../../shared/ContentPage/style.module.css";
 import local from "./style.module.css";
 
-const FIELD_OPTIONS = [
-  { value: "", label: "All fields" },
-  ...[
-    "COMPUTER_SCIENCE", "ENGINEERING", "MEDICINE", "LAW", "BUSINESS", "ECONOMICS",
-    "MATHEMATICS", "PHYSICS", "BIOLOGY", "CHEMISTRY", "HUMANITIES", "SOCIAL_SCIENCES",
-    "ARTS", "EDUCATION", "ARCHITECTURE",
-  ].map((v) => ({ value: v, label: pretty(v) })),
-];
-
-const DEGREE_OPTIONS = [
-  { value: "", label: "All levels" },
-  { value: "BACHELOR", label: "Bachelor" },
-  { value: "MASTER", label: "Master" },
-  { value: "DOCTORATE", label: "Doctorate" },
+const FIELD_VALUES = [
+  "COMPUTER_SCIENCE", "ENGINEERING", "MEDICINE", "LAW", "BUSINESS", "ECONOMICS",
+  "MATHEMATICS", "PHYSICS", "BIOLOGY", "CHEMISTRY", "HUMANITIES", "SOCIAL_SCIENCES",
+  "ARTS", "EDUCATION", "ARCHITECTURE",
 ];
 
 function pretty(v) {
   return String(v || "").toLowerCase().replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
-function awardLabel(sc) {
-  if (sc.awardType === "FULL_TUITION") return "Full tuition";
-  if (sc.awardType === "PERCENTAGE_OFF_TUITION" && sc.awardValue != null) return `${Number(sc.awardValue)}% off tuition`;
+function awardLabel(sc, t) {
+  if (sc.awardType === "FULL_TUITION") return t("searchScholarshipsAwardFullTuition");
+  if (sc.awardType === "PERCENTAGE_OFF_TUITION" && sc.awardValue != null) return t("searchScholarshipsAwardPercentOff").replace("{value}", Number(sc.awardValue));
   if (sc.awardType === "FIXED_AMOUNT" && sc.awardValue != null) return `${Number(sc.awardValue).toLocaleString()} ${sc.currency || ""}`;
-  return pretty(sc.awardType || "Award");
+  return pretty(sc.awardType || t("searchScholarshipsAwardDefault"));
 }
 
 const SearchScholarshipsPage = () => {
+  const { t } = useTranslation();
+  const FIELD_OPTIONS = [
+    { value: "", label: t("searchScholarshipsAllFields") },
+    ...FIELD_VALUES.map((v) => ({ value: v, label: pretty(v) })),
+  ];
+  const DEGREE_OPTIONS = [
+    { value: "", label: t("searchScholarshipsAllLevels") },
+    { value: "BACHELOR", label: t("searchScholarshipsLevelBachelor") },
+    { value: "MASTER", label: t("searchScholarshipsLevelMaster") },
+    { value: "DOCTORATE", label: t("searchScholarshipsLevelDoctorate") },
+  ];
   const [field, setField] = useState("");
   const [degree, setDegree] = useState("");
   const [items, setItems] = useState([]);
@@ -59,26 +61,26 @@ const SearchScholarshipsPage = () => {
   return (
     <PageTemplate
       icon={<AwardIcon size={22} />}
-      title="Scholarships"
-      description="Browse scholarships — filter by field and level."
+      title={t("searchScholarshipsPageTitle")}
+      description={t("searchScholarshipsPageDesc")}
     >
       <div className={s.layout}>
         <div className={s.introPanel}>
           <div className={local.filterRow}>
-            <SelectField label="Field" value={field} onChange={setField} options={FIELD_OPTIONS} />
-            <SelectField label="Level" value={degree} onChange={setDegree} options={DEGREE_OPTIONS} />
+            <SelectField label={t("searchScholarshipsFieldLabel")} value={field} onChange={setField} options={FIELD_OPTIONS} />
+            <SelectField label={t("searchScholarshipsLevelLabel")} value={degree} onChange={setDegree} options={DEGREE_OPTIONS} />
           </div>
         </div>
 
         {loading ? (
-          <p className={s.emptyState}>Loading scholarships…</p>
+          <p className={s.emptyState}>{t("searchScholarshipsLoading")}</p>
         ) : error ? (
           <p className={s.emptyState}>{error}</p>
         ) : items.length === 0 ? (
-          <p className={s.emptyState}>No scholarships match your filters yet — try broadening the field or level.</p>
+          <p className={s.emptyState}>{t("searchScholarshipsEmpty")}</p>
         ) : (
           <>
-            <h3 className={s.sectionLabel}>{items.length} scholarships</h3>
+            <h3 className={s.sectionLabel}>{t("searchScholarshipsCount").replace("{count}", items.length)}</h3>
             <div className={s.cardGrid}>
               {items.map((sc) => (
                 <div className={s.contentCard} key={sc.id}>
@@ -94,7 +96,7 @@ const SearchScholarshipsPage = () => {
                   </div>
                   {sc.description ? <p className={s.cardDesc}>{sc.description}</p> : null}
                   <div className={s.cardMeta}>
-                    <span className={`${s.metaBadge} ${s.highlight}`}>{awardLabel(sc)}</span>
+                    <span className={`${s.metaBadge} ${s.highlight}`}>{awardLabel(sc, t)}</span>
                     {sc.degreeLevel ? <span className={s.metaBadge}>{pretty(sc.degreeLevel)}</span> : null}
                     {sc.fieldType ? <span className={s.metaBadge}>{pretty(sc.fieldType)}</span> : null}
                   </div>

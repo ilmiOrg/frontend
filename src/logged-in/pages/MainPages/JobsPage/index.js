@@ -3,15 +3,13 @@ import PageTemplate from "../../../shared/PageTemplate";
 import { TrendingUpIcon, ExternalLinkIcon } from "../../../shared/Icons";
 import { SelectField } from "../../../../ui-components";
 import { getJobs } from "../../../../api/jobs";
+import { useTranslation } from "../../../../hooks/useLanguage";
 import s from "../../../shared/ContentPage/style.module.css";
 
-const FIELD_OPTIONS = [
-  { value: "", label: "All fields" },
-  ...[
-    "COMPUTER_SCIENCE", "ENGINEERING", "MEDICINE", "LAW", "BUSINESS", "ECONOMICS",
-    "MATHEMATICS", "PHYSICS", "BIOLOGY", "CHEMISTRY", "HUMANITIES", "SOCIAL_SCIENCES",
-    "ARTS", "EDUCATION", "ARCHITECTURE",
-  ].map((v) => ({ value: v, label: prettyEnum(v) })),
+const FIELD_VALUES = [
+  "COMPUTER_SCIENCE", "ENGINEERING", "MEDICINE", "LAW", "BUSINESS", "ECONOMICS",
+  "MATHEMATICS", "PHYSICS", "BIOLOGY", "CHEMISTRY", "HUMANITIES", "SOCIAL_SCIENCES",
+  "ARTS", "EDUCATION", "ARCHITECTURE",
 ];
 
 function prettyEnum(v) {
@@ -19,6 +17,11 @@ function prettyEnum(v) {
 }
 
 const JobsPage = () => {
+  const { t } = useTranslation();
+  const FIELD_OPTIONS = [
+    { value: "", label: t("jobsAllFields") },
+    ...FIELD_VALUES.map((v) => ({ value: v, label: prettyEnum(v) })),
+  ];
   const [field, setField] = useState("");
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -42,23 +45,23 @@ const JobsPage = () => {
   return (
     <PageTemplate
       icon={<TrendingUpIcon size={22} />}
-      title="Jobs & Internships"
-      description="Opportunities for students — filter by field."
+      title={t("dashJobs")}
+      description={t("jobsDesc")}
     >
       <div className={s.layout}>
         <div className={s.introPanel}>
-          <SelectField label="Field" value={field} onChange={setField} options={FIELD_OPTIONS} />
+          <SelectField label={t("jobsFieldLabel")} value={field} onChange={setField} options={FIELD_OPTIONS} />
         </div>
 
         {loading ? (
-          <p className={s.emptyState}>Loading jobs…</p>
+          <p className={s.emptyState}>{t("jobsLoading")}</p>
         ) : error ? (
           <p className={s.emptyState}>{error}</p>
         ) : count === 0 ? (
-          <p className={s.emptyState}>No jobs yet for this filter.</p>
+          <p className={s.emptyState}>{t("jobsEmpty")}</p>
         ) : (
           <>
-            <h3 className={s.sectionLabel}>{count} opportunities</h3>
+            <h3 className={s.sectionLabel}>{t("jobsCount").replace("{count}", count)}</h3>
             <div className={s.cardGrid}>
               {jobs.map((j) => (
                 <div className={s.contentCard} key={j.id}>
@@ -79,7 +82,7 @@ const JobsPage = () => {
                     {j.degreeRequired ? <span className={s.metaBadge}>{prettyEnum(j.degreeRequired)}</span> : null}
                     {j.url ? (
                       <a className={s.metaBadge} href={j.url} target="_blank" rel="noreferrer">
-                        Apply <ExternalLinkIcon size={12} />
+                        {t("jobsApply")} <ExternalLinkIcon size={12} />
                       </a>
                     ) : null}
                   </div>

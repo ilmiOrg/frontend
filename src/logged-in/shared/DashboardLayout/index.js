@@ -245,7 +245,7 @@ const DashboardLayout = () => {
               type="button"
               className={styles.hamburger}
               onClick={() => setMobileNavOpen((o) => !o)}
-              aria-label="Toggle menu"
+              aria-label={t("dashToggleMenu")}
             >
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                 strokeWidth="2" strokeLinecap="round">
@@ -267,12 +267,12 @@ const DashboardLayout = () => {
               className={styles.actionBtn}
               title={
                 dueSoonCount > 0
-                  ? `${dueSoonCount} application deadline${dueSoonCount === 1 ? "" : "s"} due soon`
+                  ? t("dashDeadlinesDueSoon").replace("{count}", dueSoonCount)
                   : t("dashNotifications")
               }
               aria-label={
                 dueSoonCount > 0
-                  ? `${dueSoonCount} application deadlines due soon`
+                  ? t("dashDeadlinesDueSoon").replace("{count}", dueSoonCount)
                   : t("dashNotifications")
               }
               onClick={() => navigate("/dashboard/applications")}

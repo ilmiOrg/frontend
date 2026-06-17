@@ -511,7 +511,7 @@ const PublicHomePage = () => {
                             value={contactForm.email}
                             onChange={handleContactChange}
                             required
-                            placeholder="you@example.com"
+                            placeholder={t("dashContactFormEmailPh")}
                             className={styles.contactInput}
                           />
                         </div>
@@ -540,7 +540,7 @@ const PublicHomePage = () => {
                           />
                         </div>
                         <button type="submit" className={styles.contactSubmitBtn}>
-                          Send Message
+                          {t("dashContactFormSubmit")}
                         </button>
                       </form>
                     )}
@@ -562,7 +562,7 @@ const PublicHomePage = () => {
                     <span>ilmi</span>
                   </div>
                   <span className={styles.footerCopy}>
-                    © {new Date().getFullYear()} ilmi. All rights reserved
+                    {t("publicFooterRights").replace("{year}", new Date().getFullYear())}
                   </span>
                 </div>
                 <div className={styles.footerLinks}>

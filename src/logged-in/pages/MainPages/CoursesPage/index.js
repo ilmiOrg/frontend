@@ -3,9 +3,11 @@ import PageTemplate from "../../../shared/PageTemplate";
 import { BookOpenIcon, ExternalLinkIcon } from "../../../shared/Icons";
 import { SelectField } from "../../../../ui-components";
 import { getCourses } from "../../../../api/courses";
+import { useTranslation } from "../../../../hooks/useLanguage";
 import s from "../../../shared/ContentPage/style.module.css";
 
 const CoursesPage = () => {
+  const { t } = useTranslation();
   const [all, setAll] = useState([]);
   const [subject, setSubject] = useState("");
   const [loading, setLoading] = useState(true);
@@ -24,8 +26,8 @@ const CoursesPage = () => {
 
   const subjectOptions = useMemo(() => {
     const subjects = [...new Set(all.map((c) => c.subject).filter(Boolean))];
-    return [{ value: "", label: "All subjects" }, ...subjects.map((v) => ({ value: v, label: title(v) }))];
-  }, [all]);
+    return [{ value: "", label: t("coursesAllSubjects") }, ...subjects.map((v) => ({ value: v, label: title(v) }))];
+  }, [all, t]);
 
   const courses = useMemo(
     () => (subject ? all.filter((c) => c.subject === subject) : all),
@@ -35,23 +37,23 @@ const CoursesPage = () => {
   return (
     <PageTemplate
       icon={<BookOpenIcon size={22} />}
-      title="Courses"
-      description="Partner prep courses (English, math, and more)."
+      title={t("dashCourses")}
+      description={t("coursesDesc")}
     >
       <div className={s.layout}>
         <div className={s.introPanel}>
-          <SelectField label="Subject" value={subject} onChange={setSubject} options={subjectOptions} />
+          <SelectField label={t("coursesSubjectLabel")} value={subject} onChange={setSubject} options={subjectOptions} />
         </div>
 
         {loading ? (
-          <p className={s.emptyState}>Loading courses…</p>
+          <p className={s.emptyState}>{t("coursesLoading")}</p>
         ) : error ? (
           <p className={s.emptyState}>{error}</p>
         ) : courses.length === 0 ? (
-          <p className={s.emptyState}>No courses yet.</p>
+          <p className={s.emptyState}>{t("coursesEmpty")}</p>
         ) : (
           <>
-            <h3 className={s.sectionLabel}>{courses.length} courses</h3>
+            <h3 className={s.sectionLabel}>{t("coursesCount").replace("{count}", courses.length)}</h3>
             <div className={s.cardGrid}>
               {courses.map((c) => (
                 <div className={s.contentCard} key={c.id}>
@@ -71,7 +73,7 @@ const CoursesPage = () => {
                     ) : null}
                     {c.url ? (
                       <a className={s.metaBadge} href={c.url} target="_blank" rel="noreferrer">
-                        View <ExternalLinkIcon size={12} />
+                        {t("coursesView")} <ExternalLinkIcon size={12} />
                       </a>
                     ) : null}
                   </div>

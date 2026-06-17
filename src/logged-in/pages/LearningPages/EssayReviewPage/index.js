@@ -3,24 +3,26 @@ import PageTemplate from "../../../shared/PageTemplate";
 import { PenToolIcon } from "../../../shared/Icons";
 import { useAuth } from "../../../../contexts/AuthContext";
 import { getEssayAvailability, reviewEssay } from "../../../../api/essays";
+import { useTranslation } from "../../../../hooks/useLanguage";
 import s from "../../../shared/ContentPage/style.module.css";
 import m from "./style.module.css";
 
 const ESSAY_TYPES = [
-  "Personal statement",
-  "Scholarship motivation letter",
-  "Statement of purpose",
-  "Common App essay",
-  "Other",
+  { code: "Personal statement", labelKey: "essayTypePersonalStatement" },
+  { code: "Scholarship motivation letter", labelKey: "essayTypeMotivationLetter" },
+  { code: "Statement of purpose", labelKey: "essayTypeStatementOfPurpose" },
+  { code: "Common App essay", labelKey: "essayTypeCommonApp" },
+  { code: "Other", labelKey: "essayTypeOther" },
 ];
 
 const EssayReviewPage = () => {
+  const { t } = useTranslation();
   const { user, isAuthenticated } = useAuth();
   const isGuest = user?.isGuest === true;
 
   const [available, setAvailable] = useState(null); // null = checking
   const [essayText, setEssayText] = useState("");
-  const [promptType, setPromptType] = useState(ESSAY_TYPES[0]);
+  const [promptType, setPromptType] = useState(ESSAY_TYPES[0].code);
   const [feedback, setFeedback] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -60,37 +62,37 @@ const EssayReviewPage = () => {
   return (
     <PageTemplate
       icon={<PenToolIcon size={22} />}
-      title="Essay Review"
-      description="Paste your application essay and get AI feedback tuned for Central-Asian ESL applicants."
+      title={t("essayTitle")}
+      description={t("essayDesc")}
     >
       <div className={s.layout}>
         {available === false ? (
           <div className={s.introPanel}>
-            <h3 className={s.sectionLabel}>Not available yet</h3>
+            <h3 className={s.sectionLabel}>{t("essayNotAvailableTitle")}</h3>
             <p className={s.introText}>
-              AI essay review isn’t enabled on this environment yet. Check back soon — when it’s on,
-              you’ll be able to paste an essay here and get structured feedback.
+              {t("essayNotAvailableText")}
             </p>
           </div>
         ) : (
           <>
             <div className={s.introPanel}>
               <div className={m.typeRow}>
-                <label className={m.typeLabel}>Essay type</label>
+                <label className={m.typeLabel} htmlFor="essay-type">{t("essayTypeLabel")}</label>
                 <select
+                  id="essay-type"
                   className={m.typeSelect}
                   value={promptType}
                   onChange={(e) => setPromptType(e.target.value)}
                 >
-                  {ESSAY_TYPES.map((tName) => (
-                    <option key={tName} value={tName}>{tName}</option>
+                  {ESSAY_TYPES.map((et) => (
+                    <option key={et.code} value={et.code}>{t(et.labelKey)}</option>
                   ))}
                 </select>
               </div>
               <textarea
                 className={m.textarea}
                 rows={12}
-                placeholder="Paste your essay here…"
+                placeholder={t("essayPlaceholder")}
                 value={essayText}
                 onChange={(e) => setEssayText(e.target.value)}
                 maxLength={12000}
@@ -103,7 +105,7 @@ const EssayReviewPage = () => {
                   disabled={loading || !essayText.trim()}
                   onClick={submit}
                 >
-                  {loading ? "Reviewing…" : "Get feedback"}
+                  {loading ? t("essayReviewing") : t("essayGetFeedback")}
                 </button>
               </div>
               {error ? <p className={m.error}>{error}</p> : null}
@@ -111,7 +113,7 @@ const EssayReviewPage = () => {
 
             {feedback ? (
               <div className={s.contentCard}>
-                <h4 className={s.cardTitle}>AI feedback</h4>
+                <h4 className={s.cardTitle}>{t("essayFeedbackTitle")}</h4>
                 <p className={m.feedback}>{feedback}</p>
               </div>
             ) : null}

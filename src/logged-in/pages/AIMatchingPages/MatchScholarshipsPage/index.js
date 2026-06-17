@@ -4,6 +4,7 @@ import PageTemplate from "../../../shared/PageTemplate";
 import { AwardIcon } from "../../../shared/Icons";
 import { useAuth } from "../../../../contexts/AuthContext";
 import { getScholarshipMatches } from "../../../../api/scholarships";
+import { useTranslation } from "../../../../hooks/useLanguage";
 import s from "../../../shared/ContentPage/style.module.css";
 import m from "./style.module.css";
 
@@ -13,23 +14,24 @@ const prettyEnum = (v) =>
     .replace(/_/g, " ")
     .replace(/\b\w/g, (c) => c.toUpperCase());
 
-const awardLabel = (sch) => {
+const awardLabel = (sch, t) => {
   const cur = sch.currency ? `${sch.currency} ` : "";
   switch (sch.awardType) {
     case "FULL_TUITION":
-      return "Full tuition";
+      return t("matchScholAwardFullTuition");
     case "FULL_COST_OF_ATTENDANCE":
-      return "Full cost of attendance";
+      return t("matchScholAwardFullCost");
     case "PERCENTAGE_OFF_TUITION":
-      return sch.awardValue != null ? `${Number(sch.awardValue)}% off tuition` : "Tuition discount";
+      return sch.awardValue != null ? t("matchScholAwardPercentOff").replace("{value}", Number(sch.awardValue)) : t("matchScholAwardTuitionDiscount");
     case "FIXED_AMOUNT":
-      return sch.awardValue != null ? `${cur}${Number(sch.awardValue).toLocaleString()}` : "Fixed award";
+      return sch.awardValue != null ? `${cur}${Number(sch.awardValue).toLocaleString()}` : t("matchScholAwardFixed");
     default:
-      return "Variable award";
+      return t("matchScholAwardVariable");
   }
 };
 
 const MatchScholarshipsPage = () => {
+  const { t } = useTranslation();
   const { user, isAuthenticated } = useAuth();
   const isGuest = user?.isGuest === true;
 
@@ -45,11 +47,11 @@ const MatchScholarshipsPage = () => {
       const data = await getScholarshipMatches({ eligibleOnly });
       setRows(Array.isArray(data) ? data : []);
     } catch (e) {
-      setError(e.message || "Could not load scholarship matches");
+      setError(e.message || t("matchScholErrorDefault"));
     } finally {
       setLoading(false);
     }
-  }, [eligibleOnly]);
+  }, [eligibleOnly, t]);
 
   useEffect(() => {
     if (isAuthenticated && !isGuest) load();
@@ -59,19 +61,18 @@ const MatchScholarshipsPage = () => {
     return (
       <PageTemplate
         icon={<AwardIcon size={22} />}
-        title="Scholarship Matches"
-        description="See which scholarships you likely qualify for, ranked by fit."
+        title={t("matchScholTitle")}
+        description={t("matchScholGuestDesc")}
       >
         <div className={s.layout}>
           <div className={s.ctaPanel}>
             <div className={s.ctaBody}>
-              <h3 className={s.ctaTitle}>Create a free account to get matched</h3>
+              <h3 className={s.ctaTitle}>{t("matchScholGuestCtaTitle")}</h3>
               <p className={s.ctaDesc}>
-                Matching uses your country, grades, and interests — guests can browse, but
-                scholarship matches need a saved profile.
+                {t("matchScholGuestCtaDesc")}
               </p>
             </div>
-            <Link to="/register" className={s.ctaBtn}>Sign up</Link>
+            <Link to="/register" className={s.ctaBtn}>{t("matchScholGuestCtaBtn")}</Link>
           </div>
         </div>
       </PageTemplate>
@@ -83,8 +84,8 @@ const MatchScholarshipsPage = () => {
   return (
     <PageTemplate
       icon={<AwardIcon size={22} />}
-      title="Scholarship Matches"
-      description="Active scholarships ranked against your profile — citizenship, GPA, and interests."
+      title={t("matchScholTitle")}
+      description={t("matchScholDesc")}
     >
       <div className={s.layout}>
         <div className={m.toolbar}>
@@ -94,23 +95,23 @@ const MatchScholarshipsPage = () => {
               checked={eligibleOnly}
               onChange={(e) => setEligibleOnly(e.target.checked)}
             />
-            Eligible only
+            {t("matchScholEligibleOnly")}
           </label>
         </div>
 
         {loading ? (
-          <p className={s.emptyState}>Finding scholarships for you…</p>
+          <p className={s.emptyState}>{t("matchScholLoading")}</p>
         ) : error ? (
           <p className={s.emptyState}>{error}</p>
         ) : rows.length === 0 ? (
           <p className={s.emptyState}>
-            No scholarships available yet. Check back as the catalog grows, or set your{" "}
-            <Link to="/dashboard/profile">interests and budget</Link>.
+            {t("matchScholEmptyPrefix")}
+            <Link to="/dashboard/profile">{t("matchScholEmptyLink")}</Link>.
           </p>
         ) : (
           <>
             <h3 className={s.sectionLabel}>
-              {eligibleCount} you likely qualify for of {rows.length}
+              {t("matchScholCount").replace("{eligible}", eligibleCount).replace("{total}", rows.length)}
             </h3>
             <div className={m.list}>
               {rows.map((r) => (
@@ -124,18 +125,18 @@ const MatchScholarshipsPage = () => {
                       </p>
                     </div>
                     <span className={`${m.eligPill} ${r.eligible ? m.eligYes : m.eligNo}`}>
-                      {r.eligible ? "Eligible" : "Not eligible"}
+                      {r.eligible ? t("matchScholEligible") : t("matchScholNotEligible")}
                     </span>
                   </div>
 
                   <div className={s.cardMeta}>
-                    <span className={`${s.metaBadge} ${s.highlight}`}>{awardLabel(r)}</span>
+                    <span className={`${s.metaBadge} ${s.highlight}`}>{awardLabel(r, t)}</span>
                     {r.degreeLevel && <span className={s.metaBadge}>{prettyEnum(r.degreeLevel)}</span>}
                     {r.fieldType && <span className={s.metaBadge}>{prettyEnum(r.fieldType)}</span>}
                     {r.matchesInterests && (
-                      <span className={`${s.metaBadge} ${s.success}`}>★ Your interest</span>
+                      <span className={`${s.metaBadge} ${s.success}`}>{t("matchScholYourInterest")}</span>
                     )}
-                    {r.deadline && <span className={s.metaBadge}>Due {r.deadline}</span>}
+                    {r.deadline && <span className={s.metaBadge}>{t("matchScholDue").replace("{date}", r.deadline)}</span>}
                   </div>
 
                   {Array.isArray(r.reasons) && r.reasons.length > 0 && (

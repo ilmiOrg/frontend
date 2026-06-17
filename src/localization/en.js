@@ -1256,6 +1256,89 @@ const en = {
     "Add your grades and one exam to unlock your university matches, admission chances, and scholarship fit — about a minute.",
   onboardingCta: "Get matched →",
   onboardingDismiss: "Dismiss",
+
+  // Jobs page
+  jobsTitle: "Jobs & Internships",
+  jobsDesc: "Opportunities for students — filter by field.",
+  jobsFieldLabel: "Field",
+  jobsAllFields: "All fields",
+  jobsLoading: "Loading jobs…",
+  jobsEmpty: "No jobs yet for this filter.",
+  jobsCount: "{count} opportunities",
+  jobsApply: "Apply",
+
+  // Search scholarships page
+  searchScholarshipsPageTitle: "Scholarships",
+  searchScholarshipsPageDesc: "Browse scholarships — filter by field and level.",
+  searchScholarshipsFieldLabel: "Field",
+  searchScholarshipsAllFields: "All fields",
+  searchScholarshipsLevelLabel: "Level",
+  searchScholarshipsAllLevels: "All levels",
+  searchScholarshipsLevelBachelor: "Bachelor",
+  searchScholarshipsLevelMaster: "Master",
+  searchScholarshipsLevelDoctorate: "Doctorate",
+  searchScholarshipsLoading: "Loading scholarships…",
+  searchScholarshipsEmpty: "No scholarships match your filters yet — try broadening the field or level.",
+  searchScholarshipsCount: "{count} scholarships",
+  searchScholarshipsAwardFullTuition: "Full tuition",
+  searchScholarshipsAwardPercentOff: "{value}% off tuition",
+  searchScholarshipsAwardDefault: "Award",
+
+  // Match scholarships page
+  matchScholTitle: "Scholarship Matches",
+  matchScholDesc: "Active scholarships ranked against your profile — citizenship, GPA, and interests.",
+  matchScholGuestDesc: "See which scholarships you likely qualify for, ranked by fit.",
+  matchScholGuestCtaTitle: "Create a free account to get matched",
+  matchScholGuestCtaDesc: "Matching uses your country, grades, and interests — guests can browse, but scholarship matches need a saved profile.",
+  matchScholGuestCtaBtn: "Sign up",
+  matchScholEligibleOnly: "Eligible only",
+  matchScholLoading: "Finding scholarships for you…",
+  matchScholEmptyPrefix: "No scholarships available yet. Check back as the catalog grows, or set your ",
+  matchScholEmptyLink: "interests and budget",
+  matchScholErrorDefault: "Could not load scholarship matches",
+  matchScholCount: "{eligible} you likely qualify for of {total}",
+  matchScholEligible: "Eligible",
+  matchScholNotEligible: "Not eligible",
+  matchScholYourInterest: "★ Your interest",
+  matchScholDue: "Due {date}",
+  matchScholAwardFullTuition: "Full tuition",
+  matchScholAwardFullCost: "Full cost of attendance",
+  matchScholAwardPercentOff: "{value}% off tuition",
+  matchScholAwardTuitionDiscount: "Tuition discount",
+  matchScholAwardFixed: "Fixed award",
+  matchScholAwardVariable: "Variable award",
+
+  // Essay review page
+  essayTitle: "Essay Review",
+  essayDesc: "Paste your application essay and get AI feedback tuned for Central-Asian ESL applicants.",
+  essayNotAvailableTitle: "Not available yet",
+  essayNotAvailableText: "AI essay review isn’t enabled on this environment yet. Check back soon — when it’s on, you’ll be able to paste an essay here and get structured feedback.",
+  essayTypeLabel: "Essay type",
+  essayTypePersonalStatement: "Personal statement",
+  essayTypeMotivationLetter: "Scholarship motivation letter",
+  essayTypeStatementOfPurpose: "Statement of purpose",
+  essayTypeCommonApp: "Common App essay",
+  essayTypeOther: "Other",
+  essayPlaceholder: "Paste your essay here…",
+  essayReviewing: "Reviewing…",
+  essayGetFeedback: "Get feedback",
+  essayFeedbackTitle: "AI feedback",
+
+  // Courses page
+  coursesDesc: "Partner prep courses (English, math, and more).",
+  coursesSubjectLabel: "Subject",
+  coursesAllSubjects: "All subjects",
+  coursesLoading: "Loading courses…",
+  coursesEmpty: "No courses yet.",
+  coursesCount: "{count} courses",
+  coursesView: "View",
+
+  // Dashboard layout
+  dashToggleMenu: "Toggle menu",
+  dashDeadlinesDueSoon: "{count} application deadlines due soon",
+
+  // Public footer
+  publicFooterRights: "© {year} ilmi. All rights reserved",
 };
 
 export default en;
