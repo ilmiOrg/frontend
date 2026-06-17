@@ -90,7 +90,7 @@ export default function UniversityResultCard({
                 <img
                   className={styles.logoImg}
                   src={u.logoUrl}
-                  alt=""
+                  alt={`${u.name} logo`}
                   loading="lazy"
                   onError={() => setLogoFailed(true)}
                 />

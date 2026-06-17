@@ -39,6 +39,7 @@ export function mapUniversityFromApi(u) {
     city: u.city || "",
     specializations,
     tuitionAnnual: Number(u.avgTuitionPerYear || 0),
+    currency: u.currency || "",
     languages: Array.from(langSet),
     degreeLevels: Array.from(degreeSet),
     fields,

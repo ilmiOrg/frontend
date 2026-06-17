@@ -10,15 +10,21 @@ import { mapUniversityFromApi } from "./searchUniversitiesData";
 import { getFavorites, addFavorite, removeFavorite } from "../../../../api/favorites";
 import styles from "./UniversityDetailPage.module.css";
 
-function formatTuition(n) {
+const CURRENCY_SYMBOLS = { USD: "$", EUR: "€", GBP: "£", CAD: "C$", AUD: "A$", CHF: "CHF " };
+
+function currencySymbol(currency) {
+  if (!currency) return "$";
+  return CURRENCY_SYMBOLS[currency] || `${currency} `;
+}
+
+function formatTuition(n, currency) {
   if (n === 0) return "No tuition (public)";
-  return `≈ €${n.toLocaleString()} / year`;
+  return `≈ ${currencySymbol(currency)}${n.toLocaleString()} / year`;
 }
 
 function formatProgramTuition(n, currency) {
   if (n === 0) return "Free / public";
-  const sym = currency === "USD" ? "$" : "€";
-  return `≈ ${sym}${n.toLocaleString()} / year`;
+  return `≈ ${currencySymbol(currency)}${n.toLocaleString()} / year`;
 }
 
 export default function UniversityDetailPage() {
@@ -145,7 +151,7 @@ export default function UniversityDetailPage() {
           <img
             className={styles.heroImg}
             src={u.imageUrl}
-            alt=""
+            alt={`${u.name} campus`}
             width={960}
             height={420}
           />
@@ -160,7 +166,7 @@ export default function UniversityDetailPage() {
               <img
                 className={styles.detailLogoImg}
                 src={u.logoUrl}
-                alt=""
+                alt={`${u.name} logo`}
                 loading="lazy"
                 onError={() => setLogoFailed(true)}
               />
@@ -174,8 +180,10 @@ export default function UniversityDetailPage() {
             {u.city}, {u.country} ·{" "}
             {u.type === "university" ? "University" : "College"}
           </p>
-          <p className={styles.tuition}>{formatTuition(u.tuitionAnnual)}</p>
-          <p className={styles.langs}>Languages: {u.languages.join(", ")}</p>
+          <p className={styles.tuition}>{formatTuition(u.tuitionAnnual, u.currency)}</p>
+          {u.languages?.length > 0 && (
+            <p className={styles.langs}>Languages: {u.languages.join(", ")}</p>
+          )}
 
           {(u.fields || []).length > 0 && (
             <div className={styles.fieldChips}>
