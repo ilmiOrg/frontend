@@ -68,7 +68,9 @@ const MyApplicationsPage = () => {
   }, [load]);
 
   const changeStatus = async (id, status) => {
+    if (busyId === id) return; // ignore overlapping updates while one is in flight
     setBusyId(id);
+    setError(null);
     try {
       const updated = await updateApplication(id, { status });
       setApps((rows) => rows.map((a) => (a.applicationId === id ? updated : a)));
