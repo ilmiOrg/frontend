@@ -2,11 +2,11 @@ import toast from "react-hot-toast";
 
 /**
  * Backend API base URL.
- * In development: run backend on port 8082 and set REACT_APP_API_URL=http://localhost:8082
+ * In development: run backend on port 8081 and set REACT_APP_API_URL=http://localhost:8081
  * (or leave unset to use this default).
  */
 export const API_BASE_URL =
-  process.env.REACT_APP_API_URL || "http://localhost:8082";
+  process.env.REACT_APP_API_URL || "http://localhost:8081";
 
 /** Global error toast for transport/server faults (domain 4xx are shown inline by pages). */
 function notifyError(message) {
