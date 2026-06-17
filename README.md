@@ -14,14 +14,13 @@ The dev server uses port **3002** (see `package.json` / `.env.default`).
 
 ## 🔑 Login
 
-To access the dashboard:
+To access the dashboard, do any of:
 
-1. Open browser console (F12)
-2. Run:
-```javascript
-localStorage.setItem('isAuthenticated', 'true');
-location.reload();
-```
+1. **Register** at `/register` (needs the backend running) — creates a real student and lands on the dashboard.
+2. **Log in** at `/login` with an existing account.
+3. **Continue as guest** — the button on the login/register pages enters the app with no backend (`authGuest` flag).
+
+Auth state lives in `localStorage` under `token` + `userEmail` (real login) or `authGuest` (guest); see `src/contexts/AuthContext.js`.
 
 ## ✨ Features
 
