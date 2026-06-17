@@ -6,6 +6,7 @@ import React, {
   useCallback,
 } from "react";
 import { login as apiLogin, register as apiRegister, logout as apiLogout } from "../api/auth";
+import { getStudentProfile } from "../api/studentProfile";
 
 const AUTH_TOKEN_KEY = "token";
 const AUTH_EMAIL_KEY = "userEmail";
@@ -59,6 +60,11 @@ export const AuthProvider = ({ children }) => {
       const name = localStorage.getItem(AUTH_NAME_KEY) || email.split("@")[0];
       setIsAuthenticated(true);
       setUser({ email, name, isGuest: false, role: decodeRole(token) });
+      // Validate the locally-trusted token against the server (optimistically, without
+      // blocking render). If it was revoked/invalidated, the request 401s and the shared
+      // request() handler clears the session and redirects to /login — so a reload can't
+      // keep rendering protected content with a dead token. Network errors are ignored.
+      getStudentProfile().catch(() => {});
     } else if (token) {
       // Stale/expired token — clear it so the app starts in a clean logged-out state.
       localStorage.removeItem(AUTH_TOKEN_KEY);
