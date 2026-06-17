@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
+import { useTranslation } from "../../hooks/useLanguage";
 import { getTranscripts } from "../../api/academics";
 import styles from "./style.module.css";
 
@@ -12,6 +13,7 @@ import styles from "./style.module.css";
  */
 const OnboardingBanner = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { user, isAuthenticated } = useAuth();
   const isGuest = user?.isGuest === true;
   const [show, setShow] = useState(false);
@@ -38,12 +40,11 @@ const OnboardingBanner = () => {
   if (!show) return null;
 
   return (
-    <div className={styles.banner} role="region" aria-label="Get started">
+    <div className={styles.banner} role="region" aria-label={t("onboardingRegionLabel")}>
       <div className={styles.text}>
-        <strong className={styles.title}>Welcome to ilmi 👋</strong>
+        <strong className={styles.title}>{t("onboardingTitle")}</strong>
         <span className={styles.sub}>
-          Add your grades and one exam to unlock your university matches, admission chances,
-          and scholarship fit — about a minute.
+          {t("onboardingSub")}
         </span>
       </div>
       <div className={styles.actions}>
@@ -52,12 +53,12 @@ const OnboardingBanner = () => {
           className={styles.cta}
           onClick={() => navigate("/dashboard/ai/match-universities")}
         >
-          Get matched →
+          {t("onboardingCta")}
         </button>
         <button
           type="button"
           className={styles.dismiss}
-          aria-label="Dismiss"
+          aria-label={t("onboardingDismiss")}
           onClick={() => {
             sessionStorage.setItem("onboardingDismissed", "true");
             setShow(false);

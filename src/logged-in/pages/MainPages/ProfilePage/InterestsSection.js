@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
+import { useTranslation } from "../../../../hooks/useLanguage";
 import { SelectField, AccentButton } from "../../../../ui-components";
 import {
   getInterestedDegrees,
@@ -31,6 +32,7 @@ function pretty(v) {
 
 /** Lets a student declare interested degrees + fields (feeds matching). */
 const InterestsSection = ({ disabled }) => {
+  const { t } = useTranslation();
   const [degrees, setDegrees] = useState([]);
   const [fields, setFields] = useState([]);
   const [degreePick, setDegreePick] = useState("BACHELOR");
@@ -70,38 +72,38 @@ const InterestsSection = ({ disabled }) => {
 
   return (
     <div className={s.introPanel}>
-      <h3 className={s.sectionLabel}>Your interests</h3>
+      <h3 className={s.sectionLabel}>{t("interestsTitle")}</h3>
       <p className={s.introText}>
-        Tell us the degree levels and fields you're interested in. We'll use these to tailor your matches.
+        {t("interestsIntro")}
       </p>
 
       <div className={styles.pickerRow}>
-        <SelectField label="Interested degree" value={degreePick} onChange={setDegreePick} options={DEGREE_OPTIONS} />
+        <SelectField label={t("interestsDegreeLabel")} value={degreePick} onChange={setDegreePick} options={DEGREE_OPTIONS} />
         <AccentButton onClick={disabled || busy || hasDegree ? undefined : () => run(() => addInterestedDegree(degreePick))}>
-          {hasDegree ? "Added" : "Add degree"}
+          {hasDegree ? t("interestsAdded") : t("interestsAddDegree")}
         </AccentButton>
       </div>
       <div className={`${s.cardMeta} ${styles.badgeList}`}>
-        {degrees.length === 0 ? <span className={s.metaBadge}>No degrees yet</span> : degrees.map((d) => (
+        {degrees.length === 0 ? <span className={s.metaBadge}>{t("interestsNoDegrees")}</span> : degrees.map((d) => (
           <span key={d.id} className={`${s.metaBadge} ${s.highlight}`}>
             {pretty(d.degree)}{" "}
-            <button type="button" aria-label="remove" onClick={() => run(() => removeInterestedDegree(d.id))}
+            <button type="button" aria-label={t("interestsRemoveAria")} onClick={() => run(() => removeInterestedDegree(d.id))}
               className={styles.removeButton}>×</button>
           </span>
         ))}
       </div>
 
       <div className={`${styles.pickerRow} ${styles.pickerRowSpaced}`}>
-        <SelectField label="Interested field" value={fieldPick} onChange={setFieldPick} options={FIELD_OPTIONS} />
+        <SelectField label={t("interestsFieldLabel")} value={fieldPick} onChange={setFieldPick} options={FIELD_OPTIONS} />
         <AccentButton onClick={disabled || busy || hasField ? undefined : () => run(() => addInterestedField(fieldPick))}>
-          {hasField ? "Added" : "Add field"}
+          {hasField ? t("interestsAdded") : t("interestsAddField")}
         </AccentButton>
       </div>
       <div className={`${s.cardMeta} ${styles.badgeList}`}>
-        {fields.length === 0 ? <span className={s.metaBadge}>No fields yet</span> : fields.map((f) => (
+        {fields.length === 0 ? <span className={s.metaBadge}>{t("interestsNoFields")}</span> : fields.map((f) => (
           <span key={f.id} className={`${s.metaBadge} ${s.highlight}`}>
             {pretty(f.field)}{" "}
-            <button type="button" aria-label="remove" onClick={() => run(() => removeInterestedField(f.id))}
+            <button type="button" aria-label={t("interestsRemoveAria")} onClick={() => run(() => removeInterestedField(f.id))}
               className={styles.removeButton}>×</button>
           </span>
         ))}

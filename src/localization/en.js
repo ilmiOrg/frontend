@@ -1127,6 +1127,135 @@ const en = {
   // Generic errors
   errFailedLoadFavorites: "Failed to load favorites.",
   errFailedRemoveFavorite: "Failed to remove favorite.",
+
+  // Profile — interests section
+  interestsTitle: "Your interests",
+  interestsIntro:
+    "Tell us the degree levels and fields you're interested in. We'll use these to tailor your matches.",
+  interestsDegreeLabel: "Interested degree",
+  interestsFieldLabel: "Interested field",
+  interestsAdded: "Added",
+  interestsAddDegree: "Add degree",
+  interestsAddField: "Add field",
+  interestsNoDegrees: "No degrees yet",
+  interestsNoFields: "No fields yet",
+  interestsRemoveAria: "remove",
+
+  // Profile — funding section
+  fundingTitle: "Budget — funding sources",
+  fundingTotalLabel: "Total",
+  fundingHint:
+    "Add what you can put toward tuition (family, savings, scholarship, loan). The total becomes your budget for affordability matching.",
+  fundingRemoveAria: "Remove {label}",
+  fundingSourcePlaceholder: "Source (e.g. Family)",
+  fundingAmountPlaceholder: "Amount/yr (USD)",
+  fundingAdd: "Add",
+
+  // Profile — max budget field
+  profileMaxBudget: "Max budget / year (USD)",
+  profileMaxBudgetPlaceholder: "e.g. 15000",
+
+  // Dashboard — empty states & match badges
+  dashNoDeadlines: "No deadlines yet. Track an application to see its deadline here.",
+  dashNoTopMatches:
+    "Add your grades on the matching page to see your real top university matches here.",
+  dashNoTopScholarships:
+    "Once scholarships are available for your profile, your best matches show here.",
+  dashEligible: "Eligible",
+  dashNotYet: "Not yet",
+  dashNotEligible: "Not eligible",
+
+  // University matches page
+  matchTitle: "University Matches",
+  matchDescriptionGuest: "See which programs you qualify for, ranked by fit.",
+  matchDescription: "Enter your academic info to see which programs you qualify for.",
+  matchGuestCtaTitle: "Create a free account to get matched",
+  matchGuestCtaDesc:
+    "Matching uses your grades and exam scores, so it needs a saved profile. Guests can browse, but matches require an account.",
+  matchGuestSignUp: "Sign up",
+  matchAcademicInfoTitle: "Your academic info",
+  matchAcademicInfoIntro:
+    "Add your subject grades and an exam score. We compare them against each program's published requirements — your data is saved to your profile.",
+  matchGradingSystem: "Grading system",
+  matchHighestDegree: "Highest degree",
+  matchSubjects: "Subjects",
+  matchSubjectPlaceholder: "Subject",
+  matchGradePlaceholder: "Grade",
+  matchRemoveSubject: "Remove subject",
+  matchAddSubject: "+ Add subject",
+  matchExam: "Exam",
+  matchScore: "Score",
+  matchScorePlaceholder: "e.g. 100",
+  matchMaxScore: "Max score",
+  matchMaxScorePlaceholder: "e.g. 120",
+  matchSaving: "Saving…",
+  matchSaveAndFind: "Save & Find Matches",
+  matchFinding: "Finding your matches…",
+  matchPromptSave: "Add your grades above and select “Save & Find Matches”.",
+  matchNoPrograms: "No programs available yet. Check back once programs are added.",
+  matchEligibleOf: "{eligible} eligible of {total} programs",
+  matchTuitionFree: "Tuition-free",
+  matchTuitionPerYear: "{amount} {currency}/yr",
+  matchPercentFit: "{fit}% fit",
+  matchPercentAcademic: "{score}% academic",
+  matchEligible: "Eligible",
+  matchNotYetEligible: "Not yet eligible",
+  matchAllMet: "✓ You meet all requirements.",
+  matchWhatsMissing: "What's missing",
+  matchNeedHave: "need {required}, have {actual}",
+  matchTracking: "✓ Tracking",
+  matchAdding: "Adding…",
+  matchTrackApplication: "+ Track application",
+
+  // My applications page
+  appsTitle: "My Applications",
+  appsDescription:
+    "Track every program you're applying to — status, deadlines, and notes in one place.",
+  appsNoDeadlineSet: "No deadline set",
+  appsPastDue: "Past due ({days}d ago)",
+  appsDueToday: "Due today",
+  appsDaysLeft: "{days}d left",
+  appsLoading: "Loading your applications…",
+  appsEmptyTitle: "No applications yet",
+  appsEmptyHintBefore: "Find programs that fit you and tap",
+  appsTrackApplicationQuoted: "“Track application”",
+  appsEmptyHintAfter: "to start a checklist with deadlines.",
+  appsFindMatches: "Find your matches →",
+  appsCountOne: "{count} application",
+  appsCountMany: "{count} applications",
+  appsStatus: "Status",
+  appsDeadline: "Deadline",
+  appsRemove: "Remove",
+  appsSubmitted: "Submitted {date}",
+  appsHideChecklist: "▾ Hide checklist",
+  appsShowChecklist: "▸ Checklist",
+
+  // Application checklist
+  checklistLoading: "Loading checklist…",
+  checklistDone: "{done}/{total} done",
+  checklistRemoveTask: "Remove task: {title}",
+  checklistAddPlaceholder: "Add a task…",
+  checklistAdd: "Add",
+
+  // University detail page
+  uniDetailBackToSearch: "Back to search",
+  uniDetailNoMatch: "No university matches “{slug}”.",
+  uniDetailReturnToSearch: "Return to search",
+  uniDetailUniversity: "University",
+  uniDetailCollege: "College",
+  uniDetailLanguages: "Languages: {languages}",
+  uniDetailApply: "Apply",
+  uniDetailTuitionPublic: "No tuition (public)",
+  uniDetailTuitionAnnual: "≈ {amount} / year",
+  uniDetailProgramFree: "Free / public",
+
+  // Onboarding banner
+  onboardingRegionLabel: "Get started",
+  onboardingTitle: "Welcome to ilmi 👋",
+  onboardingSub:
+    "Add your grades and one exam to unlock your university matches, admission chances, and scholarship fit — about a minute.",
+  onboardingCta: "Get matched →",
+  onboardingDismiss: "Dismiss",
 };
 
 export default en;

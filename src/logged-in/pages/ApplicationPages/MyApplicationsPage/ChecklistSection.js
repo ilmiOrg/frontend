@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
+import { useTranslation } from "../../../../hooks/useLanguage";
 import {
   getApplicationTasks,
   addApplicationTask,
@@ -9,6 +10,7 @@ import m from "./style.module.css";
 
 /** Per-application checklist: toggle/add/remove tasks with a progress bar. */
 const ChecklistSection = ({ applicationId }) => {
+  const { t } = useTranslation();
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [newTitle, setNewTitle] = useState("");
@@ -65,16 +67,16 @@ const ChecklistSection = ({ applicationId }) => {
     }
   };
 
-  const done = tasks.filter((t) => t.done).length;
+  const done = tasks.filter((task) => task.done).length;
   const pct = tasks.length ? Math.round((done / tasks.length) * 100) : 0;
 
-  if (loading) return <p className={m.checklistLoading}>Loading checklist…</p>;
+  if (loading) return <p className={m.checklistLoading}>{t("checklistLoading")}</p>;
 
   return (
     <div className={m.checklist}>
       <div className={m.checklistHead}>
         <span className={m.checklistProgressLabel}>
-          {done}/{tasks.length} done
+          {t("checklistDone").replace("{done}", done).replace("{total}", tasks.length)}
         </span>
         <div className={m.checklistBar}>
           <div className={m.checklistFill} style={{ "--fill": `${pct}%` }} />
@@ -82,17 +84,17 @@ const ChecklistSection = ({ applicationId }) => {
       </div>
       {error ? <p className={m.error}>{error}</p> : null}
       <ul className={m.taskList}>
-        {tasks.map((t) => (
-          <li key={t.taskId} className={m.taskItem}>
+        {tasks.map((task) => (
+          <li key={task.taskId} className={m.taskItem}>
             <label className={m.taskLabel}>
-              <input type="checkbox" checked={t.done} onChange={() => toggle(t)} />
-              <span className={t.done ? m.taskDone : ""}>{t.title}</span>
+              <input type="checkbox" checked={task.done} onChange={() => toggle(task)} />
+              <span className={task.done ? m.taskDone : ""}>{task.title}</span>
             </label>
             <button
               type="button"
               className={m.taskRemove}
-              aria-label={`Remove task: ${t.title}`}
-              onClick={() => remove(t.taskId)}
+              aria-label={t("checklistRemoveTask").replace("{title}", task.title)}
+              onClick={() => remove(task.taskId)}
             >
               ×
             </button>
@@ -102,13 +104,13 @@ const ChecklistSection = ({ applicationId }) => {
       <div className={m.taskAddRow}>
         <input
           className={m.taskAddInput}
-          placeholder="Add a task…"
+          placeholder={t("checklistAddPlaceholder")}
           value={newTitle}
           onChange={(e) => setNewTitle(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && add()}
         />
         <button type="button" className={m.taskAddBtn} disabled={busy || !newTitle.trim()} onClick={add}>
-          Add
+          {t("checklistAdd")}
         </button>
       </div>
     </div>

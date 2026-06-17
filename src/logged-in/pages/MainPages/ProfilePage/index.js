@@ -208,7 +208,7 @@ const ProfilePage = () => {
               />
             </div>
             <div className={styles.infoGroup}>
-              <label htmlFor="profile-budget">Max budget / year (USD)</label>
+              <label htmlFor="profile-budget">{t("profileMaxBudget")}</label>
               <input
                 id="profile-budget"
                 type="number"
@@ -217,7 +217,7 @@ const ProfilePage = () => {
                 onChange={(e) => setMaxBudget(e.target.value)}
                 className={styles.input}
                 disabled={loading || isGuest}
-                placeholder="e.g. 15000"
+                placeholder={t("profileMaxBudgetPlaceholder")}
               />
             </div>
           </div>

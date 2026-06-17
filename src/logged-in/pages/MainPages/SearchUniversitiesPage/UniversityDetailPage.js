@@ -17,14 +17,20 @@ function currencySymbol(currency) {
   return CURRENCY_SYMBOLS[currency] || `${currency} `;
 }
 
-function formatTuition(n, currency) {
-  if (n === 0) return "No tuition (public)";
-  return `≈ ${currencySymbol(currency)}${n.toLocaleString()} / year`;
+function formatTuition(n, currency, t) {
+  if (n === 0) return t("uniDetailTuitionPublic");
+  return t("uniDetailTuitionAnnual").replace(
+    "{amount}",
+    `${currencySymbol(currency)}${n.toLocaleString()}`
+  );
 }
 
-function formatProgramTuition(n, currency) {
-  if (n === 0) return "Free / public";
-  return `≈ ${currencySymbol(currency)}${n.toLocaleString()} / year`;
+function formatProgramTuition(n, currency, t) {
+  if (n === 0) return t("uniDetailProgramFree");
+  return t("uniDetailTuitionAnnual").replace(
+    "{amount}",
+    `${currencySymbol(currency)}${n.toLocaleString()}`
+  );
 }
 
 export default function UniversityDetailPage() {
@@ -132,14 +138,14 @@ export default function UniversityDetailPage() {
         title={t("uniDetailNotFound")}
         actions={
           <Link className={styles.backLink} to="/dashboard/search/universities">
-            Back to search
+            {t("uniDetailBackToSearch")}
           </Link>
         }
       >
         <div className={styles.notFound}>
-          <p>No university matches “{slug}”.</p>
+          <p>{t("uniDetailNoMatch").replace("{slug}", slug)}</p>
           <Link className={styles.backLinkLarge} to="/dashboard/search/universities">
-            Return to search
+            {t("uniDetailReturnToSearch")}
           </Link>
         </div>
       </PageTemplate>
@@ -184,11 +190,13 @@ export default function UniversityDetailPage() {
           </div>
           <p className={styles.locationLine}>
             {u.city}, {u.country} ·{" "}
-            {u.type === "university" ? "University" : "College"}
+            {u.type === "university" ? t("uniDetailUniversity") : t("uniDetailCollege")}
           </p>
-          <p className={styles.tuition}>{formatTuition(u.tuitionAnnual, u.currency)}</p>
+          <p className={styles.tuition}>{formatTuition(u.tuitionAnnual, u.currency, t)}</p>
           {u.languages?.length > 0 && (
-            <p className={styles.langs}>Languages: {u.languages.join(", ")}</p>
+            <p className={styles.langs}>
+              {t("uniDetailLanguages").replace("{languages}", u.languages.join(", "))}
+            </p>
           )}
 
           {(u.fields || []).length > 0 && (
@@ -212,7 +220,7 @@ export default function UniversityDetailPage() {
               className={`${styles.btn} ${styles.btnPrimary}`}
               onClick={() => navigate("/dashboard/applications/timeline")}
             >
-              Apply
+              {t("uniDetailApply")}
             </button>
             <button
               type="button"
@@ -245,7 +253,7 @@ export default function UniversityDetailPage() {
                       {p.durationYears ? ` · ${p.durationYears} yr` : ""}
                     </p>
                     <p className={styles.programTuition}>
-                      {formatProgramTuition(p.tuitionPerYear, p.currency)}
+                      {formatProgramTuition(p.tuitionPerYear, p.currency, t)}
                     </p>
                   </Link>
                 ))}

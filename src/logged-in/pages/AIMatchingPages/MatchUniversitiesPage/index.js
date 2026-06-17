@@ -4,6 +4,7 @@ import PageTemplate from "../../../shared/PageTemplate";
 import { TargetIcon, GraduationCapIcon } from "../../../shared/Icons";
 import { SelectField, NumberField, AccentButton } from "../../../../ui-components";
 import { useAuth } from "../../../../contexts/AuthContext";
+import { useTranslation } from "../../../../hooks/useLanguage";
 import { getMatches } from "../../../../api/matches";
 import { addTranscript, addExam } from "../../../../api/academics";
 import { getApplications, createApplication } from "../../../../api/applications";
@@ -39,15 +40,16 @@ const prettyEnum = (value) =>
     .replace(/_/g, " ")
     .replace(/\b\w/g, (c) => c.toUpperCase());
 
-const formatTuition = (u) => {
+const formatTuition = (u, t) => {
   if (u == null || u.avgTuitionPerYear == null) return null;
   const amount = Number(u.avgTuitionPerYear);
-  if (amount === 0) return "Tuition-free";
+  if (amount === 0) return t("matchTuitionFree");
   return `${amount.toLocaleString()} ${u.currency || ""}/yr`.trim();
 };
 
 const MatchUniversitiesPage = () => {
   const { user, isAuthenticated } = useAuth();
+  const { t } = useTranslation();
   const isGuest = user?.isGuest === true;
 
   const [gradingSystem, setGradingSystem] = useState("GPA_4");
@@ -178,20 +180,19 @@ const MatchUniversitiesPage = () => {
     return (
       <PageTemplate
         icon={<TargetIcon size={22} />}
-        title="University Matches"
-        description="See which programs you qualify for, ranked by fit."
+        title={t("matchTitle")}
+        description={t("matchDescriptionGuest")}
       >
         <div className={s.layout}>
           <div className={s.ctaPanel}>
             <div className={s.ctaBody}>
-              <h3 className={s.ctaTitle}>Create a free account to get matched</h3>
+              <h3 className={s.ctaTitle}>{t("matchGuestCtaTitle")}</h3>
               <p className={s.ctaDesc}>
-                Matching uses your grades and exam scores, so it needs a saved
-                profile. Guests can browse, but matches require an account.
+                {t("matchGuestCtaDesc")}
               </p>
             </div>
             <Link to="/register" className={s.ctaBtn}>
-              Sign up
+              {t("matchGuestSignUp")}
             </Link>
           </div>
         </div>
@@ -202,52 +203,50 @@ const MatchUniversitiesPage = () => {
   return (
     <PageTemplate
       icon={<TargetIcon size={22} />}
-      title="University Matches"
-      description="Enter your academic info to see which programs you qualify for."
+      title={t("matchTitle")}
+      description={t("matchDescription")}
     >
       <div className={s.layout}>
         {/* Academic info */}
         <div className={s.introPanel}>
-          <h3 className={s.sectionLabel}>Your academic info</h3>
+          <h3 className={s.sectionLabel}>{t("matchAcademicInfoTitle")}</h3>
           <p className={s.introText}>
-            Add your subject grades and an exam score. We compare them against
-            each program's published requirements — your data is saved to your
-            profile.
+            {t("matchAcademicInfoIntro")}
           </p>
 
           <div className={m.formGrid}>
             <SelectField
-              label="Grading system"
+              label={t("matchGradingSystem")}
               value={gradingSystem}
               onChange={setGradingSystem}
               options={GRADING_OPTIONS}
             />
             <SelectField
-              label="Highest degree"
+              label={t("matchHighestDegree")}
               value={degree}
               onChange={setDegree}
               options={DEGREE_OPTIONS}
             />
           </div>
 
-          <p className={m.subjectsLabel}>Subjects</p>
+          <p className={m.subjectsLabel}>{t("matchSubjects")}</p>
           {subjects.map((row, index) => (
             <div key={index} className={m.subjectRow}>
               <input
                 className={m.subjectName}
-                placeholder="Subject"
+                placeholder={t("matchSubjectPlaceholder")}
                 value={row.name}
                 onChange={(e) => updateSubject(index, "name", e.target.value)}
               />
               <NumberField
                 value={row.grade}
-                placeholder="Grade"
+                placeholder={t("matchGradePlaceholder")}
                 onChange={(v) => updateSubject(index, "grade", v)}
               />
               <button
                 type="button"
                 className={m.iconBtn}
-                aria-label="Remove subject"
+                aria-label={t("matchRemoveSubject")}
                 onClick={() => removeSubject(index)}
               >
                 ×
@@ -255,12 +254,12 @@ const MatchUniversitiesPage = () => {
             </div>
           ))}
           <button type="button" className={m.linkBtn} onClick={addSubject}>
-            + Add subject
+            {t("matchAddSubject")}
           </button>
 
           <div className={m.formGrid}>
             <SelectField
-              label="Exam"
+              label={t("matchExam")}
               value={examType}
               onChange={setExamType}
               options={EXAM_OPTIONS}
@@ -268,15 +267,15 @@ const MatchUniversitiesPage = () => {
             {examType !== "none" && (
               <>
                 <NumberField
-                  label="Score"
+                  label={t("matchScore")}
                   value={examScore}
-                  placeholder="e.g. 100"
+                  placeholder={t("matchScorePlaceholder")}
                   onChange={setExamScore}
                 />
                 <NumberField
-                  label="Max score"
+                  label={t("matchMaxScore")}
                   value={examMaxScore}
-                  placeholder="e.g. 120"
+                  placeholder={t("matchMaxScorePlaceholder")}
                   onChange={setExamMaxScore}
                 />
               </>
@@ -285,7 +284,7 @@ const MatchUniversitiesPage = () => {
 
           <div className={m.saveRow}>
             <AccentButton onClick={saving ? undefined : saveAndMatch}>
-              {saving ? "Saving…" : "Save & Find Matches"}
+              {saving ? t("matchSaving") : t("matchSaveAndFind")}
             </AccentButton>
             {error && <p className={m.error}>{error}</p>}
           </div>
@@ -295,24 +294,26 @@ const MatchUniversitiesPage = () => {
 
         {/* Results */}
         {loading ? (
-          <p className={s.emptyState}>Finding your matches…</p>
+          <p className={s.emptyState}>{t("matchFinding")}</p>
         ) : !hasSearched ? (
           <p className={s.emptyState}>
-            Add your grades above and select “Save &amp; Find Matches”.
+            {t("matchPromptSave")}
           </p>
         ) : results.length === 0 ? (
           <p className={s.emptyState}>
-            No programs available yet. Check back once programs are added.
+            {t("matchNoPrograms")}
           </p>
         ) : (
           <>
             <h3 className={s.sectionLabel}>
-              {eligibleCount} eligible of {results.length} programs
+              {t("matchEligibleOf")
+                .replace("{eligible}", eligibleCount)
+                .replace("{total}", results.length)}
             </h3>
             <div className={m.matchList}>
               {results.map((match) => {
                 const u = match.university || {};
-                const tuition = formatTuition(u);
+                const tuition = formatTuition(u, t);
                 const unmet = (match.criteria || []).filter(
                   (c) => c.hard && !c.met
                 );
@@ -348,17 +349,17 @@ const MatchUniversitiesPage = () => {
 
                     <div className={s.cardMeta}>
                       <span className={`${s.metaBadge} ${s.highlight}`}>
-                        {fit}% fit
+                        {t("matchPercentFit").replace("{fit}", fit)}
                       </span>
                       <span className={s.metaBadge}>
-                        {match.matchScore}% academic
+                        {t("matchPercentAcademic").replace("{score}", match.matchScore)}
                       </span>
                       <span
                         className={`${s.metaBadge} ${
                           match.eligible ? s.success : ""
                         }`}
                       >
-                        {match.eligible ? "Eligible" : "Not yet eligible"}
+                        {match.eligible ? t("matchEligible") : t("matchNotYetEligible")}
                       </span>
                       {tuition && <span className={s.metaBadge}>{tuition}</span>}
                     </div>
@@ -396,15 +397,17 @@ const MatchUniversitiesPage = () => {
                     )}
 
                     {match.eligible ? (
-                      <p className={m.allMet}>✓ You meet all requirements.</p>
+                      <p className={m.allMet}>{t("matchAllMet")}</p>
                     ) : (
                       <div>
-                        <p className={m.missingLabel}>What's missing</p>
+                        <p className={m.missingLabel}>{t("matchWhatsMissing")}</p>
                         <ul className={m.missingList}>
                           {unmet.map((c, i) => (
                             <li key={i}>
-                              <strong>{c.label}:</strong> need {c.required},
-                              have {c.actual}
+                              <strong>{c.label}:</strong>{" "}
+                              {t("matchNeedHave")
+                                .replace("{required}", c.required)
+                                .replace("{actual}", c.actual)}
                             </li>
                           ))}
                         </ul>
@@ -413,7 +416,7 @@ const MatchUniversitiesPage = () => {
 
                     <div className={m.trackRow}>
                       {trackedProgramIds.has(match.programId) ? (
-                        <span className={m.trackedBadge}>✓ Tracking</span>
+                        <span className={m.trackedBadge}>{t("matchTracking")}</span>
                       ) : (
                         <button
                           type="button"
@@ -421,7 +424,7 @@ const MatchUniversitiesPage = () => {
                           disabled={trackingId === match.programId}
                           onClick={() => trackApplication(match.programId)}
                         >
-                          {trackingId === match.programId ? "Adding…" : "+ Track application"}
+                          {trackingId === match.programId ? t("matchAdding") : t("matchTrackApplication")}
                         </button>
                       )}
                     </div>

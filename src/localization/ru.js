@@ -1116,6 +1116,135 @@ const ru = {
 
   errFailedLoadFavorites: "Не удалось загрузить избранное.",
   errFailedRemoveFavorite: "Не удалось удалить из избранного.",
+
+  // Profile — interests section
+  interestsTitle: "Ваши интересы",
+  interestsIntro:
+    "Укажите интересующие вас уровни образования и направления. Мы используем это для подбора вариантов.",
+  interestsDegreeLabel: "Интересующая степень",
+  interestsFieldLabel: "Интересующее направление",
+  interestsAdded: "Добавлено",
+  interestsAddDegree: "Добавить степень",
+  interestsAddField: "Добавить направление",
+  interestsNoDegrees: "Пока нет степеней",
+  interestsNoFields: "Пока нет направлений",
+  interestsRemoveAria: "удалить",
+
+  // Profile — funding section
+  fundingTitle: "Бюджет — источники финансирования",
+  fundingTotalLabel: "Итого",
+  fundingHint:
+    "Добавьте, что можете направить на обучение (семья, накопления, стипендия, кредит). Сумма станет вашим бюджетом для подбора по доступности.",
+  fundingRemoveAria: "Удалить {label}",
+  fundingSourcePlaceholder: "Источник (напр. Семья)",
+  fundingAmountPlaceholder: "Сумма/год (USD)",
+  fundingAdd: "Добавить",
+
+  // Profile — max budget field
+  profileMaxBudget: "Макс. бюджет / год (USD)",
+  profileMaxBudgetPlaceholder: "напр. 15000",
+
+  // Dashboard — empty states & match badges
+  dashNoDeadlines: "Пока нет дедлайнов. Отслеживайте заявку, чтобы её дедлайн появился здесь.",
+  dashNoTopMatches:
+    "Добавьте свои оценки на странице подбора, чтобы увидеть здесь ваши лучшие совпадения по университетам.",
+  dashNoTopScholarships:
+    "Как только появятся стипендии для вашего профиля, здесь отобразятся лучшие совпадения.",
+  dashEligible: "Подходит",
+  dashNotYet: "Пока нет",
+  dashNotEligible: "Не подходит",
+
+  // University matches page
+  matchTitle: "Совпадения университетов",
+  matchDescriptionGuest: "Узнайте, на какие программы вы проходите, с ранжированием по соответствию.",
+  matchDescription: "Введите свои академические данные, чтобы увидеть, на какие программы вы проходите.",
+  matchGuestCtaTitle: "Создайте бесплатный аккаунт, чтобы получить совпадения",
+  matchGuestCtaDesc:
+    "Подбор использует ваши оценки и баллы экзаменов, поэтому нужен сохранённый профиль. Гости могут просматривать, но для совпадений нужен аккаунт.",
+  matchGuestSignUp: "Зарегистрироваться",
+  matchAcademicInfoTitle: "Ваши академические данные",
+  matchAcademicInfoIntro:
+    "Добавьте оценки по предметам и балл за экзамен. Мы сравним их с опубликованными требованиями каждой программы — ваши данные сохраняются в профиле.",
+  matchGradingSystem: "Система оценивания",
+  matchHighestDegree: "Высшая степень",
+  matchSubjects: "Предметы",
+  matchSubjectPlaceholder: "Предмет",
+  matchGradePlaceholder: "Оценка",
+  matchRemoveSubject: "Удалить предмет",
+  matchAddSubject: "+ Добавить предмет",
+  matchExam: "Экзамен",
+  matchScore: "Балл",
+  matchScorePlaceholder: "напр. 100",
+  matchMaxScore: "Макс. балл",
+  matchMaxScorePlaceholder: "напр. 120",
+  matchSaving: "Сохранение…",
+  matchSaveAndFind: "Сохранить и найти совпадения",
+  matchFinding: "Поиск совпадений…",
+  matchPromptSave: "Добавьте оценки выше и нажмите «Сохранить и найти совпадения».",
+  matchNoPrograms: "Пока нет доступных программ. Зайдите позже, когда программы будут добавлены.",
+  matchEligibleOf: "{eligible} подходящих из {total} программ",
+  matchTuitionFree: "Без оплаты обучения",
+  matchTuitionPerYear: "{amount} {currency}/год",
+  matchPercentFit: "{fit}% соответствие",
+  matchPercentAcademic: "{score}% академически",
+  matchEligible: "Подходит",
+  matchNotYetEligible: "Пока не подходит",
+  matchAllMet: "✓ Вы соответствуете всем требованиям.",
+  matchWhatsMissing: "Чего не хватает",
+  matchNeedHave: "нужно {required}, есть {actual}",
+  matchTracking: "✓ Отслеживается",
+  matchAdding: "Добавление…",
+  matchTrackApplication: "+ Отслеживать заявку",
+
+  // My applications page
+  appsTitle: "Мои заявки",
+  appsDescription:
+    "Отслеживайте каждую программу, на которую подаёте: статус, дедлайны и заметки в одном месте.",
+  appsNoDeadlineSet: "Дедлайн не задан",
+  appsPastDue: "Просрочено ({days} дн. назад)",
+  appsDueToday: "Срок сегодня",
+  appsDaysLeft: "осталось {days} дн.",
+  appsLoading: "Загрузка ваших заявок…",
+  appsEmptyTitle: "Пока нет заявок",
+  appsEmptyHintBefore: "Найдите подходящие программы и нажмите",
+  appsTrackApplicationQuoted: "«Отслеживать заявку»",
+  appsEmptyHintAfter: "чтобы начать чек-лист с дедлайнами.",
+  appsFindMatches: "Найти совпадения →",
+  appsCountOne: "{count} заявка",
+  appsCountMany: "{count} заявок",
+  appsStatus: "Статус",
+  appsDeadline: "Дедлайн",
+  appsRemove: "Удалить",
+  appsSubmitted: "Отправлено {date}",
+  appsHideChecklist: "▾ Скрыть чек-лист",
+  appsShowChecklist: "▸ Чек-лист",
+
+  // Application checklist
+  checklistLoading: "Загрузка чек-листа…",
+  checklistDone: "{done}/{total} выполнено",
+  checklistRemoveTask: "Удалить задачу: {title}",
+  checklistAddPlaceholder: "Добавить задачу…",
+  checklistAdd: "Добавить",
+
+  // University detail page
+  uniDetailBackToSearch: "Назад к поиску",
+  uniDetailNoMatch: "Нет университетов по запросу «{slug}».",
+  uniDetailReturnToSearch: "Вернуться к поиску",
+  uniDetailUniversity: "Университет",
+  uniDetailCollege: "Колледж",
+  uniDetailLanguages: "Языки: {languages}",
+  uniDetailApply: "Подать заявку",
+  uniDetailTuitionPublic: "Без оплаты (государственный)",
+  uniDetailTuitionAnnual: "≈ {amount} / год",
+  uniDetailProgramFree: "Бесплатно / государственный",
+
+  // Onboarding banner
+  onboardingRegionLabel: "Начать",
+  onboardingTitle: "Добро пожаловать в ilmi 👋",
+  onboardingSub:
+    "Добавьте оценки и один экзамен, чтобы открыть совпадения университетов, шансы на поступление и подбор стипендий — около минуты.",
+  onboardingCta: "Подобрать →",
+  onboardingDismiss: "Закрыть",
 };
 
 export default ru;

@@ -482,7 +482,7 @@ const DashboardPage = () => {
                 </div>
                 {deadlines.length === 0 ? (
                   <p className={`${styles.mutedNote} ${styles.mutedNoteTop}`}>
-                    No deadlines yet. Track an application to see its deadline here.
+                    {t("dashNoDeadlines")}
                   </p>
                 ) : (
                   <div className={styles.deadlineList}>
@@ -742,7 +742,7 @@ const DashboardPage = () => {
               </div>
               {topMatches.length === 0 ? (
                 <p className={styles.mutedNote}>
-                  Add your grades on the matching page to see your real top university matches here.
+                  {t("dashNoTopMatches")}
                 </p>
               ) : (
                 <div className={styles.realMatchGrid}>
@@ -759,7 +759,7 @@ const DashboardPage = () => {
                         <div className={styles.realMatchTop}>
                           <span className={styles.realMatchScore}>{score}%</span>
                           <span className={match.eligible ? styles.realMatchElig : styles.realMatchInelig}>
-                            {match.eligible ? "Eligible" : "Not yet"}
+                            {match.eligible ? t("dashEligible") : t("dashNotYet")}
                           </span>
                         </div>
                         <p className={styles.realMatchName}>{u.name}</p>
@@ -787,7 +787,7 @@ const DashboardPage = () => {
               </div>
               {topScholarships.length === 0 ? (
                 <p className={styles.mutedNote}>
-                  Once scholarships are available for your profile, your best matches show here.
+                  {t("dashNoTopScholarships")}
                 </p>
               ) : (
                 <div className={styles.realMatchGrid}>
@@ -800,7 +800,7 @@ const DashboardPage = () => {
                     >
                       <div className={styles.realMatchTop}>
                         <span className={sc.eligible ? styles.realMatchElig : styles.realMatchInelig}>
-                          {sc.eligible ? "Eligible" : "Not eligible"}
+                          {sc.eligible ? t("dashEligible") : t("dashNotEligible")}
                         </span>
                       </div>
                       <p className={styles.realMatchName}>{sc.name}</p>

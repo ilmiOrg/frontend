@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
+import { useTranslation } from "../../../../hooks/useLanguage";
 import { getFunding, addFundingSource, deleteFundingSource } from "../../../../api/funding";
 import styles from "./fundingStyle.module.css";
 
@@ -7,6 +8,7 @@ import styles from "./fundingStyle.module.css";
  * (used by affordability matching). Replaces guessing a single number.
  */
 const FundingSection = ({ disabled, onTotalChange }) => {
+  const { t } = useTranslation();
   const [sources, setSources] = useState([]);
   const [total, setTotal] = useState(0);
   const [currency, setCurrency] = useState("USD");
@@ -67,14 +69,13 @@ const FundingSection = ({ disabled, onTotalChange }) => {
   return (
     <div className={styles.section}>
       <div className={styles.head}>
-        <h3 className={styles.title}>Budget — funding sources</h3>
+        <h3 className={styles.title}>{t("fundingTitle")}</h3>
         <span className={styles.total}>
-          Total: {Number(total).toLocaleString()} {currency}/yr
+          {t("fundingTotalLabel")}: {Number(total).toLocaleString()} {currency}/yr
         </span>
       </div>
       <p className={styles.hint}>
-        Add what you can put toward tuition (family, savings, scholarship, loan). The total becomes
-        your budget for affordability matching.
+        {t("fundingHint")}
       </p>
       {error ? <p className={styles.error}>{error}</p> : null}
 
@@ -89,7 +90,7 @@ const FundingSection = ({ disabled, onTotalChange }) => {
               <button
                 type="button"
                 className={styles.remove}
-                aria-label={`Remove ${srcItem.label}`}
+                aria-label={t("fundingRemoveAria").replace("{label}", srcItem.label)}
                 disabled={disabled || busy}
                 onClick={() => remove(srcItem.id)}
               >
@@ -103,7 +104,7 @@ const FundingSection = ({ disabled, onTotalChange }) => {
       <div className={styles.addRow}>
         <input
           className={styles.input}
-          placeholder="Source (e.g. Family)"
+          placeholder={t("fundingSourcePlaceholder")}
           value={label}
           disabled={disabled || busy}
           onChange={(e) => setLabel(e.target.value)}
@@ -112,7 +113,7 @@ const FundingSection = ({ disabled, onTotalChange }) => {
           className={styles.amount}
           type="number"
           min="0"
-          placeholder="Amount/yr (USD)"
+          placeholder={t("fundingAmountPlaceholder")}
           value={amount}
           disabled={disabled || busy}
           onChange={(e) => setAmount(e.target.value)}
@@ -124,7 +125,7 @@ const FundingSection = ({ disabled, onTotalChange }) => {
           disabled={disabled || busy || !label.trim() || amount === ""}
           onClick={add}
         >
-          Add
+          {t("fundingAdd")}
         </button>
       </div>
     </div>

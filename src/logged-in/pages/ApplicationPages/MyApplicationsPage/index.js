@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import PageTemplate from "../../../shared/PageTemplate";
+import { useTranslation } from "../../../../hooks/useLanguage";
 import { GraduationCapIcon } from "../../../shared/Icons";
 import { SelectField } from "../../../../ui-components";
 import {
@@ -29,17 +30,20 @@ const daysUntil = (dateStr) => {
   return Math.round((d - today) / 86400000);
 };
 
-const deadlineLabel = (dateStr) => {
+const deadlineLabel = (dateStr, t) => {
   const days = daysUntil(dateStr);
-  if (days === null) return { text: "No deadline set", tone: "none" };
-  if (days < 0) return { text: `Past due (${Math.abs(days)}d ago)`, tone: "urgent" };
-  if (days === 0) return { text: "Due today", tone: "urgent" };
-  if (days <= 14) return { text: `${days}d left`, tone: "urgent" };
-  if (days <= 45) return { text: `${days}d left`, tone: "warning" };
-  return { text: `${days}d left`, tone: "normal" };
+  const daysLeft = (n) => t("appsDaysLeft").replace("{days}", n);
+  if (days === null) return { text: t("appsNoDeadlineSet"), tone: "none" };
+  if (days < 0)
+    return { text: t("appsPastDue").replace("{days}", Math.abs(days)), tone: "urgent" };
+  if (days === 0) return { text: t("appsDueToday"), tone: "urgent" };
+  if (days <= 14) return { text: daysLeft(days), tone: "urgent" };
+  if (days <= 45) return { text: daysLeft(days), tone: "warning" };
+  return { text: daysLeft(days), tone: "normal" };
 };
 
 const MyApplicationsPage = () => {
+  const { t } = useTranslation();
   const [apps, setApps] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -102,32 +106,37 @@ const MyApplicationsPage = () => {
   return (
     <PageTemplate
       icon={<GraduationCapIcon size={22} />}
-      title="My Applications"
-      description="Track every program you're applying to — status, deadlines, and notes in one place."
+      title={t("appsTitle")}
+      description={t("appsDescription")}
     >
       <div className={s.layout}>
         {loading ? (
-          <p className={s.emptyState}>Loading your applications…</p>
+          <p className={s.emptyState}>{t("appsLoading")}</p>
         ) : error ? (
           <p className={s.emptyState}>{error}</p>
         ) : apps.length === 0 ? (
           <div className={s.introPanel}>
-            <h3 className={s.sectionLabel}>No applications yet</h3>
+            <h3 className={s.sectionLabel}>{t("appsEmptyTitle")}</h3>
             <p className={s.introText}>
-              Find programs that fit you and tap <strong>“Track application”</strong> to start a
-              checklist with deadlines.
+              {t("appsEmptyHintBefore")} <strong>{t("appsTrackApplicationQuoted")}</strong>{" "}
+              {t("appsEmptyHintAfter")}
             </p>
             <Link to="/dashboard/ai/match-universities" className={m.cta}>
-              Find your matches →
+              {t("appsFindMatches")}
             </Link>
           </div>
         ) : (
           <>
-            <h3 className={s.sectionLabel}>{apps.length} application{apps.length === 1 ? "" : "s"}</h3>
+            <h3 className={s.sectionLabel}>
+              {(apps.length === 1 ? t("appsCountOne") : t("appsCountMany")).replace(
+                "{count}",
+                apps.length
+              )}
+            </h3>
             <div className={m.list}>
               {apps.map((a) => {
                 const u = a.university || {};
-                const dl = deadlineLabel(a.deadline);
+                const dl = deadlineLabel(a.deadline, t);
                 return (
                   <div className={s.contentCard} key={a.applicationId}>
                     <div className={s.cardHeader}>
@@ -148,13 +157,13 @@ const MyApplicationsPage = () => {
 
                     <div className={m.controls}>
                       <SelectField
-                        label="Status"
+                        label={t("appsStatus")}
                         value={a.status}
                         onChange={(v) => changeStatus(a.applicationId, v)}
                         options={STATUS_OPTIONS}
                       />
                       <label className={m.dateField}>
-                        <span className={m.dateLabel}>Deadline</span>
+                        <span className={m.dateLabel}>{t("appsDeadline")}</span>
                         <input
                           type="date"
                           className={m.dateInput}
@@ -169,13 +178,15 @@ const MyApplicationsPage = () => {
                         disabled={busyId === a.applicationId}
                         onClick={() => remove(a.applicationId)}
                       >
-                        Remove
+                        {t("appsRemove")}
                       </button>
                     </div>
 
                     {a.notes ? <p className={m.notes}>{a.notes}</p> : null}
                     {a.submittedDate ? (
-                      <p className={m.submitted}>Submitted {a.submittedDate}</p>
+                      <p className={m.submitted}>
+                        {t("appsSubmitted").replace("{date}", a.submittedDate)}
+                      </p>
                     ) : null}
 
                     <button
@@ -186,7 +197,7 @@ const MyApplicationsPage = () => {
                         setExpandedId(expandedId === a.applicationId ? null : a.applicationId)
                       }
                     >
-                      {expandedId === a.applicationId ? "▾ Hide checklist" : "▸ Checklist"}
+                      {expandedId === a.applicationId ? t("appsHideChecklist") : t("appsShowChecklist")}
                     </button>
                     {expandedId === a.applicationId ? (
                       <ChecklistSection applicationId={a.applicationId} />
