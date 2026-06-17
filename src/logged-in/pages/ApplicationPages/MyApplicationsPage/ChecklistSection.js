@@ -19,6 +19,7 @@ const ChecklistSection = ({ applicationId }) => {
 
   const load = useCallback(async () => {
     setLoading(true);
+    setError(null);
     try {
       const data = await getApplicationTasks(applicationId);
       setTasks(Array.isArray(data) ? data : []);
@@ -34,6 +35,7 @@ const ChecklistSection = ({ applicationId }) => {
   }, [load]);
 
   const toggle = async (task) => {
+    setError(null);
     setTasks((rows) => rows.map((r) => (r.taskId === task.taskId ? { ...r, done: !r.done } : r)));
     try {
       await updateApplicationTask(applicationId, task.taskId, { done: !task.done });
@@ -47,6 +49,7 @@ const ChecklistSection = ({ applicationId }) => {
     const title = newTitle.trim();
     if (!title) return;
     setBusy(true);
+    setError(null);
     try {
       const created = await addApplicationTask(applicationId, title);
       setTasks((rows) => [...rows, created]);

@@ -29,6 +29,12 @@ const SendInfoPage = () => {
     document.head.appendChild(script);
   }, []);
 
+  // Switching tabs swaps the whole field set — clear so fields from a previous tab
+  // don't ride along in the submitted payload.
+  useEffect(() => {
+    setFormData({});
+  }, [activeTab]);
+
   const handleBack = () => {
     navigate("/dashboard");
   };
