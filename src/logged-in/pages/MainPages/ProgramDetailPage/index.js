@@ -30,12 +30,22 @@ const ProgramDetailPage = () => {
   }, [isFavorite]);
 
   useEffect(() => {
+    let active = true; // ignore a stale response if the id changed before it resolved
     setLoading(true);
     setError(null);
     getProgramById(id)
-      .then(setProgram)
-      .catch(() => setError("notFound"))
-      .finally(() => setLoading(false));
+      .then((p) => {
+        if (active) setProgram(p);
+      })
+      .catch(() => {
+        if (active) setError("notFound");
+      })
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+    return () => {
+      active = false;
+    };
   }, [id]);
 
   useEffect(() => {

@@ -41,18 +41,24 @@ export default function UniversityDetailPage() {
       setLoadingUniversity(false);
       return;
     }
+    let active = true; // ignore a stale response if the slug changed before it resolved
+    setLoadingUniversity(true);
     getUniversities()
       .then((items) => {
+        if (!active) return;
         const mapped = items.map(mapUniversityFromApi);
         const found = mapped.find((item) => item.slug === slug) || null;
         setUniversity(found);
       })
       .catch(() => {
-        setUniversity(null);
+        if (active) setUniversity(null);
       })
       .finally(() => {
-        setLoadingUniversity(false);
+        if (active) setLoadingUniversity(false);
       });
+    return () => {
+      active = false;
+    };
   }, [slug]);
 
 
