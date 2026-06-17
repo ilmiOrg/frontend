@@ -21,7 +21,9 @@ const SendInfoPage = () => {
       "https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js";
     script.onload = () => {
       if (window.emailjs) {
-        window.emailjs.init("I_m3b6E2nY4M58E_k");
+        window.emailjs.init(
+          process.env.REACT_APP_EMAILJS_KEY || "I_m3b6E2nY4M58E_k"
+        );
       }
     };
     document.head.appendChild(script);
