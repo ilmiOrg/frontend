@@ -42,18 +42,27 @@ export default function FieldUniversityDetailPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let active = true; // ignore a stale response if the slug changed before it resolved
+    setLoading(true);
     Promise.all([getUniversityFields(), getUniversities()])
       .then(([fieldsData, uniData]) => {
+        if (!active) return;
         setAllFields(fieldsData);
         const mapped = uniData.map(mapUniversityFromApi);
         const found = mapped.find((u) => u.slug === uniSlug) || null;
         setUniversity(found);
       })
       .catch(() => {
+        if (!active) return;
         setAllFields([]);
         setUniversity(null);
       })
-      .finally(() => setLoading(false));
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+    return () => {
+      active = false;
+    };
   }, [uniSlug]);
 
   const selectedFields = useMemo(() => {

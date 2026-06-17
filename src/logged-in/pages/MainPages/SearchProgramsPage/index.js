@@ -81,6 +81,7 @@ const SearchProgramsPage = () => {
   }, [isGuest]);
 
   useEffect(() => {
+    let active = true; // ignore a stale response if filters changed before it resolved
     setLoading(true);
     const params = {};
     if (debouncedNameQuery.trim()) params.name = debouncedNameQuery.trim();
@@ -92,9 +93,18 @@ const SearchProgramsPage = () => {
     if (tuitionMax !== "") params.maxTuition = tuitionMax;
 
     searchPrograms(params)
-      .then(setPrograms)
-      .catch(() => setPrograms([]))
-      .finally(() => setLoading(false));
+      .then((d) => {
+        if (active) setPrograms(d);
+      })
+      .catch(() => {
+        if (active) setPrograms([]);
+      })
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+    return () => {
+      active = false;
+    };
   }, [debouncedNameQuery, categoryId, countryId, degreeLevel, language, tuitionMin, tuitionMax]);
 
   const categoryOptions = useMemo(
