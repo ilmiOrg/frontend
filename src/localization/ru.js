@@ -204,6 +204,13 @@ const ru = {
   favoriteProgramsEmpty: "У вас пока нет избранных программ.",
   favoriteProgramsRemove: "Удалить",
 
+  // Public landing nav
+  navFeatures: "Возможности",
+  navAbout: "О нас",
+  navFaq: "Вопросы",
+  navContact: "Контакты",
+  navLogin: "Войти",
+  navGetStarted: "Начать",
   // Shared page labels
   comingSoon: "Скоро",
   getStarted: "Начать",

@@ -202,6 +202,13 @@ const en = {
   favoriteProgramsEmpty: "You have no favorite programs yet.",
   favoriteProgramsRemove: "Remove",
 
+  // Public landing nav
+  navFeatures: "Features",
+  navAbout: "About Us",
+  navFaq: "FAQ",
+  navContact: "Contact Us",
+  navLogin: "Log in",
+  navGetStarted: "Get started",
   // Shared page labels
   comingSoon: "Coming Soon",
   getStarted: "Get Started",

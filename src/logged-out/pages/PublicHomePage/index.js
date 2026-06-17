@@ -224,35 +224,35 @@ const PublicHomePage = () => {
                 className={styles.navLink}
                 onClick={() => scrollToSection(featuresRef)}
               >
-                Features
+                {t("navFeatures")}
               </button>
               <button
                 className={styles.navLink}
                 onClick={() => scrollToSection(aboutRef)}
               >
-                About Us
+                {t("navAbout")}
               </button>
               <button
                 className={styles.navLink}
                 onClick={() => scrollToSection(faqRef)}
               >
-                FAQ
+                {t("navFaq")}
               </button>
               <button
                 className={styles.navLink}
                 onClick={() => scrollToSection(contactRef)}
               >
-                Contact Us
+                {t("navContact")}
               </button>
             </div>
           </div>
           <div className={styles.navContainerRight}>
             <div className={styles.navButtons}>
               <button onClick={handleLogin} className={styles.btnGhost}>
-                Log in
+                {t("navLogin")}
               </button>
               <button onClick={handleGetStarted} className={styles.btnPrimary}>
-                Get started
+                {t("navGetStarted")}
               </button>
               <div className={styles.navControls}>
                 <LanguageSwitcher className={styles.navLang} />
