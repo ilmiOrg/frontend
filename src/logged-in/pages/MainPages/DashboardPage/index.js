@@ -52,11 +52,6 @@ function computeStatusCounts(applications) {
   );
 }
 
-/** Dashboard search teasers: illustrative counts when API/filter result is 0 */
-const TEASER_FALLBACK_COUNT_UNIVERSITIES = 187;
-const TEASER_FALLBACK_COUNT_FIELDS = 256;
-const TEASER_FALLBACK_COUNT_SCHOLARSHIPS = 123;
-
 const UNI_POPULAR_INITIAL = {
   affordable: false,
   budget: false,
@@ -161,6 +156,7 @@ const DashboardPage = () => {
   // Real top matches preview (replaces the old hardcoded showcase rows).
   const [topMatches, setTopMatches] = useState([]);
   const [topScholarships, setTopScholarships] = useState([]);
+  const [scholarshipMatchCount, setScholarshipMatchCount] = useState(0);
   useEffect(() => {
     let cancelled = false;
     (async () => {
@@ -170,12 +166,15 @@ const DashboardPage = () => {
           getScholarshipMatches().catch(() => []),
         ]);
         if (cancelled) return;
+        const scholList = Array.isArray(schols) ? schols : [];
         setTopMatches((Array.isArray(matches) ? matches : []).slice(0, 4));
-        setTopScholarships((Array.isArray(schols) ? schols : []).slice(0, 4));
+        setTopScholarships(scholList.slice(0, 4));
+        setScholarshipMatchCount(scholList.length);
       } catch (_) {
         if (!cancelled) {
           setTopMatches([]);
           setTopScholarships([]);
+          setScholarshipMatchCount(0);
         }
       }
     })();
@@ -590,7 +589,7 @@ const DashboardPage = () => {
                   </div>
                   <aside className={styles.searchTeaserAside}>
                     <p className={styles.searchTeaserAsideCount}>
-                      {teaserDataLoading ? "…" : universityTeaserMatchCount || TEASER_FALLBACK_COUNT_UNIVERSITIES}
+                      {teaserDataLoading ? "…" : universityTeaserMatchCount}
                     </p>
                     <p className={styles.searchTeaserRightSub}>{t("dashSearchTeaserSearchUniversities")}</p>
                     <button type="button" className={styles.searchTeaserCtaCompact} onClick={goUniversitiesSearch}>
@@ -659,7 +658,7 @@ const DashboardPage = () => {
                   </div>
                   <aside className={styles.searchTeaserAside}>
                     <p className={styles.searchTeaserAsideCount}>
-                      {teaserDataLoading ? "…" : fieldTeaserMatchCount || TEASER_FALLBACK_COUNT_FIELDS}
+                      {teaserDataLoading ? "…" : fieldTeaserMatchCount}
                     </p>
                     <p className={styles.searchTeaserRightSub}>{t("dashSearchTeaserSearchFields")}</p>
                     <button type="button" className={styles.searchTeaserCtaCompact} onClick={goFieldsSearch}>
@@ -719,7 +718,7 @@ const DashboardPage = () => {
                     </div>
                   </div>
                   <aside className={styles.searchTeaserAside}>
-                    <p className={styles.searchTeaserAsideCount}>{TEASER_FALLBACK_COUNT_SCHOLARSHIPS}</p>
+                    <p className={styles.searchTeaserAsideCount}>{scholarshipMatchCount}</p>
                     <p className={styles.searchTeaserRightSub}>{t("dashSearchTeaserSearchScholarships")}</p>
                     <button type="button" className={styles.searchTeaserCtaCompact} onClick={goScholarshipsSearch}>
                       {t("dashStartSearching")}
