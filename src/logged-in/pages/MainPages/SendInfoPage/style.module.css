@@ -293,3 +293,10 @@
     text-align: center;
   }
 }
+
+.errorMessage {
+  margin: 0 0 var(--spacing-sm, 12px);
+  color: var(--error);
+  font-size: 0.9rem;
+  text-align: center;
+}

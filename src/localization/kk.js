@@ -102,6 +102,7 @@ const kk = {
   sendInfoMeetingCareer: "Мансаптық кеңес",
   sendInfoSubmit: "Жіберу — Premium алу",
   sendInfoSubmitting: "Жіберілуде...",
+  sendInfoError: "Сұрауыңызды жіберу мүмкін болмады. Байланысты тексеріп, қайта көріңіз.",
   sendInfoSuccessTitle: "Ақпарат сәтті жіберілді!",
   sendInfoSuccessBody:
     "Хабарласқаныңыз үшін рахмет. Командамыз ақпаратты қарап шығып, сізбен жақын арада байланысады.",

@@ -102,6 +102,7 @@ const tg = {
   sendInfoMeetingCareer: "Машварати касбӣ",
   sendInfoSubmit: "Фиристодан — Premium гирифтан",
   sendInfoSubmitting: "Фиристода мешавад...",
+  sendInfoError: "Дархости шумо фиристода нашуд. Пайвастро санҷед ва дубора кӯшиш кунед.",
   sendInfoSuccessTitle: "Маълумот бомуваффақият фиристода шуд!",
   sendInfoSuccessBody:
     "Барои дархости шумо ташаккур. Дастаи мо маълумотро дида мебарояд ва ба зудӣ бо шумо тамос мегирад.",

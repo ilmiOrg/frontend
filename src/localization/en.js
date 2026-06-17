@@ -917,6 +917,7 @@ const en = {
   sendInfoMeetingCareer: "Career Guidance",
   sendInfoSubmit: "Send Information & Get Premium",
   sendInfoSubmitting: "Sending...",
+  sendInfoError: "Couldn't send your request. Please check your connection and try again.",
   sendInfoSuccessTitle: "Information Sent Successfully!",
   sendInfoSuccessBody:
     "Thank you for reaching out. Our team will review your information and contact you soon.",

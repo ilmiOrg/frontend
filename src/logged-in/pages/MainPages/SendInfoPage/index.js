@@ -12,6 +12,7 @@ const SendInfoPage = () => {
   const [formData, setFormData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
 
   useEffect(() => {
     // Load EmailJS
@@ -39,21 +40,24 @@ const SendInfoPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubmitError(false);
     setIsSubmitting(true);
 
     try {
-      if (window.emailjs) {
-        await window.emailjs.send("service_quad", "template_info", {
-          form_type: activeTab,
-          ...formData,
-          to_email: "info@quad.edu",
-        });
+      if (!window.emailjs) {
+        // CDN failed to load — do NOT report success, the message wasn't sent.
+        throw new Error("Email service unavailable");
       }
+      await window.emailjs.send("service_quad", "template_info", {
+        form_type: activeTab,
+        ...formData,
+        to_email: "info@quad.edu",
+      });
       setSubmitSuccess(true);
       setFormData({});
     } catch (error) {
       console.error("Error sending email:", error);
-      setSubmitSuccess(true);
+      setSubmitError(true);
     } finally {
       setIsSubmitting(false);
     }
@@ -502,6 +506,11 @@ const SendInfoPage = () => {
           <div className={styles.formGrid}>{renderForm()}</div>
 
           <div className={styles.formActions}>
+            {submitError && (
+              <p className={styles.errorMessage} role="alert">
+                {t("sendInfoError")}
+              </p>
+            )}
             <button
               type="submit"
               className={styles.submitBtn}

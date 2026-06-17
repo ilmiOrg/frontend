@@ -916,6 +916,7 @@ const ru = {
   sendInfoMeetingCareer: "Карьерное наставничество",
   sendInfoSubmit: "Отправить и получить Premium",
   sendInfoSubmitting: "Отправляется...",
+  sendInfoError: "Не удалось отправить запрос. Проверьте соединение и попробуйте снова.",
   sendInfoSuccessTitle: "Заявка успешно отправлена!",
   sendInfoSuccessBody:
     "Спасибо за обращение. Наша команда рассмотрит вашу информацию и свяжется с вами в ближайшее время.",

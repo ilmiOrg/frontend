@@ -102,6 +102,7 @@ const ky = {
   sendInfoMeetingCareer: "Карьералык кеңеш",
   sendInfoSubmit: "Жөнөтүү жана Premium алуу",
   sendInfoSubmitting: "Жөнөтүлүүдө...",
+  sendInfoError: "Сурамыңызды жөнөтүү мүмкүн болбоду. Байланышты текшерип, кайра аракет кылыңыз.",
   sendInfoSuccessTitle: "Маалымат ийгиликтүү жөнөтүлдү!",
   sendInfoSuccessBody:
     "Кайрылууңуз үчүн рахмат. Командабыз маалыматты карап чыгат жана сиз менен жакын арада байланышат.",
