@@ -2,6 +2,7 @@ import React, { useMemo, useState, useCallback, useEffect, useRef } from "react"
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "../../../../contexts/AuthContext";
 import { useTranslation } from "../../../../hooks/useLanguage";
+import { useDebounce } from "../../../../hooks/useDebounce";
 import PageTemplate from "../../../shared/PageTemplate";
 import { SearchIcon } from "../../../shared/Icons";
 import {
@@ -104,6 +105,7 @@ const SearchUniversitiesPage = () => {
   const isGuest = user?.isGuest === true;
 
   const [nameQuery, setNameQuery] = useState("");
+  const debouncedNameQuery = useDebounce(nameQuery, 250);
   const [institutionType, setInstitutionType] = useState(ALL);
   const [tuitionMin, setTuitionMin] = useState("");
   const [tuitionMax, setTuitionMax] = useState("");
@@ -270,7 +272,7 @@ const SearchUniversitiesPage = () => {
       tuitionMin === "" ? null : Math.max(0, Number(tuitionMin) || 0);
     const maxT =
       tuitionMax === "" ? null : Math.max(0, Number(tuitionMax) || 0);
-    const q = nameQuery.trim().toLowerCase();
+    const q = debouncedNameQuery.trim().toLowerCase();
 
     return universities.filter((u) => {
       if (q && !u.name.toLowerCase().includes(q)) return false;
@@ -299,7 +301,7 @@ const SearchUniversitiesPage = () => {
       return true;
     });
   }, [
-    nameQuery,
+    debouncedNameQuery,
     institutionType,
     tuitionMin,
     tuitionMax,

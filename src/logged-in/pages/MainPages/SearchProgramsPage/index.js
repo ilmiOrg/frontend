@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo, useCallback, useRef } from "react"
 import { Link } from "react-router-dom";
 import { useAuth } from "../../../../contexts/AuthContext";
 import { useTranslation } from "../../../../hooks/useLanguage";
+import { useDebounce } from "../../../../hooks/useDebounce";
 import PageTemplate from "../../../shared/PageTemplate";
 import { GraduationCapIcon, StarIcon } from "../../../shared/Icons";
 import {
@@ -41,6 +42,7 @@ const SearchProgramsPage = () => {
   const isGuest = user?.isGuest === true;
 
   const [nameQuery, setNameQuery] = useState("");
+  const debouncedNameQuery = useDebounce(nameQuery, 300);
   const [categoryId, setCategoryId] = useState(ALL);
   const [countryId, setCountryId] = useState(ALL);
   const [degreeLevel, setDegreeLevel] = useState(ALL);
@@ -81,7 +83,7 @@ const SearchProgramsPage = () => {
   useEffect(() => {
     setLoading(true);
     const params = {};
-    if (nameQuery.trim()) params.name = nameQuery.trim();
+    if (debouncedNameQuery.trim()) params.name = debouncedNameQuery.trim();
     if (categoryId !== ALL) params.categoryId = categoryId;
     if (countryId !== ALL) params.countryId = countryId;
     if (degreeLevel !== ALL) params.degreeLevel = degreeLevel;
@@ -93,7 +95,7 @@ const SearchProgramsPage = () => {
       .then(setPrograms)
       .catch(() => setPrograms([]))
       .finally(() => setLoading(false));
-  }, [nameQuery, categoryId, countryId, degreeLevel, language, tuitionMin, tuitionMax]);
+  }, [debouncedNameQuery, categoryId, countryId, degreeLevel, language, tuitionMin, tuitionMax]);
 
   const categoryOptions = useMemo(
     () => [
