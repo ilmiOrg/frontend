@@ -20,14 +20,25 @@ export const GUEST_USER = {
   role: "STUDENT",
 };
 
-/** Read the `role` claim from a JWT without verifying it (UI gating only). */
-function decodeRole(token) {
+/** Decode JWT claims without verifying (UI gating only — the backend enforces). */
+function decodeClaims(token) {
   try {
     const part = token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/");
-    return JSON.parse(atob(part)).role || "STUDENT";
+    return JSON.parse(atob(part)) || {};
   } catch (_) {
-    return "STUDENT";
+    return {};
   }
+}
+
+function decodeRole(token) {
+  return decodeClaims(token).role || "STUDENT";
+}
+
+/** True when the JWT carries an `exp` claim that is already in the past. */
+function isTokenExpired(token) {
+  const exp = decodeClaims(token).exp;
+  if (typeof exp !== "number") return false; // no exp claim → let the server decide
+  return Date.now() >= exp * 1000;
 }
 
 const AuthContext = createContext();
@@ -44,10 +55,15 @@ export const AuthProvider = ({ children }) => {
     if (isGuest) {
       setIsAuthenticated(true);
       setUser({ ...GUEST_USER });
-    } else if (token && email) {
+    } else if (token && email && !isTokenExpired(token)) {
       const name = localStorage.getItem(AUTH_NAME_KEY) || email.split("@")[0];
       setIsAuthenticated(true);
       setUser({ email, name, isGuest: false, role: decodeRole(token) });
+    } else if (token) {
+      // Stale/expired token — clear it so the app starts in a clean logged-out state.
+      localStorage.removeItem(AUTH_TOKEN_KEY);
+      localStorage.removeItem(AUTH_EMAIL_KEY);
+      localStorage.removeItem(AUTH_NAME_KEY);
     }
     setIsLoading(false);
   }, []);

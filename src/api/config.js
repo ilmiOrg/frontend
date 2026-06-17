@@ -50,6 +50,27 @@ export function getToken() {
 }
 
 /**
+ * Session expired / token rejected by the server. Clear local auth and bounce to login.
+ * Guarded against redirect loops (no-op when already on the login/register pages).
+ */
+function handleSessionExpired() {
+  if (typeof window === "undefined") return;
+  try {
+    localStorage.removeItem(AUTH_TOKEN_KEY);
+    localStorage.removeItem("userEmail");
+    localStorage.removeItem("userName");
+    localStorage.removeItem("authGuest");
+  } catch (_) {
+    // localStorage unavailable — fall through to redirect
+  }
+  const path = window.location.pathname;
+  if (path !== "/login" && path !== "/register") {
+    notifyError("Your session expired. Please sign in again.");
+    window.location.assign("/login");
+  }
+}
+
+/**
  * Shared fetch wrapper for the standard JSON API pattern. Centralizes URL/query
  * building, auth header injection, and error extraction so individual modules
  * don't repeat the boilerplate.
@@ -93,6 +114,13 @@ export async function request(
   }
 
   if (res.status === 204) return null;
+
+  // Token missing/expired/revoked on an authenticated call → end the session cleanly
+  // instead of leaving the user on a silently-broken page.
+  if (res.status === 401 && (auth || getToken())) {
+    handleSessionExpired();
+    throw new Error("Session expired. Please sign in again.");
+  }
 
   const text = await res.text();
   if (!res.ok) {
