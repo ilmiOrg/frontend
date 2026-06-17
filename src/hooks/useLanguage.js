@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import loaders from "../localization";
 import en from "../localization/en";
 
@@ -164,13 +164,19 @@ export const useTranslation = () => {
     }
   }, [currentLanguage]);
 
-  const t = (key) => {
-    const translation = translations[currentLanguage];
-    if (!translation) {
-      return key;
-    }
-    return translation[key] || key;
-  };
+  // Memoized so `t` is a stable reference across renders (only changes when the language
+  // does). Consumers that list `t` in a useEffect/useCallback/useMemo dependency array
+  // would otherwise re-run on every render — an infinite fetch loop for effects that fetch.
+  const t = useCallback(
+    (key) => {
+      const translation = translations[currentLanguage];
+      if (!translation) {
+        return key;
+      }
+      return translation[key] || key;
+    },
+    [currentLanguage]
+  );
 
   return { t, currentLanguage };
 };
