@@ -116,8 +116,10 @@ export async function request(
   if (res.status === 204) return null;
 
   // Token missing/expired/revoked on an authenticated call → end the session cleanly
-  // instead of leaving the user on a silently-broken page.
-  if (res.status === 401 && (auth || getToken())) {
+  // instead of leaving the user on a silently-broken page. Only trigger when this request
+  // actually sent the Authorization header, so a 401 from a public endpoint can't wipe a
+  // valid session.
+  if (res.status === 401 && auth) {
     handleSessionExpired();
     throw new Error("Session expired. Please sign in again.");
   }
