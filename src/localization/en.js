@@ -700,7 +700,7 @@ const en = {
   dashTime2h15m: "2h 15m left",
   dashTime2d3h: "2d 3h left",
   dashViewsTitle: "University & Scholarship Views",
-  dashViewsTotal: "Total: 23",
+  dashViewsTotal: "Sample data",
   dashViewsDesc: "Track how many universities and scholarships you have viewed",
   dashRecommendedUniversities: "Recommended Universities",
   dashPreviewSearchPlaceholder: "Search by name or location…",

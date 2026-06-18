@@ -699,7 +699,7 @@ const ru = {
   dashTime2h15m: "2ч 15м осталось",
   dashTime2d3h: "2д 3ч осталось",
   dashViewsTitle: "Просмотры вузов и стипендий",
-  dashViewsTotal: "Всего: 23",
+  dashViewsTotal: "Демо-данные",
   dashViewsDesc: "Отслеживайте, сколько вузов и стипендий вы просмотрели",
   dashRecommendedUniversities: "Рекомендуемые университеты",
   dashPreviewSearchPlaceholder: "Поиск по названию или месту…",
