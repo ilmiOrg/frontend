@@ -22,6 +22,25 @@ const prettyEnum = (v) =>
 
 const STATUS_OPTIONS = APPLICATION_STATUSES.map((v) => ({ value: v, label: prettyEnum(v) }));
 
+// Mirror the backend's allowed status transitions (ApplicationServiceImpl.ALLOWED_TRANSITIONS)
+// so the dropdown only offers moves the server will accept (no 400 on an invalid pick).
+const ALLOWED_NEXT = {
+  PLANNING: ["IN_PROGRESS", "SUBMITTED", "WITHDRAWN"],
+  IN_PROGRESS: ["PLANNING", "SUBMITTED", "WITHDRAWN"],
+  SUBMITTED: ["WAITLISTED", "ADMITTED", "REJECTED", "WITHDRAWN"],
+  WAITLISTED: ["ADMITTED", "REJECTED", "WITHDRAWN"],
+  ADMITTED: ["ENROLLED", "WITHDRAWN"],
+  REJECTED: ["WITHDRAWN"],
+  ENROLLED: ["WITHDRAWN"],
+  WITHDRAWN: [],
+};
+
+// Options for one application: its current status (selected) plus the valid next states.
+const statusOptionsFor = (current) => {
+  const values = [current, ...(ALLOWED_NEXT[current] || [])];
+  return STATUS_OPTIONS.filter((o) => values.includes(o.value));
+};
+
 const daysUntil = (dateStr) => {
   if (!dateStr) return null;
   const today = new Date();
@@ -162,7 +181,7 @@ const MyApplicationsPage = () => {
                         label={t("appsStatus")}
                         value={a.status}
                         onChange={(v) => changeStatus(a.applicationId, v)}
-                        options={STATUS_OPTIONS}
+                        options={statusOptionsFor(a.status)}
                       />
                       <label className={m.dateField}>
                         <span className={m.dateLabel}>{t("appsDeadline")}</span>

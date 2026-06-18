@@ -1,11 +1,14 @@
 /**
- * True only for http(s) URLs. Used to gate external links built from API data so a stored
- * javascript:/data:/file: URL can't be turned into a clickable link (open-redirect / XSS).
+ * True only for absolute http(s) URLs. Used to gate external links built from API data so a
+ * stored javascript:/data:/file: URL — or a relative/protocol-relative one like "//evil.com"
+ * that the browser would resolve to an attacker domain — can't be turned into a clickable link.
  */
 export function isSafeHttpUrl(url) {
-  if (!url) return false;
+  if (typeof url !== "string" || url.trim() === "") return false;
   try {
-    const parsed = new URL(url, window.location.origin);
+    // No base: relative ("/x") and protocol-relative ("//x") inputs throw and are rejected;
+    // only a fully-qualified URL parses, and we additionally require an http(s) scheme.
+    const parsed = new URL(url);
     return parsed.protocol === "http:" || parsed.protocol === "https:";
   } catch (_) {
     return false;
