@@ -70,6 +70,16 @@ const en = {
   learnMore: "Learn More",
   uniTypeUniversity: "University",
   uniTypeCollege: "College",
+  notFoundTitle: "Page not found",
+  notFoundMessage: "The page you’re looking for doesn’t exist or has moved.",
+  notFoundBackDashboard: "Back to dashboard",
+  notFoundBackHome: "Back to home",
+  errorBoundaryTitle: "Something went wrong",
+  errorBoundaryMessage: "An unexpected error interrupted the page. Reloading usually fixes it.",
+  errorBoundaryReload: "Reload ilmi",
+  sessionExpiredMessage: "Your session expired. Please sign in again.",
+  serverUnreachableMessage: "Can’t reach the server. Check your connection and try again.",
+  serverErrorMessage: "Something went wrong on our side. Please try again.",
   viewAll: "View All",
 
   // Status

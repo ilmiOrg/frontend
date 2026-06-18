@@ -43,14 +43,14 @@ function getDegreeOptions(t) {
 function getLanguageOptions(t) {
   return [
     { value: ALL, label: t("filterAnyLanguage") },
-    { value: "English", label: "English" },
-    { value: "German", label: "Deutsch" },
-    { value: "French", label: "Français" },
-    { value: "Spanish", label: "Español" },
-    { value: "Dutch", label: "Nederlands" },
-    { value: "Italian", label: "Italiano" },
-    { value: "Japanese", label: "日本語" },
-    { value: "Korean", label: "한국어" },
+    { value: "English", label: t("searchUniLangEnglish") },
+    { value: "German", label: t("searchUniLangGerman") },
+    { value: "French", label: t("searchUniLangFrench") },
+    { value: "Spanish", label: t("searchUniLangSpanish") },
+    { value: "Dutch", label: t("searchUniLangDutch") },
+    { value: "Italian", label: t("searchUniLangItalian") },
+    { value: "Japanese", label: t("searchUniLangJapanese") },
+    { value: "Korean", label: t("searchUniLangKorean") },
   ];
 }
 

@@ -1,4 +1,5 @@
 import toast from "react-hot-toast";
+import { translate } from "../hooks/useLanguage";
 
 /**
  * Backend API base URL.
@@ -110,7 +111,7 @@ function handleSessionExpired() {
   }
   const path = window.location.pathname;
   if (path !== "/login" && path !== "/register") {
-    notifyError("Your session expired. Please sign in again.");
+    notifyError(translate("sessionExpiredMessage"));
     window.location.assign("/login");
   }
 }
@@ -163,7 +164,7 @@ export async function request(
     }
   } catch (networkErr) {
     // Server unreachable / offline — surface a global toast and rethrow.
-    notifyError("Can’t reach the server. Check your connection and try again.");
+    notifyError(translate("serverUnreachableMessage"));
     throw new Error("Network error — could not reach the server.");
   }
 
@@ -189,7 +190,7 @@ export async function request(
     // 5xx is an unexpected server fault — toast it globally. Domain 4xx are left for
     // the calling page to show inline (avoids double-reporting).
     if (res.status >= 500) {
-      notifyError("Something went wrong on our side. Please try again.");
+      notifyError(translate("serverErrorMessage"));
     }
     throw new Error(message);
   }

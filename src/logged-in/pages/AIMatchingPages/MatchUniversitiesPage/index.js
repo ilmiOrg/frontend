@@ -8,6 +8,7 @@ import { useTranslation } from "../../../../hooks/useLanguage";
 import { getMatches } from "../../../../api/matches";
 import { addTranscript, addExam } from "../../../../api/academics";
 import { getApplications, createApplication } from "../../../../api/applications";
+import { formatEnum as prettyEnum } from "../../../../lib/formatEnum";
 import s from "../../../shared/ContentPage/style.module.css";
 import m from "./style.module.css";
 
@@ -46,12 +47,6 @@ const TIER_LABEL_KEY = {
   Reach: "matchTierReach",
   "Far reach": "matchTierFarReach",
 };
-
-const prettyEnum = (value) =>
-  String(value || "")
-    .toLowerCase()
-    .replace(/_/g, " ")
-    .replace(/\b\w/g, (c) => c.toUpperCase());
 
 const formatTuition = (u, t) => {
   if (u == null || u.avgTuitionPerYear == null) return null;

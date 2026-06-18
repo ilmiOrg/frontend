@@ -181,6 +181,20 @@ export const useTranslation = () => {
   return { t, currentLanguage };
 };
 
+/**
+ * Non-hook translation lookup for code that runs outside React components (the api layer,
+ * the error boundary). Reads the persisted language and falls back to English, then the key.
+ */
+export function translate(key) {
+  try {
+    const lang = localStorage.getItem("preferred-language") || "en";
+    const dict = translations[lang] || translations.en;
+    return (dict && dict[key]) || (translations.en && translations.en[key]) || key;
+  } catch (error) {
+    return (translations.en && translations.en[key]) || key;
+  }
+}
+
 // Export languages for components
 export { languages };
 

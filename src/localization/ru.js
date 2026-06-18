@@ -72,6 +72,16 @@ const ru = {
   learnMore: "Узнать больше",
   uniTypeUniversity: "Университет",
   uniTypeCollege: "Колледж",
+  notFoundTitle: "Страница не найдена",
+  notFoundMessage: "Запрашиваемая страница не существует или была перемещена.",
+  notFoundBackDashboard: "Назад в панель",
+  notFoundBackHome: "На главную",
+  errorBoundaryTitle: "Что-то пошло не так",
+  errorBoundaryMessage: "Непредвиденная ошибка прервала страницу. Обычно помогает перезагрузка.",
+  errorBoundaryReload: "Перезагрузить ilmi",
+  sessionExpiredMessage: "Сессия истекла. Войдите снова.",
+  serverUnreachableMessage: "Не удаётся подключиться к серверу. Проверьте соединение и попробуйте снова.",
+  serverErrorMessage: "Произошла ошибка на нашей стороне. Попробуйте ещё раз.",
   viewAll: "Посмотреть все",
 
   // Status

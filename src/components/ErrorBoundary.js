@@ -1,5 +1,6 @@
 import React from "react";
 import { captureError } from "../lib/errorMonitor";
+import { translate } from "../hooks/useLanguage";
 import styles from "./ErrorBoundary.module.css";
 
 /**
@@ -34,16 +35,14 @@ class ErrorBoundary extends React.Component {
     }
     return (
       <div role="alert" className={styles.fallback}>
-        <h1 className={styles.title}>Something went wrong</h1>
-        <p className={styles.message}>
-          An unexpected error interrupted the page. Reloading usually fixes it.
-        </p>
+        <h1 className={styles.title}>{translate("errorBoundaryTitle")}</h1>
+        <p className={styles.message}>{translate("errorBoundaryMessage")}</p>
         <button
           type="button"
           onClick={this.handleReload}
           className={styles.reloadButton}
         >
-          Reload ilmi
+          {translate("errorBoundaryReload")}
         </button>
       </div>
     );
