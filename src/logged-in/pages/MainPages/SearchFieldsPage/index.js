@@ -356,12 +356,12 @@ const SearchFieldsPage = () => {
                       <NumberField
                         value={tuitionMin}
                         onChange={setTuitionMin}
-                        placeholder="Min"
+                        placeholder={t("tuitionMin")}
                       />
                       <NumberField
                         value={tuitionMax}
                         onChange={setTuitionMax}
-                        placeholder="Max"
+                        placeholder={t("tuitionMax")}
                       />
                     </div>
                   </div>

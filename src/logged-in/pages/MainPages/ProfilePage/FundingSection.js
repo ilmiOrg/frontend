@@ -71,7 +71,7 @@ const FundingSection = ({ disabled, onTotalChange }) => {
       <div className={styles.head}>
         <h3 className={styles.title}>{t("fundingTitle")}</h3>
         <span className={styles.total}>
-          {t("fundingTotalLabel")}: {Number(total).toLocaleString()} {currency}/yr
+          {t("fundingTotalLabel")}: {Number(total).toLocaleString()} {currency}{t("fundingPerYear")}
         </span>
       </div>
       <p className={styles.hint}>
@@ -105,6 +105,7 @@ const FundingSection = ({ disabled, onTotalChange }) => {
         <input
           className={styles.input}
           placeholder={t("fundingSourcePlaceholder")}
+          aria-label={t("fundingSourceAria")}
           value={label}
           disabled={disabled || busy}
           onChange={(e) => setLabel(e.target.value)}
@@ -114,6 +115,7 @@ const FundingSection = ({ disabled, onTotalChange }) => {
           type="number"
           min="0"
           placeholder={t("fundingAmountPlaceholder")}
+          aria-label={t("fundingAmountAria")}
           value={amount}
           disabled={disabled || busy}
           onChange={(e) => setAmount(e.target.value)}

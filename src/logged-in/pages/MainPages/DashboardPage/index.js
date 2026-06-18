@@ -513,7 +513,7 @@ const DashboardPage = () => {
                   <span className={styles.chartStats}>{t("dashViewsTotal")}</span>
                 </div>
                 <div className={styles.chartWrap}>
-                  <canvas ref={viewsChartRef} />
+                  <canvas ref={viewsChartRef} aria-label={t("dashViewsTitle")} />
                 </div>
               </div>
 
@@ -524,7 +524,7 @@ const DashboardPage = () => {
                 </div>
                 <div className={styles.statusContainer}>
                   <div className={styles.statusChart}>
-                    <canvas ref={statusChartRef} />
+                    <canvas ref={statusChartRef} aria-label={t("dashApplicationStatus")} />
                     <div className={styles.statusChartCenter} aria-hidden="true">
                       <span className={styles.statusChartCenterValue}>{statusTotal}</span>
                       <span className={styles.statusChartCenterLabel}>{t("dashStatusDonutLabel")}</span>

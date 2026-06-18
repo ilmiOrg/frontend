@@ -61,7 +61,7 @@ const FavoriteUniversitiesPage = () => {
           <div className={styles.resultsHeader}>
             <h2 className={styles.resultsTitle}>{t("favoriteUniversitiesTitle")}</h2>
             <span className={styles.resultsCount}>
-              {favorites.length} {favorites.length === 1 ? "result" : "results"}
+              {favorites.length} {favorites.length === 1 ? t("favResultOne") : t("favResultMany")}
             </span>
           </div>
           {loading && <p className={styles.emptyState}>{t("loading")}</p>}

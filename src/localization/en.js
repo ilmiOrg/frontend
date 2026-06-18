@@ -170,6 +170,18 @@ const en = {
   filterAnyLanguage: "Any language",
   tuitionFree: "Free / public",
   tuitionPerYear: "/ year",
+  tuitionMin: "Min",
+  tuitionMax: "Max",
+  programResultOne: "program",
+  programResultMany: "programs",
+  favResultOne: "result",
+  favResultMany: "results",
+  uniDetailCampusAlt: "campus",
+  uniDetailLogoAlt: "logo",
+  fundingPerYear: "/yr",
+  dashLogoHome: "ilmi home",
+  fundingSourceAria: "Funding source name",
+  fundingAmountAria: "Funding amount",
 
   // Field Detail page
   fieldDetailBack: "Back to fields",

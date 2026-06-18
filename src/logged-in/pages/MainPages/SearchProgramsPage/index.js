@@ -137,7 +137,7 @@ const SearchProgramsPage = () => {
     (amount, currency) => {
       if (amount === null || amount === undefined || amount === "") return "";
       if (Number(amount) === 0) return t("programsTuitionFree");
-      return `${currency} ${Number(amount).toLocaleString()} / year`;
+      return `${currency} ${Number(amount).toLocaleString()} ${t("tuitionPerYear")}`;
     },
     [t]
   );
@@ -239,13 +239,13 @@ const SearchProgramsPage = () => {
                 <NumberField
                   value={tuitionMin}
                   onChange={setTuitionMin}
-                  placeholder="Min"
+                  placeholder={t("tuitionMin")}
                 />
                 <span className={styles.rangeSep}>—</span>
                 <NumberField
                   value={tuitionMax}
                   onChange={setTuitionMax}
-                  placeholder="Max"
+                  placeholder={t("tuitionMax")}
                 />
               </div>
             </div>
@@ -259,7 +259,7 @@ const SearchProgramsPage = () => {
             </h2>
             <span className={styles.resultsCount}>
               {programs.length}{" "}
-              {programs.length === 1 ? "program" : "programs"}
+              {programs.length === 1 ? t("programResultOne") : t("programResultMany")}
             </span>
           </div>
 

@@ -172,6 +172,18 @@ const ru = {
   filterAnyLanguage: "Любой язык",
   tuitionFree: "Бесплатно",
   tuitionPerYear: "/ год",
+  tuitionMin: "Мин.",
+  tuitionMax: "Макс.",
+  programResultOne: "программа",
+  programResultMany: "программ",
+  favResultOne: "результат",
+  favResultMany: "результата",
+  uniDetailCampusAlt: "кампус",
+  uniDetailLogoAlt: "логотип",
+  fundingPerYear: "/год",
+  dashLogoHome: "ilmi главная",
+  fundingSourceAria: "Название источника финансирования",
+  fundingAmountAria: "Сумма финансирования",
 
   // Field Detail page
   fieldDetailBack: "Назад к направлениям",

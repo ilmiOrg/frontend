@@ -89,8 +89,8 @@ const ChecklistSection = ({ applicationId }) => {
       <ul className={m.taskList}>
         {tasks.map((task) => (
           <li key={task.taskId} className={m.taskItem}>
-            <label className={m.taskLabel}>
-              <input type="checkbox" checked={task.done} onChange={() => toggle(task)} />
+            <label className={m.taskLabel} htmlFor={`task-${task.taskId}`}>
+              <input id={`task-${task.taskId}`} type="checkbox" checked={task.done} onChange={() => toggle(task)} />
               <span className={task.done ? m.taskDone : ""}>{task.title}</span>
             </label>
             <button

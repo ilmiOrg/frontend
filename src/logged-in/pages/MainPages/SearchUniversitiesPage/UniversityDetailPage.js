@@ -163,7 +163,7 @@ export default function UniversityDetailPage() {
           <img
             className={styles.heroImg}
             src={u.imageUrl}
-            alt={`${u.name} campus`}
+            alt={`${u.name} ${t("uniDetailCampusAlt")}`}
             width={960}
             height={420}
           />
@@ -178,7 +178,7 @@ export default function UniversityDetailPage() {
               <img
                 className={styles.detailLogoImg}
                 src={u.logoUrl}
-                alt={`${u.name} logo`}
+                alt={`${u.name} ${t("uniDetailLogoAlt")}`}
                 loading="lazy"
                 onError={() => setLogoFailed(true)}
               />

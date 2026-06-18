@@ -6,9 +6,9 @@ import { StarIcon } from "../../../shared/Icons";
 import styles from "./style.module.css";
 import { getFavoritePrograms, removeFavoriteProgram } from "../../../../api/programs";
 
-function formatTuition(amount, currency) {
-  if (Number(amount) === 0) return "Free / public";
-  return `${currency} ${Number(amount).toLocaleString()} / year`;
+function formatTuition(amount, currency, t) {
+  if (Number(amount) === 0) return t("tuitionFree");
+  return `${currency} ${Number(amount).toLocaleString()} ${t("tuitionPerYear")}`;
 }
 
 const FavoriteProgramsPage = () => {
@@ -56,7 +56,7 @@ const FavoriteProgramsPage = () => {
                 </p>
                 <div className={styles.programFooter}>
                   <p className={styles.programTuition}>
-                    {formatTuition(p.tuitionPerYear, p.currency)}
+                    {formatTuition(p.tuitionPerYear, p.currency, t)}
                   </p>
                   <div className={styles.programActions}>
                     <Link
