@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import PageTemplate from "../../../shared/PageTemplate";
 import { TrendingUpIcon, ExternalLinkIcon } from "../../../shared/Icons";
 import { SelectField } from "../../../../ui-components";
@@ -26,18 +26,20 @@ const JobsPage = () => {
   ];
   const [field, setField] = useState("");
   const [jobs, setJobs] = useState([]);
-  const [page, setPage] = useState(0);
   const [hasMore, setHasMore] = useState(false);
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
   const [error, setError] = useState(null);
+  // Page lives in a ref so loadMore always reads the latest value (no stale closure across
+  // rapid clicks) without recreating the handler on every render.
+  const pageRef = useRef(0);
 
   // Load the first page whenever the field filter changes.
   useEffect(() => {
     let active = true;
     setLoading(true);
     setError(null);
-    setPage(0);
+    pageRef.current = 0;
     getJobs({ ...(field ? { field } : {}), page: 0, size: PAGE_SIZE })
       .then((data) => {
         if (!active) return;
@@ -53,14 +55,15 @@ const JobsPage = () => {
   }, [field]);
 
   const loadMore = () => {
-    const next = page + 1;
+    if (loadingMore) return; // re-entrancy guard
+    const next = pageRef.current + 1;
     setLoadingMore(true);
     setError(null);
     getJobs({ ...(field ? { field } : {}), page: next, size: PAGE_SIZE })
       .then((data) => {
         const list = Array.isArray(data) ? data : [];
+        pageRef.current = next;
         setJobs((prev) => [...prev, ...list]);
-        setPage(next);
         setHasMore(list.length === PAGE_SIZE);
       })
       .catch((e) => setError(e.message))

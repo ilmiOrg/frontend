@@ -68,6 +68,8 @@ const en = {
   apply: "Apply",
   view: "View",
   learnMore: "Learn More",
+  uniTypeUniversity: "University",
+  uniTypeCollege: "College",
   viewAll: "View All",
 
   // Status
@@ -1213,6 +1215,16 @@ const en = {
   matchNoPrograms: "No programs available yet. Check back once programs are added.",
   matchEligibleOf: "{eligible} eligible of {total} programs",
   matchTuitionFree: "Tuition-free",
+  matchGradingGpa4: "GPA (4.0 scale)",
+  matchGradingGpa5: "GPA (5.0 scale)",
+  matchGradingFive: "5-point (CIS)",
+  matchGradingTen: "10-point",
+  matchDegreeHighSchool: "High school diploma",
+  matchDegreeAssociate: "Associate",
+  matchDegreeBachelor: "Bachelor",
+  matchDegreeMaster: "Master",
+  matchDegreeDoctorate: "Doctorate",
+  matchExamNone: "No exam",
   matchTuitionPerYear: "{amount} {currency}/yr",
   matchPercentFit: "{fit}% fit",
   matchPercentAcademic: "{score}% academic",
@@ -1356,6 +1368,9 @@ const en = {
   // Dashboard layout
   dashToggleMenu: "Toggle menu",
   dashDeadlinesDueSoon: "{count} application deadlines due soon",
+  dashDeadlineToday: "Today",
+  dashDaysAgo: "{n}d ago",
+  dashDaysLeft: "{n}d left",
 
   // Public footer
   publicFooterRights: "© {year} ilmi. All rights reserved",

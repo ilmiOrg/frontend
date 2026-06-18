@@ -70,6 +70,8 @@ const ru = {
   apply: "Подать заявку",
   view: "Просмотр",
   learnMore: "Узнать больше",
+  uniTypeUniversity: "Университет",
+  uniTypeCollege: "Колледж",
   viewAll: "Посмотреть все",
 
   // Status
@@ -1202,6 +1204,16 @@ const ru = {
   matchNoPrograms: "Пока нет доступных программ. Зайдите позже, когда программы будут добавлены.",
   matchEligibleOf: "{eligible} подходящих из {total} программ",
   matchTuitionFree: "Без оплаты обучения",
+  matchGradingGpa4: "GPA (4.0)",
+  matchGradingGpa5: "GPA (5.0)",
+  matchGradingFive: "5-балльная (СНГ)",
+  matchGradingTen: "10-балльная",
+  matchDegreeHighSchool: "Аттестат о среднем образовании",
+  matchDegreeAssociate: "Младший специалист",
+  matchDegreeBachelor: "Бакалавр",
+  matchDegreeMaster: "Магистр",
+  matchDegreeDoctorate: "Докторантура",
+  matchExamNone: "Без экзамена",
   matchTuitionPerYear: "{amount} {currency}/год",
   matchPercentFit: "{fit}% соответствие",
   matchPercentAcademic: "{score}% академически",
@@ -1349,6 +1361,9 @@ const ru = {
   // Dashboard layout
   dashToggleMenu: "Переключить меню",
   dashDeadlinesDueSoon: "Скоро истекают сроки подачи заявок: {count}",
+  dashDeadlineToday: "Сегодня",
+  dashDaysAgo: "{n} дн. назад",
+  dashDaysLeft: "осталось {n} дн.",
 
   // Public footer
   publicFooterRights: "© {year} ilmi. Все права защищены",

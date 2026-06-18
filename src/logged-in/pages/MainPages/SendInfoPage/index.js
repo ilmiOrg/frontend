@@ -1,9 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import PageTemplate from "../../../shared/PageTemplate";
 import { GraduationCapIcon, DollarIcon, FileEditIcon, CalendarIcon, MessageCircleIcon, StarIcon, SendIcon, CheckCircleIcon } from "../../../shared/Icons";
 import { useTranslation } from "../../../../hooks/useLanguage";
 import styles from "./style.module.css";
+
+// EmailJS config comes from the environment — no secrets committed to source. When the public
+// key is unset the form still renders but submission fails gracefully (handled in handleSubmit).
+const EMAILJS_KEY = process.env.REACT_APP_EMAILJS_KEY;
+const EMAILJS_SERVICE = process.env.REACT_APP_EMAILJS_SERVICE || "service_quad";
+const EMAILJS_TEMPLATE = process.env.REACT_APP_EMAILJS_TEMPLATE || "template_info";
+const EMAILJS_TO = process.env.REACT_APP_EMAILJS_TO || "info@quad.edu";
 
 const SendInfoPage = () => {
   const { t } = useTranslation();
@@ -13,20 +20,29 @@ const SendInfoPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState(false);
+  const mountedRef = useRef(true);
 
   useEffect(() => {
-    // Load EmailJS
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!EMAILJS_KEY) return undefined; // not configured — skip loading the SDK
     const script = document.createElement("script");
     script.src =
       "https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js";
     script.onload = () => {
       if (window.emailjs) {
-        window.emailjs.init(
-          process.env.REACT_APP_EMAILJS_KEY || "I_m3b6E2nY4M58E_k"
-        );
+        window.emailjs.init(EMAILJS_KEY);
       }
     };
     document.head.appendChild(script);
+    return () => {
+      script.remove();
+    };
   }, []);
 
   // Switching tabs swaps the whole field set — clear so fields from a previous tab
@@ -52,23 +68,32 @@ const SendInfoPage = () => {
     setIsSubmitting(true);
 
     try {
-      if (!window.emailjs) {
-        // CDN failed to load — do NOT report success, the message wasn't sent.
+      if (!EMAILJS_KEY || !window.emailjs) {
+        // Not configured / CDN failed — do NOT report success, the message wasn't sent.
         throw new Error("Email service unavailable");
       }
-      await window.emailjs.send("service_quad", "template_info", {
+      await window.emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, {
         form_type: activeTab,
         ...formData,
-        to_email: "info@quad.edu",
+        to_email: EMAILJS_TO,
       });
+      if (!mountedRef.current) return;
       setSubmitSuccess(true);
       setFormData({});
     } catch (error) {
       console.error("Error sending email:", error);
-      setSubmitError(true);
+      if (mountedRef.current) setSubmitError(true);
     } finally {
-      setIsSubmitting(false);
+      if (mountedRef.current) setIsSubmitting(false);
     }
+  };
+
+  const handleTabKey = (e, index) => {
+    if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+    e.preventDefault();
+    const dir = e.key === "ArrowRight" ? 1 : -1;
+    const nextIndex = (index + dir + tabs.length) % tabs.length;
+    setActiveTab(tabs[nextIndex].id);
   };
 
   const tabs = [
@@ -85,8 +110,9 @@ const SendInfoPage = () => {
         return (
           <>
             <div className={styles.formGroup}>
-              <label>{t("sendInfoFieldFullName")} *</label>
+              <label htmlFor="sendinfo-fullName">{t("sendInfoFieldFullName")} *</label>
               <input
+                id="sendinfo-fullName"
                 type="text"
                 name="fullName"
                 required
@@ -96,8 +122,9 @@ const SendInfoPage = () => {
               />
             </div>
             <div className={styles.formGroup}>
-              <label>{t("sendInfoFieldEmail")} *</label>
+              <label htmlFor="sendinfo-email">{t("sendInfoFieldEmail")} *</label>
               <input
+                id="sendinfo-email"
                 type="email"
                 name="email"
                 required
@@ -107,8 +134,9 @@ const SendInfoPage = () => {
               />
             </div>
             <div className={styles.formGroup}>
-              <label>{t("sendInfoFieldPhone")}</label>
+              <label htmlFor="sendinfo-phone">{t("sendInfoFieldPhone")}</label>
               <input
+                id="sendinfo-phone"
                 type="tel"
                 name="phone"
                 onChange={handleInputChange}
@@ -117,8 +145,9 @@ const SendInfoPage = () => {
               />
             </div>
             <div className={styles.formGroup}>
-              <label>{t("sendInfoFieldUniversityInterest")} *</label>
+              <label htmlFor="sendinfo-university">{t("sendInfoFieldUniversityInterest")} *</label>
               <input
+                id="sendinfo-university"
                 type="text"
                 name="university"
                 required
@@ -128,8 +157,9 @@ const SendInfoPage = () => {
               />
             </div>
             <div className={styles.formGroup}>
-              <label>{t("sendInfoFieldProgramMajor")}</label>
+              <label htmlFor="sendinfo-program">{t("sendInfoFieldProgramMajor")}</label>
               <input
+                id="sendinfo-program"
                 type="text"
                 name="program"
                 onChange={handleInputChange}
@@ -138,8 +168,9 @@ const SendInfoPage = () => {
               />
             </div>
             <div className={styles.formGroup}>
-              <label>{t("sendInfoFieldGpa")}</label>
+              <label htmlFor="sendinfo-gpa">{t("sendInfoFieldGpa")}</label>
               <input
+                id="sendinfo-gpa"
                 type="text"
                 name="gpa"
                 onChange={handleInputChange}
@@ -148,8 +179,9 @@ const SendInfoPage = () => {
               />
             </div>
             <div className={styles.formGroup}>
-              <label>{t("sendInfoFieldAdditional")}</label>
+              <label htmlFor="sendinfo-message">{t("sendInfoFieldAdditional")}</label>
               <textarea
+                id="sendinfo-message"
                 name="message"
                 onChange={handleInputChange}
                 className={styles.textarea}
@@ -163,8 +195,9 @@ const SendInfoPage = () => {
         return (
           <>
             <div className={styles.formGroup}>
-              <label>{t("sendInfoFieldFullName")} *</label>
+              <label htmlFor="sendinfo-fullName">{t("sendInfoFieldFullName")} *</label>
               <input
+                id="sendinfo-fullName"
                 type="text"
                 name="fullName"
                 required
@@ -174,8 +207,9 @@ const SendInfoPage = () => {
               />
             </div>
             <div className={styles.formGroup}>
-              <label>{t("sendInfoFieldEmail")} *</label>
+              <label htmlFor="sendinfo-email">{t("sendInfoFieldEmail")} *</label>
               <input
+                id="sendinfo-email"
                 type="email"
                 name="email"
                 required
@@ -185,8 +219,9 @@ const SendInfoPage = () => {
               />
             </div>
             <div className={styles.formGroup}>
-              <label>{t("sendInfoFieldPhone")}</label>
+              <label htmlFor="sendinfo-phone">{t("sendInfoFieldPhone")}</label>
               <input
+                id="sendinfo-phone"
                 type="tel"
                 name="phone"
                 onChange={handleInputChange}
@@ -195,8 +230,9 @@ const SendInfoPage = () => {
               />
             </div>
             <div className={styles.formGroup}>
-              <label>{t("sendInfoFieldScholarshipName")} *</label>
+              <label htmlFor="sendinfo-scholarshipName">{t("sendInfoFieldScholarshipName")} *</label>
               <input
+                id="sendinfo-scholarshipName"
                 type="text"
                 name="scholarshipName"
                 required
@@ -206,8 +242,9 @@ const SendInfoPage = () => {
               />
             </div>
             <div className={styles.formGroup}>
-              <label>{t("sendInfoFieldUniversity")}</label>
+              <label htmlFor="sendinfo-university">{t("sendInfoFieldUniversity")}</label>
               <input
+                id="sendinfo-university"
                 type="text"
                 name="university"
                 onChange={handleInputChange}
@@ -216,8 +253,9 @@ const SendInfoPage = () => {
               />
             </div>
             <div className={styles.formGroup}>
-              <label>{t("sendInfoFieldAchievements")}</label>
+              <label htmlFor="sendinfo-achievements">{t("sendInfoFieldAchievements")}</label>
               <textarea
+                id="sendinfo-achievements"
                 name="achievements"
                 onChange={handleInputChange}
                 className={styles.textarea}
@@ -231,8 +269,9 @@ const SendInfoPage = () => {
         return (
           <>
             <div className={styles.formGroup}>
-              <label>{t("sendInfoFieldFullName")} *</label>
+              <label htmlFor="sendinfo-fullName">{t("sendInfoFieldFullName")} *</label>
               <input
+                id="sendinfo-fullName"
                 type="text"
                 name="fullName"
                 required
@@ -242,8 +281,9 @@ const SendInfoPage = () => {
               />
             </div>
             <div className={styles.formGroup}>
-              <label>{t("sendInfoFieldEmail")} *</label>
+              <label htmlFor="sendinfo-email">{t("sendInfoFieldEmail")} *</label>
               <input
+                id="sendinfo-email"
                 type="email"
                 name="email"
                 required
@@ -253,8 +293,9 @@ const SendInfoPage = () => {
               />
             </div>
             <div className={styles.formGroup}>
-              <label>{t("sendInfoFieldPhone")}</label>
+              <label htmlFor="sendinfo-phone">{t("sendInfoFieldPhone")}</label>
               <input
+                id="sendinfo-phone"
                 type="tel"
                 name="phone"
                 onChange={handleInputChange}
@@ -263,8 +304,9 @@ const SendInfoPage = () => {
               />
             </div>
             <div className={styles.formGroup}>
-              <label>{t("sendInfoFieldUniversity")} *</label>
+              <label htmlFor="sendinfo-university">{t("sendInfoFieldUniversity")} *</label>
               <input
+                id="sendinfo-university"
                 type="text"
                 name="university"
                 required
@@ -274,8 +316,9 @@ const SendInfoPage = () => {
               />
             </div>
             <div className={styles.formGroup}>
-              <label>{t("sendInfoFieldProgram")} *</label>
+              <label htmlFor="sendinfo-program">{t("sendInfoFieldProgram")} *</label>
               <input
+                id="sendinfo-program"
                 type="text"
                 name="program"
                 required
@@ -285,8 +328,9 @@ const SendInfoPage = () => {
               />
             </div>
             <div className={styles.formGroup}>
-              <label>{t("sendInfoFieldDeadline")}</label>
+              <label htmlFor="sendinfo-deadline">{t("sendInfoFieldDeadline")}</label>
               <input
+                id="sendinfo-deadline"
                 type="date"
                 name="deadline"
                 onChange={handleInputChange}
@@ -294,8 +338,9 @@ const SendInfoPage = () => {
               />
             </div>
             <div className={styles.formGroup}>
-              <label>{t("sendInfoFieldHelp")}</label>
+              <label htmlFor="sendinfo-helpNeeded">{t("sendInfoFieldHelp")}</label>
               <textarea
+                id="sendinfo-helpNeeded"
                 name="helpNeeded"
                 onChange={handleInputChange}
                 className={styles.textarea}
@@ -309,8 +354,9 @@ const SendInfoPage = () => {
         return (
           <>
             <div className={styles.formGroup}>
-              <label>{t("sendInfoFieldFullName")} *</label>
+              <label htmlFor="sendinfo-fullName">{t("sendInfoFieldFullName")} *</label>
               <input
+                id="sendinfo-fullName"
                 type="text"
                 name="fullName"
                 required
@@ -320,8 +366,9 @@ const SendInfoPage = () => {
               />
             </div>
             <div className={styles.formGroup}>
-              <label>{t("sendInfoFieldEmail")} *</label>
+              <label htmlFor="sendinfo-email">{t("sendInfoFieldEmail")} *</label>
               <input
+                id="sendinfo-email"
                 type="email"
                 name="email"
                 required
@@ -331,8 +378,9 @@ const SendInfoPage = () => {
               />
             </div>
             <div className={styles.formGroup}>
-              <label>{t("sendInfoFieldPhone")}</label>
+              <label htmlFor="sendinfo-phone">{t("sendInfoFieldPhone")}</label>
               <input
+                id="sendinfo-phone"
                 type="tel"
                 name="phone"
                 onChange={handleInputChange}
@@ -341,8 +389,9 @@ const SendInfoPage = () => {
               />
             </div>
             <div className={styles.formGroup}>
-              <label>{t("sendInfoFieldMeetingType")} *</label>
+              <label htmlFor="sendinfo-meetingType">{t("sendInfoFieldMeetingType")} *</label>
               <select
+                id="sendinfo-meetingType"
                 name="meetingType"
                 required
                 onChange={handleInputChange}
@@ -356,8 +405,9 @@ const SendInfoPage = () => {
               </select>
             </div>
             <div className={styles.formGroup}>
-              <label>{t("sendInfoFieldPreferredDate")} *</label>
+              <label htmlFor="sendinfo-preferredDate">{t("sendInfoFieldPreferredDate")} *</label>
               <input
+                id="sendinfo-preferredDate"
                 type="date"
                 name="preferredDate"
                 required
@@ -366,8 +416,9 @@ const SendInfoPage = () => {
               />
             </div>
             <div className={styles.formGroup}>
-              <label>{t("sendInfoFieldPreferredTime")}</label>
+              <label htmlFor="sendinfo-preferredTime">{t("sendInfoFieldPreferredTime")}</label>
               <input
+                id="sendinfo-preferredTime"
                 type="time"
                 name="preferredTime"
                 onChange={handleInputChange}
@@ -375,8 +426,9 @@ const SendInfoPage = () => {
               />
             </div>
             <div className={styles.formGroup}>
-              <label>{t("sendInfoFieldNotes")}</label>
+              <label htmlFor="sendinfo-notes">{t("sendInfoFieldNotes")}</label>
               <textarea
+                id="sendinfo-notes"
                 name="notes"
                 onChange={handleInputChange}
                 className={styles.textarea}
@@ -390,8 +442,9 @@ const SendInfoPage = () => {
         return (
           <>
             <div className={styles.formGroup}>
-              <label>{t("sendInfoFieldFullName")} *</label>
+              <label htmlFor="sendinfo-fullName">{t("sendInfoFieldFullName")} *</label>
               <input
+                id="sendinfo-fullName"
                 type="text"
                 name="fullName"
                 required
@@ -401,8 +454,9 @@ const SendInfoPage = () => {
               />
             </div>
             <div className={styles.formGroup}>
-              <label>{t("sendInfoFieldEmail")} *</label>
+              <label htmlFor="sendinfo-email">{t("sendInfoFieldEmail")} *</label>
               <input
+                id="sendinfo-email"
                 type="email"
                 name="email"
                 required
@@ -412,8 +466,9 @@ const SendInfoPage = () => {
               />
             </div>
             <div className={styles.formGroup}>
-              <label>{t("sendInfoFieldPhone")}</label>
+              <label htmlFor="sendinfo-phone">{t("sendInfoFieldPhone")}</label>
               <input
+                id="sendinfo-phone"
                 type="tel"
                 name="phone"
                 onChange={handleInputChange}
@@ -422,8 +477,9 @@ const SendInfoPage = () => {
               />
             </div>
             <div className={styles.formGroup}>
-              <label>{t("sendInfoFieldSubject")} *</label>
+              <label htmlFor="sendinfo-subject">{t("sendInfoFieldSubject")} *</label>
               <input
+                id="sendinfo-subject"
                 type="text"
                 name="subject"
                 required
@@ -433,8 +489,9 @@ const SendInfoPage = () => {
               />
             </div>
             <div className={styles.formGroup}>
-              <label>{t("sendInfoFieldMessage")} *</label>
+              <label htmlFor="sendinfo-message">{t("sendInfoFieldMessage")} *</label>
               <textarea
+                id="sendinfo-message"
                 name="message"
                 required
                 onChange={handleInputChange}
@@ -496,14 +553,18 @@ const SendInfoPage = () => {
           </div>
         </div>
 
-        <div className={styles.tabs}>
-          {tabs.map((tab) => (
+        <div className={styles.tabs} role="tablist">
+          {tabs.map((tab, i) => (
             <button
               key={tab.id}
+              role="tab"
+              aria-selected={activeTab === tab.id}
+              tabIndex={activeTab === tab.id ? 0 : -1}
               className={`${styles.tab} ${
                 activeTab === tab.id ? styles.activeTab : ""
               }`}
               onClick={() => setActiveTab(tab.id)}
+              onKeyDown={(e) => handleTabKey(e, i)}
             >
               {tab.label}
             </button>

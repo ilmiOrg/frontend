@@ -4,6 +4,7 @@ import React, {
   useState,
   useEffect,
   useCallback,
+  useMemo,
 } from "react";
 import { login as apiLogin, register as apiRegister, logout as apiLogout } from "../api/auth";
 import { getStudentProfile } from "../api/studentProfile";
@@ -145,22 +146,24 @@ export const AuthProvider = ({ children }) => {
     return { success: true };
   }, []);
 
-  return (
-    <AuthContext.Provider
-      value={{
-        isAuthenticated,
-        isLoading,
-        login,
-        loginAsGuest,
-        logout,
-        register,
-        user,
-        isAdmin: user?.role === "ADMIN",
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
+  // Memoized so the context value keeps a stable identity across renders; otherwise every
+  // useAuth() consumer (the whole logged-in app) re-renders on each provider render. The
+  // callbacks are already useCallback-stable, so the value only changes with auth state.
+  const value = useMemo(
+    () => ({
+      isAuthenticated,
+      isLoading,
+      login,
+      loginAsGuest,
+      logout,
+      register,
+      user,
+      isAdmin: user?.role === "ADMIN",
+    }),
+    [isAuthenticated, isLoading, login, loginAsGuest, logout, register, user]
   );
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 export const useAuth = () => {

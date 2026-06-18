@@ -28,12 +28,15 @@ const prettyStatus = (v) =>
     .replace(/\b\w/g, (c) => c.toUpperCase());
 
 /** Countdown text + urgency tone for a deadline N days out. */
-const deadlineMeta = (days) => {
-  if (days < 0) return { text: `${Math.abs(days)}d ago`, tone: "deadlineUrgent" };
-  if (days === 0) return { text: "Today", tone: "deadlineUrgent" };
-  if (days <= 14) return { text: `${days}d left`, tone: "deadlineUrgent" };
-  if (days <= 45) return { text: `${days}d left`, tone: "deadlineWarning" };
-  return { text: `${days}d left`, tone: "deadlineNormal" };
+const deadlineMeta = (days, t) => {
+  if (days < 0) {
+    return { text: t("dashDaysAgo").replace("{n}", Math.abs(days)), tone: "deadlineUrgent" };
+  }
+  if (days === 0) return { text: t("dashDeadlineToday"), tone: "deadlineUrgent" };
+  const text = t("dashDaysLeft").replace("{n}", days);
+  if (days <= 14) return { text, tone: "deadlineUrgent" };
+  if (days <= 45) return { text, tone: "deadlineWarning" };
+  return { text, tone: "deadlineNormal" };
 };
 
 // Display buckets for the application-status donut. Counts come from the student's
@@ -486,7 +489,7 @@ const DashboardPage = () => {
                 ) : (
                   <div className={styles.deadlineList}>
                     {deadlines.map((d) => {
-                      const meta = deadlineMeta(d.days);
+                      const meta = deadlineMeta(d.days, t);
                       return (
                         <div className={styles.deadlineRow} key={d.id}>
                           <div className={`${styles.deadlineIcon} ${styles[meta.tone]}`}>

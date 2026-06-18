@@ -1,11 +1,11 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "../../../../hooks/useLanguage";
 import { StarIcon } from "../../../shared/Icons";
 import styles from "./UniversityResultCard.module.css";
 
-function formatTuition(n) {
-  if (n === 0) return "No tuition (public)";
+function formatTuition(n, t) {
+  if (n === 0) return t("uniDetailTuitionPublic");
   return `≈ €${n.toLocaleString()} / year`;
 }
 
@@ -31,11 +31,7 @@ function badgeLetters(name) {
 
 const SLIDE_MS = 2000;
 
-export default function UniversityResultCard({
-  university: u,
-  isFavorite,
-  onToggleFavorite,
-}) {
+function UniversityResultCard({ university: u, isFavorite, onToggleFavorite }) {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const detailPath = `/dashboard/search/universities/${u.slug}`;
@@ -47,6 +43,7 @@ export default function UniversityResultCard({
 
   const [slide, setSlide] = useState(0);
   const [logoFailed, setLogoFailed] = useState(false);
+  const handleLogoError = useCallback(() => setLogoFailed(true), []);
 
   useEffect(() => {
     setLogoFailed(false);
@@ -95,7 +92,7 @@ export default function UniversityResultCard({
                   src={u.logoUrl}
                   alt={`${u.name} logo`}
                   loading="lazy"
-                  onError={() => setLogoFailed(true)}
+                  onError={handleLogoError}
                 />
               ) : (
                 <span className={styles.logoFallback} aria-hidden>
@@ -108,12 +105,12 @@ export default function UniversityResultCard({
           <div className={styles.info}>
             <h3 className={styles.title}>{u.name}</h3>
             <p className={styles.meta}>
-              {u.type === "university" ? "University" : "College"} · {u.city},{" "}
-              {u.country}
+              {u.type === "university" ? t("uniTypeUniversity") : t("uniTypeCollege")} ·{" "}
+              {u.city}, {u.country}
             </p>
             <p className={styles.description}>{u.shortDescription}</p>
             <p className={styles.tags}>{u.specializations.join(" · ")}</p>
-            <p className={styles.tuition}>{formatTuition(u.tuitionAnnual)}</p>
+            <p className={styles.tuition}>{formatTuition(u.tuitionAnnual, t)}</p>
             <p className={styles.langs}>{u.languages.join(", ")}</p>
           </div>
         </div>
@@ -125,7 +122,7 @@ export default function UniversityResultCard({
           className={`${styles.btn} ${styles.btnPrimary}`}
           onClick={() => navigate("/dashboard/applications")}
         >
-          Apply
+          {t("apply")}
         </button>
         <button
           type="button"
@@ -136,9 +133,13 @@ export default function UniversityResultCard({
           {isFavorite ? <><StarIcon size={14} /> {t("favoriteSaved")}</> : <><StarIcon size={14} /> {t("favoriteSave")}</>}
         </button>
         <Link className={`${styles.btn} ${styles.btnOutline}`} to={detailPath}>
-          Learn more
+          {t("learnMore")}
         </Link>
       </div>
     </li>
   );
 }
+
+// Memoized: a high-frequency list item, so it skips re-render when its props are unchanged
+// (e.g. when a sibling's favorite toggles).
+export default React.memo(UniversityResultCard);

@@ -119,7 +119,8 @@ const DashboardLayout = () => {
     return () => {
       cancelled = true;
     };
-  }, [isGuest, location.pathname]);
+    // Deadlines don't depend on the current route — fetch once per session (not per navigation).
+  }, [isGuest]);
 
   const [isDark, setIsDark] = useState(() => {
     if (typeof window === "undefined") return true;

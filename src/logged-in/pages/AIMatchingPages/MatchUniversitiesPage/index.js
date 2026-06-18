@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import PageTemplate from "../../../shared/PageTemplate";
 import { TargetIcon, GraduationCapIcon } from "../../../shared/Icons";
@@ -11,28 +11,33 @@ import { getApplications, createApplication } from "../../../../api/applications
 import s from "../../../shared/ContentPage/style.module.css";
 import m from "./style.module.css";
 
+// labelKey => localized via t(); proper-noun exams keep a literal label.
 const GRADING_OPTIONS = [
-  { value: "GPA_4", label: "GPA (4.0 scale)" },
-  { value: "GPA_5", label: "GPA (5.0 scale)" },
-  { value: "FIVE", label: "5-point (CIS)" },
-  { value: "TEN", label: "10-point" },
+  { value: "GPA_4", labelKey: "matchGradingGpa4" },
+  { value: "GPA_5", labelKey: "matchGradingGpa5" },
+  { value: "FIVE", labelKey: "matchGradingFive" },
+  { value: "TEN", labelKey: "matchGradingTen" },
 ];
 
 const DEGREE_OPTIONS = [
-  { value: "HIGH_SCHOOL_DIPLOMA", label: "High school diploma" },
-  { value: "ASSOCIATE", label: "Associate" },
-  { value: "BACHELOR", label: "Bachelor" },
-  { value: "MASTER", label: "Master" },
-  { value: "DOCTORATE", label: "Doctorate" },
+  { value: "HIGH_SCHOOL_DIPLOMA", labelKey: "matchDegreeHighSchool" },
+  { value: "ASSOCIATE", labelKey: "matchDegreeAssociate" },
+  { value: "BACHELOR", labelKey: "matchDegreeBachelor" },
+  { value: "MASTER", labelKey: "matchDegreeMaster" },
+  { value: "DOCTORATE", labelKey: "matchDegreeDoctorate" },
 ];
 
 const EXAM_OPTIONS = [
-  { value: "none", label: "No exam" },
+  { value: "none", labelKey: "matchExamNone" },
   { value: "TOEFL", label: "TOEFL" },
   { value: "IELTS", label: "IELTS" },
   { value: "SAT", label: "SAT" },
   { value: "ORT", label: "ORT" },
 ];
+
+/** Resolve {value,labelKey|label} option arrays to {value,label} using the translator. */
+const localizeOptions = (options, t) =>
+  options.map((o) => ({ value: o.value, label: o.labelKey ? t(o.labelKey) : o.label }));
 
 const prettyEnum = (value) =>
   String(value || "")
@@ -51,6 +56,10 @@ const MatchUniversitiesPage = () => {
   const { user, isAuthenticated } = useAuth();
   const { t } = useTranslation();
   const isGuest = user?.isGuest === true;
+
+  const gradingOptions = useMemo(() => localizeOptions(GRADING_OPTIONS, t), [t]);
+  const degreeOptions = useMemo(() => localizeOptions(DEGREE_OPTIONS, t), [t]);
+  const examOptions = useMemo(() => localizeOptions(EXAM_OPTIONS, t), [t]);
 
   const [gradingSystem, setGradingSystem] = useState("GPA_4");
   const [degree, setDegree] = useState("HIGH_SCHOOL_DIPLOMA");
@@ -143,8 +152,9 @@ const MatchUniversitiesPage = () => {
           gradingSystem,
           degree,
           institutionName: "Self-reported",
-          fromYear: 2021,
-          toYear: 2025,
+          // Default to a recent ~4-year window relative to now (avoids hardcoded years going stale).
+          fromYear: new Date().getFullYear() - 4,
+          toYear: new Date().getFullYear(),
           subjects: filled.map((r) => ({
             subjectName: r.name.trim(),
             rawScore: String(r.grade),
@@ -219,13 +229,13 @@ const MatchUniversitiesPage = () => {
               label={t("matchGradingSystem")}
               value={gradingSystem}
               onChange={setGradingSystem}
-              options={GRADING_OPTIONS}
+              options={gradingOptions}
             />
             <SelectField
               label={t("matchHighestDegree")}
               value={degree}
               onChange={setDegree}
-              options={DEGREE_OPTIONS}
+              options={degreeOptions}
             />
           </div>
 
@@ -262,7 +272,7 @@ const MatchUniversitiesPage = () => {
               label={t("matchExam")}
               value={examType}
               onChange={setExamType}
-              options={EXAM_OPTIONS}
+              options={examOptions}
             />
             {examType !== "none" && (
               <>

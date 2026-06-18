@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import PageTemplate from "../../../shared/PageTemplate";
 import { AwardIcon } from "../../../shared/Icons";
 import { SelectField } from "../../../../ui-components";
@@ -41,11 +41,12 @@ const SearchScholarshipsPage = () => {
   const [field, setField] = useState("");
   const [degree, setDegree] = useState("");
   const [items, setItems] = useState([]);
-  const [page, setPage] = useState(0);
   const [hasMore, setHasMore] = useState(false);
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
   const [error, setError] = useState(null);
+  // Page in a ref so loadMore reads the latest value (no stale closure on rapid clicks).
+  const pageRef = useRef(0);
 
   const buildFilters = (p) => {
     const filters = { page: p, size: PAGE_SIZE };
@@ -59,7 +60,7 @@ const SearchScholarshipsPage = () => {
     let active = true;
     setLoading(true);
     setError(null);
-    setPage(0);
+    pageRef.current = 0;
     getScholarships(buildFilters(0))
       .then((data) => {
         if (!active) return;
@@ -76,14 +77,15 @@ const SearchScholarshipsPage = () => {
   }, [field, degree]);
 
   const loadMore = () => {
-    const next = page + 1;
+    if (loadingMore) return; // re-entrancy guard
+    const next = pageRef.current + 1;
     setLoadingMore(true);
     setError(null);
     getScholarships(buildFilters(next))
       .then((data) => {
         const list = Array.isArray(data) ? data : [];
+        pageRef.current = next;
         setItems((prev) => [...prev, ...list]);
-        setPage(next);
         setHasMore(list.length === PAGE_SIZE);
       })
       .catch((e) => setError(e.message))
