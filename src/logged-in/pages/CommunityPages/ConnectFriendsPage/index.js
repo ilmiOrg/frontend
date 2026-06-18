@@ -18,7 +18,6 @@ const ConnectFriendsPage = () => {
     <PageTemplate
       icon={<UsersIcon size={22} />}
       title={t("connectFriendsTitle")}
-      actions={<button className={s.primaryBtn}>{t("getStarted")}</button>}
     >
       <div className={s.layout}>
         <div className={s.introPanel}>

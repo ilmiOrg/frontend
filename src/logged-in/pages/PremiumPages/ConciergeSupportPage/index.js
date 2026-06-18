@@ -18,7 +18,6 @@ const ConciergeSupportPage = () => {
     <PageTemplate
       icon={<CrownIcon size={22} />}
       title={t("conciergeSupportTitle")}
-      actions={<button className={s.primaryBtn}>{t("getStarted")}</button>}
     >
       <div className={s.layout}>
         <div className={s.introPanel}>
@@ -43,7 +42,6 @@ const ConciergeSupportPage = () => {
             <h3 className={s.ctaTitle}>{t("conciergeSupportTitle")}</h3>
             <p className={s.ctaDesc}>{t("conciergeSupportIntro")}</p>
           </div>
-          <button className={s.ctaBtn}>{t("startNow")}</button>
         </div>
       </div>
     </PageTemplate>

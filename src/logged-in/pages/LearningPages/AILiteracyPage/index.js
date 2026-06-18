@@ -18,7 +18,6 @@ const AILiteracyPage = () => {
     <PageTemplate
       icon={<CpuIcon size={22} />}
       title={t("aiLiteracyTitle")}
-      actions={<button className={s.primaryBtn}>{t("getStarted")}</button>}
     >
       <div className={s.layout}>
         <div className={s.introPanel}>
@@ -45,7 +44,6 @@ const AILiteracyPage = () => {
             <h3 className={s.ctaTitle}>{t("aiLiteracyTitle")}</h3>
             <p className={s.ctaDesc}>{t("aiLiteracyIntro")}</p>
           </div>
-          <button className={s.ctaBtn}>{t("startNow")}</button>
         </div>
       </div>
     </PageTemplate>

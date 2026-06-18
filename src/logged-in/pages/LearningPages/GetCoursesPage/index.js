@@ -25,7 +25,6 @@ const GetCoursesPage = () => {
     <PageTemplate
       icon={<BookOpenIcon size={22} />}
       title={t("getCoursesTitle")}
-      actions={<button className={s.primaryBtn}>{t("getStarted")}</button>}
     >
       <div className={s.layout}>
         <div className={s.introPanel}>
@@ -67,7 +66,6 @@ const GetCoursesPage = () => {
             <h3 className={s.ctaTitle}>{t("getCoursesTitle")}</h3>
             <p className={s.ctaDesc}>{t("getCoursesIntro")}</p>
           </div>
-          <button className={s.ctaBtn}>{t("startNow")}</button>
         </div>
       </div>
     </PageTemplate>

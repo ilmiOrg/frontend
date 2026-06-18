@@ -25,7 +25,6 @@ const MathPage = () => {
     <PageTemplate
       icon={<CalculatorIcon size={22} />}
       title={t("mathTitle")}
-      actions={<button className={s.primaryBtn}>{t("getStarted")}</button>}
     >
       <div className={s.layout}>
         <div className={s.introPanel}>
@@ -65,7 +64,6 @@ const MathPage = () => {
             <h3 className={s.ctaTitle}>{t("mathTitle")}</h3>
             <p className={s.ctaDesc}>{t("mathIntro")}</p>
           </div>
-          <button className={s.ctaBtn}>{t("startNow")}</button>
         </div>
       </div>
     </PageTemplate>

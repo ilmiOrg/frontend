@@ -18,7 +18,6 @@ const DreamUniversityPage = () => {
     <PageTemplate
       icon={<StarIcon size={22} />}
       title={t("dreamUniTitle")}
-      actions={<button className={s.primaryBtn}>{t("getStarted")}</button>}
     >
       <div className={s.layout}>
         <div className={s.introPanel}>

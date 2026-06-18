@@ -25,7 +25,6 @@ const EnglishPage = () => {
     <PageTemplate
       icon={<LanguagesIcon size={22} />}
       title={t("englishTitle")}
-      actions={<button className={s.primaryBtn}>{t("getStarted")}</button>}
     >
       <div className={s.layout}>
         <div className={s.introPanel}>
@@ -62,7 +61,6 @@ const EnglishPage = () => {
             <h3 className={s.ctaTitle}>{t("englishTitle")}</h3>
             <p className={s.ctaDesc}>{t("englishIntro")}</p>
           </div>
-          <button className={s.ctaBtn}>{t("startNow")}</button>
         </div>
       </div>
     </PageTemplate>

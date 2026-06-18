@@ -18,7 +18,6 @@ const AlumniMentorsPage = () => {
     <PageTemplate
       icon={<GraduationCapIcon size={22} />}
       title={t("alumniMentorsTitle")}
-      actions={<button className={s.primaryBtn}>{t("getStarted")}</button>}
     >
       <div className={s.layout}>
         <div className={s.introPanel}>

@@ -18,7 +18,6 @@ const EssayWritingPage = () => {
     <PageTemplate
       icon={<FileEditIcon size={22} />}
       title={t("essayWritingTitle")}
-      actions={<button className={s.primaryBtn}>{t("getStarted")}</button>}
     >
       <div className={s.layout}>
         <div className={s.introPanel}>
@@ -45,7 +44,6 @@ const EssayWritingPage = () => {
             <h3 className={s.ctaTitle}>{t("essayWritingTitle")}</h3>
             <p className={s.ctaDesc}>{t("essayWritingIntro")}</p>
           </div>
-          <button className={s.ctaBtn}>{t("startNow")}</button>
         </div>
       </div>
     </PageTemplate>
