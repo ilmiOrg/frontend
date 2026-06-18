@@ -4,6 +4,7 @@ import { TrendingUpIcon, ExternalLinkIcon } from "../../../shared/Icons";
 import { SelectField } from "../../../../ui-components";
 import { getJobs } from "../../../../api/jobs";
 import { useTranslation } from "../../../../hooks/useLanguage";
+import { formatEnum as prettyEnum } from "../../../../lib/formatEnum";
 import s from "../../../shared/ContentPage/style.module.css";
 
 const FIELD_VALUES = [
@@ -11,10 +12,6 @@ const FIELD_VALUES = [
   "MATHEMATICS", "PHYSICS", "BIOLOGY", "CHEMISTRY", "HUMANITIES", "SOCIAL_SCIENCES",
   "ARTS", "EDUCATION", "ARCHITECTURE",
 ];
-
-function prettyEnum(v) {
-  return String(v || "").toLowerCase().replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
-}
 
 const PAGE_SIZE = 12;
 

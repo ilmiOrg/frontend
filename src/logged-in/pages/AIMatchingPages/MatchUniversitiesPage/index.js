@@ -39,6 +39,14 @@ const EXAM_OPTIONS = [
 const localizeOptions = (options, t) =>
   options.map((o) => ({ value: o.value, label: o.labelKey ? t(o.labelKey) : o.label }));
 
+// Backend admission-chance tiers -> localization keys (fall back to the raw value if unknown).
+const TIER_LABEL_KEY = {
+  Safety: "matchTierSafety",
+  Target: "matchTierTarget",
+  Reach: "matchTierReach",
+  "Far reach": "matchTierFarReach",
+};
+
 const prettyEnum = (value) =>
   String(value || "")
     .toLowerCase()
@@ -151,7 +159,7 @@ const MatchUniversitiesPage = () => {
           type: "SUBJECT_BASED",
           gradingSystem,
           degree,
-          institutionName: "Self-reported",
+          institutionName: t("matchTranscriptSelfReported"),
           // Default to a recent ~4-year window relative to now (avoids hardcoded years going stale).
           fromYear: new Date().getFullYear() - 4,
           toYear: new Date().getFullYear(),
@@ -384,7 +392,8 @@ const MatchUniversitiesPage = () => {
                     {chance && (
                       <div className={m.chanceRow}>
                         <span className={`${m.chancePill} ${tierClass || ""}`}>
-                          🎯 {chance.percent}% · {chance.tier}
+                          🎯 {chance.percent}% ·{" "}
+                          {TIER_LABEL_KEY[chance.tier] ? t(TIER_LABEL_KEY[chance.tier]) : chance.tier}
                         </span>
                         <span className={m.chanceNote}>{chance.rationale}</span>
                       </div>

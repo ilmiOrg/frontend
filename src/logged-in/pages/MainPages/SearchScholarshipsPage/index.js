@@ -4,6 +4,7 @@ import { AwardIcon } from "../../../shared/Icons";
 import { SelectField } from "../../../../ui-components";
 import { getScholarships } from "../../../../api/scholarships";
 import { useTranslation } from "../../../../hooks/useLanguage";
+import { formatEnum as pretty } from "../../../../lib/formatEnum";
 import s from "../../../shared/ContentPage/style.module.css";
 import local from "./style.module.css";
 
@@ -14,10 +15,6 @@ const FIELD_VALUES = [
 ];
 
 const PAGE_SIZE = 12;
-
-function pretty(v) {
-  return String(v || "").toLowerCase().replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
-}
 
 function awardLabel(sc, t) {
   if (sc.awardType === "FULL_TUITION") return t("searchScholarshipsAwardFullTuition");

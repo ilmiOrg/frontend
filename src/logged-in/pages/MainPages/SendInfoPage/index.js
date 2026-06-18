@@ -51,6 +51,13 @@ const SendInfoPage = () => {
     setFormData({});
   }, [activeTab]);
 
+  // Auto-dismiss the submit error so it doesn't linger after the user retries.
+  useEffect(() => {
+    if (!submitError) return undefined;
+    const timer = setTimeout(() => setSubmitError(false), 5000);
+    return () => clearTimeout(timer);
+  }, [submitError]);
+
   const handleBack = () => {
     navigate("/dashboard");
   };
@@ -116,6 +123,7 @@ const SendInfoPage = () => {
                 type="text"
                 name="fullName"
                 required
+                value={formData.fullName || ""}
                 onChange={handleInputChange}
                 className={styles.input}
                 placeholder={t("sendInfoPhFullName")}
@@ -128,6 +136,7 @@ const SendInfoPage = () => {
                 type="email"
                 name="email"
                 required
+                value={formData.email || ""}
                 onChange={handleInputChange}
                 className={styles.input}
                 placeholder={t("sendInfoPhEmail")}
@@ -139,6 +148,7 @@ const SendInfoPage = () => {
                 id="sendinfo-phone"
                 type="tel"
                 name="phone"
+                value={formData.phone || ""}
                 onChange={handleInputChange}
                 className={styles.input}
                 placeholder={t("sendInfoPhPhone")}
@@ -151,6 +161,7 @@ const SendInfoPage = () => {
                 type="text"
                 name="university"
                 required
+                value={formData.university || ""}
                 onChange={handleInputChange}
                 className={styles.input}
                 placeholder={t("sendInfoPhUniversityInterest")}
@@ -162,6 +173,7 @@ const SendInfoPage = () => {
                 id="sendinfo-program"
                 type="text"
                 name="program"
+                value={formData.program || ""}
                 onChange={handleInputChange}
                 className={styles.input}
                 placeholder={t("sendInfoPhProgramInterest")}
@@ -173,6 +185,7 @@ const SendInfoPage = () => {
                 id="sendinfo-gpa"
                 type="text"
                 name="gpa"
+                value={formData.gpa || ""}
                 onChange={handleInputChange}
                 className={styles.input}
                 placeholder={t("sendInfoPhGpa")}
@@ -183,6 +196,7 @@ const SendInfoPage = () => {
               <textarea
                 id="sendinfo-message"
                 name="message"
+                value={formData.message || ""}
                 onChange={handleInputChange}
                 className={styles.textarea}
                 placeholder={t("sendInfoPhGoals")}
@@ -201,6 +215,7 @@ const SendInfoPage = () => {
                 type="text"
                 name="fullName"
                 required
+                value={formData.fullName || ""}
                 onChange={handleInputChange}
                 className={styles.input}
                 placeholder={t("sendInfoPhFullName")}
@@ -213,6 +228,7 @@ const SendInfoPage = () => {
                 type="email"
                 name="email"
                 required
+                value={formData.email || ""}
                 onChange={handleInputChange}
                 className={styles.input}
                 placeholder={t("sendInfoPhEmail")}
@@ -224,6 +240,7 @@ const SendInfoPage = () => {
                 id="sendinfo-phone"
                 type="tel"
                 name="phone"
+                value={formData.phone || ""}
                 onChange={handleInputChange}
                 className={styles.input}
                 placeholder={t("sendInfoPhPhone")}
@@ -236,6 +253,7 @@ const SendInfoPage = () => {
                 type="text"
                 name="scholarshipName"
                 required
+                value={formData.scholarshipName || ""}
                 onChange={handleInputChange}
                 className={styles.input}
                 placeholder={t("sendInfoPhScholarship")}
@@ -247,6 +265,7 @@ const SendInfoPage = () => {
                 id="sendinfo-university"
                 type="text"
                 name="university"
+                value={formData.university || ""}
                 onChange={handleInputChange}
                 className={styles.input}
                 placeholder={t("sendInfoPhUniversityOpt")}
@@ -257,6 +276,7 @@ const SendInfoPage = () => {
               <textarea
                 id="sendinfo-achievements"
                 name="achievements"
+                value={formData.achievements || ""}
                 onChange={handleInputChange}
                 className={styles.textarea}
                 placeholder={t("sendInfoPhAchievements")}
@@ -275,6 +295,7 @@ const SendInfoPage = () => {
                 type="text"
                 name="fullName"
                 required
+                value={formData.fullName || ""}
                 onChange={handleInputChange}
                 className={styles.input}
                 placeholder={t("sendInfoPhFullName")}
@@ -287,6 +308,7 @@ const SendInfoPage = () => {
                 type="email"
                 name="email"
                 required
+                value={formData.email || ""}
                 onChange={handleInputChange}
                 className={styles.input}
                 placeholder={t("sendInfoPhEmail")}
@@ -298,6 +320,7 @@ const SendInfoPage = () => {
                 id="sendinfo-phone"
                 type="tel"
                 name="phone"
+                value={formData.phone || ""}
                 onChange={handleInputChange}
                 className={styles.input}
                 placeholder={t("sendInfoPhPhone")}
@@ -310,6 +333,7 @@ const SendInfoPage = () => {
                 type="text"
                 name="university"
                 required
+                value={formData.university || ""}
                 onChange={handleInputChange}
                 className={styles.input}
                 placeholder={t("sendInfoPhUniversityRequired")}
@@ -322,6 +346,7 @@ const SendInfoPage = () => {
                 type="text"
                 name="program"
                 required
+                value={formData.program || ""}
                 onChange={handleInputChange}
                 className={styles.input}
                 placeholder={t("sendInfoPhProgramRequired")}
@@ -333,6 +358,7 @@ const SendInfoPage = () => {
                 id="sendinfo-deadline"
                 type="date"
                 name="deadline"
+                value={formData.deadline || ""}
                 onChange={handleInputChange}
                 className={styles.input}
               />
@@ -342,6 +368,7 @@ const SendInfoPage = () => {
               <textarea
                 id="sendinfo-helpNeeded"
                 name="helpNeeded"
+                value={formData.helpNeeded || ""}
                 onChange={handleInputChange}
                 className={styles.textarea}
                 placeholder={t("sendInfoPhHelp")}
@@ -360,6 +387,7 @@ const SendInfoPage = () => {
                 type="text"
                 name="fullName"
                 required
+                value={formData.fullName || ""}
                 onChange={handleInputChange}
                 className={styles.input}
                 placeholder={t("sendInfoPhFullName")}
@@ -372,6 +400,7 @@ const SendInfoPage = () => {
                 type="email"
                 name="email"
                 required
+                value={formData.email || ""}
                 onChange={handleInputChange}
                 className={styles.input}
                 placeholder={t("sendInfoPhEmail")}
@@ -383,6 +412,7 @@ const SendInfoPage = () => {
                 id="sendinfo-phone"
                 type="tel"
                 name="phone"
+                value={formData.phone || ""}
                 onChange={handleInputChange}
                 className={styles.input}
                 placeholder={t("sendInfoPhPhone")}
@@ -394,6 +424,7 @@ const SendInfoPage = () => {
                 id="sendinfo-meetingType"
                 name="meetingType"
                 required
+                value={formData.meetingType || ""}
                 onChange={handleInputChange}
                 className={styles.select}
               >
@@ -411,6 +442,7 @@ const SendInfoPage = () => {
                 type="date"
                 name="preferredDate"
                 required
+                value={formData.preferredDate || ""}
                 onChange={handleInputChange}
                 className={styles.input}
               />
@@ -421,6 +453,7 @@ const SendInfoPage = () => {
                 id="sendinfo-preferredTime"
                 type="time"
                 name="preferredTime"
+                value={formData.preferredTime || ""}
                 onChange={handleInputChange}
                 className={styles.input}
               />
@@ -430,6 +463,7 @@ const SendInfoPage = () => {
               <textarea
                 id="sendinfo-notes"
                 name="notes"
+                value={formData.notes || ""}
                 onChange={handleInputChange}
                 className={styles.textarea}
                 placeholder={t("sendInfoPhNotes")}
@@ -448,6 +482,7 @@ const SendInfoPage = () => {
                 type="text"
                 name="fullName"
                 required
+                value={formData.fullName || ""}
                 onChange={handleInputChange}
                 className={styles.input}
                 placeholder={t("sendInfoPhFullName")}
@@ -460,6 +495,7 @@ const SendInfoPage = () => {
                 type="email"
                 name="email"
                 required
+                value={formData.email || ""}
                 onChange={handleInputChange}
                 className={styles.input}
                 placeholder={t("sendInfoPhEmail")}
@@ -471,6 +507,7 @@ const SendInfoPage = () => {
                 id="sendinfo-phone"
                 type="tel"
                 name="phone"
+                value={formData.phone || ""}
                 onChange={handleInputChange}
                 className={styles.input}
                 placeholder={t("sendInfoPhPhone")}
@@ -483,6 +520,7 @@ const SendInfoPage = () => {
                 type="text"
                 name="subject"
                 required
+                value={formData.subject || ""}
                 onChange={handleInputChange}
                 className={styles.input}
                 placeholder={t("sendInfoPhSubject")}
@@ -494,6 +532,7 @@ const SendInfoPage = () => {
                 id="sendinfo-message"
                 name="message"
                 required
+                value={formData.message || ""}
                 onChange={handleInputChange}
                 className={styles.textarea}
                 placeholder={t("sendInfoPhContact")}
