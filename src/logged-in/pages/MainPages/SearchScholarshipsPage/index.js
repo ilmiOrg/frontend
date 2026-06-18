@@ -13,6 +13,8 @@ const FIELD_VALUES = [
   "ARTS", "EDUCATION", "ARCHITECTURE",
 ];
 
+const PAGE_SIZE = 12;
+
 function pretty(v) {
   return String(v || "").toLowerCase().replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 }
@@ -39,24 +41,54 @@ const SearchScholarshipsPage = () => {
   const [field, setField] = useState("");
   const [degree, setDegree] = useState("");
   const [items, setItems] = useState([]);
+  const [page, setPage] = useState(0);
+  const [hasMore, setHasMore] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [error, setError] = useState(null);
 
+  const buildFilters = (p) => {
+    const filters = { page: p, size: PAGE_SIZE };
+    if (field) filters.field = field;
+    if (degree) filters.degree = degree;
+    return filters;
+  };
+
+  // Load the first page whenever a filter changes.
   useEffect(() => {
     let active = true;
     setLoading(true);
     setError(null);
-    const filters = {};
-    if (field) filters.field = field;
-    if (degree) filters.degree = degree;
-    getScholarships(filters)
-      .then((data) => active && setItems(Array.isArray(data) ? data : []))
+    setPage(0);
+    getScholarships(buildFilters(0))
+      .then((data) => {
+        if (!active) return;
+        const list = Array.isArray(data) ? data : [];
+        setItems(list);
+        setHasMore(list.length === PAGE_SIZE);
+      })
       .catch((e) => active && setError(e.message))
       .finally(() => active && setLoading(false));
     return () => {
       active = false;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [field, degree]);
+
+  const loadMore = () => {
+    const next = page + 1;
+    setLoadingMore(true);
+    setError(null);
+    getScholarships(buildFilters(next))
+      .then((data) => {
+        const list = Array.isArray(data) ? data : [];
+        setItems((prev) => [...prev, ...list]);
+        setPage(next);
+        setHasMore(list.length === PAGE_SIZE);
+      })
+      .catch((e) => setError(e.message))
+      .finally(() => setLoadingMore(false));
+  };
 
   return (
     <PageTemplate
@@ -103,6 +135,18 @@ const SearchScholarshipsPage = () => {
                 </div>
               ))}
             </div>
+            {hasMore ? (
+              <div className={s.loadMoreRow}>
+                <button
+                  type="button"
+                  className={s.loadMoreBtn}
+                  onClick={loadMore}
+                  disabled={loadingMore}
+                >
+                  {loadingMore ? t("loadingMore") : t("loadMore")}
+                </button>
+              </div>
+            ) : null}
           </>
         )}
       </div>

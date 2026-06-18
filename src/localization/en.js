@@ -1282,6 +1282,8 @@ const en = {
   jobsAllFields: "All fields",
   jobsLoading: "Loading jobs…",
   jobsEmpty: "No jobs yet for this filter.",
+  loadMore: "Load more",
+  loadingMore: "Loading…",
   jobsCount: "{count} opportunities",
   jobsApply: "Apply",
 

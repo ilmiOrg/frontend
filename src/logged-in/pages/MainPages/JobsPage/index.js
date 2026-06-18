@@ -16,6 +16,8 @@ function prettyEnum(v) {
   return String(v || "").toLowerCase().replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
+const PAGE_SIZE = 12;
+
 const JobsPage = () => {
   const { t } = useTranslation();
   const FIELD_OPTIONS = [
@@ -24,21 +26,46 @@ const JobsPage = () => {
   ];
   const [field, setField] = useState("");
   const [jobs, setJobs] = useState([]);
+  const [page, setPage] = useState(0);
+  const [hasMore, setHasMore] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [error, setError] = useState(null);
 
+  // Load the first page whenever the field filter changes.
   useEffect(() => {
     let active = true;
     setLoading(true);
     setError(null);
-    getJobs(field ? { field } : {})
-      .then((data) => active && setJobs(Array.isArray(data) ? data : []))
+    setPage(0);
+    getJobs({ ...(field ? { field } : {}), page: 0, size: PAGE_SIZE })
+      .then((data) => {
+        if (!active) return;
+        const list = Array.isArray(data) ? data : [];
+        setJobs(list);
+        setHasMore(list.length === PAGE_SIZE);
+      })
       .catch((e) => active && setError(e.message))
       .finally(() => active && setLoading(false));
     return () => {
       active = false;
     };
   }, [field]);
+
+  const loadMore = () => {
+    const next = page + 1;
+    setLoadingMore(true);
+    setError(null);
+    getJobs({ ...(field ? { field } : {}), page: next, size: PAGE_SIZE })
+      .then((data) => {
+        const list = Array.isArray(data) ? data : [];
+        setJobs((prev) => [...prev, ...list]);
+        setPage(next);
+        setHasMore(list.length === PAGE_SIZE);
+      })
+      .catch((e) => setError(e.message))
+      .finally(() => setLoadingMore(false));
+  };
 
   const count = useMemo(() => jobs.length, [jobs]);
 
@@ -89,6 +116,18 @@ const JobsPage = () => {
                 </div>
               ))}
             </div>
+            {hasMore ? (
+              <div className={s.loadMoreRow}>
+                <button
+                  type="button"
+                  className={s.loadMoreBtn}
+                  onClick={loadMore}
+                  disabled={loadingMore}
+                >
+                  {loadingMore ? t("loadingMore") : t("loadMore")}
+                </button>
+              </div>
+            ) : null}
           </>
         )}
       </div>

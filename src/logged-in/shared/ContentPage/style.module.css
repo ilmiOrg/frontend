@@ -376,6 +376,38 @@
   transform: translateY(-1px);
 }
 
+/* Load more (pagination) */
+.loadMoreRow {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.loadMoreBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 24px;
+  font-size: var(--fontSize-sm, 0.875rem);
+  font-weight: 600;
+  color: var(--primary);
+  background: transparent;
+  border: 1px solid var(--primary);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.loadMoreBtn:hover {
+  background: var(--primary);
+  color: var(--on-primary);
+}
+
+.loadMoreBtn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
 /* Empty State */
 .emptyState {
   font-size: var(--fontSize-sm, 0.875rem);

@@ -1275,6 +1275,8 @@ const ru = {
   jobsAllFields: "Все направления",
   jobsLoading: "Загрузка вакансий…",
   jobsEmpty: "Пока нет вакансий по этому фильтру.",
+  loadMore: "Показать ещё",
+  loadingMore: "Загрузка…",
   jobsCount: "{count} возможностей",
   jobsApply: "Откликнуться",
 
