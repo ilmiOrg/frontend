@@ -19,6 +19,9 @@ import "./styles/animations.css";
 const PublicHomePage = lazy(() => import("./logged-out/pages/PublicHomePage"));
 const LoginPage = lazy(() => import("./logged-out/pages/LoginPage"));
 const RegisterPage = lazy(() => import("./logged-out/pages/RegisterPage"));
+const ForgotPasswordPage = lazy(() => import("./logged-out/pages/ForgotPasswordPage"));
+const ResetPasswordPage = lazy(() => import("./logged-out/pages/ResetPasswordPage"));
+const VerifyEmailPage = lazy(() => import("./logged-out/pages/VerifyEmailPage"));
 const DashboardLayout = lazy(() => import("./logged-in/shared/DashboardLayout"));
 const DashboardPage = lazy(() => import("./logged-in/pages/MainPages/DashboardPage"));
 
@@ -99,6 +102,17 @@ function App() {
               </PublicRoute>
             }
           />
+          <Route
+            path="/forgot-password"
+            element={
+              <PublicRoute>
+                <ForgotPasswordPage />
+              </PublicRoute>
+            }
+          />
+          {/* Reachable from the email link regardless of auth state. */}
+          <Route path="/reset-password" element={<ResetPasswordPage />} />
+          <Route path="/verify-email" element={<VerifyEmailPage />} />
 
           {/* All /dashboard/* routes share DashboardLayout (sidebar + topbar) */}
           <Route

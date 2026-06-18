@@ -91,6 +91,15 @@ const LoginPage = () => {
 
           <div className={styles["login-footer"] || styles.loginFooter}>
             <p>
+              <button
+                type="button"
+                onClick={() => navigate("/forgot-password")}
+                className={styles.linkButton}
+              >
+                {t("loginForgotLink")}
+              </button>
+            </p>
+            <p>
               {t("loginNoAccount")}{" "}
               <a
                 href="/register"

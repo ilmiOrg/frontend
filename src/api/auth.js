@@ -1,4 +1,22 @@
-import { apiUrl, jsonHeaders, API_BASE_URL, getToken } from "./config";
+import { apiUrl, jsonHeaders, API_BASE_URL, getToken, request } from "./config";
+
+/** Ask the backend to email a reset link. Always resolves (never reveals if the email exists). */
+export async function requestPasswordReset(email) {
+  return request("/api/v1/auth/password-reset/request", {
+    method: "POST",
+    body: { email },
+    errorMessage: "Could not start password reset.",
+  });
+}
+
+/** Set a new password using the token from the reset email link. */
+export async function confirmPasswordReset(token, newPassword) {
+  return request("/api/v1/auth/password-reset/confirm", {
+    method: "POST",
+    body: { token, newPassword },
+    errorMessage: "This reset link is invalid or has expired.",
+  });
+}
 
 /**
  * Revoke the current token server-side (real logout). Fire-and-forget: failures are
