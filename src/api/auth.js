@@ -25,10 +25,14 @@ export async function confirmPasswordReset(token, newPassword) {
 export async function logout() {
   const token = getToken();
   if (!token) return;
+  const refreshToken =
+    typeof localStorage !== "undefined" ? localStorage.getItem("refreshToken") : null;
   try {
     await fetch(apiUrl("/api/v1/auth/logout"), {
       method: "POST",
       headers: jsonHeaders(token),
+      // Sent so the server can revoke the refresh token too (not just the access JWT).
+      body: JSON.stringify({ refreshToken }),
     });
   } catch (_) {
     // ignore — local sign-out happens regardless

@@ -41,12 +41,56 @@ export function jsonHeaders(token = null) {
 }
 
 const AUTH_TOKEN_KEY = "token";
+const AUTH_REFRESH_KEY = "refreshToken";
 
 /** Auth token from storage (null when unset / no localStorage). */
 export function getToken() {
   return typeof localStorage !== "undefined"
     ? localStorage.getItem(AUTH_TOKEN_KEY)
     : null;
+}
+
+function getRefreshToken() {
+  return typeof localStorage !== "undefined"
+    ? localStorage.getItem(AUTH_REFRESH_KEY)
+    : null;
+}
+
+// Single-flight: concurrent 401s share one refresh call instead of stampeding /auth/refresh.
+let refreshInFlight = null;
+
+/**
+ * Exchange the stored refresh token for a fresh access token (rotated). Returns the new access
+ * token, or null if there's no refresh token or the server rejects it. Never throws.
+ */
+function refreshAccessToken() {
+  if (refreshInFlight) return refreshInFlight;
+  const rt = getRefreshToken();
+  if (!rt) return Promise.resolve(null);
+  refreshInFlight = fetch(apiUrl("/api/v1/auth/refresh"), {
+    method: "POST",
+    headers: jsonHeaders(),
+    body: JSON.stringify({ refreshToken: rt }),
+  })
+    .then(async (r) => {
+      if (!r.ok) return null;
+      const data = await r.json().catch(() => null);
+      if (data && data.token) {
+        try {
+          localStorage.setItem(AUTH_TOKEN_KEY, data.token);
+          if (data.refreshToken) localStorage.setItem(AUTH_REFRESH_KEY, data.refreshToken);
+        } catch (_) {
+          /* ignore */
+        }
+        return data.token;
+      }
+      return null;
+    })
+    .catch(() => null)
+    .finally(() => {
+      refreshInFlight = null;
+    });
+  return refreshInFlight;
 }
 
 /**
@@ -57,6 +101,7 @@ function handleSessionExpired() {
   if (typeof window === "undefined") return;
   try {
     localStorage.removeItem(AUTH_TOKEN_KEY);
+    localStorage.removeItem(AUTH_REFRESH_KEY);
     localStorage.removeItem("userEmail");
     localStorage.removeItem("userName");
     localStorage.removeItem("authGuest");
@@ -99,14 +144,23 @@ export async function request(
     url = u.toString();
   }
 
-  const token = auth ? getToken() : null;
-  let res;
-  try {
-    res = await fetch(url, {
+  const doFetch = (tok) =>
+    fetch(url, {
       method,
-      headers: jsonHeaders(token),
+      headers: jsonHeaders(tok),
       ...(body !== undefined ? { body: JSON.stringify(body) } : {}),
     });
+
+  let res;
+  try {
+    res = await doFetch(auth ? getToken() : null);
+    // Access token expired on an authenticated call → try a silent refresh once, then retry.
+    if (res.status === 401 && auth) {
+      const newToken = await refreshAccessToken();
+      if (newToken) {
+        res = await doFetch(newToken);
+      }
+    }
   } catch (networkErr) {
     // Server unreachable / offline — surface a global toast and rethrow.
     notifyError("Can’t reach the server. Check your connection and try again.");
@@ -115,10 +169,8 @@ export async function request(
 
   if (res.status === 204) return null;
 
-  // Token missing/expired/revoked on an authenticated call → end the session cleanly
-  // instead of leaving the user on a silently-broken page. Only trigger when this request
-  // actually sent the Authorization header, so a 401 from a public endpoint can't wipe a
-  // valid session.
+  // Still unauthorized after the refresh attempt → end the session cleanly instead of
+  // leaving the user on a silently-broken page.
   if (res.status === 401 && auth) {
     handleSessionExpired();
     throw new Error("Session expired. Please sign in again.");

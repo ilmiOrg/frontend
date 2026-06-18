@@ -9,9 +9,16 @@ import { login as apiLogin, register as apiRegister, logout as apiLogout } from 
 import { getStudentProfile } from "../api/studentProfile";
 
 const AUTH_TOKEN_KEY = "token";
+const AUTH_REFRESH_KEY = "refreshToken";
 const AUTH_EMAIL_KEY = "userEmail";
 const AUTH_NAME_KEY = "userName";
 const AUTH_GUEST_KEY = "authGuest";
+
+function storeRefreshToken(data) {
+  if (data && data.refreshToken) {
+    localStorage.setItem(AUTH_REFRESH_KEY, data.refreshToken);
+  }
+}
 
 /** Guest user shown in UI when using "Continue as guest" (no backend login). */
 export const GUEST_USER = {
@@ -68,6 +75,7 @@ export const AuthProvider = ({ children }) => {
     } else if (token) {
       // Stale/expired token — clear it so the app starts in a clean logged-out state.
       localStorage.removeItem(AUTH_TOKEN_KEY);
+      localStorage.removeItem(AUTH_REFRESH_KEY);
       localStorage.removeItem(AUTH_EMAIL_KEY);
       localStorage.removeItem(AUTH_NAME_KEY);
     }
@@ -78,6 +86,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem(AUTH_GUEST_KEY);
     const data = await apiLogin(email, password);
     localStorage.setItem(AUTH_TOKEN_KEY, data.token);
+    storeRefreshToken(data);
     localStorage.setItem(AUTH_EMAIL_KEY, data.email);
     const name = data.name?.trim() || data.email?.split("@")[0];
     if (data.name?.trim()) localStorage.setItem(AUTH_NAME_KEY, data.name.trim());
@@ -103,8 +112,9 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const logout = useCallback(() => {
-    apiLogout(); // fire-and-forget: revoke the token server-side
+    apiLogout(); // fire-and-forget: revoke the access + refresh tokens server-side
     localStorage.removeItem(AUTH_TOKEN_KEY);
+    localStorage.removeItem(AUTH_REFRESH_KEY);
     localStorage.removeItem(AUTH_EMAIL_KEY);
     localStorage.removeItem(AUTH_NAME_KEY);
     localStorage.removeItem(AUTH_GUEST_KEY);
@@ -116,6 +126,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem(AUTH_GUEST_KEY);
     const data = await apiRegister(userData);
     localStorage.setItem(AUTH_TOKEN_KEY, data.token);
+    storeRefreshToken(data);
     localStorage.setItem(AUTH_EMAIL_KEY, data.email);
     const fullName = [userData.firstName, userData.lastName]
       .filter(Boolean)
