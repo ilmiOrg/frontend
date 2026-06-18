@@ -4,6 +4,7 @@ import { BookOpenIcon, ExternalLinkIcon } from "../../../shared/Icons";
 import { SelectField } from "../../../../ui-components";
 import { getCourses } from "../../../../api/courses";
 import { useTranslation } from "../../../../hooks/useLanguage";
+import { isSafeHttpUrl } from "../../../../lib/safeUrl";
 import s from "../../../shared/ContentPage/style.module.css";
 
 const CoursesPage = () => {
@@ -17,12 +18,12 @@ const CoursesPage = () => {
     let active = true;
     getCourses()
       .then((data) => active && setAll(Array.isArray(data) ? data : []))
-      .catch((e) => active && setError(e.message))
+      .catch((e) => active && setError(e?.message || t("errorGeneric")))
       .finally(() => active && setLoading(false));
     return () => {
       active = false;
     };
-  }, []);
+  }, [t]);
 
   const subjectOptions = useMemo(() => {
     const subjects = [...new Set(all.map((c) => c.subject).filter(Boolean))];
@@ -71,7 +72,7 @@ const CoursesPage = () => {
                     {c.priceAmount != null ? (
                       <span className={s.metaBadge}>{Number(c.priceAmount).toLocaleString()} {c.currency || ""}</span>
                     ) : null}
-                    {c.url ? (
+                    {isSafeHttpUrl(c.url) ? (
                       <a className={s.metaBadge} href={c.url} target="_blank" rel="noreferrer">
                         {t("coursesView")} <ExternalLinkIcon size={12} />
                       </a>

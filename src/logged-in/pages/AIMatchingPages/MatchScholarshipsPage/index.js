@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import PageTemplate from "../../../shared/PageTemplate";
 import { AwardIcon } from "../../../shared/Icons";
@@ -40,22 +40,28 @@ const MatchScholarshipsPage = () => {
   const [error, setError] = useState(null);
   const [eligibleOnly, setEligibleOnly] = useState(false);
 
-  const load = useCallback(async () => {
+  // Fetch in the effect with an `active` guard so a slow response from a previous filter can't
+  // overwrite the latest one (rapid eligibleOnly toggles).
+  useEffect(() => {
+    if (!isAuthenticated || isGuest) return undefined;
+    let active = true;
     setLoading(true);
     setError(null);
-    try {
-      const data = await getScholarshipMatches({ eligibleOnly });
-      setRows(Array.isArray(data) ? data : []);
-    } catch (e) {
-      setError(e.message || t("matchScholErrorDefault"));
-    } finally {
-      setLoading(false);
-    }
-  }, [eligibleOnly, t]);
-
-  useEffect(() => {
-    if (isAuthenticated && !isGuest) load();
-  }, [isAuthenticated, isGuest, load]);
+    getScholarshipMatches({ eligibleOnly })
+      .then((data) => {
+        if (active) setRows(Array.isArray(data) ? data : []);
+      })
+      .catch((e) => {
+        if (active) setError(e?.message || t("matchScholErrorDefault"));
+      })
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+    return () => {
+      active = false;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuthenticated, isGuest, eligibleOnly]);
 
   if (isGuest) {
     return (

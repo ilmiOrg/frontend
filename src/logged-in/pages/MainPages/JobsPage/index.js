@@ -5,6 +5,7 @@ import { SelectField } from "../../../../ui-components";
 import { getJobs } from "../../../../api/jobs";
 import { useTranslation } from "../../../../hooks/useLanguage";
 import { formatEnum as prettyEnum } from "../../../../lib/formatEnum";
+import { isSafeHttpUrl } from "../../../../lib/safeUrl";
 import s from "../../../shared/ContentPage/style.module.css";
 
 const FIELD_VALUES = [
@@ -44,12 +45,12 @@ const JobsPage = () => {
         setJobs(list);
         setHasMore(list.length === PAGE_SIZE);
       })
-      .catch((e) => active && setError(e.message))
+      .catch((e) => active && setError(e?.message || t("errorGeneric")))
       .finally(() => active && setLoading(false));
     return () => {
       active = false;
     };
-  }, [field]);
+  }, [field, t]);
 
   const loadMore = () => {
     if (loadingMore) return; // re-entrancy guard
@@ -63,7 +64,7 @@ const JobsPage = () => {
         setJobs((prev) => [...prev, ...list]);
         setHasMore(list.length === PAGE_SIZE);
       })
-      .catch((e) => setError(e.message))
+      .catch((e) => setError(e?.message || t("errorGeneric")))
       .finally(() => setLoadingMore(false));
   };
 
@@ -107,7 +108,7 @@ const JobsPage = () => {
                   <div className={s.cardMeta}>
                     {j.field ? <span className={`${s.metaBadge} ${s.highlight}`}>{prettyEnum(j.field)}</span> : null}
                     {j.degreeRequired ? <span className={s.metaBadge}>{prettyEnum(j.degreeRequired)}</span> : null}
-                    {j.url ? (
+                    {isSafeHttpUrl(j.url) ? (
                       <a className={s.metaBadge} href={j.url} target="_blank" rel="noreferrer">
                         {t("jobsApply")} <ExternalLinkIcon size={12} />
                       </a>

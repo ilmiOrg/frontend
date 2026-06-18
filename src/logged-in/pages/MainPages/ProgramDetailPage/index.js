@@ -6,10 +6,11 @@ import PageTemplate from "../../../shared/PageTemplate";
 import { GraduationCapIcon, StarIcon } from "../../../shared/Icons";
 import styles from "./style.module.css";
 import { getProgramById, getFavoritePrograms, addFavoriteProgram, removeFavoriteProgram } from "../../../../api/programs";
+import { isSafeHttpUrl } from "../../../../lib/safeUrl";
 
-function formatTuition(amount, currency) {
-  if (Number(amount) === 0) return "Free / public";
-  return `${currency} ${Number(amount).toLocaleString()} / year`;
+function formatTuition(amount, currency, t) {
+  if (Number(amount) === 0) return t("tuitionFree");
+  return `${currency} ${Number(amount).toLocaleString()} ${t("tuitionPerYear")}`;
 }
 
 const ProgramDetailPage = () => {
@@ -129,7 +130,7 @@ const ProgramDetailPage = () => {
             <div className={styles.metaItem}>
               <p className={styles.metaLabel}>{t("programDetailTuition")}</p>
               <p className={styles.tuitionValue}>
-                {formatTuition(program.tuitionPerYear, program.currency)}
+                {formatTuition(program.tuitionPerYear, program.currency, t)}
               </p>
             </div>
           </div>
@@ -152,7 +153,7 @@ const ProgramDetailPage = () => {
                 ? <><StarIcon size={14} /> {t("favoriteSaved")}</>
                 : <><StarIcon size={14} /> {t("favoriteSave")}</>}
             </button>
-            {program.website && (
+            {isSafeHttpUrl(program.website) && (
               <a
                 className={`${styles.btn} ${styles.btnOutline}`}
                 href={program.website}

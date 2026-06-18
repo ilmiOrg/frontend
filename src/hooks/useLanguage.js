@@ -158,9 +158,13 @@ export const useTranslation = () => {
 
   useEffect(() => {
     if (!translations[currentLanguage]) {
-      loadLanguage(currentLanguage).then(() => {
-        setReady((v) => v + 1);
-      });
+      loadLanguage(currentLanguage)
+        .then(() => {
+          setReady((v) => v + 1);
+        })
+        .catch((e) => {
+          console.error(`Failed to load language ${currentLanguage}:`, e);
+        });
     }
   }, [currentLanguage]);
 

@@ -19,9 +19,11 @@ export function SparklesCore({
   useEffect(() => {
     initParticlesEngine(async (engine) => {
       await loadSlim(engine);
-    }).then(() => {
-      setInit(true);
-    });
+    })
+      .then(() => {
+        setInit(true);
+      })
+      .catch((e) => console.error("Failed to initialize particles engine:", e));
   }, []);
   const controls = useAnimation();
 

@@ -65,7 +65,7 @@ const SearchScholarshipsPage = () => {
         setItems(list);
         setHasMore(list.length === PAGE_SIZE);
       })
-      .catch((e) => active && setError(e.message))
+      .catch((e) => active && setError(e?.message || t("errorGeneric")))
       .finally(() => active && setLoading(false));
     return () => {
       active = false;
@@ -85,7 +85,7 @@ const SearchScholarshipsPage = () => {
         setItems((prev) => [...prev, ...list]);
         setHasMore(list.length === PAGE_SIZE);
       })
-      .catch((e) => setError(e.message))
+      .catch((e) => setError(e?.message || t("errorGeneric")))
       .finally(() => setLoadingMore(false));
   };
 

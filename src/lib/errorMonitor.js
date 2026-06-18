@@ -24,7 +24,7 @@ export function initErrorMonitoring() {
       environment: process.env.REACT_APP_ENV || "production",
       tracesSampleRate: 0,
     });
-  });
+  }).catch((e) => console.error("Failed to initialize Sentry:", e));
 }
 
 export function captureError(error, extra) {
@@ -32,5 +32,5 @@ export function captureError(error, extra) {
   if (!p) return;
   p.then((Sentry) => {
     if (Sentry) Sentry.captureException(error, extra ? { extra } : undefined);
-  });
+  }).catch((e) => console.error("Failed to capture error with Sentry:", e));
 }

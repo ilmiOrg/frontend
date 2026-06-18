@@ -80,6 +80,7 @@ const en = {
   sessionExpiredMessage: "Your session expired. Please sign in again.",
   serverUnreachableMessage: "Can’t reach the server. Check your connection and try again.",
   serverErrorMessage: "Something went wrong on our side. Please try again.",
+  errorGeneric: "Something went wrong. Please try again.",
   viewAll: "View All",
 
   // Status
