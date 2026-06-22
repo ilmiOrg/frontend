@@ -1402,6 +1402,20 @@ const en = {
 
   // Public footer
   publicFooterRights: "© {year} ilmi. All rights reserved",
+
+  // My Academics page
+  myAcademicsGuestDesc: "Your grades and exam scores that power matching.",
+  myAcademicsDesc: "The grades and exams that power your matches, chances, and scholarships.",
+  myAcademicsGuestEmptyBefore: "Guests don’t have a saved academic record. ",
+  myAcademicsGuestEmptyAfter: " to add yours.",
+  myAcademicsTranscripts: "Transcripts",
+  myAcademicsAddViaMatching: "+ Add via matching",
+  myAcademicsLoading: "Loading…",
+  myAcademicsNoTranscriptsBefore: "No transcripts yet. Add your grades on the ",
+  myAcademicsMatchingPage: "matching page",
+  myAcademicsNoTranscriptsAfter: " to get matched.",
+  myAcademicsExams: "Exams",
+  myAcademicsNoExams: "No exams yet.",
 };
 
 export default en;

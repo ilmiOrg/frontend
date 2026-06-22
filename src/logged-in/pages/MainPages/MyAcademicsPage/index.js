@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import PageTemplate from "../../../shared/PageTemplate";
 import { BookOpenIcon } from "../../../shared/Icons";
 import { useAuth } from "../../../../contexts/AuthContext";
+import { useTranslation } from "../../../../hooks/useLanguage";
 import {
   getTranscripts,
   getExams,
@@ -20,6 +21,7 @@ const pretty = (v) =>
 
 const MyAcademicsPage = () => {
   const { user, isAuthenticated } = useAuth();
+  const { t } = useTranslation();
   const isGuest = user?.isGuest === true;
 
   const [transcripts, setTranscripts] = useState([]);
@@ -73,10 +75,10 @@ const MyAcademicsPage = () => {
 
   if (isGuest) {
     return (
-      <PageTemplate icon={<BookOpenIcon size={22} />} title="My Academics"
-        description="Your grades and exam scores that power matching.">
+      <PageTemplate icon={<BookOpenIcon size={22} />} title={t("dashMyAcademics")}
+        description={t("myAcademicsGuestDesc")}>
         <div className={s.layout}>
-          <p className={s.emptyState}>Guests don’t have a saved academic record. <Link to="/register">Sign up</Link> to add yours.</p>
+          <p className={s.emptyState}>{t("myAcademicsGuestEmptyBefore")}<Link to="/register">{t("matchGuestSignUp")}</Link>{t("myAcademicsGuestEmptyAfter")}</p>
         </div>
       </PageTemplate>
     );
@@ -85,22 +87,22 @@ const MyAcademicsPage = () => {
   return (
     <PageTemplate
       icon={<BookOpenIcon size={22} />}
-      title="My Academics"
-      description="The grades and exams that power your matches, chances, and scholarships."
+      title={t("dashMyAcademics")}
+      description={t("myAcademicsDesc")}
     >
       <div className={s.layout}>
         {error ? <p className={m.error}>{error}</p> : null}
 
         <div className={m.headRow}>
-          <h3 className={s.sectionLabel}>Transcripts</h3>
-          <Link to="/dashboard/ai/match-universities" className={m.addLink}>+ Add via matching</Link>
+          <h3 className={s.sectionLabel}>{t("myAcademicsTranscripts")}</h3>
+          <Link to="/dashboard/ai/match-universities" className={m.addLink}>{t("myAcademicsAddViaMatching")}</Link>
         </div>
         {loading ? (
-          <p className={s.emptyState}>Loading…</p>
+          <p className={s.emptyState}>{t("myAcademicsLoading")}</p>
         ) : transcripts.length === 0 ? (
           <p className={s.emptyState}>
-            No transcripts yet. Add your grades on the{" "}
-            <Link to="/dashboard/ai/match-universities">matching page</Link> to get matched.
+            {t("myAcademicsNoTranscriptsBefore")}
+            <Link to="/dashboard/ai/match-universities">{t("myAcademicsMatchingPage")}</Link>{t("myAcademicsNoTranscriptsAfter")}
           </p>
         ) : (
           <div className={m.list}>
@@ -123,7 +125,7 @@ const MyAcademicsPage = () => {
                     disabled={busy === t.transcriptId}
                     onClick={() => removeTranscript(t.transcriptId)}
                   >
-                    Remove
+                    {t("appsRemove")}
                   </button>
                 </div>
                 {Array.isArray(t.subjects) && t.subjects.length > 0 && (
@@ -142,9 +144,9 @@ const MyAcademicsPage = () => {
 
         <hr className={s.divider} />
 
-        <h3 className={s.sectionLabel}>Exams</h3>
+        <h3 className={s.sectionLabel}>{t("myAcademicsExams")}</h3>
         {loading ? null : exams.length === 0 ? (
-          <p className={s.emptyState}>No exams yet.</p>
+          <p className={s.emptyState}>{t("myAcademicsNoExams")}</p>
         ) : (
           <div className={m.list}>
             {exams.map((e) => (
@@ -153,7 +155,7 @@ const MyAcademicsPage = () => {
                   <div>
                     <h4 className={s.cardTitle}>{pretty(e.examType)}</h4>
                     <p className={s.cardDesc}>
-                      Score {String(e.score)}
+                      {t("matchScore")} {String(e.score)}
                       {e.maxScore ? ` / ${String(e.maxScore)}` : ""}
                     </p>
                   </div>
@@ -163,7 +165,7 @@ const MyAcademicsPage = () => {
                     disabled={busy === e.examId}
                     onClick={() => removeExam(e.examId)}
                   >
-                    Remove
+                    {t("appsRemove")}
                   </button>
                 </div>
                 {Array.isArray(e.sections) && e.sections.length > 0 && (

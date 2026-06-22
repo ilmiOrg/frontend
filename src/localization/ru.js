@@ -1395,6 +1395,25 @@ const ru = {
 
   // Public footer
   publicFooterRights: "© {year} ilmi. Все права защищены",
+
+  // My Academics page
+  myAcademicsGuestDesc: "Ваши оценки и баллы экзаменов, на которых строится подбор.",
+  myAcademicsDesc: "Оценки и экзамены, на которых строятся ваши подборы, шансы и стипендии.",
+  myAcademicsGuestEmptyBefore: "У гостей нет сохранённой академической записи. ",
+  myAcademicsGuestEmptyAfter: " чтобы добавить свою.",
+  myAcademicsTranscripts: "Аттестаты",
+  myAcademicsAddViaMatching: "+ Добавить через подбор",
+  myAcademicsLoading: "Загрузка…",
+  myAcademicsNoTranscriptsBefore: "Аттестатов пока нет. Добавьте оценки на ",
+  myAcademicsMatchingPage: "странице подбора",
+  myAcademicsNoTranscriptsAfter: ", чтобы получить подбор.",
+  myAcademicsExams: "Экзамены",
+  myAcademicsNoExams: "Экзаменов пока нет.",
+
+  // Nav labels missing in ru before
+  dashNavOpportunities: "Возможности",
+  dashNavAdmin: "Админ",
+  dashAdminReview: "Проверка скрейпинга",
 };
 
 export default ru;
